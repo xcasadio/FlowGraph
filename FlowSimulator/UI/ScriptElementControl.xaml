@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="FlowSimulator.UI.ScriptElementControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <DockPanel>
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar>
+                <Button Command="Cut">
+                    <Image Source="/FlowSimulator;component/Resources/Cut.png" Height="16"/>
+                </Button>
+                <Button Command="Copy">
+                    <Image Source="/FlowSimulator;component/Resources/Copy-icon.png" Height="16"/>
+                </Button>
+                <Button Command="Paste">
+                    <Image Source="/FlowSimulator;component/Resources/edit-paste-icon.png" Height="16"/>
+                </Button>
+                <Separator/>
+                <Button Command="Undo">
+                    <Image Source="/FlowSimulator;component/Resources/Undo-icon-16x16.png" Height="16"/>
+                </Button>
+                <Button Command="Redo">
+                    <Image Source="/FlowSimulator;component/Resources/Redo-icon-16x16.png" Height="16"/>
+                </Button>
+                <Separator/>
+                <CheckBox IsChecked="{Binding ElementName=textEditor,Path=WordWrap}">
+                    <Image Source="/FlowSimulator;component/Resources/WordWrap.png" Height="16"/>
+                </CheckBox>
+                <CheckBox IsChecked="{Binding ElementName=textEditor,Path=ShowLineNumbers}">
+                    <TextBlock Width="16" TextAlignment="Center">#</TextBlock>
+                </CheckBox>
+                <CheckBox IsChecked="{Binding ElementName=textEditor,Path=Options.ShowEndOfLine}">
+                    <TextBlock Width="16" TextAlignment="Center">¶</TextBlock>
+                </CheckBox>
+                <Separator/>
+                <Button Click="ButtonBuild_Click" >
+                    <Image Source="/FlowSimulator;component/Resources/icon-build.png" Height="16"/>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+        <Grid>
+            <avalonEdit:TextEditor Name="textEditor" FontFamily="Consolas" 
+                SyntaxHighlighting="C#" FontSize="10pt"
+                ShowLineNumbers="True" TextChanged="textEditor_TextChanged"/>
+        </Grid>
+    </DockPanel>
+</UserControl>

@@ -1,0 +1,206 @@
+﻿<Application x:Class="FlowSimulator.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="clr-namespace:FlowSimulator.UI"
+             StartupUri="MainWindow.xaml"
+             DispatcherUnhandledException="Application_DispatcherUnhandledException"
+             Startup="Application_Startup">
+    <Application.Resources>
+
+        <ui:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
+        
+        <!-- flow graph debugging -->
+        <RoutedUICommand x:Key="Commands.FlowGraph.Resume" />
+        <RoutedUICommand x:Key="Commands.FlowGraph.NextStep" />
+        <RoutedUICommand x:Key="Commands.FlowGraph.Pause" />
+        <RoutedUICommand x:Key="Commands.FlowGraph.Stop" />
+
+        <RoutedUICommand x:Key="Commands.OpenGraph" />
+        <RoutedUICommand x:Key="Commands.CreateGraph" />
+        <RoutedUICommand x:Key="Commands.RenameGraph" />
+        <RoutedUICommand x:Key="Commands.DeleteGraph" />
+
+        <RoutedUICommand x:Key="Commands.OpenFunction" />
+        <RoutedUICommand x:Key="Commands.CreateFunction" />
+        <RoutedUICommand x:Key="Commands.RenameFunction" />
+        <RoutedUICommand x:Key="Commands.DeleteFunction" />
+
+        <RoutedUICommand x:Key="Commands.CreateNamedVar" />
+        <RoutedUICommand x:Key="Commands.RenameNamedVar" />
+        <RoutedUICommand x:Key="Commands.DeleteNamedVar" />
+
+        <RoutedUICommand x:Key="Commands.EditCustomVariable" />
+
+        <RoutedUICommand x:Key="Commands.OpenScript" />
+        <RoutedUICommand x:Key="Commands.CreateScript" />
+        <RoutedUICommand x:Key="Commands.RenameScript" />
+        <RoutedUICommand x:Key="Commands.DeleteScript" />        
+
+        <!-- Expander style -->
+        <SolidColorBrush x:Key="NormalBorderBrush" Color="DarkGray"/>
+        <SolidColorBrush x:Key="NormalBrush" Color="#202020"/>
+        <SolidColorBrush x:Key="HeaderBrush" Color="#404040"/>
+
+        <!--SolidColorBrush x:Key="GroupBackgroundBrush" Color="DarkGray"/-->
+        <SolidColorBrush x:Key="GroupBackgroundBrush" Color="#505050"/>
+        <SolidColorBrush x:Key="OpenGroupBorderBrush" Color="Black"/>
+
+        <SolidColorBrush x:Key="OpenHeaderBorderBrush" Color="White"/>
+
+        <!--Control colors.-->
+        <Color x:Key="WindowColor">#FFE8EDF9</Color>
+        <Color x:Key="ContentAreaColorLight">#FFC5CBF9</Color>
+        <Color x:Key="ContentAreaColorDark">#FF7381F9</Color>
+
+        <Color x:Key="DisabledControlLightColor">#FFE8EDF9</Color>
+        <Color x:Key="DisabledControlDarkColor">#FFC5CBF9</Color>
+        <Color x:Key="DisabledForegroundColor">#FF888888</Color>
+
+        <Color x:Key="SelectedBackgroundColor">#FFC5CBF9</Color>
+        <Color x:Key="SelectedUnfocusedColor">#FFDDDDDD</Color>
+
+        <Color x:Key="ControlLightColor">White</Color>
+        <Color x:Key="ControlMediumColor">#FF7381F9</Color>
+        <Color x:Key="ControlDarkColor">#FF211AA9</Color>
+
+        <Color x:Key="ControlMouseOverColor">#FF3843C4</Color>
+        <Color x:Key="ControlPressedColor">#FF211AA9</Color>
+
+
+        <Color x:Key="GlyphColor">#FFFFFF</Color>
+        <Color x:Key="GlyphMouseOver">sc#1, 0.004391443, 0.002428215, 0.242281124</Color>
+
+        <!--Border colors-->
+        <Color x:Key="BorderLightColor">#FFCCCCCC</Color>
+        <Color x:Key="BorderMediumColor">#FF888888</Color>
+        <Color x:Key="BorderDarkColor">#FF444444</Color>
+
+        <Color x:Key="PressedBorderLightColor">#FF888888</Color>
+        <Color x:Key="PressedBorderDarkColor">#FF444444</Color>
+
+        <Color x:Key="DisabledBorderLightColor">#FFAAAAAA</Color>
+        <Color x:Key="DisabledBorderDarkColor">#FF888888</Color>
+
+        <Color x:Key="DefaultBorderBrushDarkColor">Black</Color>
+
+        <!--Control-specific resources.-->
+        <Color x:Key="HeaderTopColor">#FFC5CBF9</Color>
+        <Color x:Key="DatagridCurrentCellBorderColor">Black</Color>
+        <Color x:Key="SliderTrackDarkColor">#FFC5CBF9</Color>
+
+        <Color x:Key="NavButtonFrameColor">#FF3843C4</Color>
+
+        <ControlTemplate x:Key="ExpanderToggleButton"
+                TargetType="{x:Type ToggleButton}">
+            <Border x:Name="Border" CornerRadius="0" BorderThickness="0" Background="Transparent" BorderBrush="{x:Null}">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="MouseOver">
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                        </VisualState>
+                    </VisualStateGroup>
+                    <VisualStateGroup x:Name="CheckStates">
+                        <VisualState x:Name="Checked">
+                            <Storyboard>
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)"
+                                        Storyboard.TargetName="CollapsedArrow">
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}" />
+                                </ObjectAnimationUsingKeyFrames>
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)"
+                                        Storyboard.TargetName="ExpandededArrow">
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                                </ObjectAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="Unchecked" />
+                        <VisualState x:Name="Indeterminate" />
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <Grid>
+                    <Path x:Name="CollapsedArrow"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Data="M 0 0 L 4 4 L 8 0 Z">
+                        <Path.Fill>
+                            <SolidColorBrush Color="{DynamicResource GlyphColor}" />
+                        </Path.Fill>
+                    </Path>
+                    <Path x:Name="ExpandededArrow"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Visibility="Collapsed"
+                                Data="M 0 4 L 4 0 L 8 4 Z">
+                        <Path.Fill>
+                            <SolidColorBrush Color="{DynamicResource GlyphColor}" />
+                        </Path.Fill>
+                    </Path>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+
+        <Style x:Key="expanderStyle" TargetType="Expander">
+            <Setter Property="Foreground" Value="{StaticResource NormalBrush}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <!-- Control template for expander -->
+                    <ControlTemplate TargetType="Expander">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Name="ContentRow" Height="0"/>
+                            </Grid.RowDefinitions>
+                            <Border
+                                        Name="Border"
+                                        Grid.Row="0"
+                                        Background="{StaticResource HeaderBrush}"
+                                        BorderBrush="{StaticResource NormalBorderBrush}"
+                                        BorderThickness="0"
+                                        CornerRadius="4" >
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <!-- The following puts the toggle button in the right hand column, just like I want! -->
+                                    <ToggleButton
+                                            Grid.Column="0"
+                                            IsChecked="{Binding Path=IsExpanded,Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                            OverridesDefaultStyle="True"
+                                            Template="{StaticResource ExpanderToggleButton}"
+                                            Background="{StaticResource NormalBrush}" />
+                                    <ContentPresenter Grid.Column="1"
+                                                        Margin="4"
+                                                        ContentSource="Header"
+                                                        RecognizesAccessKey="True" />
+                                </Grid>
+                            </Border>
+                            <Border
+                                        Name="Content"
+                                        Grid.Row="1"
+                                        Background="{StaticResource GroupBackgroundBrush}"
+                                        BorderBrush="{StaticResource OpenGroupBorderBrush}"
+                                        BorderThickness="0"
+                                        CornerRadius="0,0,4,4" >
+                                <ContentPresenter Margin="4" />
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsExpanded" Value="True">
+                                <Setter TargetName="ContentRow" Property="Height"
+                                        Value="{Binding ElementName=Content,Path=DesiredHeight}" />
+                                <Setter TargetName="Border" Property="BorderBrush"
+                                        Value="{StaticResource OpenHeaderBorderBrush}"/>
+                                <Setter TargetName="Border" Property="CornerRadius"
+                                        Value="4,4,0,0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- Expander style -->
+
+    </Application.Resources>
+</Application>

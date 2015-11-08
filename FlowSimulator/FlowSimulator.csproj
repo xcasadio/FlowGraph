@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A2E2B3A7-E490-4FFE-94C3-5349FBC2782C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FlowSimulator</RootNamespace>
+    <AssemblyName>FlowSimulator</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Mattahan-Ultrabuuf-Comics-War-Machine.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.AvalonEdit">
+      <HintPath>..\external\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock">
+      <HintPath>..\external\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero">
+      <HintPath>..\external\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro">
+      <HintPath>..\external\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010">
+      <HintPath>..\external\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>..\external\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="AvalonEdit\BraceFoldingStrategy.cs" />
+    <Compile Include="CustomNode\EventNodeTestStarted.cs" />
+    <Compile Include="CustomNode\LogMessageNode.cs" />
+    <Compile Include="EventArgExt.cs" />
+    <Compile Include="FlowGraphs\FlowGraphManager.cs" />
+    <Compile Include="Helper.cs" />
+    <Compile Include="Logger\LogCEvent.cs" />
+    <Compile Include="Logger\LogEditor.cs" />
+    <Compile Include="Logger\LogFile.cs" />
+    <Compile Include="MruManager.cs" />
+    <Compile Include="ProjectManager.cs" />
+    <Compile Include="PropertyChangedBase.cs" />
+    <Compile Include="UI\NewScriptWindow.xaml.cs">
+      <DependentUpon>NewScriptWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\NamedVarEditTemplateManager.cs" />
+    <Compile Include="UI\NewNamedVarWindow.xaml.cs">
+      <DependentUpon>NewNamedVarWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\DebugControl.xaml.cs">
+      <DependentUpon>DebugControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ScriptElementControl.xaml.cs">
+      <DependentUpon>ScriptElementControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SequenceParametersWindow.xaml.cs">
+      <DependentUpon>SequenceParametersWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\DetailsControl.xaml.cs">
+      <DependentUpon>DetailsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FlowGraphControl.xaml.cs">
+      <DependentUpon>FlowGraphControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FlowGraphControlViewModel.cs" />
+    <Compile Include="UI\FlowGraphConverter.cs" />
+    <Compile Include="UI\FlowGraphDataControl.xaml.cs">
+      <DependentUpon>FlowGraphDataControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FlowGraphManagerControl.xaml.cs">
+      <DependentUpon>FlowGraphManagerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\LogViewer.xaml.cs">
+      <DependentUpon>LogViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MouseHandlingMode.cs" />
+    <Compile Include="UI\NodeTemplateSelector.cs" />
+    <Compile Include="UI\ValueConverter.cs" />
+    <Compile Include="UI\VariableTypeInspector.cs" />
+    <Compile Include="Undo\ConnectionUndoCommand.cs" />
+    <Compile Include="Undo\NodeUndoCommand.cs" />
+    <Compile Include="Undo\IUndoCommand.cs" />
+    <Compile Include="Undo\UndoRedoManager.cs" />
+    <Compile Include="XmlExtension.cs" />
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="UI\NewScriptWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\NewNamedVarWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\DebugControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ScriptElementControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\SequenceParametersWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\DetailsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\FlowGraphControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\FlowGraphDataControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\FlowGraphManagerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\LogViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\SharedVisualTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\add-icon.png" />
+    <Resource Include="Resources\Aqua-Ball-Gray-icon.png" />
+    <Resource Include="Resources\Aqua-Ball-Green-icon.png" />
+    <Resource Include="Resources\Aqua-Ball-Red-icon.png" />
+    <Resource Include="Resources\backward0_16x16.png" />
+    <Resource Include="Resources\block_16.png" />
+    <Resource Include="Resources\Copy-icon.png" />
+    <Resource Include="Resources\delete-icon.png" />
+    <Resource Include="Resources\email-not-validated-icon.png" />
+    <Resource Include="Resources\email-receive-icon.png" />
+    <Resource Include="Resources\email-send-icon.png" />
+    <Resource Include="Resources\exclamation-icon.png" />
+    <Resource Include="Resources\forward_16x16.png" />
+    <Resource Include="Resources\gear-icon.png" />
+    <Resource Include="Resources\icon-build.png" />
+    <Resource Include="Resources\icon_arrowDown_16x16.png" />
+    <Resource Include="Resources\icon_arrowUp_16x16.png" />
+    <Resource Include="Resources\icon_edit_16x16.gif" />
+    <Resource Include="Resources\icon_Minus_16x16.png" />
+    <Resource Include="Resources\icon_Plus_16x16.png" />
+    <Resource Include="Resources\layer--minus.png" />
+    <Resource Include="Resources\layer--plus.png" />
+    <Resource Include="Resources\left-arow-error-icon.png" />
+    <Resource Include="Resources\left-arow-icon.png" />
+    <Resource Include="Resources\listen-error-icon.png" />
+    <Resource Include="Resources\listen-icon.png" />
+    <Resource Include="Resources\lock-16.png" />
+    <Resource Include="Resources\Mattahan-Ultrabuuf-Comics-War-Machine.ico" />
+    <Resource Include="Resources\minus-icon.png" />
+    <Resource Include="Resources\not-listen-icon.png" />
+    <Resource Include="Resources\Play-Normal-icon-32x32.png" />
+    <Resource Include="Resources\redo_16x16.png" />
+    <Resource Include="Resources\right-arow-error-icon.png" />
+    <Resource Include="Resources\right-arow-icon.png" />
+    <Resource Include="Resources\Save-icon.png" />
+    <Resource Include="Resources\scissors.png" />
+    <Resource Include="Resources\Status-mail-task-icon-16x16.png" />
+    <Resource Include="Resources\Status-mail-task-icon-64x64.png" />
+    <Resource Include="Resources\Stop-Normal-Red-icon.png" />
+    <Resource Include="Resources\tick_16.png" />
+    <Resource Include="Resources\Time-icon.png" />
+    <Resource Include="Resources\undo_16x16.png" />
+    <Resource Include="Resources\unlock-16.png" />
+    <Resource Include="Resources\warning-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FlowGraph\AdornedControl\AdornedControl.csproj">
+      <Project>{94B81CB7-F8A6-44BC-BD71-E927F701E0D8}</Project>
+      <Name>AdornedControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FlowGraph\DragDropScrollViewer\MouseDragScrollViewer.csproj">
+      <Project>{F22DE78E-F54C-460A-B37D-8C9AB3156739}</Project>
+      <Name>MouseDragScrollViewer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FlowGraph\FlowGraphBase\FlowGraphBase.csproj">
+      <Project>{27BBCA96-75FA-4D8E-A281-AC166D626ADC}</Project>
+      <Name>FlowGraphBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FlowGraph\FlowGraphControl\FlowGraphUI.csproj">
+      <Project>{2AA2E559-5417-40ED-A739-D98049C8A68A}</Project>
+      <Name>FlowGraphUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FlowGraph\NetworkModel\NetworkModel.csproj">
+      <Project>{669475DA-8F89-4657-B917-0B0C126BCD1D}</Project>
+      <Name>NetworkModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FlowGraph\NetworkUI\NetworkUI.csproj">
+      <Project>{B7CA1480-C144-40AC-AB97-A626F800D5B4}</Project>
+      <Name>NetworkUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FlowGraph\Utils\Utils.csproj">
+      <Project>{E7D6707B-D6EF-4FA8-9374-DC3B7D3CDFD6}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FlowGraph\ZoomAndPan\ZoomAndPan.csproj">
+      <Project>{468ADEDE-6F5E-40C0-99C9-C6DAC4FAC934}</Project>
+      <Name>ZoomAndPan</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Mattahan-Ultrabuuf-Comics-War-Machine.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon_last_16x16.png" />
+    <Resource Include="Resources\icon_pause_16x16.png" />
+    <Resource Include="Resources\icon_play_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Stop-Normal-Blue-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pause-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Stop-Normal-Blue-icon-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Step-Forward-Normal-Blue-icon-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\cross-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Redo-icon-16x16.png" />
+    <Resource Include="Resources\Undo-icon-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Redo-gray-icon-16x16.png" />
+    <Resource Include="Resources\Undo-gray-icon-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\edit-paste-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon_last_gray_16x16.png" />
+    <Resource Include="Resources\icon_pause_gray_16x16.png" />
+    <Resource Include="Resources\icon_play_gray_16x16.png" />
+    <Resource Include="Resources\Stop-Normal-Gray-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Cut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\WordWrap.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

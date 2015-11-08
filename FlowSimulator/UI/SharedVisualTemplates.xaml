@@ -1,0 +1,477 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:NetworkUI="clr-namespace:NetworkUI;assembly=NetworkUI"
+    xmlns:NetworkModel="clr-namespace:NetworkModel;assembly=NetworkModel"
+    xmlns:ac="clr-namespace:AdornedControl;assembly=AdornedControl"
+    xmlns:ui="clr-namespace:FlowSimulator.UI"
+    xmlns:root="clr-namespace:FlowSimulator"
+    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+    >
+
+    <ui:TypeToColorConverter x:Key="typeToColorConverter" />
+
+    <!-- Variable Node Color Type -->
+    <SolidColorBrush x:Key="stringTypeBrush" Color="Blue" />
+    <SolidColorBrush x:Key="objectTypeBrush" Color="Gray" />
+    <SolidColorBrush x:Key="customTypeBrush" Color="Red" />
+    <SolidColorBrush x:Key="boolTypeBrush" Color="Orange" />
+    <SolidColorBrush x:Key="numericTypeBrush" Color="DarkViolet" />
+
+    <!-- The border brush for nodes. -->
+    <SolidColorBrush x:Key="nodeBorderBrush" Color="Gray" />
+    <SolidColorBrush x:Key="nodeProcesingBorder" Color="Yellow" />
+    
+
+    <!-- The fill brush for nodes. -->
+    <LinearGradientBrush
+        x:Key="nodeFillBrush"
+        StartPoint="0,0"
+        EndPoint="0,1"
+        >
+        <GradientStop Color="#99FFFFFF" Offset="0" />
+        <GradientStop Color="#99000000" Offset="0.4" />
+    </LinearGradientBrush>
+
+    <!-- The brush for the text display into a node. -->
+    <SolidColorBrush
+        x:Key="nodeTextBrush"
+        Color="White"
+        />
+
+    <!-- The brush for connections. -->
+    <SolidColorBrush
+        x:Key="connectionBrush"
+        Color="White"
+        />
+    
+    <!-- The brush for connectors. -->
+    <SolidColorBrush
+        x:Key="connectorBackgroundBrush"
+        Color="White"
+        />
+
+    <!-- Template for all type of variable node -->
+    <DataTemplate x:Key="numericTemplate" >
+        <Grid>
+            <TextBox Grid.Column="0" TextAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center"
+                     Text="{Binding RelativeSource={RelativeSource AncestorType=ContentControl}, Path=DataContext.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Background="{x:Null}" Foreground="White" BorderBrush="White" Padding="0"
+                     CaretBrush="White" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="selectableTemplate" >
+        <ComboBox ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=ContentControl}, Path=DataContext.ItemsSource}"
+                  SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=ContentControl}, Path=DataContext.Value}"
+                  DisplayMemberPath="Name"
+                  HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="checkableTemplate" >
+        <CheckBox HorizontalAlignment="Right" VerticalAlignment="Center"
+            IsChecked="{Binding RelativeSource={RelativeSource AncestorType=ContentControl}, Path=DataContext.Value, Mode=TwoWay}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="textTemplate" >
+        <TextBox TextAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center"
+                 Text="{Binding RelativeSource={RelativeSource AncestorType=ContentControl}, Path=DataContext.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Background="{x:Null}" Foreground="White" BorderBrush="White" Padding="0"
+                 CaretBrush="White" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="readOnlyTemplate" >
+        <TextBlock TextAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center"
+                   Text="{Binding RelativeSource={RelativeSource AncestorType=ContentControl}, Path=DataContext.Value, Mode=TwoWay}"
+                   Background="{x:Null}" Foreground="White" Padding="0" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="customWindowTemplate" >
+        <Button Content="Edit" 
+                HorizontalAlignment="Center" VerticalAlignment="Center" 
+                Command="{StaticResource Commands.EditCustomVariable}"
+                DataContext="{Binding RelativeSource={RelativeSource AncestorType=ContentControl}, Path=DataContext}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="sessionTemplate" >
+        <Grid DataContext="{Binding RelativeSource={RelativeSource AncestorType=ContentControl}, Path=DataContext.Value}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Subject" Foreground="White" />
+            <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding Subject, Mode=TwoWay}" Margin="2"/>
+            
+            <Label Grid.Row="1" Grid.Column="0" Content="Service" Foreground="White" />
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Service, Mode=TwoWay}" Margin="2"/>
+
+            <Label Grid.Row="2" Grid.Column="0" Content="Network" Foreground="White" />
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Network, Mode=TwoWay}" Margin="2"/>
+
+            <Label Grid.Row="1" Grid.Column="2" Content="Daemon" Foreground="White" />
+            <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Daemon, Mode=TwoWay}" Margin="2"/>
+            
+            <CheckBox Content="Is Prod ?" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    IsChecked="{Binding IsProdSession}" Margin="10,0,0,0" Foreground="White" />
+        </Grid>
+    </DataTemplate>
+
+    <!--
+    Define a style for 'NodeItem'.
+    
+    Binds 'X' and 'Y' in the view-model (the 'NodeViewModel' class)
+    to 'X' and 'Y' in the NodeItem class.
+    
+    This sets the position of the node within the Canvas.
+    -->
+    <Style TargetType="{x:Type NetworkUI:NodeItem}">
+        <Setter
+            Property="X"
+            Value="{Binding X}"
+            />
+        <Setter
+            Property="Y"
+            Value="{Binding Y}"
+            />
+        <Setter
+            Property="ZIndex"
+            Value="{Binding ZIndex}"
+            />
+        <Setter
+            Property="IsSelected"
+            Value="{Binding IsSelected}"
+            />
+    </Style>
+    
+    <!-- 
+    A data-template that defines the UI for input connectors.
+    -->
+    <DataTemplate x:Key="inputConnectorTemplate" >
+        <Grid
+            Margin="0,2,0,0"
+            >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- The 'ConnectorItem' or anchor point for the connector. -->
+            <NetworkUI:ConnectorItem Grid.Column="0" />
+
+            <!-- The name of the connector. -->
+            <TextBlock Foreground="{StaticResource nodeTextBrush}"
+                Grid.Column="1"
+                Margin="5,0,0,0"
+                Text="{Binding Name}"
+                VerticalAlignment="Center" />
+        </Grid>
+    </DataTemplate>
+
+    <!-- 
+    A data-template that defines the UI for input connectors.
+    -->
+    <DataTemplate x:Key="inputVariableConnectorTemplate" >
+        <Grid Margin="0,2,0,0" >
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- The 'ConnectorItem' or anchor point for the connector. -->
+            <NetworkUI:ConnectorItem Grid.Column="0" />
+
+            <!-- The name of the connector. -->
+            <TextBlock Grid.Column="1" 
+                Foreground="{StaticResource nodeTextBrush}"
+                Margin="5,0,0,0"
+                Text="{Binding Name}"
+                VerticalAlignment="Center" />
+
+            <!-- The value of the connector. -->
+            <ContentControl Grid.Column="2" DataContext="{Binding SourceSlot}" Margin="5,0,0,0">
+                <ContentControl.ContentTemplateSelector>
+                    <ui:VariableNodeTemplateSelector
+                            NumericTemplate="{StaticResource numericTemplate}"
+                            SelectableTemplate="{StaticResource selectableTemplate}"
+                            CheckableTemplate="{StaticResource checkableTemplate}"
+                            TextTemplate="{StaticResource textTemplate}"
+                            ReadOnlyTemplate="{StaticResource readOnlyTemplate}"
+                            CustomWindowTemplate="{StaticResource customWindowTemplate}" />
+                </ContentControl.ContentTemplateSelector>
+
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Setter Property="Visibility" Value="Visible" />
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataContext.IsConnected, RelativeSource={ RelativeSource AncestorType=ContentPresenter}}" Value="True" >
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+
+            </ContentControl>
+            
+            <!-- The value of the connector. -->
+            <!--TextBox Grid.Column="2" Margin="5,0,0,0" Padding="0"
+                TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Center"
+                Text="{Binding SourceSlot.Value, Mode=TwoWay}"
+                Background="{x:Null}" Foreground="White" BorderBrush="White" CaretBrush="White" >
+                
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Visibility" Value="Visible" />
+                        
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsConnected}" Value="True" >
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+                
+            </TextBox-->
+        </Grid>
+    </DataTemplate>
+
+    <!-- 
+    A data-template that defines the UI for output connectors.
+    -->
+    <DataTemplate x:Key="outputConnectorTemplate" >
+        <Grid
+            HorizontalAlignment="Right"
+            Margin="0,2,0,0"
+            >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- The name of the connector. -->
+            <TextBlock Foreground="{StaticResource nodeTextBrush}"
+                Grid.Column="0"
+                Text="{Binding Name}"
+                VerticalAlignment="Center"
+                Margin="0,0,5,0" />
+
+            <!-- The 'ConnectorItem' or anchor point for the connector. -->
+            <NetworkUI:ConnectorItem Grid.Column="1" />
+            
+        </Grid>
+    </DataTemplate>
+
+    <!-- 
+    A data-template that defines the UI for output connectors.
+    -->
+    <DataTemplate x:Key="outputVariableConnectorTemplate" >
+        <Grid
+            HorizontalAlignment="Right"
+            Margin="0,2,0,0" >
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- The name of the connector. -->
+            <TextBlock Foreground="{StaticResource nodeTextBrush}"
+                Grid.Column="0"
+                Text="{Binding Name}"
+                VerticalAlignment="Center"
+                Margin="0,0,5,0"
+                />
+
+            <!-- The 'ConnectorItem' or anchor point for the connector. -->
+            <NetworkUI:ConnectorItem Grid.Column="1" />
+        </Grid>
+    </DataTemplate>
+
+    <!-- A data-template that defines the UI for in/out connectors. -->
+    <DataTemplate x:Key="InOutVariableConnectorTemplate" >
+        <Grid HorizontalAlignment="Stretch" Margin="0,2,0,0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            
+            <!-- The control for the value -->
+            <ContentControl Grid.Column="0" DataContext="{Binding SourceSlot.Node}" Margin="0,0,5,0">
+                <ContentControl.ContentTemplateSelector>
+                    <ui:VariableNodeTemplateSelector
+                            NumericTemplate="{StaticResource numericTemplate}"
+                            SelectableTemplate="{StaticResource selectableTemplate}"
+                            CheckableTemplate="{StaticResource checkableTemplate}"
+                            TextTemplate="{StaticResource textTemplate}"
+                            ReadOnlyTemplate="{StaticResource readOnlyTemplate}"
+                            CustomWindowTemplate="{StaticResource customWindowTemplate}" />
+                </ContentControl.ContentTemplateSelector>
+            </ContentControl>
+
+            <!-- The 'ConnectorItem' or anchor point for the connector. -->
+            <NetworkUI:ConnectorItem Grid.Column="1" />
+        </Grid>
+    </DataTemplate>
+
+    <!-- 
+    A data-template that defines the UI for action node.
+    -->
+    <DataTemplate x:Key="actionNodeTemplate" >
+        <Grid Margin="4,2,4,6" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" MinWidth="10" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <!-- spacer -->
+                <RowDefinition Height="2" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- The name of the node. -->
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                    BorderBrush="DarkGray"
+                    BorderThickness="0,0,0,1" 
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image Grid.Column="0" Stretch="None" Margin="0,0,4,0" Visibility="Hidden"
+                        Source="/FlowSimulator;component/Resources/gear-icon.png" 
+                        HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                    <TextBlock Text="{Binding Title}" Grid.Column="1"
+                        Foreground="{StaticResource nodeTextBrush}"
+                        TextAlignment="Center"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch" />
+
+                    <Image Grid.Column="2" Stretch="None" Margin="4,0,4,0" Visibility="Hidden"
+                        Source="/FlowSimulator;component/Resources/warning-icon.png" 
+                        HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                    <Image Grid.Column="3" Stretch="None" Visibility="Hidden"
+                        Source="/FlowSimulator;component/Resources/Aqua-Ball-Red-icon.png" 
+                        HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    
+                </Grid>
+                
+            </Border>
+
+            <!-- Displays the all node's input connectors. -->
+            <ItemsControl
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    ItemsSource="{Binding AllInputConnectors}"
+                    Focusable="False" >
+                <ItemsControl.ItemTemplateSelector>
+                    <ui:ActionNodeConnectorTemplateSelector 
+                        NodeInTemplate="{StaticResource inputConnectorTemplate}"
+                        NodeOutTemplate="{StaticResource outputConnectorTemplate}"
+                        VarInTemplate="{StaticResource inputVariableConnectorTemplate}"
+                        VarOutTemplate="{StaticResource outputVariableConnectorTemplate}" />
+                </ItemsControl.ItemTemplateSelector>
+            </ItemsControl>
+                
+            <!-- Displays the all node's output connectors. -->
+            <ItemsControl
+                    Grid.Column="2"
+                    Grid.Row="2"
+                    ItemsSource="{Binding AllOutputConnectors}"
+                    Focusable="False" >
+                <ItemsControl.ItemTemplateSelector>
+                    <ui:ActionNodeConnectorTemplateSelector 
+                        NodeInTemplate="{StaticResource inputConnectorTemplate}"
+                        NodeOutTemplate="{StaticResource outputConnectorTemplate}"
+                        VarInTemplate="{StaticResource inputVariableConnectorTemplate}"
+                        VarOutTemplate="{StaticResource outputVariableConnectorTemplate}" />
+                </ItemsControl.ItemTemplateSelector>
+            </ItemsControl>
+
+            <Label Grid.Row="3" Grid.ColumnSpan="3" Content="ERROR" 
+                   Margin="0,5,0,0" Padding="0,2,0,2"
+                   Background="Red" Foreground="White" FontWeight="Bold"
+                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                   ToolTipService.InitialShowDelay="0" 
+                   ToolTip="{Binding ErrorMessage, Mode=OneWay}">
+                <Label.Style>
+                    <Style TargetType="Label">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding State}" Value="Error" >
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+        </Grid>
+    </DataTemplate>
+
+    <!-- 
+    A data-template that defines the UI for variable node.
+    -->
+    <DataTemplate x:Key="variableNodeTemplate" >
+        <Grid Margin="4,2,4,6" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="10" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <!-- spacer -->
+                <RowDefinition Height="2" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- The name of the node. -->
+            <TextBlock Grid.Row="0" TextAlignment="Center" Text="{Binding Title}"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                    Foreground="{StaticResource nodeTextBrush}" />
+
+            <Grid Grid.Row="2">                
+                <ItemsControl 
+                    ItemsSource="{Binding InOutVariableConnectors}"
+                    ItemTemplate="{StaticResource InOutVariableConnectorTemplate}"
+                    Focusable="False" />
+            </Grid>
+            
+        </Grid>
+    </DataTemplate>
+
+    <!-- 
+    A data-template that defines the UI for sequence function slot.
+    -->
+    <DataTemplate x:Key="functionSlotTemplate">
+        <StackPanel Orientation="Horizontal">
+            <Rectangle Fill="{Binding Converter={StaticResource typeToColorConverter}}"
+                                    Width="25" Height="10" Margin="5,0,5,0" RadiusX="2" RadiusY="2"
+                                    Stroke="Black"  VerticalAlignment="Center" />
+            <TextBlock Text="{Binding}" TextAlignment="Left" VerticalAlignment="Center" />
+        </StackPanel>
+    </DataTemplate>
+
+</ResourceDictionary>

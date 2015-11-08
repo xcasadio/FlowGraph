@@ -1,0 +1,147 @@
+﻿<UserControl x:Class="FlowSimulator.UI.LogViewer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:FlowSimulator"
+             xmlns:log="clr-namespace:FlowSimulator.Logger"
+             xmlns:logBase="clr-namespace:FlowGraphBase.Logger;assembly=FlowGraphBase"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="124" d:DesignWidth="525">
+
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="logVerbosity" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="logBase:LogVerbosity"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <Style TargetType="ItemsControl" x:Key="LogViewerStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <ScrollViewer CanContentScroll="True">
+                            <ItemsPresenter/>
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="LogLineStyle">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Severity}" Value="[Trace]">
+                    <Setter Property="Foreground" Value="Gray" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Severity}" Value="[Debug]">
+                    <Setter Property="Foreground" Value="Green" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Severity}" Value="[Info]">
+                    <Setter Property="Foreground" Value="Black" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Severity}" Value="[Warning]">
+                    <Setter Property="Foreground" Value="Brown" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Severity}" Value="[Error]">
+                    <Setter Property="Foreground" Value="Red" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <DataTemplate DataType="{x:Type log:LogEntry}">
+            <Grid IsSharedSizeScope="True">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Index" Width="Auto"/>
+                    <ColumnDefinition SharedSizeGroup="Date" Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="{Binding DateTime, StringFormat=HH:mm:ss.fff}" Grid.Column="0"
+                       FontWeight="Bold" Margin="5,0,10,0" Style="{StaticResource LogLineStyle}" />
+
+                <TextBlock Text="{Binding Severity}" Grid.Column="1"
+                       FontWeight="Bold" Margin="0,0,10,0" Style="{StaticResource LogLineStyle}" />
+
+                <TextBlock Text="{Binding Message}" Grid.Column="2"
+                       TextWrapping="Wrap" Style="{StaticResource LogLineStyle}" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type log:CollapsibleLogEntry}">
+            <Grid IsSharedSizeScope="True">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Index" Width="Auto"/>
+                    <ColumnDefinition SharedSizeGroup="Date" Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="{Binding DateTime}" Grid.Column="0"
+                       FontWeight="Bold" Margin="5,0,10,0" Style="{StaticResource LogLineStyle}" />
+
+                <TextBlock Text="{Binding Severity}" Grid.Column="1"
+                       FontWeight="Bold" Margin="0,0,10,0" Style="{StaticResource LogLineStyle}" />
+
+                <TextBlock Text="{Binding Message}" Grid.Column="2"
+                       TextWrapping="Wrap" Style="{StaticResource LogLineStyle}" />
+
+                <ToggleButton x:Name="Expander" Grid.Row="1" Grid.Column="0"
+                          VerticalAlignment="Top" Content="+" HorizontalAlignment="Right"/>
+
+                <ItemsControl ItemsSource="{Binding Contents}" Style="{StaticResource LogViewerStyle}"
+                          Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                          x:Name="Contents" Visibility="Collapsed"/>
+
+            </Grid>
+            <DataTemplate.Triggers>
+                <Trigger SourceName="Expander" Property="IsChecked" Value="True">
+                    <Setter TargetName="Contents" Property="Visibility" Value="Visible"/>
+                    <Setter TargetName="Expander" Property="Content" Value="-"/>
+                </Trigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="0,0,0,4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Clear" Grid.Column="0" Width="60" Padding="0" VerticalAlignment="Center" Click="ButtonClear_Click"/>
+            <CheckBox Content="Follow trail" Grid.Column="2" VerticalAlignment="Center" Margin="0,0,10,0"
+                      IsChecked="{Binding IsAutoScroll, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}"/>
+            <Label Content="Log verbosity" Grid.Column="3" />
+            <ComboBox Grid.Column="4" ItemsSource="{Binding Source={StaticResource logVerbosity}}"
+                      SelectedItem="{Binding Verbosity, Source={x:Static logBase:LogManager.Instance}, Mode=TwoWay}"
+                      Width="80" />
+        </Grid>
+
+        <ItemsControl x:Name="logContent" Grid.Row="1" Background="White"
+                      ItemsSource="{Binding Source={x:Static log:LogEditor.LogEntries}, Mode=OneWay}" 
+                      Style="{StaticResource LogViewerStyle}" />
+    </Grid>
+    
+</UserControl>
