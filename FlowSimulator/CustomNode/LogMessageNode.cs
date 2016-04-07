@@ -75,7 +75,7 @@ namespace FlowSimulator.CustomNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.OK;
+            info.State = ActionNode.LogicState.Ok;
             object val = GetValueFromSlot((int)NodeSlotId.Message);
 
             if (val == null)

@@ -1,32 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using System.Globalization;
+﻿using System.Xml;
 
 namespace FlowSimulator
 {
     /// <summary>
     /// 
     /// </summary>
-    static public class XMLExtension
+    public static class XmlExtension
     {
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="xmlDoc_"></param>
-        /// <param name="nodeName_"></param>
+        /// <param name="xmlDoc"></param>
+        /// <param name="nodeName"></param>
         /// <returns>the root node added</returns>
-        static public XmlElement AddRootNode(this XmlDocument xmlDoc_, string nodeName_)
+        public static XmlElement AddRootNode(this XmlDocument xmlDoc, string nodeName)
         {
             //let's add the XML declaration section
-            XmlNode xmlnode = xmlDoc_.CreateNode(XmlNodeType.XmlDeclaration, "", "");
-            xmlDoc_.AppendChild(xmlnode);
+            XmlNode xmlnode = xmlDoc.CreateNode(XmlNodeType.XmlDeclaration, "", "");
+            xmlDoc.AppendChild(xmlnode);
 
             //let's add the root element
-            XmlElement xmlElem = xmlDoc_.CreateElement("", nodeName_, "");
-            xmlDoc_.AppendChild(xmlElem);
+            XmlElement xmlElem = xmlDoc.CreateElement("", nodeName, "");
+            xmlDoc.AppendChild(xmlElem);
 
             return xmlElem;
         }
@@ -34,27 +29,33 @@ namespace FlowSimulator
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        /// <param name="attributeName_"></param>
-        /// <param name="value_"></param>
-        static public void AddAttribute(this XmlNode node_, string attributeName_, string value_)
+        /// <param name="node"></param>
+        /// <param name="attributeName"></param>
+        /// <param name="value"></param>
+        public static void AddAttribute(this XmlNode node, string attributeName, string value)
         {
-            XmlAttribute att = node_.OwnerDocument.CreateAttribute(attributeName_);
-            att.Value = value_;
-            node_.Attributes.Append(att);
+            if (node.OwnerDocument != null)
+            {
+                XmlAttribute att = node.OwnerDocument.CreateAttribute(attributeName);
+                att.Value = value;
+                node.Attributes?.Append(att);
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        /// <param name="nodeName_"></param>
-        /// <param name="val_"></param>
-        static public void AddElementWithText(this XmlNode node_, string nodeName_, string val_)
+        /// <param name="node"></param>
+        /// <param name="nodeName"></param>
+        /// <param name="val"></param>
+        public static void AddElementWithText(this XmlNode node, string nodeName, string val)
         {
-            XmlElement el = node_.OwnerDocument.CreateElement(nodeName_);
-            XmlText txtXML = node_.OwnerDocument.CreateTextNode(val_);
-            el.AppendChild(txtXML);
+            if (node.OwnerDocument != null)
+            {
+                XmlElement el = node.OwnerDocument.CreateElement(nodeName);
+                XmlText txtXml = node.OwnerDocument.CreateTextNode(val);
+                el.AppendChild(txtXml);
+            }
         }        
     }
 }

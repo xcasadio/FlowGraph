@@ -87,13 +87,13 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.OK;
+            info.State = ActionNode.LogicState.Ok;
 
             object intVal = GetValueFromSlot((int)NodeSlotId.Delay);
 
             if (intVal == null)
             {
-                info.State = ActionNode.LogicState.OK;
+                info.State = ActionNode.LogicState.Ok;
                 info.ErrorMessage = "Please connect a integer variable node";
 
                 LogManager.Instance.WriteLine(LogVerbosity.Error,

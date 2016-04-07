@@ -22,10 +22,10 @@ namespace FlowSimulator
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="ex_"></param>
-        static public Exception GetFirstException(Exception ex_)
+        /// <param name="ex"></param>
+        public static Exception GetFirstException(Exception ex)
         {
-            Exception e = ex_;
+            Exception e = ex;
 
             //only the first exception is useful
             while (e.InnerException != null)
@@ -92,7 +92,7 @@ namespace FlowSimulator
                 if (parent != null) return parent;
 
                 FrameworkContentElement fce = contentElement as FrameworkContentElement;
-                return fce != null ? fce.Parent : null;
+                return fce?.Parent;
             }
 
             //also try searching for parent in framework elements (such as DockPanel, etc)
@@ -118,9 +118,10 @@ namespace FlowSimulator
         {
             do
             {
-                if (current is T)
+                var anchestor = current as T;
+                if (anchestor != null)
                 {
-                    return (T)current;
+                    return anchestor;
                 }
                 current = VisualTreeHelper.GetParent(current);
             }

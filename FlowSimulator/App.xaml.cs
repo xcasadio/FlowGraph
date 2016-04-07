@@ -41,7 +41,7 @@ namespace FlowSimulator
                 MessageBox.Show(
                     "Fatal error! The application is going to close! (see log)", 
                     "Uncaught Exception", 
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBoxButton.Ok, MessageBoxImage.Error);
                 e.Handled = false;
                 m_ShowFatalError = false;
             }            

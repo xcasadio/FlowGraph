@@ -19,7 +19,7 @@ namespace FlowSimulator
             Application.Current.Dispatcher.BeginInvoke((Action)(() =>
             {
                 PropertyChangedEventHandler handler = PropertyChanged;
-                if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+                handler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }));
         }
     }

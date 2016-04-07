@@ -164,7 +164,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.OK;
+            info.State = ActionNode.LogicState.Ok;
 
             //TODO
             //Set output variable

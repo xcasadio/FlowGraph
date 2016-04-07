@@ -115,7 +115,7 @@ namespace NetworkModel
                     return (SeqNode as ActionNode).State.State;
                 }
 
-                return ActionNode.LogicState.OK;
+                return ActionNode.LogicState.Ok;
             }
         }
 

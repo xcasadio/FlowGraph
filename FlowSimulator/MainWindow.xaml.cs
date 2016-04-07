@@ -340,7 +340,7 @@ namespace FlowSimulator
 //             {
 //                 System.Windows.MessageBox.Show(this, 
 //                     "\"" + fileName + "\" not found.", "Error",
-//                     MessageBoxButton.OK, 
+//                     MessageBoxButton.Ok, 
 //                     MessageBoxImage.Error);
 //             }
         }

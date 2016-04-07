@@ -72,7 +72,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.OK;
+            info.State = ActionNode.LogicState.Ok;
 
             object objA = GetValueFromSlot((int)NodeSlotId.VarA);
             object objB = GetValueFromSlot((int)NodeSlotId.VarB);
@@ -621,7 +621,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.OK;
+            info.State = ActionNode.LogicState.Ok;
 
             object objA = GetValueFromSlot((int)NodeSlotId.VarA);
             object objB = GetValueFromSlot((int)NodeSlotId.VarB);
@@ -1400,7 +1400,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.OK;
+            info.State = ActionNode.LogicState.Ok;
 
             object objA = GetValueFromSlot((int)NodeSlotId.VarA);
 
@@ -2008,7 +2008,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.OK;
+            info.State = ActionNode.LogicState.Ok;
 
             object objMin = GetValueFromSlot((int)NodeSlotId.VarMin);
 
@@ -2221,7 +2221,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.OK;
+            info.State = ActionNode.LogicState.Ok;
 
             object objA = GetValueFromSlot((int)NodeSlotId.VarA);
 
@@ -2322,7 +2322,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.OK;
+            info.State = ActionNode.LogicState.Ok;
 
             object objVariable = GetValueFromSlot((int)NodeSlotId.Variable);
             object objValue = GetValueFromSlot((int)NodeSlotId.Value);

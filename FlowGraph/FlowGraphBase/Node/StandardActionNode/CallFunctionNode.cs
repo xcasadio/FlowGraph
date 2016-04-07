@@ -188,7 +188,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.OK;
+            info.State = ActionNode.LogicState.Ok;
             ActivateOutputLink(context_, (int)NodeSlotId.Out);
             context_.RegisterNextSequence(GetFunction(), typeof(OnEnterFunctionEvent), null);
             return info;

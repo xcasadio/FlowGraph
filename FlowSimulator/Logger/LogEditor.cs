@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FlowSimulator;
-using System.Globalization;
-using System.ComponentModel;
 using System.Windows;
 using System.Collections.ObjectModel;
 using FlowGraphBase.Logger;
@@ -49,7 +44,7 @@ namespace FlowSimulator.Logger
         /// <summary>
         /// 
         /// </summary>
-        static public ObservableCollection<LogEntry> LogEntries { get; private set; }
+        public static ObservableCollection<LogEntry> LogEntries { get; private set; }
 
         #endregion // Properties
 
@@ -58,7 +53,6 @@ namespace FlowSimulator.Logger
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="textBox_"></param>
         public LogEditor()
         {
             if (LogEntries == null)
@@ -83,8 +77,8 @@ namespace FlowSimulator.Logger
         /// 
         /// </summary>
         /// <param name="verbose"></param>
-        /// <param name="args_"></param>
-        public void Write(LogVerbosity verbose, string msg_)
+        /// <param name="msg"></param>
+        public void Write(LogVerbosity verbose, string msg)
         {
             if (Application.Current.Dispatcher.CheckAccess() == true)
             {
@@ -92,12 +86,12 @@ namespace FlowSimulator.Logger
                 {
                     Severity = "[" + Enum.GetName(typeof(LogVerbosity), verbose) + "]",
                     DateTime = DateTime.Now,
-                    Message = msg_,
+                    Message = msg,
                 });
             }
             else
             {
-                Application.Current.Dispatcher.BeginInvoke(new Action( () => Write(verbose, msg_)));
+                Application.Current.Dispatcher.BeginInvoke(new Action( () => Write(verbose, msg)));
             }
         }
 

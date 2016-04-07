@@ -179,7 +179,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.OK;
+            info.State = ActionNode.LogicState.Ok;
 
             //call script with input nodes
             List<ScriptSlotData> list = new List<ScriptSlotData>(m_ScriptElement.InputCount);

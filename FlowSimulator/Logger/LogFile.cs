@@ -28,18 +28,18 @@ namespace FlowSimulator.Logger
 
         #region Singleton
 
-        private static LogFile ms_Singleton;
+        private static LogFile _singleton;
 
         #endregion //Singleton
 
         #region Fields
 
-        private bool m_Async;
-        private StreamWriter m_Writer;
-        private StringBuilder m_StringBuilder = new StringBuilder(500);
-        private Task m_Task;
-        private volatile bool m_IsAlive;
-        private volatile bool m_StreamClose = false;
+        private readonly bool _async;
+        private readonly StreamWriter _writer;
+        private readonly StringBuilder _stringBuilder = new StringBuilder(500);
+        private readonly Task _task;
+        private volatile bool _isAlive;
+        private volatile bool _streamClose = false;
 
         #endregion //Fields
 
@@ -48,7 +48,7 @@ namespace FlowSimulator.Logger
         /// <summary>
         /// 
         /// </summary>
-        static public LogVerbosity Verbosity
+        private static LogVerbosity Verbosity
         {
             get;
             set;
@@ -61,39 +61,39 @@ namespace FlowSimulator.Logger
         /// <summary>
         /// 
         /// </summary>
-        private LogFile(string file_, bool async_)
+        private LogFile(string file, bool async)
         {
-            m_Async = async_;
+            _async = async;
             Verbosity = LogVerbosity.Info;
-            m_IsAlive = true;
-            m_Writer = File.CreateText(file_);
+            _isAlive = true;
+            _writer = File.CreateText(file);
 
-            if (m_Async == true)
+            if (_async == true)
             {
-                m_Task = new Task(new Action(() =>
+                _task = new Task(new Action(() =>
                 {
-                    while (m_IsAlive)
+                    while (_isAlive)
                     {
-                        Monitor.Enter(m_StringBuilder);
+                        Monitor.Enter(_stringBuilder);
                         try
                         {
-                            if (m_StringBuilder.Length == 0) Monitor.Wait(m_StringBuilder);
+                            if (_stringBuilder.Length == 0) Monitor.Wait(_stringBuilder);
                             else WriteInFile();
                         }
                         finally
                         {
-                            Monitor.Exit(m_StringBuilder);
+                            Monitor.Exit(_stringBuilder);
                         }
                     }
                 }));
-                m_Task.Start();
+                _task.Start();
             }
 
-            m_StringBuilder.AppendLine("-------------------------------------------------------------------------------------------");
-            m_StringBuilder.AppendFormat("Events Log -  Date : {0}\n", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
-            m_StringBuilder.AppendFormat("Hostmane : {0}  -  UserName : {1}\n", System.Environment.MachineName, System.Environment.UserName);
-            m_StringBuilder.AppendFormat("OS Version : {0}  -  CLR Version : {1}\n", System.Environment.OSVersion, System.Environment.Version);
-            m_StringBuilder.AppendLine("-------------------------------------------------------------------------------------------");
+            _stringBuilder.AppendLine("-------------------------------------------------------------------------------------------");
+            _stringBuilder.AppendFormat("Events Log -  Date : {0}\n", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
+            _stringBuilder.AppendFormat("Hostmane : {0}  -  UserName : {1}\n", System.Environment.MachineName, System.Environment.UserName);
+            _stringBuilder.AppendFormat("OS Version : {0}  -  CLR Version : {1}\n", System.Environment.OSVersion, System.Environment.Version);
+            _stringBuilder.AppendLine("-------------------------------------------------------------------------------------------");
             WriteInFile();
         }
 
@@ -104,72 +104,72 @@ namespace FlowSimulator.Logger
         /// <summary>
         /// 
         /// </summary>
-        static public void Initialize(string file_, bool async_)
+        public static void Initialize(string file, bool async)
         {
-            if (ms_Singleton != null)
+            if (_singleton != null)
             {
                 return;
             }
 
-            ms_Singleton = new LogFile(file_, async_);
+            _singleton = new LogFile(file, async);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        static public void Destroy()
+        public static void Destroy()
         {
-            if (ms_Singleton == null)
+            if (_singleton == null)
             {
                 return;
             }
 
-            ms_Singleton.m_StreamClose = true;
-            ms_Singleton.m_IsAlive = false;
-            if (ms_Singleton.m_Task != null) ms_Singleton.m_Task.Wait();
-            ms_Singleton.m_Writer.Close();
-            ms_Singleton = null;
+            _singleton._streamClose = true;
+            _singleton._isAlive = false;
+            if (_singleton._task != null) _singleton._task.Wait();
+            _singleton._writer.Close();
+            _singleton = null;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="pre_"></param>
-        /// <param name="log_"></param>
-        /// <param name="args_"></param>
-        void Write(string pre_, string log_, params object[] args_)
+        /// <param name="pre"></param>
+        /// <param name="log"></param>
+        /// <param name="args"></param>
+        void Write(string pre, string log, params object[] args)
         {
-            if (m_StreamClose == true)
+            if (_streamClose == true)
             {
                 return;
             }
 
-            if (m_Async)
+            if (_async)
             {
-                Monitor.Enter(m_StringBuilder);
+                Monitor.Enter(_stringBuilder);
                 try
                 {
-                    m_StringBuilder.AppendFormat("{0}({1}){2}> {3}\n",
-                        pre_,
+                    _stringBuilder.AppendFormat("{0}({1}){2}> {3}\n",
+                        pre,
                         Thread.CurrentThread.GetHashCode(),
                         DateTime.Now.ToString("HH:mm:ss.fff"),
-                        log_);
-                    Monitor.PulseAll(m_StringBuilder);
+                        log);
+                    Monitor.PulseAll(_stringBuilder);
                 }
                 finally
                 {
-                    Monitor.Exit(m_StringBuilder);
+                    Monitor.Exit(_stringBuilder);
                 }
             }
             else
             {
-                lock (m_StringBuilder)
+                lock (_stringBuilder)
                 {
-                    m_StringBuilder.AppendFormat("{0}({1}){2}> {3}\n",
-                        pre_,
+                    _stringBuilder.AppendFormat("{0}({1}){2}> {3}\n",
+                        pre,
                         Thread.CurrentThread.GetHashCode(),
                         DateTime.Now.ToString("HH:mm:ss.fff"),
-                        log_);
+                        log);
                     WriteInFile();
                 }
             }
@@ -178,97 +178,96 @@ namespace FlowSimulator.Logger
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="data"></param>
         private void WriteInFile()
         {
-            if (m_StreamClose == true)
+            if (_streamClose == true)
             {
                 return;
             }
 
-            m_Writer.Write(m_StringBuilder.ToString());
-            m_StringBuilder.Clear();
-            m_Writer.Flush();
+            _writer.Write(_stringBuilder.ToString());
+            _stringBuilder.Clear();
+            _writer.Flush();
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="str_"></param>
-        /// <param name="args_"></param>
-        public static void OnTrace(string str_, params object[] args_)
+        /// <param name="str"></param>
+        /// <param name="args"></param>
+        public static void OnTrace(string str, params object[] args)
         {
-            if (ms_Singleton == null
+            if (_singleton == null
                 || Verbosity < LogVerbosity.Trace)
             {
                 return;
             }
 
-            ms_Singleton.Write("[TRACE]: ", str_, args_);
+            _singleton.Write("[TRACE]: ", str, args);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="str_"></param>
-        /// <param name="args_"></param>
-        public static void OnDebug(string str_, params object[] args_)
+        /// <param name="str"></param>
+        /// <param name="args"></param>
+        public static void OnDebug(string str, params object[] args)
         {
-            if (ms_Singleton == null
+            if (_singleton == null
                 || Verbosity < LogVerbosity.Debug)
             {
                 return;
             }
 
-            ms_Singleton.Write("[DEBUG]: ", str_, args_);
+            _singleton.Write("[DEBUG]: ", str, args);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="str_"></param>
-        /// <param name="args_"></param>
-        public static void OnInfo(string str_, params object[] args_)
+        /// <param name="str"></param>
+        /// <param name="args"></param>
+        public static void OnInfo(string str, params object[] args)
         {
-            if (ms_Singleton == null
+            if (_singleton == null
                 || Verbosity < LogVerbosity.Info)
             {
                 return;
             }
 
-            ms_Singleton.Write("[INFO]: ", str_, args_);
+            _singleton.Write("[INFO]: ", str, args);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="str_"></param>
-        /// <param name="args_"></param>
-        public static void OnWarning(string str_, params object[] args_)
+        /// <param name="str"></param>
+        /// <param name="args"></param>
+        public static void OnWarning(string str, params object[] args)
         {
-            if (ms_Singleton == null
+            if (_singleton == null
                 || Verbosity < LogVerbosity.Warning)
             {
                 return;
             }
 
-            ms_Singleton.Write("[WARNING]: ", str_, args_);
+            _singleton.Write("[WARNING]: ", str, args);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="str_"></param>
-        /// <param name="args_"></param>
-        public static void OnError(string str_, params object[] args_)
+        /// <param name="str"></param>
+        /// <param name="args"></param>
+        public static void OnError(string str, params object[] args)
         {
-            if (ms_Singleton == null
+            if (_singleton == null
                 || Verbosity < LogVerbosity.Error)
             {
                 return;
             }
 
-            ms_Singleton.Write("[ERROR]: ", str_, args_);
+            _singleton.Write("[ERROR]: ", str, args);
         }
 
         #endregion //Methods

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FlowGraphBase.Logger;
+﻿using FlowGraphBase.Logger;
 
 namespace FlowSimulator.Logger
 {
@@ -23,31 +19,31 @@ namespace FlowSimulator.Logger
         /// 
         /// </summary>
         /// <param name="verbose"></param>
-        /// <param name="args_"></param>
-        public void Write(LogVerbosity verbose, string msg_)
+        /// <param name="msg"></param>
+        public void Write(LogVerbosity verbose, string msg)
         {
-            msg_ = msg_.Replace("{", "{{").Replace("}", "}}");
+            msg = msg.Replace("{", "{{").Replace("}", "}}");
 
             switch (verbose)
             {
                 case LogVerbosity.Trace:
-                    LogFile.OnDebug(msg_);
+                    LogFile.OnDebug(msg);
                     break;
 
                 case LogVerbosity.Debug:
-                    LogFile.OnDebug(msg_);
+                    LogFile.OnDebug(msg);
                     break;
 
                 case LogVerbosity.Info:
-                    LogFile.OnInfo(msg_);
+                    LogFile.OnInfo(msg);
                     break;
 
                 case LogVerbosity.Warning:
-                    LogFile.OnWarning(msg_);
+                    LogFile.OnWarning(msg);
                     break;
 
                 case LogVerbosity.Error:
-                    LogFile.OnError(msg_);
+                    LogFile.OnError(msg);
                     break;
             }
         }

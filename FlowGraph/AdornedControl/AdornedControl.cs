@@ -1,22 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Collections;
 using System.Windows.Threading;
 using System.Windows.Media.Animation;
-using System.Diagnostics;
 using Utils;
 
 namespace AdornedControl
 {
     /// <summary>
-    /// A content control that allows an adorner for the content to
+    /// A content control that allows an _adorner for the content to
     /// be defined in XAML.
     /// </summary>
     public class AdornedControl : ContentControl
@@ -93,24 +88,25 @@ namespace AdornedControl
 
         public AdornedControl()
         {
-            this.Focusable = false; // By default don't want 'AdornedControl' to be focusable.
+            Focusable = false; // By default don't want 'AdornedControl' to be focusable.
 
-            this.DataContextChanged += new DependencyPropertyChangedEventHandler(AdornedControl_DataContextChanged);
+            DataContextChanged += new DependencyPropertyChangedEventHandler(AdornedControl_DataContextChanged);
 
             closeAdornerTimer.Tick += new EventHandler(closeAdornerTimer_Tick);
             closeAdornerTimer.Interval = TimeSpan.FromSeconds(CloseAdornerTimeOut);
         }
 
         /// <summary>
-        /// Show the adorner.
+        /// Show the _adorner.
         /// </summary>
         public void ShowAdorner()
         {
             IsAdornerVisible = true;
 
-            adornerShowState = AdornerShowState.Visible;
+            _adornerShowState = AdornerShowState.Visible;
 
-            if ((IsMouseOverShowEnabled && !IsMouseOver)
+            if (IsMouseOverShowEnabled 
+                && !IsMouseOver
                 && IsAlwaysVisible == false)
             {
                 closeAdornerTimer.Start();
@@ -118,7 +114,7 @@ namespace AdornedControl
         }
 
         /// <summary>
-        /// Hide the adorner.
+        /// Hide the _adorner.
         /// </summary>
         public void HideAdorner()
         {
@@ -130,16 +126,16 @@ namespace AdornedControl
             IsAdornerVisible = false;
 
             closeAdornerTimer.Stop();
-            adornerShowState = AdornerShowState.Hidden;
+            _adornerShowState = AdornerShowState.Hidden;
         }
 
         /// <summary>
-        /// Fade the adorner in and make it visible.
+        /// Fade the _adorner in and make it visible.
         /// </summary>
         public void FadeInAdorner()
         {
-            if (adornerShowState == AdornerShowState.Visible ||
-                adornerShowState == AdornerShowState.FadingIn)
+            if (_adornerShowState == AdornerShowState.Visible ||
+                _adornerShowState == AdornerShowState.FadingIn)
             {
                 // Already visible or fading in.
                 return;
@@ -147,26 +143,26 @@ namespace AdornedControl
 
             this.ShowAdorner();
 
-            if (adornerShowState != AdornerShowState.FadingOut)
+            if (_adornerShowState != AdornerShowState.FadingOut)
             {
-                adorner.Opacity = 0.0;
+                _adorner.Opacity = 0.0;
             }
 
             DoubleAnimation doubleAnimation = new DoubleAnimation(1.0, new Duration(TimeSpan.FromSeconds(FadeInTime)));
             doubleAnimation.Completed += new EventHandler(fadeInAnimation_Completed);
             doubleAnimation.Freeze();
                 
-            adorner.BeginAnimation(FrameworkElement.OpacityProperty, doubleAnimation);
+            _adorner.BeginAnimation(FrameworkElement.OpacityProperty, doubleAnimation);
 
-            adornerShowState = AdornerShowState.FadingIn;
+            _adornerShowState = AdornerShowState.FadingIn;
         }
 
         /// <summary>
-        /// Fade the adorner out and make it visible.
+        /// Fade the _adorner out and make it visible.
         /// </summary>
         public void FadeOutAdorner()
         {
-            if (adornerShowState == AdornerShowState.FadingOut)
+            if (_adornerShowState == AdornerShowState.FadingOut)
             {
                 //
                 // Already fading out.
@@ -174,7 +170,7 @@ namespace AdornedControl
                 return;
             }
 
-            if (adornerShowState == AdornerShowState.Hidden)
+            if (_adornerShowState == AdornerShowState.Hidden)
             {
                 //
                 // Adorner has already been hidden.
@@ -186,14 +182,14 @@ namespace AdornedControl
             fadeOutAnimation.Completed += new EventHandler(fadeOutAnimation_Completed);
             fadeOutAnimation.Freeze();
 
-            adorner.BeginAnimation(FrameworkElement.OpacityProperty, fadeOutAnimation);
+            _adorner.BeginAnimation(FrameworkElement.OpacityProperty, fadeOutAnimation);
 
-            adornerShowState = AdornerShowState.FadingOut;
+            _adornerShowState = AdornerShowState.FadingOut;
         }
 
         /// <summary>
-        /// Shows or hides the adorner.
-        /// Set to 'true' to show the adorner or 'false' to hide the adorner.
+        /// Shows or hides the _adorner.
+        /// Set to 'true' to show the _adorner or 'false' to hide the _adorner.
         /// </summary>
         public bool IsAdornerVisible
         {
@@ -208,7 +204,7 @@ namespace AdornedControl
         }
 
         /// <summary>
-        /// Used in XAML to define the UI content of the adorner.
+        /// Used in XAML to define the UI content of the _adorner.
         /// </summary>
         public FrameworkElement AdornerContent
         {
@@ -223,7 +219,7 @@ namespace AdornedControl
         }
 
         /// <summary>
-        /// Specifies the horizontal placement of the adorner relative to the adorned control.
+        /// Specifies the horizontal placement of the _adorner relative to the adorned control.
         /// </summary>
         public AdornerPlacement HorizontalAdornerPlacement
         {
@@ -238,7 +234,7 @@ namespace AdornedControl
         }
 
         /// <summary>
-        /// Specifies the vertical placement of the adorner relative to the adorned control.
+        /// Specifies the vertical placement of the _adorner relative to the adorned control.
         /// </summary>
         public AdornerPlacement VerticalAdornerPlacement
         {
@@ -253,7 +249,7 @@ namespace AdornedControl
         }
 
         /// <summary>
-        /// X offset of the adorner.
+        /// X offset of the _adorner.
         /// </summary>
         public double AdornerOffsetX
         {
@@ -268,7 +264,7 @@ namespace AdornedControl
         }
 
         /// <summary>
-        /// Y offset of the adorner.
+        /// Y offset of the _adorner.
         /// </summary>
         public double AdornerOffsetY
         {
@@ -283,9 +279,9 @@ namespace AdornedControl
         }
 
         /// <summary>
-        /// Set to 'true' to make the adorner automatically fade-in and become visible when the mouse is hovered
-        /// over the adorned control.  Also the adorner automatically fades-out when the mouse cursor is moved
-        /// aware from the adorned control (and the adorner).
+        /// Set to 'true' to make the _adorner automatically fade-in and become visible when the mouse is hovered
+        /// over the adorned control.  Also the _adorner automatically fades-out when the mouse cursor is moved
+        /// aware from the adorned control (and the _adorner).
         /// </summary>
         public bool IsMouseOverShowEnabled
         {
@@ -300,7 +296,7 @@ namespace AdornedControl
         }
 
         /// <summary>
-        /// Set to 'true' to make the adorner always visible.
+        /// Set to 'true' to make the _adorner always visible.
         /// Its
         /// </summary>
         public bool IsAlwaysVisible
@@ -316,7 +312,7 @@ namespace AdornedControl
         }
 
         /// <summary>
-        /// Specifies the time (in seconds) it takes to fade in the adorner.
+        /// Specifies the time (in seconds) it takes to fade in the _adorner.
         /// </summary>
         public double FadeInTime
         {
@@ -331,7 +327,7 @@ namespace AdornedControl
         }
 
         /// <summary>
-        /// Specifies the time (in seconds) it takes to fade out the adorner.
+        /// Specifies the time (in seconds) it takes to fade out the _adorner.
         /// </summary>
         public double FadeOutTime
         {
@@ -347,7 +343,7 @@ namespace AdornedControl
 
         /// <summary>
         /// Specifies the time (in seconds) after the mouse cursor moves away from the 
-        /// adorned control (or the adorner) when the adorner begins to fade out.
+        /// adorned control (or the _adorner) when the _adorner begins to fade out.
         /// </summary>
         public double CloseAdornerTimeOut
         {
@@ -383,7 +379,7 @@ namespace AdornedControl
         }
 
         /// <summary>
-        /// Event raised when the adorner is shown.
+        /// Event raised when the _adorner is shown.
         /// </summary>
         public event AdornerEventHandler AdornerShown
         {
@@ -392,7 +388,7 @@ namespace AdornedControl
         }
 
         /// <summary>
-        /// Event raised when the adorner is hidden.
+        /// Event raised when the _adorner is hidden.
         /// </summary>
         public event AdornerEventHandler AdornerHidden
         {
@@ -411,7 +407,7 @@ namespace AdornedControl
         private static readonly CommandBinding FadeOutAdornerCommandBinding = new CommandBinding(FadeInAdornerCommand, FadeOutAdornerCommand_Executed);
 
         /// <summary>
-        /// Specifies the current show/hide state of the adorner.
+        /// Specifies the current show/hide state of the _adorner.
         /// </summary>
         private enum AdornerShowState
         {
@@ -422,22 +418,22 @@ namespace AdornedControl
         }
 
         /// <summary>
-        /// Specifies the current show/hide state of the adorner.
+        /// Specifies the current show/hide state of the _adorner.
         /// </summary>
-        private AdornerShowState adornerShowState = AdornerShowState.Hidden;
+        private AdornerShowState _adornerShowState = AdornerShowState.Hidden;
 
         /// <summary>
-        /// Caches the adorner layer.
+        /// Caches the _adorner layer.
         /// </summary>
-        private AdornerLayer adornerLayer = null;
+        private AdornerLayer _adornerLayer = null;
 
         /// <summary>
-        /// The actual adorner create to contain our 'adorner UI content'.
+        /// The actual _adorner create to contain our '_adorner UI content'.
         /// </summary>
-        private FrameworkElementAdorner adorner = null;
+        private FrameworkElementAdorner _adorner = null;
 
         /// <summary>
-        /// This timer is used to fade out and close the adorner.
+        /// This timer is used to fade out and close the _adorner.
         /// </summary>
         private DispatcherTimer closeAdornerTimer = new DispatcherTimer();
         
@@ -465,13 +461,13 @@ namespace AdornedControl
         }
 
         /// <summary>
-        /// Update the DataContext of the adorner from the adorned control.
+        /// Update the DataContext of the _adorner from the adorned control.
         /// </summary>
         private void UpdateAdornerDataContext()
         {
-            if (this.AdornerContent != null)
+            if (AdornerContent != null)
             {
-                this.AdornerContent.DataContext = this.DataContext;
+                AdornerContent.DataContext = DataContext;
             }
         }
 
@@ -580,7 +576,7 @@ namespace AdornedControl
         }
 
         /// <summary>
-        /// Event raised when the mouse cursor enters the area of the adorner.
+        /// Event raised when the mouse cursor enters the area of the _adorner.
         /// </summary>
         private void adornerContent_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -588,7 +584,7 @@ namespace AdornedControl
         }
 
         /// <summary>
-        /// Event raised when the mouse cursor leaves the area of the adorner.
+        /// Event raised when the mouse cursor leaves the area of the _adorner.
         /// </summary>
         private void adornerContent_MouseLeave(object sender, MouseEventArgs e)
         {
@@ -596,7 +592,7 @@ namespace AdornedControl
         }
 
         /// <summary>
-        /// Internal method to show or hide the adorner based on the value of IsAdornerVisible.
+        /// Internal method to show or hide the _adorner based on the value of IsAdornerVisible.
         /// </summary>
         private void ShowOrHideAdornerInternal()
         {
@@ -614,7 +610,7 @@ namespace AdornedControl
         /// Finds a child element in the visual tree that has the specified name.
         /// Returns null if no child with that name exists.
         /// </summary>
-        public static FrameworkElement FindNamedChild(FrameworkElement rootElement, string childName)
+        private static FrameworkElement FindNamedChild(FrameworkElement rootElement, string childName)
         {
             int numChildren = VisualTreeHelper.GetChildrenCount(rootElement);
             for (int i = 0; i < numChildren; ++i)
@@ -638,11 +634,11 @@ namespace AdornedControl
 
 
         /// <summary>
-        /// Internal method to show the adorner.
+        /// Internal method to show the _adorner.
         /// </summary>
         private void ShowAdornerInternal()
         {
-            if (this.adorner != null)
+            if (this._adorner != null)
             {
                 // Already adorned.
                 return;
@@ -650,24 +646,24 @@ namespace AdornedControl
 
             AddAdorner();
 
-            if (this.adorner != null)
+            if (this._adorner != null)
             {
-                RaiseEvent(new AdornerEventArgs(AdornerShownEvent, this, this.adorner.Child));
+                RaiseEvent(new AdornerEventArgs(AdornerShownEvent, this, this._adorner.Child));
             }
         }
 
         /// <summary>
-        /// Internal method to hide the adorner.
+        /// Internal method to hide the _adorner.
         /// </summary>
         private void HideAdornerInternal()
         {
-            if (this.adornerLayer == null || this.adorner == null)
+            if (this._adornerLayer == null || this._adorner == null)
             {
                 // Not already adorned.
                 return;
             }
 
-            RaiseEvent(new AdornerEventArgs(AdornerHiddenEvent, this, this.adorner.Child));
+            RaiseEvent(new AdornerEventArgs(AdornerHiddenEvent, this, this._adorner.Child));
 
             RemoveAdorner();
         }
@@ -733,8 +729,8 @@ namespace AdornedControl
         }
 
         /// <summary>
-        /// Called when the close adorner time-out has ellapsed, the mouse has moved
-        /// away from the adorned control and the adorner and it is time to close the adorner.
+        /// Called when the close _adorner time-out has ellapsed, the mouse has moved
+        /// away from the adorned control and the _adorner and it is time to close the _adorner.
         /// </summary>
         private void closeAdornerTimer_Tick(object sender, EventArgs e)
         {
@@ -748,10 +744,10 @@ namespace AdornedControl
         /// </summary>
         private void fadeInAnimation_Completed(object sender, EventArgs e)
         {
-            if (adornerShowState == AdornerShowState.FadingIn)
+            if (_adornerShowState == AdornerShowState.FadingIn)
             {
                 // Still fading in, eg it wasn't aborted.
-                adornerShowState = AdornerShowState.Visible;
+                _adornerShowState = AdornerShowState.Visible;
             }
         }
 
@@ -760,7 +756,7 @@ namespace AdornedControl
         /// </summary>
         private void fadeOutAnimation_Completed(object sender, EventArgs e)
         {
-            if (adornerShowState == AdornerShowState.FadingOut)
+            if (_adornerShowState == AdornerShowState.FadingOut)
             {
                 // Still fading out, eg it wasn't aborted.
                 this.HideAdorner();
@@ -768,18 +764,18 @@ namespace AdornedControl
         }
 
         /// <summary>
-        /// Instance the adorner and add it to the adorner layer.
+        /// Instance the _adorner and add it to the _adorner layer.
         /// </summary>
         private void AddAdorner()
         {
             if (this.AdornerContent != null)
             {
-                if (this.adornerLayer == null)
+                if (this._adornerLayer == null)
                 {
-                    this.adornerLayer = AdornerLayer.GetAdornerLayer(this);
+                    this._adornerLayer = AdornerLayer.GetAdornerLayer(this);
                 }
 
-                if (this.adornerLayer != null)
+                if (this._adornerLayer != null)
                 {
                     FrameworkElement adornedControl = this; // The control to be adorned defaults to 'this'.
 
@@ -797,16 +793,16 @@ namespace AdornedControl
                         }
                     }
 
-                    this.adorner = new FrameworkElementAdorner(this.AdornerContent, adornedControl, 
+                    this._adorner = new FrameworkElementAdorner(this.AdornerContent, adornedControl, 
                                                                this.HorizontalAdornerPlacement, this.VerticalAdornerPlacement,
                                                                this.AdornerOffsetX, this.AdornerOffsetY);
-                    this.adornerLayer.Add(this.adorner);
+                    _adornerLayer.Add(this._adorner);
 
 					//
-					// Update the layout of the adorner layout so that clients that depend
-					// on the 'AdornerShown' event can use the visual tree of the adorner.
+					// Update the layout of the _adorner layout so that clients that depend
+					// on the 'AdornerShown' event can use the visual tree of the _adorner.
 					//
-					this.adornerLayer.UpdateLayout();
+					_adornerLayer.UpdateLayout();
 
                     UpdateAdornerDataContext();
                 }
@@ -814,30 +810,30 @@ namespace AdornedControl
         }
 
         /// <summary>
-        /// Remove the adorner from the adorner layer and let it be garbage collected.
+        /// Remove the _adorner from the _adorner layer and let it be garbage collected.
         /// </summary>
         private void RemoveAdorner()
         {
             //
-            // Stop the timer that might be about to fade out the adorner.
+            // Stop the timer that might be about to fade out the _adorner.
             //
             closeAdornerTimer.Stop();
 
-            if (this.adornerLayer != null && this.adorner != null)
+            if (this._adornerLayer != null && this._adorner != null)
             {
-                this.adornerLayer.Remove(this.adorner);
-                this.adorner.DisconnectChild();
+                this._adornerLayer.Remove(this._adorner);
+                this._adorner.DisconnectChild();
             }
 
-            this.adorner = null;
-            this.adornerLayer = null;
+            this._adorner = null;
+            this._adornerLayer = null;
 
             //
             // Ensure that the state of the adorned control reflects that
-            // the the adorner is no longer.
+            // the the _adorner is no longer.
             //
             this.IsAdornerVisible = false;
-            this.adornerShowState = AdornerShowState.Hidden;
+            this._adornerShowState = AdornerShowState.Hidden;
 		}
 
         #endregion

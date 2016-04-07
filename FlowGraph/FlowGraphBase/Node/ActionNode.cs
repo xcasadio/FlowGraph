@@ -24,7 +24,7 @@ namespace FlowGraphBase.Node
         /// </summary>
         public enum LogicState
         {
-            OK,
+            Ok,
             Warning,
             Error
         }
@@ -42,8 +42,8 @@ namespace FlowGraphBase.Node
 
         #region Fields
 
-        private string m_ErrorMessage = "";
-        private ProcessingInfo m_State;
+        private string _errorMessage = "";
+        private ProcessingInfo _state;
 
 		#endregion //Fields
 	
@@ -54,10 +54,10 @@ namespace FlowGraphBase.Node
         /// </summary>
         public ProcessingInfo State
         {
-            get { return m_State; }
+            get { return _state; }
             private set 
             {
-                m_State = value;
+                _state = value;
                 OnPropertyChanged("State");
             }
         }
@@ -67,10 +67,10 @@ namespace FlowGraphBase.Node
         /// </summary>
         public string ErrorMessage
         {
-            get { return m_ErrorMessage; }
+            get { return _errorMessage; }
             internal set 
             {
-                m_ErrorMessage = value;
+                _errorMessage = value;
                 OnPropertyChanged("ErrorMessage");
             }
         }
@@ -82,9 +82,9 @@ namespace FlowGraphBase.Node
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        public ActionNode(XmlNode node_)
-            : base(node_)
+        /// <param name="node"></param>
+        protected ActionNode(XmlNode node)
+            : base(node)
         {
 
         }
@@ -104,12 +104,12 @@ namespace FlowGraphBase.Node
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="context_"></param>
-        /// <param name="slot_"></param>
+        /// <param name="context"></param>
+        /// <param name="slot"></param>
         /// <returns></returns>
-        public ProcessingInfo Activate(ProcessingContext context_, NodeSlot slot_)
+        public ProcessingInfo Activate(ProcessingContext context, NodeSlot slot)
         {
-            State = ActivateLogic(context_, slot_);
+            State = ActivateLogic(context, slot);
             return State;
         }
 

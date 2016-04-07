@@ -52,6 +52,7 @@
     <Compile Include="Node\StandardActionNode\ReturnNode.cs" />
     <Compile Include="Node\StandardEventNode\OnEnterFunctionEvent.cs" />
     <Compile Include="Node\StandardVariableNode\NamedVariableNode.cs" />
+    <Compile Include="Plugin\IPlugin.cs" />
     <Compile Include="Process\ProcessLauncher.cs" />
     <Compile Include="Process\ProcessingContext.cs" />
     <Compile Include="Process\ProcessingContextStep.cs" />

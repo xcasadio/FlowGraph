@@ -30,22 +30,22 @@ namespace FlowSimulator
         // Event raised when user selects file from MRU list
         public event MruFileOpenEventHandler MruOpenEvent;
 
-        private Window ownerForm;                 // owner form
+        private Window _ownerForm;                 // owner form
 
-        private MenuItem menuItemMRU;           // Recent Files menu item
-        private MenuItem menuItemParent;        // Recent Files menu item parent
+        private MenuItem _menuItemMru;           // Recent Files menu item
+        private MenuItem _menuItemParent;        // Recent Files menu item parent
 
-        private string registryPath;            // Registry path to keep MRU list
+        private string _registryPath;            // Registry path to keep MRU list
 
-        private int maxNumberOfFiles = 10;      // maximum number of files in MRU list
+        private int _maxNumberOfFiles = 10;      // maximum number of files in MRU list
 
-        private int maxDisplayLength = 40;      // maximum length of file name for display
+        private int _maxDisplayLength = 40;      // maximum length of file name for display
 
-        private string currentDirectory;        // current directory
+        private string _currentDirectory;        // current directory
 
-        private StringList mruList;              // MRU list (file names)
+        private readonly StringList _mruList;              // MRU list (file names)
 
-        private const string regEntryName = "file";  // entry name to keep MRU (file0, file1...)
+        private const string RegEntryName = "file";  // entry name to keep MRU (file0, file1...)
 
         #endregion
 
@@ -64,7 +64,7 @@ namespace FlowSimulator
 
         public MruManager()
         {
-            mruList = new StringList();
+            _mruList = new StringList();
         }
 
         #endregion
@@ -76,7 +76,7 @@ namespace FlowSimulator
 		/// </summary>
 		public string GetFirstFileName
 		{
-			get { return mruList.Count == 0 ? null : mruList[0]; }
+			get { return _mruList.Count == 0 ? null : _mruList[0]; }
 		}
 
 		/// <summary>
@@ -88,15 +88,15 @@ namespace FlowSimulator
         {
             set
             {
-                maxDisplayLength = value;
+                _maxDisplayLength = value;
 
-                if (maxDisplayLength < 10)
-                    maxDisplayLength = 10;
+                if (_maxDisplayLength < 10)
+                    _maxDisplayLength = 10;
             }
 
             get
             {
-                return maxDisplayLength;
+                return _maxDisplayLength;
             }
         }
 
@@ -109,18 +109,18 @@ namespace FlowSimulator
         {
             set
             {
-                maxNumberOfFiles = value;
+                _maxNumberOfFiles = value;
 
-                if (maxNumberOfFiles < 1)
-                    maxNumberOfFiles = 1;
+                if (_maxNumberOfFiles < 1)
+                    _maxNumberOfFiles = 1;
 
-                if (mruList.Count > maxNumberOfFiles)
-                    mruList.RemoveRange(maxNumberOfFiles - 1, mruList.Count - maxNumberOfFiles);
+                if (_mruList.Count > _maxNumberOfFiles)
+                    _mruList.RemoveRange(_maxNumberOfFiles - 1, _mruList.Count - _maxNumberOfFiles);
             }
 
             get
             {
-                return maxNumberOfFiles;
+                return _maxNumberOfFiles;
             }
         }
 
@@ -137,12 +137,12 @@ namespace FlowSimulator
         {
             set
             {
-                currentDirectory = value;
+                _currentDirectory = value;
             }
 
             get
             {
-                return currentDirectory;
+                return _currentDirectory;
             }
         }
 
@@ -155,35 +155,36 @@ namespace FlowSimulator
         /// </summary>
         /// <param name="owner">Owner form</param>
         /// <param name="mruItem">Recent Files menu item</param>
+        /// <param name="mruItemParent">parent menu item</param>
         /// <param name="regPath">Registry Path to keep MRU list</param>
         public void Initialize(Window owner, MenuItem mruItem, MenuItem mruItemParent, string regPath)
         {
             // keep reference to owner form
-            ownerForm = owner;
+            _ownerForm = owner;
 
             // keep reference to MRU menu item
-            menuItemMRU = mruItem;
+            _menuItemMru = mruItem;
 
             // keep reference to MRU menu item parent
-            menuItemParent = mruItemParent;
+            _menuItemParent = mruItemParent;
 
 
             // keep Registry path adding MRU key to it
-            registryPath = regPath;
-            if (registryPath.EndsWith("\\"))
-                registryPath += "MRU";
+            _registryPath = regPath;
+            if (_registryPath.EndsWith("\\"))
+                _registryPath += "MRU";
             else
-                registryPath += "\\MRU";
+                _registryPath += "\\MRU";
 
 
             // keep current directory in the time of initialization
-            currentDirectory = Directory.GetCurrentDirectory();
+            _currentDirectory = Directory.GetCurrentDirectory();
 
             // subscribe to MRU parent Popup event
-            menuItemParent.SubmenuOpened += new RoutedEventHandler(OnMRUParentPopup);
+            _menuItemParent.SubmenuOpened += OnMRUParentPopup;
 
             // subscribe to owner form Closing event
-            ownerForm.Closing += OnOwnerClosing;
+            _ownerForm.Closing += OnOwnerClosing;
 
             // load MRU list from Registry
             LoadMRU();
@@ -200,11 +201,11 @@ namespace FlowSimulator
             Remove(file);
 
             // if array has maximum length, remove last element
-            if (mruList.Count == maxNumberOfFiles)
-                mruList.RemoveAt(maxNumberOfFiles - 1);
+            if (_mruList.Count == _maxNumberOfFiles)
+                _mruList.RemoveAt(_maxNumberOfFiles - 1);
 
             // add new file name to the start of array
-            mruList.Insert(0, file);
+            _mruList.Insert(0, file);
         }
 
         /// <summary>
@@ -216,13 +217,13 @@ namespace FlowSimulator
         {
             int i = 0;
 
-            StringEnumerator myEnumerator = mruList.GetEnumerator();
+            StringEnumerator myEnumerator = _mruList.GetEnumerator();
 
             while (myEnumerator.MoveNext())
             {
-                if ((string)myEnumerator.Current == file)
+                if (myEnumerator.Current == file)
                 {
-                    mruList.RemoveAt(i);
+                    _mruList.RemoveAt(i);
                     return;
                 }
 
@@ -242,36 +243,36 @@ namespace FlowSimulator
         private void OnMRUParentPopup(object sender, RoutedEventArgs e)
         {
             // remove all childs
-            //if (menuItemMRU.IsParent)
+            //if (_menuItemMru.IsParent)
             //{
-            menuItemMRU.Items.Clear();
+            _menuItemMru.Items.Clear();
             //}
 
             // Disable menu item if MRU list is empty
-            if (mruList.Count == 0)
+            if (_mruList.Count == 0)
             {
-                menuItemMRU.IsEnabled = false;
+                _menuItemMru.IsEnabled = false;
                 return;
             }
 
             // enable menu item and add child items
-            menuItemMRU.IsEnabled = true;
+            _menuItemMru.IsEnabled = true;
 
             MenuItem item;
 
-            StringEnumerator myEnumerator = mruList.GetEnumerator();
+            StringEnumerator myEnumerator = _mruList.GetEnumerator();
             int i = 0;
 
             while (myEnumerator.MoveNext())
             {
                 item = new MenuItem();
-                item.Header = GetDisplayName((string)myEnumerator.Current);
+                item.Header = GetDisplayName(myEnumerator.Current);
                 item.Tag = i++;
 
                 // subscribe to item's Click event
                 item.Click += OnMRUClicked;
 
-                menuItemMRU.Items.Add(item);
+                _menuItemMru.Items.Add(item);
             }
         }
 
@@ -290,7 +291,7 @@ namespace FlowSimulator
             if (item != null)
             {
                 // Get file name from list using item index
-                s = (string)mruList[(int)item.Tag];
+                s = _mruList[(int)item.Tag];
 
                 // Raise event to owner and pass file name.
                 // Owner should handle this event and open file.
@@ -315,22 +316,22 @@ namespace FlowSimulator
 
             try
             {
-                RegistryKey key = Registry.CurrentUser.CreateSubKey(registryPath);
+                RegistryKey key = Registry.CurrentUser.CreateSubKey(_registryPath);
 
                 if (key != null)
                 {
-                    n = mruList.Count;
+                    n = _mruList.Count;
 
-                    for (i = 0; i < maxNumberOfFiles; i++)
+                    for (i = 0; i < _maxNumberOfFiles; i++)
                     {
-                        key.DeleteValue(regEntryName +
+                        key.DeleteValue(RegEntryName +
                             i.ToString(CultureInfo.InvariantCulture), false);
                     }
 
                     for (i = 0; i < n; i++)
                     {
-                        key.SetValue(regEntryName +
-                            i.ToString(CultureInfo.InvariantCulture), mruList[i]);
+                        key.SetValue(RegEntryName +
+                            i.ToString(CultureInfo.InvariantCulture), _mruList[i]);
                     }
                 }
 
@@ -353,26 +354,23 @@ namespace FlowSimulator
         /// </summary>
         private void LoadMRU()
         {
-            string sKey, s;
-
             try
             {
-                mruList.Clear();
+                _mruList.Clear();
 
-                RegistryKey key = Registry.CurrentUser.OpenSubKey(registryPath);
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(_registryPath);
 
                 if (key != null)
                 {
-                    for (int i = 0; i < maxNumberOfFiles; i++)
+                    for (int i = 0; i < _maxNumberOfFiles; i++)
                     {
-                        sKey = regEntryName + i.ToString(CultureInfo.InvariantCulture);
-
-                        s = (string)key.GetValue(sKey, "");
+                        var sKey = RegEntryName + i.ToString(CultureInfo.InvariantCulture);
+                        var s = (string)key.GetValue(sKey, "");
 
                         if (s.Length == 0)
                             break;
 
-                        mruList.Add(s);
+                        _mruList.Add(s);
                     }
                 }
             }
@@ -412,10 +410,10 @@ namespace FlowSimulator
             // if file is in current directory, show only file name
             FileInfo fileInfo = new FileInfo(fullName);
 
-            if (fileInfo.DirectoryName == currentDirectory)
-                return GetShortDisplayName(fileInfo.Name, maxDisplayLength);
+            if (fileInfo.DirectoryName == _currentDirectory)
+                return GetShortDisplayName(fileInfo.Name, _maxDisplayLength);
 
-            return GetShortDisplayName(fullName, maxDisplayLength);
+            return GetShortDisplayName(fullName, _maxDisplayLength);
         }
 
         /// <summary>
@@ -449,22 +447,14 @@ namespace FlowSimulator
 
     public delegate void MruFileOpenEventHandler(object sender, MruFileOpenEventArgs e);
 
-    public class MruFileOpenEventArgs : System.EventArgs
+    public class MruFileOpenEventArgs : EventArgs
     {
-        private string fileName;
-
         public MruFileOpenEventArgs(string fileName)
         {
-            this.fileName = fileName;
+            FileName = fileName;
         }
 
-        public string FileName
-        {
-            get
-            {
-                return fileName;
-            }
-        }
+        public string FileName { get; }
     }
 }
 

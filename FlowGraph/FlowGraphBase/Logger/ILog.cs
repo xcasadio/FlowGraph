@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace FlowGraphBase.Logger
+﻿namespace FlowGraphBase.Logger
 {
 	/// <summary>
 	/// Interface for all Logger
@@ -15,10 +10,11 @@ namespace FlowGraphBase.Logger
 		/// </summary>
 		void Close();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="args_"></param>
-        void Write(FlowGraphBase.Logger.LogVerbosity verbose_, string msg_);
+	    /// <summary>
+	    /// 
+	    /// </summary>
+	    /// <param name="verbose"></param>
+	    /// <param name="msg"></param>
+	    void Write(FlowGraphBase.Logger.LogVerbosity verbose, string msg);
 	}
 }

@@ -33,7 +33,7 @@
                     Orientation="Horizontal" FlowDirection="RightToLeft" >
 
             <Button Content="Cancel" Width="60" Click="ButtonCancel_Click" />
-            <Button Content="OK" Margin="5,0,0,0" Width="60" Click="ButtonOK_Click" />
+            <Button Content="Ok" Margin="5,0,0,0" Width="60" Click="ButtonOK_Click" />
 
         </StackPanel>
         

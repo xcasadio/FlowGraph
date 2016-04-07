@@ -23,10 +23,10 @@ namespace FlowSimulator
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="arg_"></param>
-        public EventArg1Param(T arg_)
+        /// <param name="arg"></param>
+        public EventArg1Param(T arg)
         {
-            Arg = arg_;
+            Arg = arg;
         }
     }
 
@@ -48,12 +48,12 @@ namespace FlowSimulator
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="arg1_"></param>
-        /// <param name="arg2_"></param>
-        public EventArg2Params(T arg1_, U arg2_)
-            : base(arg1_)
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
+        public EventArg2Params(T arg1, U arg2)
+            : base(arg1)
         {
-            Arg2 = arg2_;
+            Arg2 = arg2;
         }
     }
 
@@ -75,13 +75,13 @@ namespace FlowSimulator
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="arg1_"></param>
-        /// <param name="arg2_"></param>
-        /// <param name="arg3_"></param>
-        public EventArg3Params(T arg1_, U arg2_, V arg3_)
-            : base(arg1_, arg2_)
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
+        /// <param name="arg3"></param>
+        public EventArg3Params(T arg1, U arg2, V arg3)
+            : base(arg1, arg2)
         {
-            Arg3 = arg3_;
+            Arg3 = arg3;
         }
     }
 }

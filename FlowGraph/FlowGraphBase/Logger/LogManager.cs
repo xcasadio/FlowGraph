@@ -1,43 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace FlowGraphBase.Logger
 {
-	/// <summary>
-	/// 
-	/// </summary>
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed class LogManager
 	{
         #region Singleton
 
-        static private LogManager m_Instance = new LogManager();
+        private static readonly LogManager _Instance = new LogManager();
 
         /// <summary>
         /// Gets
         /// </summary>
-        static public LogManager Instance
-        {
-            get
-            {
-                return m_Instance;
-            }
-        }
+        public static LogManager Instance => _Instance;
 
         #endregion //Singleton
 
 		#region Fields
 
         internal event EventHandler NbErrorChanged;
-        private int m_NbErrors = 0;
+        private int _nbErrors = 0;
 
-		private List<ILog> m_Loggers = new List<ILog>();
+		private readonly List<ILog> _loggers = new List<ILog>();
 
 #if DEBUG
-        private LogVerbosity m_Verbosity = LogVerbosity.Trace;
+        private LogVerbosity _verbosity = LogVerbosity.Trace;
 #else
-        private LogVerbosity m_Verbosity = LogVerbosity.Info;
+        private LogVerbosity _verbosity = LogVerbosity.Info;
 #endif
 
 		#endregion
@@ -49,8 +42,8 @@ namespace FlowGraphBase.Logger
         /// </summary>
         public LogVerbosity Verbosity
         {
-            get { return m_Verbosity; }
-            set { m_Verbosity = value; }
+            get { return _verbosity; }
+            set { _verbosity = value; }
         }
 
         /// <summary>
@@ -58,17 +51,14 @@ namespace FlowGraphBase.Logger
         /// </summary>
         public int NbErrors
         {
-            get { return m_NbErrors; }
+            get { return _nbErrors; }
             set
             {
-                if (m_NbErrors != value)
+                if (_nbErrors != value)
                 {
-                    m_NbErrors = value;
+                    _nbErrors = value;
 
-                    if (NbErrorChanged != null)
-                    {
-                        NbErrorChanged(this, EventArgs.Empty);
-                    }
+                    NbErrorChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
@@ -84,53 +74,53 @@ namespace FlowGraphBase.Logger
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="log_"></param>
-		public void AddLogger(ILog log_)
+		/// <param name="log"></param>
+		public void AddLogger(ILog log)
 		{
-			if (log_ == null)
+			if (log == null)
 			{
 				throw new ArgumentNullException("LogManager.Instance.AddLogger() : ILog is null");
 			}
 
-			m_Loggers.Add(log_);
+			_loggers.Add(log);
 		}
 
         /// <summary>
-		/// 
-		/// </summary>
-		/// <param name="log_"></param>
-		public void Close()
+        /// 
+        /// </summary>
+        public void Close()
 		{
-			foreach (ILog log in m_Loggers)
+			foreach (ILog log in _loggers)
 			{
 				log.Close();
 			}
 
-            m_Loggers.Clear();
+            _loggers.Clear();
 		}
 
         /// <summary>
         /// Write a line in every ILog registred
         /// </summary>
-        /// <param name="verbose_"></param>
-        /// <param name="args_"></param>
-        public void WriteLine(LogVerbosity verbose_, string msg_, params object[] args_)
+        /// <param name="verbose"></param>
+        /// <param name="msg"></param>
+        /// <param name="args"></param>
+        public void WriteLine(LogVerbosity verbose, string msg, params object[] args)
         {
-            if (verbose_ == LogVerbosity.Error)
+            if (verbose == LogVerbosity.Error)
             {
                 NbErrors++;
             }
 
-            if (verbose_ < m_Verbosity)
+            if (verbose < _verbosity)
             {
                 return;
             }
 
-            string tmp = string.Format(msg_, args_);
+            string tmp = string.Format(msg, args);
 
-            foreach (ILog log in m_Loggers)
+            foreach (ILog log in _loggers)
             {
-                log.Write(verbose_, tmp);
+                log.Write(verbose, tmp);
             }
         }
 
@@ -138,11 +128,12 @@ namespace FlowGraphBase.Logger
         /// Format the message of the exception and log it
         /// </summary>
         /// <param name="e"></param>
+        /// <param name="writeStackTrace"></param>
         public void WriteException(Exception e, bool writeStackTrace = true)
         {
             NbErrors++;
 
-            if (m_Verbosity == LogVerbosity.None)
+            if (_verbosity == LogVerbosity.None)
             {
                 return;
             }
@@ -162,8 +153,7 @@ namespace FlowGraphBase.Logger
                 strBldr.AppendLine(e.StackTrace);
             }
 
-            strBldr.Replace("{", "{{");
-            strBldr.Replace("}", "}}");
+            strBldr.Replace("{", "{{").Replace("}", "}}");
 
             WriteLine(LogVerbosity.Error, strBldr.ToString());
         }
