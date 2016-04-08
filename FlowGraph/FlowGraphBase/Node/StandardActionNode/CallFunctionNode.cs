@@ -90,12 +90,12 @@ namespace FlowGraphBase.Node.StandardActionNode
                 if (e.FunctionSlot.SlotType == FunctionSlotType.Input)
                 {
                     AddFunctionSlot((int)NodeSlotId.InputStart + e.FunctionSlot.ID, SlotType.VarIn, e.FunctionSlot);
-                    //AddSlot((int)NodeSlotId.InputStart + e.FunctionSlot.ID, e.FunctionSlot.Name, SlotType.VarIn, typeof(int));
+                    //AddSlot((int)NodeSlotId.InputStart + e.FunctionSlot.Id, e.FunctionSlot.Name, SlotType.VarIn, typeof(int));
                 }
                 else if (e.FunctionSlot.SlotType == FunctionSlotType.Output)
                 {
                     AddFunctionSlot((int)NodeSlotId.OutputStart + e.FunctionSlot.ID, SlotType.VarOut, e.FunctionSlot);
-                    //AddSlot((int)NodeSlotId.OutputStart + e.FunctionSlot.ID, e.FunctionSlot.Name, SlotType.VarOut, typeof(int));
+                    //AddSlot((int)NodeSlotId.OutputStart + e.FunctionSlot.Id, e.FunctionSlot.Name, SlotType.VarOut, typeof(int));
                 }
             }
             else if (e.Type == FunctionSlotChangedType.Removed)
@@ -123,13 +123,13 @@ namespace FlowGraphBase.Node.StandardActionNode
             foreach (SequenceFunctionSlot slot in m_Function.Inputs)
             {
                 AddFunctionSlot((int)NodeSlotId.InputStart + slot.ID, SlotType.VarIn, slot);
-                //AddSlot((int)NodeSlotId.InputStart + slot.ID, slot.Name, SlotType.VarIn, slot.VarType);
+                //AddSlot((int)NodeSlotId.InputStart + slot.Id, slot.Name, SlotType.VarIn, slot.VarType);
             }
 
             foreach (SequenceFunctionSlot slot in m_Function.Outputs)
             {
                 AddFunctionSlot((int)NodeSlotId.OutputStart + slot.ID, SlotType.VarOut, slot);
-                //AddSlot((int)NodeSlotId.OutputStart + slot.ID, slot.Name, SlotType.VarOut, slot.VarType);
+                //AddSlot((int)NodeSlotId.OutputStart + slot.Id, slot.Name, SlotType.VarOut, slot.VarType);
             }
 
             OnPropertyChanged("Slots");
@@ -233,7 +233,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override void Save(XmlNode node_)
         {
             base.Save(node_);
-            node_.AddAttribute("functionID", GetFunction().ID.ToString());
+            node_.AddAttribute("functionID", GetFunction().Id.ToString());
         }
 
         #endregion // Persistence

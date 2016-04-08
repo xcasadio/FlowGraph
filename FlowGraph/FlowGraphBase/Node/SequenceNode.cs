@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Xml;
 using System.ComponentModel;
 using FlowGraphBase.Logger;
@@ -28,7 +26,7 @@ namespace FlowGraphBase.Node
         /// 
         /// </summary>
         [Browsable(false)]
-        public int ID
+        public int Id
         {
             get;
             private set;
@@ -41,16 +39,17 @@ namespace FlowGraphBase.Node
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        protected SequenceNode(XmlNode node_) :
+        /// <param name="node"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        protected SequenceNode(XmlNode node) :
             this()
         {
-            if (node_ == null)
+            if (node == null)
             {
                 throw new ArgumentNullException("SequenceNode() : XmlNode is null");
             }
 
-            Load(node_);
+            Load(node);
         }
 
         #endregion // Constructor
@@ -86,7 +85,7 @@ namespace FlowGraphBase.Node
         }
 
         /// <summary>
-        /// Gets the value of the first node connected to the slot with the ID id_
+        /// Gets the value of the first node connected to the slot with the Id id_
         /// </summary>
         /// <param name="index_"></param>
         /// <returns></returns>
@@ -111,7 +110,7 @@ namespace FlowGraphBase.Node
                 else
                 {
                     throw new InvalidOperationException(
-                        string.Format("Node({0}) GetValueFromSlot({1}) : type of link not supported", ID, id_));
+                        string.Format("Node({0}) GetValueFromSlot({1}) : type of link not supported", Id, id_));
                 }
             }
             // if no node is connected, we take the nested value of the slot
@@ -158,8 +157,8 @@ namespace FlowGraphBase.Node
         /// <param name="node_"></param>
         protected virtual void Load(XmlNode node_)
         {
-            ID = int.Parse(node_.Attributes["id"].Value);
-            if (FreeID <= ID) FreeID = ID + 1;
+            Id = int.Parse(node_.Attributes["id"].Value);
+            if (_freeId <= Id) _freeId = Id + 1;
             Comment = node_.Attributes["comment"].Value; // EDITOR
 
             foreach (NodeSlot slot in m_Slots)
@@ -179,13 +178,13 @@ namespace FlowGraphBase.Node
         /// <param name="connectionListNode_"></param>
         internal virtual void ResolveLinks(XmlNode connectionListNode_, SequenceBase sequence_)
         {
-            foreach (XmlNode connNode in connectionListNode_.SelectNodes("Connection[@srcNodeID='" + ID + "']"))
+            foreach (XmlNode connNode in connectionListNode_.SelectNodes("Connection[@srcNodeID='" + Id + "']"))
             {
                 int outputSlotID = int.Parse(connNode.Attributes["srcNodeSlotID"].Value);
                 int destNodeID = int.Parse(connNode.Attributes["destNodeID"].Value);
                 int destNodeInputID = int.Parse(connNode.Attributes["destNodeSlotID"].Value);
 
-                SequenceNode destNode = sequence_.GetNodeByID(destNodeID);
+                SequenceNode destNode = sequence_.GetNodeById(destNodeID);
                 GetSlotById(outputSlotID).ConnectTo(destNode.GetSlotById(destNodeInputID));
             }
         }
@@ -266,7 +265,7 @@ namespace FlowGraphBase.Node
         /// </summary>
         public void RemoveAllConnections()
         {
-            foreach (NodeSlot slot in m_Slots)
+            foreach (var slot in m_Slots)
             {
                 slot.RemoveAllConnections();
             }
@@ -275,14 +274,14 @@ namespace FlowGraphBase.Node
         /// <summary>
         /// 
         /// </summary>
-        abstract protected void InitializeSlots();
+        protected abstract void InitializeSlots();
 
         #region Copy
 
         /// <summary>
         /// 
         /// </summary>
-        abstract protected SequenceNode CopyImpl();
+        protected abstract SequenceNode CopyImpl();
 
         /// <summary>
         /// 

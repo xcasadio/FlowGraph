@@ -261,7 +261,7 @@ namespace FlowGraphBase.Node
         public virtual void Load(XmlNode node_)
         {
             int version = int.Parse(node_.Attributes["version"].Value);
-            //Don't load ID, it is set manually inside the constructor
+            //Don't load Id, it is set manually inside the constructor
         }
 
         #endregion // Persistence

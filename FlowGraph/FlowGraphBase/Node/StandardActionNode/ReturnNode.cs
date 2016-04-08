@@ -89,7 +89,7 @@ namespace FlowGraphBase.Node.StandardActionNode
                 if (e.FunctionSlot.SlotType == FunctionSlotType.Output)
                 {
                     AddFunctionSlot((int)NodeSlotId.InputStart + e.FunctionSlot.ID, SlotType.VarIn, e.FunctionSlot);
-                    //AddSlot((int)NodeSlotId.InputStart + e.FunctionSlot.ID, e.FunctionSlot.Name, SlotType.VarIn, typeof(int));
+                    //AddSlot((int)NodeSlotId.InputStart + e.FunctionSlot.Id, e.FunctionSlot.Name, SlotType.VarIn, typeof(int));
                 }
             }
             else if (e.Type == FunctionSlotChangedType.Removed)
@@ -113,7 +113,7 @@ namespace FlowGraphBase.Node.StandardActionNode
             foreach (SequenceFunctionSlot slot in m_Function.Outputs)
             {
                 AddFunctionSlot((int)NodeSlotId.InputStart + slot.ID, SlotType.VarIn, slot);
-                //AddSlot((int)NodeSlotId.InputStart + slot.ID, slot.Name, SlotType.VarIn, typeof(int));
+                //AddSlot((int)NodeSlotId.InputStart + slot.Id, slot.Name, SlotType.VarIn, typeof(int));
             }
 
             OnPropertyChanged("Slots");
@@ -204,7 +204,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override void Save(XmlNode node_)
         {
             base.Save(node_);
-            node_.AddAttribute("functionID", GetFunction().ID.ToString());
+            node_.AddAttribute("functionID", GetFunction().Id.ToString());
         }
 
         #endregion // Persistence

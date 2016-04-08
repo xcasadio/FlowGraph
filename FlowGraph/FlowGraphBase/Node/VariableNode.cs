@@ -20,8 +20,6 @@ namespace FlowGraphBase.Node
     {
 		#region Fields
 
-        MemoryStackItem m_MemoryItem;
-
 		#endregion //Fields
 
         #region Constructors
@@ -29,9 +27,9 @@ namespace FlowGraphBase.Node
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        public VariableNode(XmlNode node_)
-            : base(node_)
+        /// <param name="node"></param>
+        protected VariableNode(XmlNode node)
+            : base(node)
         {
         }
 
@@ -63,23 +61,22 @@ namespace FlowGraphBase.Node
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="memoryStack_"></param>
-        public void Allocate(MemoryStack memoryStack_)
+        /// <param name="memoryStack"></param>
+        public void Allocate(MemoryStack memoryStack)
         {
             // TODO : create function => object abstract CopyValue(object val_) ?????
             // do this only to copy the value
             VariableNode clone = (VariableNode)CopyImpl();
-            m_MemoryItem = memoryStack_.Allocate(ID, clone.Value);
+            memoryStack.Allocate(Id, clone.Value);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="memoryStack_"></param>
-        public void Deallocate(MemoryStack memoryStack_)
+        /// <param name="memoryStack"></param>
+        public void Deallocate(MemoryStack memoryStack)
         {
-            memoryStack_.Deallocate(ID);
-            m_MemoryItem = null;
+            memoryStack.Deallocate(Id);
         }
 
         #endregion // Methods

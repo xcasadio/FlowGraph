@@ -16,8 +16,8 @@ namespace FlowGraphBase
 		#region Fields
 
         private const string NullToken = "<null>";
-        private Type m_VariableType;
-        private object m_Value;
+        private Type _variableType;
+        private object _value;
 
 		#endregion //Fields
 	
@@ -28,61 +28,46 @@ namespace FlowGraphBase
         /// </summary>
         public object Value
         {
-            get { return m_Value; }
+            get { return _value; }
             set
             {
-//                 if (value == null)
-//                 {
-//                     m_Value = value;
-//                 } 
-//                 else if (VariableType.Equals(value.GetType()))
-//                 {
-//                     m_Value = value;
-//                 }
-//                 else 
-                bool castOK = true;
-
                 try
                 {
-                    m_Value = value;
+                    _value = value;
                     OnPropertyChanged("Value");
                 }
                 catch (System.Exception)
                 {
-                    castOK = false;
+                    return;
                 }
+                var stringValue = value as string;
 
-                if (castOK == false)
+                if (stringValue != null)
                 {
-                    if (value is string)
+                    if (string.IsNullOrWhiteSpace(stringValue) == true)
                     {
-                        if (string.IsNullOrWhiteSpace(value as string) == true)
-                        {
-                            value = null;
-                        }
-                        else
-                        {
-                            try
-                            {
-                                value = Convert.ChangeType((string)value, m_VariableType);
-                            }
-                            catch (System.Exception ex)
-                            {
-                                LogManager.Instance.WriteException(ex);
-                                return;
-                            }
-                        }
+                        value = null;
                     }
-
-                    bool sameType = value == null ? true : VariableType.Equals(value.GetType());
-
-                    if (m_Value != value
-                        && sameType == true)
+                    else
                     {
-                        m_Value = value;
-                        OnPropertyChanged("Value");
+                        try
+                        {
+                            value = Convert.ChangeType(stringValue, _variableType);
+                        }
+                        catch (System.Exception ex)
+                        {
+                            LogManager.Instance.WriteException(ex);
+                            return;
+                        }
                     }
                 }
+
+                bool sameType = value == null || VariableType == value.GetType();
+
+                if (_value == value || sameType != true) return;
+
+                _value = value;
+                OnPropertyChanged("Value");
             }
         }
 
@@ -91,12 +76,12 @@ namespace FlowGraphBase
         /// </summary>
         public virtual Type VariableType
         {
-            get { return m_VariableType; }
+            get { return _variableType; }
             set
             {
-                if (m_VariableType != value)
+                if (_variableType != value)
                 {
-                    m_VariableType = value;
+                    _variableType = value;
                     OnPropertyChanged("VariableType");
                 }
             }
@@ -109,21 +94,21 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="type_"></param>
-        /// <param name="obj_"></param>
-        public ValueContainer(Type type_, object obj_)
+        /// <param name="type"></param>
+        /// <param name="obj"></param>
+        public ValueContainer(Type type, object obj)
         {
-            m_VariableType = type_;
-            m_Value = obj_;
+            _variableType = type;
+            _value = obj;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        public ValueContainer(XmlNode node_)
+        /// <param name="node"></param>
+        public ValueContainer(XmlNode node)
         {
-            Load(node_);
+            Load(node);
         }
 
 		#endregion //Constructors
@@ -135,26 +120,26 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        public void Save(XmlNode node_)
+        /// <param name="node"></param>
+        public void Save(XmlNode node)
         {
             const int version = 1;
 
-            XmlNode valNode = node_.OwnerDocument.CreateElement("ValueContainer");
-            node_.AppendChild(valNode);
+            XmlNode valNode = node.OwnerDocument.CreateElement("ValueContainer");
+            node.AppendChild(valNode);
             valNode.AddAttribute("version", version.ToString());
 
-            string typeName = m_VariableType == null ? NullToken : m_VariableType.AssemblyQualifiedName;
+            string typeName = _variableType == null ? NullToken : _variableType.AssemblyQualifiedName;
             string val = NullToken;
 
-            if (m_VariableType != null)
+            if (_variableType != null)
             {
                 int index = typeName.IndexOf(',', typeName.IndexOf(',') + 1);
                 typeName = typeName.Substring(0, index);
 
-                if (m_Value != null)
+                if (_value != null)
                 {
-                    TypeConverter conv = TypeDescriptor.GetConverter(m_VariableType);
+                    TypeConverter conv = TypeDescriptor.GetConverter(_variableType);
                     val = conv.ConvertToString(Value);
                 }
             }
@@ -173,11 +158,11 @@ namespace FlowGraphBase
             int version = int.Parse(valNode.Attributes["version"].Value);
             string typeStr = valNode.Attributes["type"].Value;
             string valStr = valNode.InnerText;
-            m_VariableType = NullToken.Equals(typeStr) ? null : Type.GetType(typeStr);
+            _variableType = NullToken.Equals(typeStr) ? null : Type.GetType(typeStr);
 
-            if (m_VariableType != null)
+            if (_variableType != null)
             {
-                TypeConverter conv = TypeDescriptor.GetConverter(m_VariableType);
+                TypeConverter conv = TypeDescriptor.GetConverter(_variableType);
                 Value = NullToken.Equals(valStr) ? null : conv.ConvertFromString(valStr);
             }
             else

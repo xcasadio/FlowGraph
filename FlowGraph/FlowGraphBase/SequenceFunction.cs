@@ -188,21 +188,21 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        public override void Save(XmlNode node_)
+        /// <param name="node"></param>
+        public override void Save(XmlNode node)
         {
-            base.Save(node_);
+            base.Save(node);
 
-            XmlNode graphNode = node_.SelectSingleNode("Graph[@id='" + ID + "']");
+            XmlNode graphNode = node.SelectSingleNode("Graph[@id='" + Id + "']");
             graphNode.AddAttribute("type", XmlAttributeTypeValue);
 
-            XmlNode slotListNode = node_.OwnerDocument.CreateElement("SlotList");
+            XmlNode slotListNode = node.OwnerDocument.CreateElement("SlotList");
             graphNode.AppendChild(slotListNode);
 
             //save slots
             foreach (SequenceFunctionSlot s in m_Slots)
             {
-                XmlNode slotNode = node_.OwnerDocument.CreateElement("Slot");
+                XmlNode slotNode = node.OwnerDocument.CreateElement("Slot");
                 slotListNode.AppendChild(slotNode);
 
                 slotNode.AddAttribute("type", Enum.GetName(typeof(FunctionSlotType), s.SlotType));

@@ -39,15 +39,15 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        public Sequence(string name_)
-            : base(name_)
+        public Sequence(string name)
+            : base(name)
         { }
 
         /// <summary>
         /// 
         /// </summary>
-        public Sequence(XmlNode node_)
-            : base(node_)
+        public Sequence(XmlNode node)
+            : base(node)
         { }
 
         #endregion // Constructors
@@ -57,20 +57,11 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="type_"></param>
+        /// <param name="type"></param>
         /// <returns></returns>
-        public bool ContainsEventNodeWithType(Type type_)
+        public bool ContainsEventNodeWithType(Type type)
         {
-            foreach (var pair in m_SequenceNodes)
-            {
-                if (pair.Value is EventNode
-                    && pair.Value.GetType().Equals(type_) == true)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return SequenceNodes.Any(pair => pair.Value is EventNode && pair.Value.GetType() == type);
         }
 
         #region Persistence
@@ -78,12 +69,12 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        public override void Save(XmlNode node_)
+        /// <param name="node"></param>
+        public override void Save(XmlNode node)
         {
-            base.Save(node_);
+            base.Save(node);
 
-            XmlNode graphNode = node_.SelectSingleNode("Graph[@id='" + ID + "']");
+            XmlNode graphNode = node.SelectSingleNode("Graph[@id='" + Id + "']");
             graphNode.AddAttribute("type", XmlAttributeTypeValue);
         }
 

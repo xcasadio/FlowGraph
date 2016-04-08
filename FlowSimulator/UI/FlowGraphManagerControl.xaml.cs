@@ -53,7 +53,7 @@ namespace FlowSimulator.UI
         {
             foreach (TabItem item in tabControl.Items)
             {
-                if ((item.DataContext as FlowGraphControlViewModel).ID == seq_.ID)
+                if ((item.DataContext as FlowGraphControlViewModel).ID == seq_.Id)
                 {
                     tabControl.SelectedItem = item;
                     return;
@@ -61,7 +61,7 @@ namespace FlowSimulator.UI
             }
 
             TabItem tab = new TabItem();
-            FlowGraphControlViewModel fgvm = FlowGraphManager.Instance.GetViewModelByID(seq_.ID);
+            FlowGraphControlViewModel fgvm = FlowGraphManager.Instance.GetViewModelByID(seq_.Id);
             tab.DataContext = fgvm;
 
             FlowGraphControl fgc = new FlowGraphControl();
@@ -84,7 +84,7 @@ namespace FlowSimulator.UI
 //             foreach (TabItem item in tabControl.Items)
 //             {
 //                 FlowGraphControlViewModel fgvm = item.DataContext as FlowGraphControlViewModel;
-//                 if (fgvm.ID == vm_.ID)
+//                 if (fgvm.Id == vm_.Id)
 //                 {
 //                     tabControl.SelectedItem = item;
 //                     return;

@@ -83,7 +83,7 @@ namespace FlowGraphBase.Node.StandardEventNode
                 if (e.FunctionSlot.SlotType == FunctionSlotType.Input)
                 {
                     AddFunctionSlot((int)NodeSlotId.OutputStart + e.FunctionSlot.ID, SlotType.VarOut, e.FunctionSlot);
-                    //AddSlot((int)NodeSlotId.OutputStart + e.FunctionSlot.ID, e.FunctionSlot.Name, SlotType.VarOut, typeof(int));
+                    //AddSlot((int)NodeSlotId.OutputStart + e.FunctionSlot.Id, e.FunctionSlot.Name, SlotType.VarOut, typeof(int));
                 }
             }
             else if (e.Type == FunctionSlotChangedType.Removed)
@@ -107,7 +107,7 @@ namespace FlowGraphBase.Node.StandardEventNode
             foreach (SequenceFunctionSlot slot in m_Function.Inputs)
             {
                 AddFunctionSlot((int)NodeSlotId.OutputStart + slot.ID, SlotType.VarOut, slot);
-                //AddSlot((int)NodeSlotId.OutputStart + slot.ID, slot.Name, SlotType.VarOut, typeof(int));
+                //AddSlot((int)NodeSlotId.OutputStart + slot.Id, slot.Name, SlotType.VarOut, typeof(int));
             }
 
             OnPropertyChanged("Slots");
@@ -177,7 +177,7 @@ namespace FlowGraphBase.Node.StandardEventNode
         public override void Save(XmlNode node_)
         {
             base.Save(node_);
-            node_.AddAttribute("functionID", GetFunction().ID.ToString());
+            node_.AddAttribute("functionID", GetFunction().Id.ToString());
         }
 
         /// <summary>

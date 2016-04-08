@@ -13,7 +13,7 @@ namespace FlowGraphBase.Node
     partial class SequenceNode
     {
         //static private readonly int UndefinedID = -1;
-        static private int FreeID = 0;
+        private static int _freeId = 0;
 
         #region Fields
 
@@ -330,7 +330,7 @@ namespace FlowGraphBase.Node
         /// <param name="seqMgr_"></param>
         protected SequenceNode()
         {
-            ID = ++FreeID;
+            Id = ++_freeId;
             InitializeSlots();
         }
 
@@ -394,7 +394,7 @@ namespace FlowGraphBase.Node
             {
                 if (slot.ID == item_.ID)
                 {
-                    throw new InvalidOperationException("A slot with the ID '" + item_.ID + "' already exists.");
+                    throw new InvalidOperationException("A slot with the Id '" + item_.ID + "' already exists.");
                 }
             }
 
@@ -470,7 +470,7 @@ namespace FlowGraphBase.Node
             seqNodeNode_.AddAttribute("version", version.ToString());
 
             seqNodeNode_.AddAttribute("comment", Comment);
-            seqNodeNode_.AddAttribute("id", ID.ToString());
+            seqNodeNode_.AddAttribute("id", Id.ToString());
 
             string typeName = GetType().AssemblyQualifiedName;
             int index = typeName.IndexOf(',', typeName.IndexOf(',') + 1);
@@ -502,9 +502,9 @@ namespace FlowGraphBase.Node
 
                     linkNode.AddAttribute("version", versionConnection.ToString());
 
-                    linkNode.AddAttribute("srcNodeID", ID.ToString());
+                    linkNode.AddAttribute("srcNodeID", Id.ToString());
                     linkNode.AddAttribute("srcNodeSlotID", slot.ID.ToString());
-                    linkNode.AddAttribute("destNodeID", otherSlot.Node.ID.ToString());
+                    linkNode.AddAttribute("destNodeID", otherSlot.Node.Id.ToString());
                     linkNode.AddAttribute("destNodeSlotID", otherSlot.ID.ToString());
                 }
             }

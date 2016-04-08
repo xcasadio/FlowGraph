@@ -17,11 +17,11 @@ namespace FlowGraphBase
     {
         #region Fields
 
-        static int m_NewID = 0;
+        static int _newId = 0;
         
-        protected Dictionary<int, SequenceNode> m_SequenceNodes = new Dictionary<int, SequenceNode>();
+        protected readonly Dictionary<int, SequenceNode> SequenceNodes = new Dictionary<int, SequenceNode>();
 
-        private string m_Name, m_Description;
+        private string _name, _description;
 
         #endregion // Fields
 
@@ -32,12 +32,12 @@ namespace FlowGraphBase
         /// </summary>
         public string Name
         {
-            get { return m_Name; }
+            get { return _name; }
             set 
             {
-                if (string.Equals(m_Name, value) == false)
+                if (string.Equals(_name, value) == false)
                 {
-                    m_Name = value;
+                    _name = value;
                     OnPropertyChanged("Name");
                 }
             }
@@ -48,12 +48,12 @@ namespace FlowGraphBase
         /// </summary>
         public string Description
         {
-            get { return m_Description; }
+            get { return _description; }
             set 
             {
-                if (string.Equals(m_Description, value) == false)
+                if (string.Equals(_description, value) == false)
                 {
-                    m_Description = value;
+                    _description = value;
                     OnPropertyChanged("Description");
                 }
             }
@@ -62,7 +62,7 @@ namespace FlowGraphBase
         /// <summary>
         /// Gets
         /// </summary>
-        public int ID
+        public int Id
         {
             get;
             private set;
@@ -71,10 +71,12 @@ namespace FlowGraphBase
         /// <summary>
         /// Gets
         /// </summary>
-        public IEnumerable<SequenceNode> Nodes
-        {
-            get { return m_SequenceNodes.Values.ToArray(); }
-        }
+        public IEnumerable<SequenceNode> Nodes => SequenceNodes.Values.ToArray();
+
+        /// <summary>
+        /// Gets
+        /// </summary>
+        public int NodeCount => SequenceNodes.Values.Count;
 
         #endregion // Properties
 
@@ -83,20 +85,20 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="name_"></param>
-        protected SequenceBase(string name_)
+        /// <param name="name"></param>
+        protected SequenceBase(string name)
         {
-            Name = name_;
-            ID = m_NewID++;
+            Name = name;
+            Id = _newId++;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        protected SequenceBase(XmlNode node_)
+        /// <param name="node"></param>
+        protected SequenceBase(XmlNode node)
         {
-            Load(node_);
+            Load(node);
         }
 
         #endregion // Constructors
@@ -106,11 +108,11 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id_"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public SequenceNode GetNodeByID(int id_)
+        public SequenceNode GetNodeById(int id)
         {
-            return m_SequenceNodes[id_];
+            return SequenceNodes[id];
         }
 
         /// <summary>
@@ -119,7 +121,7 @@ namespace FlowGraphBase
         /// <param name="node"></param>
         public void AddNode(SequenceNode node)
         {
-            m_SequenceNodes.Add(node.ID, node);
+            SequenceNodes.Add(node.Id, node);
         }
 
         /// <summary>
@@ -128,31 +130,26 @@ namespace FlowGraphBase
         /// <param name="node"></param>
         public void RemoveNode(SequenceNode node)
         {
-            m_SequenceNodes.Remove(node.ID);
+            SequenceNodes.Remove(node.Id);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node"></param>
-        public void ClearAllNodes()
+        public void RemoveAllNodes()
         {
-            m_SequenceNodes.Clear();
+            SequenceNodes.Clear();
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="memoryStack_"></param>
-        public void AllocateAllVariables(MemoryStack memoryStack_)
+        /// <param name="memoryStack"></param>
+        public void AllocateAllVariables(MemoryStack memoryStack)
         {
-            foreach (var pair in m_SequenceNodes)
+            foreach (VariableNode varNode in SequenceNodes.Select(pair => pair.Value).OfType<VariableNode>())
             {
-                if (pair.Value is VariableNode)
-                {
-                    VariableNode varNode = pair.Value as VariableNode;
-                    varNode.Allocate(memoryStack_);
-                }
+                varNode.Allocate(memoryStack);
             }
         }
 
@@ -161,7 +158,7 @@ namespace FlowGraphBase
         /// </summary>
         public void ResetNodes()
         {
-            foreach (var pair in m_SequenceNodes)
+            foreach (var pair in SequenceNodes)
             {
                 pair.Value.Reset();
             }
@@ -170,22 +167,19 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="context_"></param>
-        /// <param name="type_"></param>
-        /// <param name="index_"></param>
-        /// <param name="param_"></param>
-        public void OnEvent(ProcessingContext context_, Type type_, int index_, object param_)
+        /// <param name="context"></param>
+        /// <param name="type"></param>
+        /// <param name="index"></param>
+        /// <param name="param"></param>
+        public void OnEvent(ProcessingContext context, Type type, int index, object param)
         {
             //m_MustStop = false;
 
-            foreach (var pair in m_SequenceNodes)
+            foreach (var eventNode in SequenceNodes.Select(pair => pair.Value as EventNode)
+                .Where(node => node != null
+                       && node.GetType() == type))
             {
-                if (pair.Value is EventNode
-                    && pair.Value.GetType().Equals(type_) == true)
-                {
-                    EventNode eventNode = pair.Value as EventNode;
-                    eventNode.Triggered(context_, index_, param_);
-                }
+                eventNode.Triggered(context, index, param);
             }
         }
 
@@ -197,8 +191,8 @@ namespace FlowGraphBase
         /// <param name="node_"></param>
         public virtual void Load(XmlNode node_)
         {
-            ID = int.Parse(node_.Attributes["id"].Value);
-            if (m_NewID <= ID) m_NewID = ID + 1;
+            Id = int.Parse(node_.Attributes["id"].Value);
+            if (_newId <= Id) _newId = Id + 1;
             Name = node_.Attributes["name"].Value;
             Description = node_.Attributes["description"].Value;
 
@@ -225,9 +219,11 @@ namespace FlowGraphBase
         /// <param name="node_"></param>
         internal void ResolveNodesLinks(XmlNode node_)
         {
+            if (node_ == null) throw new ArgumentNullException(nameof(node_));
+
             XmlNode connectionListNode = node_.SelectSingleNode("ConnectionList");
 
-            foreach (var node in m_SequenceNodes)
+            foreach (var node in SequenceNodes)
             {
                 node.Value.ResolveLinks(connectionListNode, this);
             }
@@ -236,29 +232,29 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        public virtual void Save(XmlNode node_)
+        /// <param name="node"></param>
+        public virtual void Save(XmlNode node)
         {
             const int version = 1;
 
-            XmlNode graphNode = node_.OwnerDocument.CreateElement("Graph");
-            node_.AppendChild(graphNode);
+            XmlNode graphNode = node.OwnerDocument.CreateElement("Graph");
+            node.AppendChild(graphNode);
 
             graphNode.AddAttribute("version", version.ToString());
-            graphNode.AddAttribute("id", ID.ToString());
+            graphNode.AddAttribute("id", Id.ToString());
             graphNode.AddAttribute("name", Name);
             graphNode.AddAttribute("description", Description);
 
             //save all nodes
-            XmlNode nodeList = node_.OwnerDocument.CreateElement("NodeList");
+            XmlNode nodeList = node.OwnerDocument.CreateElement("NodeList");
             graphNode.AppendChild(nodeList);
             //save all connections
-            XmlNode connectionList = node_.OwnerDocument.CreateElement("ConnectionList");
+            XmlNode connectionList = node.OwnerDocument.CreateElement("ConnectionList");
             graphNode.AppendChild(connectionList);
 
-            foreach (var pair in m_SequenceNodes)
+            foreach (var pair in SequenceNodes)
             {
-                XmlNode nodeNode = node_.OwnerDocument.CreateElement("Node");
+                XmlNode nodeNode = node.OwnerDocument.CreateElement("Node");
                 nodeList.AppendChild(nodeNode);
                 pair.Value.Save(nodeNode);
                 pair.Value.SaveConnections(connectionList);
@@ -277,10 +273,7 @@ namespace FlowGraphBase
         /// <param name="propertyName"></param>
         protected void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion // IPropertyNotify

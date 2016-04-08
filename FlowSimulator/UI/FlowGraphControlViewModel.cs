@@ -110,7 +110,7 @@ namespace FlowSimulator.UI
         /// </summary>
         public int ID
         {
-            get { return Sequence.ID; }
+            get { return Sequence.Id; }
         }
 
         /// <summary>
@@ -914,7 +914,7 @@ namespace FlowSimulator.UI
         /// </summary>
         public void CreateSequence()
         {
-            Sequence.ClearAllNodes();
+            Sequence.RemoveAllNodes();
 
             foreach (var node in Network.Nodes)
             {
@@ -987,7 +987,7 @@ namespace FlowSimulator.UI
 
                 foreach (SequenceNode node in Sequence.Nodes)
                 {
-                    XmlNode nodeNode = node_.SelectSingleNode("NodeList/Node[@id='" + node.ID + "']");
+                    XmlNode nodeNode = node_.SelectSingleNode("NodeList/Node[@id='" + node.Id + "']");
 
                     int versionNode = int.Parse(nodeNode.Attributes["version"].Value);
 
@@ -1034,7 +1034,7 @@ namespace FlowSimulator.UI
         {
             foreach (NodeViewModel n in Network.Nodes)
             {
-                if (n.SeqNode.ID == seqId_)
+                if (n.SeqNode.Id == seqId_)
                 {
                     return n;
                 }
@@ -1058,7 +1058,7 @@ namespace FlowSimulator.UI
             //save all nodes
             foreach (NodeViewModel nodeVM in Network.Nodes)
             {
-                XmlNode nodeNode = graphNode.SelectSingleNode("NodeList/Node[@id='" + nodeVM.SeqNode.ID + "']");
+                XmlNode nodeNode = graphNode.SelectSingleNode("NodeList/Node[@id='" + nodeVM.SeqNode.Id + "']");
 
                 nodeNode.AddAttribute("designerVersion", versionNode.ToString());
 

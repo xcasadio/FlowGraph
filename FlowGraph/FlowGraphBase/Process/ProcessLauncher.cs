@@ -15,12 +15,12 @@ namespace FlowGraphBase.Process
     {
         #region Instance
 
-        static private ProcessLauncher m_Singleton = null;
+        private static ProcessLauncher m_Singleton = null;
 
         /// <summary>
         /// Gets
         /// </summary>
-        static public ProcessLauncher Instance
+        public static ProcessLauncher Instance
         {
             get
             {
@@ -215,7 +215,7 @@ namespace FlowGraphBase.Process
         public void LaunchSequence(SequenceBase seq_, Type eventType_, int index_, object param_)
         {
             MemoryStackFrameManager stackFrames = new MemoryStackFrameManager();
-            stackFrames.Clear();
+            //stackFrames.Clear();
             stackFrames.AddStackFrame(); // 1st frame
             seq_.AllocateAllVariables(stackFrames.CurrentFrame);
             ProcessingContext processContext = new ProcessingContext(seq_, stackFrames);

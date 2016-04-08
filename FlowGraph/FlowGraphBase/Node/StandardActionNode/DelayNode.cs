@@ -103,11 +103,11 @@ namespace FlowGraphBase.Node.StandardActionNode
                 return info;
             }
 
-            MemoryStackItem memoryItem = context_.CurrentFrame.GetValueFromID(ID);
+            MemoryStackItem memoryItem = context_.CurrentFrame.GetValueFromID(Id);
 
             if (memoryItem == null)
             {
-                memoryItem = context_.CurrentFrame.Allocate(ID, TimeSpan.Zero);
+                memoryItem = context_.CurrentFrame.Allocate(Id, TimeSpan.Zero);
             }
 
             TimeSpan startTime = (TimeSpan)memoryItem.Value;

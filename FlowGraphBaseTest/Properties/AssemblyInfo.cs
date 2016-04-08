@@ -5,10 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("NetworkModel")]
+[assembly: AssemblyTitle("FlowGraphBaseTest")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyProduct("NetworkModel")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("FlowGraphBaseTest")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -18,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the Id of the typelib if this project is exposed to COM
-[assembly: Guid("a90e9977-4af8-485d-a11c-c10241da288c")]
+[assembly: Guid("34a2b392-0217-41da-ae69-40c1e6f6f895")]
 
 // Version information for an assembly consists of the following four values:
 //

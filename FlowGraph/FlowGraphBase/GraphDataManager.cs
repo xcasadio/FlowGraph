@@ -159,7 +159,7 @@ namespace FlowGraphBase
         {
             foreach (SequenceBase seq_ in m_GraphList)
             {
-                if (seq_.ID == id_)
+                if (seq_.Id == id_)
                 {
                     return seq_;
                 }
@@ -167,7 +167,7 @@ namespace FlowGraphBase
 
             foreach (SequenceBase seq_ in m_GraphFunctionList)
             {
-                if (seq_.ID == id_)
+                if (seq_.Id == id_)
                 {
                     return seq_;
                 }
@@ -210,7 +210,7 @@ namespace FlowGraphBase
         {
             foreach (Sequence seq_ in m_GraphList)
             {
-                if (seq_.ID == id_)
+                if (seq_.Id == id_)
                 {
                     return seq_;
                 }
@@ -279,7 +279,7 @@ namespace FlowGraphBase
         {
             foreach (SequenceFunction seq_ in m_GraphFunctionList)
             {
-                if (seq_.ID == id_)
+                if (seq_.Id == id_)
                 {
                     return seq_;
                 }
@@ -392,12 +392,12 @@ namespace FlowGraphBase
                 //////////////////////////////////////////////////////////////////////////
                 foreach (Sequence seq in m_GraphList)
                 {
-                    seq.ResolveNodesLinks(node_.SelectSingleNode("GraphList/Graph[@id='" + seq.ID + "']"));
+                    seq.ResolveNodesLinks(node_.SelectSingleNode("GraphList/Graph[@id='" + seq.Id + "']"));
                 }
 
                 foreach (SequenceFunction seq in m_GraphFunctionList)
                 {
-                    seq.ResolveNodesLinks(node_.SelectSingleNode("GraphList/Graph[@id='" + seq.ID + "']"));
+                    seq.ResolveNodesLinks(node_.SelectSingleNode("GraphList/Graph[@id='" + seq.Id + "']"));
                 }
             }
             catch (System.Exception ex)
