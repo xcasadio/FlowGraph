@@ -92,7 +92,7 @@ namespace FlowSimulator
                 if (parent != null) return parent;
 
                 FrameworkContentElement fce = contentElement as FrameworkContentElement;
-                return fce?.Parent;
+                if (fce != null) return fce.Parent;
             }
 
             //also try searching for parent in framework elements (such as DockPanel, etc)

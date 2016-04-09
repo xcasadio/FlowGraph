@@ -16,7 +16,10 @@ namespace FlowGraphBase.Logger
         /// <summary>
         /// Gets
         /// </summary>
-        public static LogManager Instance => _Instance;
+        public static LogManager Instance
+        {
+            get { return _Instance; }
+        }
 
         #endregion //Singleton
 
@@ -58,7 +61,7 @@ namespace FlowGraphBase.Logger
                 {
                     _nbErrors = value;
 
-                    NbErrorChanged?.Invoke(this, EventArgs.Empty);
+                    if (NbErrorChanged != null) NbErrorChanged.Invoke(this, EventArgs.Empty);
                 }
             }
         }

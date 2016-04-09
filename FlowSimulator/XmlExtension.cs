@@ -38,7 +38,7 @@ namespace FlowSimulator
             {
                 XmlAttribute att = node.OwnerDocument.CreateAttribute(attributeName);
                 att.Value = value;
-                node.Attributes?.Append(att);
+                if (node.Attributes != null) node.Attributes.Append(att);
             }
         }
 
