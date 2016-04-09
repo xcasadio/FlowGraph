@@ -38,7 +38,7 @@ namespace FlowGraphBase
             {
                 XmlAttribute att = xmlNode.OwnerDocument.CreateAttribute(attributeName);
                 att.Value = value;
-                xmlNode.Attributes?.Append(att);
+                xmlNode.Attributes.Append(att);
             }
         }
 

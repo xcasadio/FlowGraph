@@ -71,12 +71,18 @@ namespace FlowGraphBase
         /// <summary>
         /// Gets
         /// </summary>
-        public IEnumerable<SequenceNode> Nodes => SequenceNodes.Values.ToArray();
+        public IEnumerable<SequenceNode> Nodes
+        {
+            get { return SequenceNodes.Values.ToArray(); }
+        }
 
         /// <summary>
         /// Gets
         /// </summary>
-        public int NodeCount => SequenceNodes.Values.Count;
+        public int NodeCount
+        {
+            get { return SequenceNodes.Values.Count; }
+        }
 
         #endregion // Properties
 
@@ -219,7 +225,7 @@ namespace FlowGraphBase
         /// <param name="node_"></param>
         internal void ResolveNodesLinks(XmlNode node_)
         {
-            if (node_ == null) throw new ArgumentNullException(nameof(node_));
+            if (node_ == null) throw new ArgumentNullException("XmlNode");
 
             XmlNode connectionListNode = node_.SelectSingleNode("ConnectionList");
 
@@ -273,7 +279,7 @@ namespace FlowGraphBase
         /// <param name="propertyName"></param>
         protected void OnPropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if (PropertyChanged != null) PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion // IPropertyNotify
