@@ -16,12 +16,6 @@ namespace FlowGraphBase.Node
 #endif
     class SequenceNode : INotifyPropertyChanged
     {
-        #region Fields
-
-        #endregion // Fields
-
-        #region Properties
-
         /// <summary>
         /// 
         /// </summary>
@@ -31,10 +25,6 @@ namespace FlowGraphBase.Node
             get;
             private set;
         }
-
-        #endregion // Properties
-
-        #region Constructor
 
         /// <summary>
         /// 
@@ -51,12 +41,6 @@ namespace FlowGraphBase.Node
 
             Load(node);
         }
-
-        #endregion // Constructor
-
-        #region Methods
-
-        #region Process
 
         /// <summary>
         /// 
@@ -146,10 +130,6 @@ namespace FlowGraphBase.Node
             }
         }
 
-        #endregion // Process
-
-        #region Persistence
-
         /// <summary>
         /// 
         /// </summary>
@@ -237,10 +217,6 @@ namespace FlowGraphBase.Node
             return null;
         }
 
-        #endregion
-
-        #region INotifyPropertyChanged
-
         /// <summary>
         /// Raises the PropertyChanged event.
         /// </summary>
@@ -256,8 +232,6 @@ namespace FlowGraphBase.Node
         /// Event raised to indicate that a property value has changed.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion // INotifyPropertyChanged
 
         /// <summary>
         /// 
@@ -275,8 +249,6 @@ namespace FlowGraphBase.Node
         /// </summary>
         protected abstract void InitializeSlots();
 
-        #region Copy
-
         /// <summary>
         /// 
         /// </summary>
@@ -290,9 +262,5 @@ namespace FlowGraphBase.Node
         {
             return CopyImpl();
         }
-
-        #endregion // Copy
-
-        #endregion // Methods
     }
 }

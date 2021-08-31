@@ -9,8 +9,6 @@ namespace FlowSimulator
     /// </summary>
     static class Helper
     {
-        #region Log
-
         /// <summary>
         /// 
         /// </summary>
@@ -27,10 +25,6 @@ namespace FlowSimulator
 
             return e;
         }
-
-        #endregion
-
-        #region WPF
 
         /// <summary>
         /// Finds a parent of a given item on the visual tree.
@@ -118,7 +112,5 @@ namespace FlowSimulator
             while (current != null);
             return null;
         }
-
-        #endregion // WPF
     }
 }

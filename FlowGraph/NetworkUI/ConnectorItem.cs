@@ -11,8 +11,6 @@ namespace NetworkUI
     /// </summary>
     public class ConnectorItem : ContentControl
     {
-        #region Dependency Property/Event Definitions
-
         public static readonly DependencyProperty HotspotProperty =
             DependencyProperty.Register("Hotspot", typeof(Point), typeof(ConnectorItem));
 
@@ -31,10 +29,6 @@ namespace NetworkUI
 
         internal static readonly RoutedEvent ConnectorDragCompletedEvent =
             EventManager.RegisterRoutedEvent("ConnectorDragCompleted", RoutingStrategy.Bubble, typeof(ConnectorItemDragCompletedEventHandler), typeof(ConnectorItem));
-
-        #endregion Dependency Property/Event Definitions
-
-        #region Private Data Members
 
         /// <summary>
         /// The point the mouse was last at when dragging.
@@ -55,8 +49,6 @@ namespace NetworkUI
         /// The threshold distance the mouse-cursor must move before dragging begins.
         /// </summary>
         private static readonly double DragThreshold = 2;
-
-        #endregion Private Data Members
 
         public ConnectorItem()
         {
@@ -81,8 +73,6 @@ namespace NetworkUI
             set => SetValue(HotspotProperty, value);
         }
 
-        #region Private Data Members\Properties
-
         /// <summary>
         /// Reference to the data-bound parent NetworkView.
         /// </summary>
@@ -101,10 +91,6 @@ namespace NetworkUI
             get => (NodeItem)GetValue(ParentNodeItemProperty);
             set => SetValue(ParentNodeItemProperty, value);
         }
-
-        #endregion Private Data Members\Properties
-
-        #region Private Methods
 
         /// <summary>
         /// Static constructor.
@@ -334,7 +320,5 @@ namespace NetworkUI
             //
             Hotspot = TransformToAncestor(ParentNetworkView).Transform(centerPoint);
        }
-
-        #endregion Private Methods
     }
 }

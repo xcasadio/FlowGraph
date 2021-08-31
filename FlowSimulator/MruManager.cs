@@ -1,5 +1,3 @@
-#region Using directives
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,8 +11,6 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
 
-#endregion
-
 namespace FlowSimulator
 {
     using StringList = List<String>;
@@ -26,8 +22,6 @@ namespace FlowSimulator
     /// </summary>
     public class MruManager
     {
-        #region Members
-
         // Event raised when user selects file from MRU list
         public event MruFileOpenEventHandler MruOpenEvent;
 
@@ -46,10 +40,6 @@ namespace FlowSimulator
 
         private const string RegEntryName = "file";  // entry name to keep MRU (file0, file1...)
 
-        #endregion
-
-        #region Windows API
-
         [DllImport("shlwapi.dll", CharSet = CharSet.Auto)]
         private static extern bool PathCompactPathEx(
             StringBuilder pszOut,
@@ -57,20 +47,12 @@ namespace FlowSimulator
             int cchMax,
             int reserved);
 
-        #endregion
-
-        #region Constructor
-
         public MruManager()
         {
             _mruList = new StringList();
         }
 
-        #endregion
-
-		#region Public Properties
-
-		/// <summary>
+        /// <summary>
 		/// Gets the first file name in the list, otherwise return null
 		/// </summary>
 		public string GetFirstFileName => _mruList.Count == 0 ? null : _mruList[0];
@@ -124,10 +106,6 @@ namespace FlowSimulator
         /// after call to Initialize.
         /// </summary>
         public string CurrentDir { set; get; }
-
-        #endregion
-
-        #region Public Functions
 
         /// <summary>
         /// Initialization. Call this function in form Load handler.
@@ -209,10 +187,6 @@ namespace FlowSimulator
                 i++;
             }
         }
-
-        #endregion
-
-        #region Event Handlers
 
         /// <summary>
         /// Update MRU list when MRU menu item parent is opened
@@ -325,10 +299,6 @@ namespace FlowSimulator
         }
 
 
-        #endregion
-
-        #region Private Functions
-
         /// <summary>
         /// Load MRU list from Registry.
         /// Called from Initialize.
@@ -419,9 +389,6 @@ namespace FlowSimulator
 
             return longName;
         }
-
-        #endregion
-
     }
 
     public delegate void MruFileOpenEventHandler(object sender, MruFileOpenEventArgs e);
@@ -436,8 +403,6 @@ namespace FlowSimulator
         public string FileName { get; }
     }
 }
-
-#region Using
 
 /*******************************************************************************
 
@@ -502,5 +467,3 @@ Using:
 //
 // Owner form OnMRUFileOpen function is called when user selects file
 // from MRU list.
-
-#endregion

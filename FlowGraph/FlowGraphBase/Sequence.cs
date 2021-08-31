@@ -20,17 +20,7 @@ namespace FlowGraphBase
     /// </summary>
     public class Sequence : SequenceBase
     {
-        #region Fields
-
         public const string XmlAttributeTypeValue = "Sequence";
-
-        #endregion // Fields
-
-        #region Properties
-
-        #endregion // Properties
-
-        #region Constructors
 
         /// <summary>
         /// 
@@ -46,10 +36,6 @@ namespace FlowGraphBase
             : base(node)
         { }
 
-        #endregion // Constructors
-
-        #region Methods
-
         /// <summary>
         /// 
         /// </summary>
@@ -59,8 +45,6 @@ namespace FlowGraphBase
         {
             return SequenceNodes.Any(pair => pair.Value is EventNode && pair.Value.GetType() == type);
         }
-
-        #region Persistence
 
         /// <summary>
         /// 
@@ -73,9 +57,5 @@ namespace FlowGraphBase
             XmlNode graphNode = node.SelectSingleNode("Graph[@id='" + Id + "']");
             graphNode.AddAttribute("type", XmlAttributeTypeValue);
         }
-
-        #endregion // Persistence
-
-        #endregion // Methods
     }
 }

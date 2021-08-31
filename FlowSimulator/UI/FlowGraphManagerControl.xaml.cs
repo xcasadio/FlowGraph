@@ -12,17 +12,7 @@ namespace FlowSimulator.UI
     /// </summary>
     public partial class FlowGraphManagerControl : UserControl
     {
-		#region Fields
-
-        public event EventHandler<EventArg1Param<SequenceBase>> SelectedGraphChanged; 
-
-		#endregion //Fields
-	
-		#region Properties
-		
-		#endregion //Properties
-	
-		#region Constructors
+        public event EventHandler<EventArg1Param<SequenceBase>> SelectedGraphChanged;
 
         /// <summary>
         /// 
@@ -31,10 +21,6 @@ namespace FlowSimulator.UI
         {
             InitializeComponent();
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -161,7 +147,5 @@ namespace FlowSimulator.UI
                 SelectedGraphChanged(this, new EventArg1Param<SequenceBase>(seq));
             }
         }
-
-		#endregion //Methods
     }
 }

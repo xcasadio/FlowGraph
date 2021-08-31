@@ -16,8 +16,6 @@ namespace AdornedControl
     /// </summary>
     public class AdornedControl : ContentControl
     {
-        #region Dependency Properties / Event Definitions
-
         /// <summary>
         /// Dependency properties.
         /// </summary>
@@ -72,10 +70,6 @@ namespace AdornedControl
         public static readonly RoutedEvent AdornerHiddenEvent =
             EventManager.RegisterRoutedEvent("AdornerHidden", RoutingStrategy.Bubble, typeof(AdornerEventHandler), typeof(AdornedControl));
 
-        #endregion Dependency Properties / Event Definitions
-
-        #region Commands
-
         /// <summary>
         /// Commands.
         /// </summary>
@@ -83,8 +77,6 @@ namespace AdornedControl
         public static readonly RoutedCommand FadeInAdornerCommand = new RoutedCommand("FadeInAdorner", typeof(AdornedControl));
         public static readonly RoutedCommand HideAdornerCommand = new RoutedCommand("HideAdorner", typeof(AdornedControl));
         public static readonly RoutedCommand FadeOutAdornerCommand = new RoutedCommand("FadeOutAdorner", typeof(AdornedControl));
-
-        #endregion Commands
 
         public AdornedControl()
         {
@@ -324,8 +316,6 @@ namespace AdornedControl
             remove => RemoveHandler(AdornerHiddenEvent, value);
         }
 
-        #region Private Data Members
-
         /// <summary>
         /// Command bindings.
         /// </summary>
@@ -364,10 +354,6 @@ namespace AdornedControl
         /// This timer is used to fade out and close the _adorner.
         /// </summary>
         private readonly DispatcherTimer closeAdornerTimer = new DispatcherTimer();
-        
-        #endregion
-
-        #region Private/Internal Functions
 
         /// <summary>
         /// Static constructor to register command bindings.
@@ -763,7 +749,5 @@ namespace AdornedControl
             IsAdornerVisible = false;
             _adornerShowState = AdornerShowState.Hidden;
 		}
-
-        #endregion
     }
 }

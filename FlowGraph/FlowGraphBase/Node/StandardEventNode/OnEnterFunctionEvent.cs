@@ -9,33 +9,19 @@ namespace FlowGraphBase.Node.StandardEventNode
     [Visible(false)]
     internal class OnEnterFunctionEvent : EventNode
     {
-        #region Enum
-
         public enum NodeSlotId
         {
             Out,
             OutputStart
         }
 
-        #endregion
-
-		#region Fields
-
         private int _FunctionID = -1; // used when the node is loaded, in order to retrieve the function
         private SequenceFunction _Function;
-
-		#endregion //Fields
-	
-		#region Properties
 
         /// <summary>
         /// 
         /// </summary>
         public override string Title => (GetFunction() == null ? "<null>" : _Function.Name) + " function";
-
-        #endregion //Properties
-	
-		#region Constructors
 
         /// <summary>
         /// 
@@ -56,10 +42,6 @@ namespace FlowGraphBase.Node.StandardEventNode
         {
 
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -179,8 +161,6 @@ namespace FlowGraphBase.Node.StandardEventNode
             return new OnEnterFunctionEvent(_Function);
         }
 
-        #region Link with SequenceFunction
-
         /// <summary>
         /// 
         /// </summary>
@@ -195,10 +175,5 @@ namespace FlowGraphBase.Node.StandardEventNode
                     break;
             }
         }
-
-        #endregion // Link with SequenceFunction
-
-        #endregion //Methods
-
     }
 }

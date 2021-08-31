@@ -10,8 +10,6 @@ namespace NetworkUI
     /// </summary>
     public class NodeItem : ListBoxItem
     {
-        #region Dependency Property/Event Definitions
-
         public static readonly DependencyProperty XProperty =
             DependencyProperty.Register("X", typeof(double), typeof(NodeItem),
                 new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
@@ -35,8 +33,6 @@ namespace NetworkUI
 
         internal static readonly RoutedEvent NodeDragCompletedEvent =
             EventManager.RegisterRoutedEvent("NodeDragCompleted", RoutingStrategy.Bubble, typeof(NodeDragCompletedEventHandler), typeof(NodeItem));
-
-        #endregion Dependency Property/Event Definitions
 
         public NodeItem()
         {
@@ -71,9 +67,7 @@ namespace NetworkUI
         {
             get => (int)GetValue(ZIndexProperty);
             set => SetValue(ZIndexProperty, value);
-        }            
-
-        #region Private Data Members\Properties
+        }
 
         /// <summary>
         /// Reference to the data-bound parent NetworkView.
@@ -108,10 +102,6 @@ namespace NetworkUI
         /// The threshold distance the mouse-cursor must move before dragging begins.
         /// </summary>
         private static readonly double DragThreshold = 5;
-
-        #endregion Private Data Members\Properties
-
-        #region Private Methods
 
         /// <summary>
         /// Static constructor.
@@ -405,7 +395,5 @@ namespace NetworkUI
             var nodeItem = (NodeItem) o;
             nodeItem.BringToFront();
         }
-
-        #endregion Private Methods
     }
 }

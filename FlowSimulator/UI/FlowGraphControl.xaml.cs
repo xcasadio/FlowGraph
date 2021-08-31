@@ -25,8 +25,6 @@ namespace FlowSimulator.UI
     /// </summary>
     public partial class FlowGraphControl : UserControl
     {
-		#region Fields
-
         /// <summary>
         /// Use to copy/paste nodes (shared with all graphs)
         /// </summary>
@@ -40,18 +38,10 @@ namespace FlowSimulator.UI
         /// </summary>
         public event SelectionChangedEventHandler SelectionChanged;
 
-		#endregion //Fields
-	
-		#region Properties
-
         /// <summary>
         /// Convenient accessor for the view-model.
         /// </summary>
         public FlowGraphControlViewModel ViewModel => (FlowGraphControlViewModel)DataContext;
-
-        #endregion //Properties
-	
-		#region Constructors
 
         /// <summary>
         /// 
@@ -63,10 +53,6 @@ namespace FlowSimulator.UI
 
             Loaded += OnLoaded;
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -190,8 +176,6 @@ namespace FlowSimulator.UI
             }
         }
 
-        #region FlowGraph Events
-
         /// <summary>
         /// 
         /// </summary>
@@ -201,8 +185,6 @@ namespace FlowSimulator.UI
         {
             ContextMenu.IsOpen = true;
         }
-
-        #endregion // FlowGraph Events
 
         /// <summary>
         /// Event raised when the user has started to drag out a connection.
@@ -320,8 +302,6 @@ namespace FlowSimulator.UI
             var node = (NodeViewModel)element.DataContext;
             node.Size = new Size(element.ActualWidth, element.ActualHeight);
         }
-
-        #region Zoom And Pan
 
         /// <summary>
         /// Specifies the current state of the mouse handling logic.
@@ -840,8 +820,6 @@ namespace FlowSimulator.UI
             prevZoomRectSet = false;
         }
 
-        #endregion // Zoom And Pan
-
         /// <summary>
         /// 
         /// </summary>
@@ -917,8 +895,6 @@ namespace FlowSimulator.UI
             }
         }
 
-        #region Drag & Drop
-
         /// <summary>
         /// 
         /// </summary>
@@ -974,10 +950,6 @@ namespace FlowSimulator.UI
                 }
             }
         }
-
-        #endregion // Drag & Drop
-
-        #region flow graph edition
 
         /// <summary>
         /// 
@@ -1053,10 +1025,6 @@ namespace FlowSimulator.UI
             ViewModel.UndoRedoManager.Redo();
         }
 
-        #endregion
-
-        #region Launch
-
         /// <summary>
         /// 
         /// </summary>
@@ -1067,10 +1035,6 @@ namespace FlowSimulator.UI
             ViewModel.CreateSequence();
             ProcessLauncher.Instance.LaunchSequence(ViewModel.Sequence, typeof(EventNodeTestStarted), 0, "test");
         }
-
-        #endregion // Launch
-
-        #region undo management
 
         /// <summary>
         /// 
@@ -1091,9 +1055,5 @@ namespace FlowSimulator.UI
         {
             ViewModel.OnNodeDragCompleted(sender as NetworkView, e);
         }
-
-        #endregion // undo management
-
-        #endregion //Methods
     }
 }

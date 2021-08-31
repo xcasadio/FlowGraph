@@ -10,18 +10,8 @@ namespace FlowSimulator.Undo
     /// </summary>
     class CreateNodeUndoCommand : IUndoCommand
     {
-		#region Fields
-
         readonly FlowGraphControlViewModel _FlowGraphVM;
         readonly NodeViewModel _NodeVM;
-
-		#endregion //Fields
-	
-		#region Properties
-		
-		#endregion //Properties
-	
-		#region Constructors
 
         /// <summary>
         /// 
@@ -31,10 +21,6 @@ namespace FlowSimulator.Undo
             _FlowGraphVM = fgvm;
             _NodeVM = nodeVm;
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -61,8 +47,6 @@ namespace FlowSimulator.Undo
             return string.Format("{0} : Create node {1}",
                 _FlowGraphVM.Sequence.Name, _NodeVM.Title);
         }
-
-		#endregion //Methods
     }
 
     /// <summary>
@@ -70,19 +54,9 @@ namespace FlowSimulator.Undo
     /// </summary>
     class CreateNodesUndoCommand : IUndoCommand
     {
-        #region Fields
-
         readonly FlowGraphControlViewModel _FlowGraphVM;
         readonly IEnumerable<NodeViewModel> _NodesVM;
         readonly List<ConnectionInfo> _ConnectionInfoList = new List<ConnectionInfo>();
-
-        #endregion //Fields
-
-        #region Properties
-
-        #endregion //Properties
-
-        #region Constructors
 
         /// <summary>
         /// 
@@ -100,10 +74,6 @@ namespace FlowSimulator.Undo
 
             _NodesVM = nodesVM_;
         }
-
-        #endregion //Constructors
-
-        #region Methods
 
         /// <summary>
         /// 
@@ -180,8 +150,6 @@ namespace FlowSimulator.Undo
             return string.Format("Graph[{0}] : Create nodes",
                 _FlowGraphVM.Sequence.Name);
         }
-
-        #endregion //Methods
     }
 
     /// <summary>
@@ -189,19 +157,9 @@ namespace FlowSimulator.Undo
     /// </summary>
     class DeleteNodeUndoCommand : IUndoCommand
     {
-        #region Fields
-
         readonly FlowGraphControlViewModel _FlowGraphVM;
         readonly NodeViewModel _NodeVM;
         readonly List<ConnectionInfo> _ConnectionInfoList = new List<ConnectionInfo>();
-
-        #endregion //Fields
-
-        #region Properties
-
-        #endregion //Properties
-
-        #region Constructors
 
         /// <summary>
         /// 
@@ -212,10 +170,6 @@ namespace FlowSimulator.Undo
             _NodeVM = nodeVM_;
             CopyConnections(_NodeVM.AttachedConnections);
         }
-
-        #endregion //Constructors
-
-        #region Methods
 
         /// <summary>
         /// 
@@ -291,8 +245,6 @@ namespace FlowSimulator.Undo
             return string.Format("{0} : Delete node {1}",
                 _FlowGraphVM.Sequence.Name, _NodeVM.Title);
         }
-
-        #endregion //Methods
     }
 
     /// <summary>
@@ -300,19 +252,9 @@ namespace FlowSimulator.Undo
     /// </summary>
     class DeleteNodesUndoCommand : IUndoCommand
     {
-        #region Fields
-
         readonly FlowGraphControlViewModel _FlowGraphVM;
         readonly IEnumerable<NodeViewModel> _NodesVM;
         readonly List<ConnectionInfo> _ConnectionInfoList = new List<ConnectionInfo>();
-
-        #endregion //Fields
-
-        #region Properties
-
-        #endregion //Properties
-
-        #region Constructors
 
         /// <summary>
         /// 
@@ -330,10 +272,6 @@ namespace FlowSimulator.Undo
 
             _NodesVM = nodesVM_;
         }
-
-        #endregion //Constructors
-
-        #region Methods
 
         /// <summary>
         /// 
@@ -409,8 +347,6 @@ namespace FlowSimulator.Undo
             return string.Format("Graph[{0}] : Delete nodes",
                 _FlowGraphVM.Sequence.Name);
         }
-
-        #endregion //Methods
     }
 
     /// <summary>
@@ -418,8 +354,6 @@ namespace FlowSimulator.Undo
     /// </summary>
     class PositionNodeUndoCommand : IUndoCommand
     {
-        #region Nested class
-
         internal class NodeDraggingInfo
         {
             public NodeViewModel Node;
@@ -427,20 +361,8 @@ namespace FlowSimulator.Undo
             public double EndX, EndY;
         }
 
-        #endregion
-
-        #region Fields
-
         readonly FlowGraphControlViewModel _FlowGraphVM;
         readonly IEnumerable<NodeDraggingInfo> _NodeInfosVM;
-
-        #endregion //Fields
-
-        #region Properties
-
-        #endregion //Properties
-
-        #region Constructors
 
         /// <summary>
         /// 
@@ -450,10 +372,6 @@ namespace FlowSimulator.Undo
             _FlowGraphVM = fgv_;
             _NodeInfosVM = new List<NodeDraggingInfo>(nodeInfosVM_);
         }
-
-        #endregion //Constructors
-
-        #region Methods
 
         /// <summary>
         /// 
@@ -488,8 +406,6 @@ namespace FlowSimulator.Undo
             return string.Format("{0} : Node position changed",
                 _FlowGraphVM.Sequence.Name);
         }
-
-        #endregion //Methods
     }
 
     /// <summary>
@@ -497,18 +413,8 @@ namespace FlowSimulator.Undo
     /// </summary>
     class SelectNodesUndoCommand : IUndoCommand
     {
-        #region Fields
-
         readonly NetworkView _View;
         readonly IEnumerable<NodeViewModel> _NodesVM;
-
-        #endregion //Fields
-
-        #region Properties
-
-        #endregion //Properties
-
-        #region Constructors
 
         /// <summary>
         /// 
@@ -518,10 +424,6 @@ namespace FlowSimulator.Undo
             _View = view_;
             _NodesVM = new List<NodeViewModel>(nodesVM_);
         }
-
-        #endregion //Constructors
-
-        #region Methods
 
         /// <summary>
         /// 
@@ -561,8 +463,6 @@ namespace FlowSimulator.Undo
         {
             return "Node selected";
         }
-
-        #endregion //Methods
     }
 
     /// <summary>
@@ -570,18 +470,8 @@ namespace FlowSimulator.Undo
     /// </summary>
     class DeselectNodesUndoCommand : IUndoCommand
     {
-        #region Fields
-
         readonly NetworkView _View;
         readonly IEnumerable<NodeViewModel> _NodesVM;
-
-        #endregion //Fields
-
-        #region Properties
-
-        #endregion //Properties
-
-        #region Constructors
 
         /// <summary>
         /// 
@@ -591,10 +481,6 @@ namespace FlowSimulator.Undo
             _View = view_;
             _NodesVM = new List<NodeViewModel>(nodesVM_);
         }
-
-        #endregion //Constructors
-
-        #region Methods
 
         /// <summary>
         /// 
@@ -634,7 +520,5 @@ namespace FlowSimulator.Undo
         {
             return "Node deselected";
         }
-
-        #endregion //Methods
     }
 }

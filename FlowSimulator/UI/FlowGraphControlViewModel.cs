@@ -20,8 +20,6 @@ namespace FlowSimulator.UI
     /// </summary>
     public class FlowGraphControlViewModel : AbstractModelBase
     {
-        #region Fields
-
         public event EventHandler ContextMenuOpened;
 
         /// <summary>
@@ -78,10 +76,6 @@ namespace FlowSimulator.UI
         /// 
         /// </summary>
         private XmlNode _XmlNodeLoaded;
-
-        #endregion //Fields
-
-        #region Properties
 
         /// <summary>
         /// Gets
@@ -241,10 +235,6 @@ namespace FlowSimulator.UI
             }
         }
 
-		#endregion //Properties
-	
-		#region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -271,10 +261,6 @@ namespace FlowSimulator.UI
         {
             Load(node_);
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// Called when the user has started to drag out a connector, thus creating a new connection.
@@ -840,8 +826,6 @@ namespace FlowSimulator.UI
             Network.ConnectionsViewModel.RemoveRange(connections);
         }
 
-        #region Function Specific processing
-
         /// <summary>
         /// 
         /// </summary>
@@ -867,10 +851,6 @@ namespace FlowSimulator.UI
                 }
             }
         }
-
-        #endregion
-
-        #region Build Sequence
 
         /// <summary>
         /// 
@@ -929,10 +909,6 @@ namespace FlowSimulator.UI
                 Sequence.AddNode(node.SeqNode);
             }
         }
-
-        #endregion //  Build Sequence
-
-        #region Persistence
 
         /// <summary>
         /// 
@@ -1032,10 +1008,6 @@ namespace FlowSimulator.UI
             }
         }
 
-        #endregion // Persistence
-
-        #region Undo management
-
         readonly List<PositionNodeUndoCommand.NodeDraggingInfo> _CachedNodesDraggingList = new List<PositionNodeUndoCommand.NodeDraggingInfo>(5);
 
         /// <summary>
@@ -1086,9 +1058,5 @@ namespace FlowSimulator.UI
         {
             UndoRedoManager.Add(new DeselectNodesUndoCommand(view_, nodes_));
         }
-
-        #endregion // Undo mananagement
-
-        #endregion //Methods
     }
 }

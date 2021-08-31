@@ -9,8 +9,6 @@ namespace FlowGraphBase.Process
     /// </summary>
     public class ProcessingContext
     {
-        #region nested struct
-
         /// <summary>
         /// 
         /// </summary>
@@ -21,20 +19,12 @@ namespace FlowGraphBase.Process
             Stop
         }
 
-        #endregion // nested struct
-
-		#region Fields
-
         private static int _FreeCallID;
 
         public event EventHandler Finished;
 
         private readonly List<ProcessingContextStep> _NextExecutions = new List<ProcessingContextStep>();
         private readonly List<ProcessingContextStep> _Executed = new List<ProcessingContextStep>();
-
-		#endregion //Fields
-	
-		#region Properties
 
         /// <summary>
         /// Gets all step already executed
@@ -119,10 +109,6 @@ namespace FlowGraphBase.Process
             private set;
         }
 
-		#endregion //Properties
-	
-		#region Constructors
-		
         /// <summary>
         /// 
         /// </summary>
@@ -140,10 +126,6 @@ namespace FlowGraphBase.Process
             SequenceBase = seq_;
             MemoryStackFrame = stack_;
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -234,7 +216,5 @@ namespace FlowGraphBase.Process
             CurrentProcessingContext.MemoryStackFrame.RemoveStackFrame();
             //TODO remove child
         }
-
-		#endregion //Methods
     }
 }

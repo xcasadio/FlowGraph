@@ -6,8 +6,6 @@ using FlowGraphBase.Logger;
 
 namespace FlowSimulator.Logger
 {
-    #region Log Entry
-
     /// <summary>
     /// 
     /// </summary>
@@ -26,28 +24,16 @@ namespace FlowSimulator.Logger
         public List<LogEntry> Contents { get; set; }
     }
 
-    #endregion
-
     /// <summary>
     /// 
     /// </summary>
     public class LogEditor
         : ILog
     {
-        #region Fields
-
-        #endregion // Fields
-
-        #region Properties
-
         /// <summary>
         /// 
         /// </summary>
         public static ObservableCollection<LogEntry> LogEntries { get; private set; }
-
-        #endregion // Properties
-
-        #region Constructors
 
         /// <summary>
         /// 
@@ -59,10 +45,6 @@ namespace FlowSimulator.Logger
                 LogEntries = new ObservableCollection<LogEntry>();
             }
         }
-
-        #endregion // Constructors
-
-        #region Methods
 
         /// <summary>
         /// 
@@ -93,7 +75,5 @@ namespace FlowSimulator.Logger
                 Application.Current.Dispatcher.BeginInvoke(new Action( () => Write(verbose, msg)));
             }
         }
-
-        #endregion // Methods
     }
 }

@@ -12,8 +12,6 @@ namespace FlowGraphBase.Node.StandardActionNode
     public class DelayNode
         : ActionNode
     {
-        #region Enum
-
         public enum NodeSlotId
         {
             In,
@@ -21,21 +19,9 @@ namespace FlowGraphBase.Node.StandardActionNode
             Delay
         }
 
-        #endregion
-
-		#region Fields
-
         //TimeSpan _StartTime = TimeSpan.Zero;
 
-		#endregion //Fields
-	
-		#region Properties
-
         public override string Title => "Delay";
-
-        #endregion //Properties
-	
-		#region Constructors
 
         /// <summary>
         /// 
@@ -55,10 +41,6 @@ namespace FlowGraphBase.Node.StandardActionNode
         {
 
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -142,7 +124,5 @@ namespace FlowGraphBase.Node.StandardActionNode
         {
             return new DelayNode();
         }
-
-		#endregion //Methods
     }
 }

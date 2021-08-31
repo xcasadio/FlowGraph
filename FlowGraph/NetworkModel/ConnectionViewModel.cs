@@ -11,8 +11,6 @@ namespace NetworkModel
     /// </summary>
     public sealed class ConnectionViewModel : AbstractModelBase
     {
-        #region Internal Data Members
-
         /// <summary>
         /// The source connector the connection is attached to.
         /// </summary>
@@ -38,14 +36,10 @@ namespace NetworkModel
 
         //private event EventHandler Activated;
 
-        #endregion Internal Data Members
-
         /// <summary>
         /// Event fired when the connection has changed.
         /// </summary>
         public event EventHandler<EventArgs> ConnectionChanged;
-
-        #region Properties
 
         /// <summary>
         /// 
@@ -169,10 +163,6 @@ namespace NetworkModel
             }
         }
 
-        #endregion //Properties
-
-        #region Methods
-
         /// <summary>
         /// Warning : there are events on collection DestConnector, SourceConnector, Points
         /// </summary>
@@ -190,8 +180,6 @@ namespace NetworkModel
 
             return newConn;
         }
-
-        #region Private Methods
 
         /// <summary>
         /// Raises the 'ConnectionChanged' event.
@@ -263,9 +251,5 @@ namespace NetworkModel
 
             Points = computedPoints;
         }
-
-        #endregion // Private Methods
-
-        #endregion // Methods
     }
 }

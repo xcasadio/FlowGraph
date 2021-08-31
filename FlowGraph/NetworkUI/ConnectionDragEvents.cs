@@ -7,8 +7,6 @@ namespace NetworkUI
     /// </summary>
     public class ConnectionDragEventArgs : RoutedEventArgs
     {
-        #region Private Data Members
-
         /// <summary>
         /// The NodeItem or it's DataContext (when non-NULL).
         /// </summary>
@@ -24,8 +22,6 @@ namespace NetworkUI
         /// </summary>
         protected object connection;
 
-        #endregion Private Data Members
-
         /// <summary>
         /// The NodeItem or it's DataContext (when non-NULL).
         /// </summary>
@@ -36,8 +32,6 @@ namespace NetworkUI
         /// </summary>
         public object ConnectorDraggedOut => draggedOutConnector;
 
-        #region Private Methods
-
         protected ConnectionDragEventArgs(RoutedEvent routedEvent, object source, object node, object connection, object connector) :
             base(routedEvent, source)
         {
@@ -45,8 +39,6 @@ namespace NetworkUI
             draggedOutConnector = connector;
             this.connection = connection;
         }
-
-        #endregion Private Methods
     }
 
     /// <summary>
@@ -63,14 +55,10 @@ namespace NetworkUI
             set => connection = value;
         }
 
-        #region Private Methods
-
         internal ConnectionDragStartedEventArgs(RoutedEvent routedEvent, object source, object node, object connector) :
             base(routedEvent, source, node, null, connector)
         {
         }
-
-        #endregion Private Methods
     }
 
     /// <summary>
@@ -83,8 +71,6 @@ namespace NetworkUI
     /// </summary>
     public class QueryConnectionFeedbackEventArgs : ConnectionDragEventArgs
     {
-        #region Private Data Members
-
         /// <summary>
         /// The ConnectorItem or it's DataContext (when non-NULL).
         /// </summary>
@@ -99,8 +85,6 @@ namespace NetworkUI
         /// The indicator to display.
         /// </summary>
         private object feedbackIndicator;
-
-        #endregion Private Data Members
 
         /// <summary>
         /// The ConnectorItem or it's DataContext (when non-NULL).
@@ -130,16 +114,12 @@ namespace NetworkUI
             set => feedbackIndicator = value;
         }
 
-        #region Private Methods
-
         internal QueryConnectionFeedbackEventArgs(RoutedEvent routedEvent, object source, 
             object node, object connection, object connector, object draggedOverConnector) :
             base(routedEvent, source, node, connection, connector)
         {
             this.draggedOverConnector = draggedOverConnector;
         }
-
-        #endregion Private Methods
     }
 
     /// <summary>
@@ -157,15 +137,11 @@ namespace NetworkUI
         /// </summary>
         public object Connection => connection;
 
-        #region Private Methods
-
         internal ConnectionDraggingEventArgs(RoutedEvent routedEvent, object source,
                 object node, object connection, object connector) :
             base(routedEvent, source, node, connection, connector)
         {
         }
-
-        #endregion Private Methods
     }
 
     /// <summary>
@@ -178,14 +154,10 @@ namespace NetworkUI
     /// </summary>
     public class ConnectionDragCompletedEventArgs : ConnectionDragEventArgs
     {
-        #region Private Data Members
-
         /// <summary>
         /// The ConnectorItem or it's DataContext (when non-NULL).
         /// </summary>
         private readonly object connectorDraggedOver;
-
-        #endregion Private Data Members
 
         /// <summary>
         /// The ConnectorItem or it's DataContext (when non-NULL).
@@ -197,15 +169,11 @@ namespace NetworkUI
         /// </summary>
         public object Connection => connection;
 
-        #region Private Methods
-
         internal ConnectionDragCompletedEventArgs(RoutedEvent routedEvent, object source, object node, object connection, object connector, object connectorDraggedOver) :
             base(routedEvent, source, node, connection, connector)
         {
             this.connectorDraggedOver = connectorDraggedOver;
         }
-
-        #endregion Private Methods
     }
 
     /// <summary>

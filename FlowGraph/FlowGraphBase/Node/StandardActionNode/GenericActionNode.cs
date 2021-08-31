@@ -6,16 +6,12 @@ using FlowGraphBase.Process;
 
 namespace FlowGraphBase.Node.StandardActionNode
 {
-    #region Math standard operator
-
     /// <summary>
     /// 
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class MathOperatorNode<T> : ActionNode
     {
-        #region Enum
-
         public enum NodeSlotId
         {
             In,
@@ -24,8 +20,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             VarB,
             VarResult
         }
-
-        #endregion
 
         /// <summary>
         /// 
@@ -106,8 +100,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             return info;
         }
     }
-
-    #region Addition
 
     /// <summary>
     /// 
@@ -224,10 +216,6 @@ namespace FlowGraphBase.Node.StandardActionNode
         protected override SequenceNode CopyImpl() { return new AdditionNodeDouble(); }
     }
 
-    #endregion // Addition
-
-    #region Substraction
-
     /// <summary>
     /// 
     /// </summary>
@@ -342,10 +330,6 @@ namespace FlowGraphBase.Node.StandardActionNode
 
         protected override SequenceNode CopyImpl() { return new SubstractionNodeDouble(); }
     }
-
-    #endregion // Substraction
-
-    #region Multiplication
 
     /// <summary>
     /// 
@@ -462,10 +446,6 @@ namespace FlowGraphBase.Node.StandardActionNode
         protected override SequenceNode CopyImpl() { return new MultiplicationNodeDouble(); }
     }
 
-    #endregion // Multiplication
-
-    #region Division
-
     /// <summary>
     /// 
     /// </summary>
@@ -581,20 +561,12 @@ namespace FlowGraphBase.Node.StandardActionNode
         protected override SequenceNode CopyImpl() { return new DivisionNodeDouble(); }
     }
 
-    #endregion // Division
-
-    #endregion // Math standard operator
-
-    #region Math logic operator
-
     /// <summary>
     /// 
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class MathLogicOperatorNode<T> : ActionNode
     {
-        #region Enum
-
         public enum NodeSlotId
         {
             In,
@@ -603,8 +575,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             VarA,
             VarB
         }
-
-        #endregion
 
         /// <summary>
         /// 
@@ -687,8 +657,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             return info;
         }
     }
-
-    #region Equal operator
 
     /// <summary>
     /// 
@@ -805,10 +773,6 @@ namespace FlowGraphBase.Node.StandardActionNode
         protected override SequenceNode CopyImpl() { return new EqualNodeDouble(); }
     }
 
-    #endregion // Equal
-
-    #region NotEqual operator
-
     /// <summary>
     /// 
     /// </summary>
@@ -923,10 +887,6 @@ namespace FlowGraphBase.Node.StandardActionNode
 
         protected override SequenceNode CopyImpl() { return new NotEqualNodeDouble(); }
     }
-
-    #endregion // Not Equal
-
-    #region LessThan operator
 
     /// <summary>
     /// 
@@ -1043,10 +1003,6 @@ namespace FlowGraphBase.Node.StandardActionNode
         protected override SequenceNode CopyImpl() { return new LessThanNodeDouble(); }
     }
 
-    #endregion // LessThan
-
-    #region LessThanOrEqual operator
-
     /// <summary>
     /// 
     /// </summary>
@@ -1161,10 +1117,6 @@ namespace FlowGraphBase.Node.StandardActionNode
 
         protected override SequenceNode CopyImpl() { return new LessThanOrEqualNodeDouble(); }
     }
-
-    #endregion // LessThanOrEqual
-
-    #region GreaterThan operator
 
     /// <summary>
     /// 
@@ -1281,10 +1233,6 @@ namespace FlowGraphBase.Node.StandardActionNode
         protected override SequenceNode CopyImpl() { return new GreaterThanNodeDouble(); }
     }
 
-    #endregion // GreaterThan
-
-    #region GreaterThanOrEqual operator
-
     /// <summary>
     /// 
     /// </summary>
@@ -1400,20 +1348,12 @@ namespace FlowGraphBase.Node.StandardActionNode
         protected override SequenceNode CopyImpl() { return new GreaterThanOrEqualNodeDouble(); }
     }
 
-    #endregion // GreaterThanOrEqual
-
-    #endregion // Math logic operator
-
-    #region Math cast operator
-
     /// <summary>
     /// 
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class MathCastOperatorNode<IN, OUT> : ActionNode
     {
-        #region Enum
-
         public enum NodeSlotId
         {
             In,
@@ -1421,8 +1361,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             VarA,
             VarResult
         }
-
-        #endregion
 
         /// <summary>
         /// 
@@ -1497,8 +1435,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             return info;
         }
     }
-
-    #region To String
 
     /// <summary>
     /// 
@@ -1629,10 +1565,6 @@ namespace FlowGraphBase.Node.StandardActionNode
         protected override SequenceNode CopyImpl() { return new ToStringNodeDouble(); }
     }
 
-    #endregion // To String
-
-    #region To Integer
-
     /// <summary>
     /// 
     /// </summary>
@@ -1762,10 +1694,6 @@ namespace FlowGraphBase.Node.StandardActionNode
         protected override SequenceNode CopyImpl() { return new ToIntegerNodeString(); }
     }
 
-    #endregion // To Integer
-
-    #region To Double
-
     /// <summary>
     /// 
     /// </summary>
@@ -1894,10 +1822,6 @@ namespace FlowGraphBase.Node.StandardActionNode
 
         protected override SequenceNode CopyImpl() { return new ToDoubleNodeString(); }
     }
-
-    #endregion // To Double
-
-    #region To Object
 
     /// <summary>
     /// 
@@ -2043,12 +1967,6 @@ namespace FlowGraphBase.Node.StandardActionNode
         protected override SequenceNode CopyImpl() { return new ToObjectNodeString(); }
     }
 
-    #endregion // To Double
-
-    #endregion // Math cast operator
-
-    #region Math Random
-
     /// <summary>
     /// 
     /// </summary>
@@ -2056,8 +1974,6 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Category("Maths/Random")]
     public abstract class MathRandomNode<T> : ActionNode
     {
-        #region Enum
-
         public enum NodeSlotId
         {
             In,
@@ -2066,8 +1982,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             VarMax,
             VarResult
         }
-
-        #endregion
 
         static readonly Random _Random = new Random();
 
@@ -2260,10 +2174,6 @@ namespace FlowGraphBase.Node.StandardActionNode
         protected override SequenceNode CopyImpl() { return new RandomDoubleNode(); }
     }
 
-    #endregion // Math Random
-
-    #region String operations
-
     /// <summary>
     /// 
     /// </summary>
@@ -2271,8 +2181,6 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Concat")]
     public class StringConcatNode : ActionNode
     {
-        #region Enum
-
         public enum NodeSlotId
         {
             In,
@@ -2282,19 +2190,7 @@ namespace FlowGraphBase.Node.StandardActionNode
             VarResult
         }
 
-        #endregion
-
-		#region Fields
-		
-		#endregion //Fields
-	
-		#region Properties
-
         public override string Title => "String Concat";
-
-        #endregion //Properties
-	
-		#region Constructors
 
         /// <summary>
         /// 
@@ -2308,12 +2204,6 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <param name="node_"></param>
         public StringConcatNode(XmlNode node_) : base(node_) { }
 
-		#endregion //Constructors
-	
-		#region Methods
-		
-		#endregion //Methods
-        
         /// <summary>
         /// 
         /// </summary>
@@ -2380,10 +2270,6 @@ namespace FlowGraphBase.Node.StandardActionNode
         protected override SequenceNode CopyImpl() { return new StringConcatNode(); }
     }
 
-    #endregion // String operations
-
-    #region Variable Set
-
     /// <summary>
     /// 
     /// </summary>
@@ -2391,8 +2277,6 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Category("Variable/Set")]
     public abstract class VariableSetNode<T> : ActionNode
     {
-        #region Enum
-
         public enum NodeSlotId
         {
             In,
@@ -2401,8 +2285,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             Value,
             VarResult
         }
-
-        #endregion
 
         /// <summary>
         /// 
@@ -2596,6 +2478,4 @@ namespace FlowGraphBase.Node.StandardActionNode
 
         protected override SequenceNode CopyImpl() { return new VariableSetNodeObject(); }
     }
-
-    #endregion // Variable Set
 }

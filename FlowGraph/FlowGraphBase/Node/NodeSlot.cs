@@ -40,17 +40,11 @@ namespace FlowGraphBase.Node
     /// </summary>
     public class NodeSlot : INotifyPropertyChanged
     {
-		#region Fields
-
         public event EventHandler Activated;
 
         private string _Text;
         private Type _VariableType;
         private VariableControlType _ControlType;
-
-		#endregion //Fields
-	
-		#region Properties
 
         public int ID { get; }
         public SequenceNode Node { get; }
@@ -106,10 +100,6 @@ namespace FlowGraphBase.Node
             }
         }
 
-		#endregion //Properties
-	
-		#region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -150,10 +140,6 @@ namespace FlowGraphBase.Node
             Text = text_;
             VariableType = type_;
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -239,8 +225,6 @@ namespace FlowGraphBase.Node
             }
         }
 
-        #region Persistence
-
         /// <summary>
         /// 
         /// </summary>
@@ -262,20 +246,12 @@ namespace FlowGraphBase.Node
             //Don't load Id, it is set manually inside the constructor
         }
 
-        #endregion // Persistence
-
-        #region INotifyPropertyChanged
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        #endregion // INotifyPropertyChanged
-
-		#endregion //Methods
     }
 
     /// <summary>
@@ -283,14 +259,8 @@ namespace FlowGraphBase.Node
     /// </summary>
     public class NodeSlotVar : NodeSlot
     {
-        #region Fields
-
         private readonly ValueContainer _Value;
         private readonly bool _SaveValue;
-
-        #endregion //Fields
-
-        #region Properties
 
         /// <summary>
         /// Used as nested link with a variable node
@@ -300,10 +270,6 @@ namespace FlowGraphBase.Node
             get => _Value.Value;
             set { _Value.Value = value; OnPropertyChanged("Value"); }
         }
-
-        #endregion //Properties
-
-        #region Constructors
 
         /// <summary>
         /// 
@@ -351,12 +317,6 @@ namespace FlowGraphBase.Node
             _Value = new ValueContainer(type_, val);
         }
 
-        #endregion //Constructors
-
-        #region Methods
-
-        #region Persistence
-
         /// <summary>
         /// 
         /// </summary>
@@ -386,10 +346,6 @@ namespace FlowGraphBase.Node
                 _Value.Load(node_);
             }
         }
-
-        #endregion // Persistence
-
-        #endregion //Methods
     }
 
     /// <summary>
@@ -398,13 +354,7 @@ namespace FlowGraphBase.Node
     /// </summary>
     public class NodeFunctionSlot : NodeSlotVar
     {
-        #region Fields
-
         private readonly SequenceFunctionSlot _FuncSlot;
-
-        #endregion //Fields
-
-        #region Properties
 
         /// <summary>
         /// 
@@ -435,10 +385,6 @@ namespace FlowGraphBase.Node
                 }
             }
         }
-
-        #endregion //Properties
-
-        #region Constructors
 
         /// <summary>
         /// 
@@ -472,10 +418,6 @@ namespace FlowGraphBase.Node
             _FuncSlot.PropertyChanged += OnFunctionSlotPropertyChanged;
         }
 
-        #endregion //Constructors
-
-        #region Methods
-
         /// <summary>
         /// 
         /// </summary>
@@ -495,7 +437,5 @@ namespace FlowGraphBase.Node
                 //IsArray
             }
         }
-
-        #endregion //Methods
     }
 }

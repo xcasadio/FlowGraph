@@ -13,12 +13,6 @@ namespace FlowGraphBase.Node
     class VariableNode
         : SequenceNode
     {
-		#region Fields
-
-		#endregion //Fields
-
-        #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -36,10 +30,6 @@ namespace FlowGraphBase.Node
             SlotFlag = SlotAvailableFlag.DefaultFlagVariable;
         }
 
-        #endregion // Constructors
-
-        #region Properties
-
         /// <summary>
         /// 
         /// </summary>
@@ -48,10 +38,6 @@ namespace FlowGraphBase.Node
             get;
             set;
         }
-
-        #endregion // Properties
-
-        #region Methods
 
         /// <summary>
         /// 
@@ -73,7 +59,5 @@ namespace FlowGraphBase.Node
         {
             memoryStack.Deallocate(Id);
         }
-
-        #endregion // Methods
     }
 }

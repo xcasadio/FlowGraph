@@ -24,13 +24,7 @@ namespace FlowSimulator.Logger
             None = 0,
         }
 
-        #region Singleton
-
         private static LogFile _singleton;
-
-        #endregion //Singleton
-
-        #region Fields
 
         private readonly bool _async;
         private readonly StreamWriter _writer;
@@ -38,10 +32,6 @@ namespace FlowSimulator.Logger
         private readonly Task _task;
         private volatile bool _isAlive;
         private volatile bool _streamClose;
-
-        #endregion //Fields
-
-        #region Properties
 
         /// <summary>
         /// 
@@ -51,10 +41,6 @@ namespace FlowSimulator.Logger
             get;
             set;
         }
-
-        #endregion //Properties
-
-        #region Constructors
 
         /// <summary>
         /// 
@@ -94,10 +80,6 @@ namespace FlowSimulator.Logger
             _stringBuilder.AppendLine("-------------------------------------------------------------------------------------------");
             WriteInFile();
         }
-
-        #endregion //Constructors
-
-        #region Methods
 
         /// <summary>
         /// 
@@ -267,7 +249,5 @@ namespace FlowSimulator.Logger
 
             _singleton.Write("[ERROR]: ", str, args);
         }
-
-        #endregion //Methods
     }
 }

@@ -7,8 +7,6 @@ namespace NetworkModel
     /// </summary>
     public sealed class NetworkViewModel
     {
-        #region Internal Data Members
-
         /// <summary>
         /// The collection of nodes in the network.
         /// </summary>
@@ -18,8 +16,6 @@ namespace NetworkModel
         /// The collection of connections in the network.
         /// </summary>
         private ImpObservableCollection<ConnectionViewModel> connectionsViewModel;
-
-        #endregion Internal Data Members
 
         /// <summary>
         /// The collection of nodes in the network.
@@ -43,8 +39,6 @@ namespace NetworkModel
             }
         }
 
-        #region Private Methods
-
         /// <summary>
         /// Event raised then Connections have been removed.
         /// </summary>
@@ -56,7 +50,5 @@ namespace NetworkModel
                 connection.DestConnector = null;
             }
         }
-
-        #endregion Private Methods
     }
 }

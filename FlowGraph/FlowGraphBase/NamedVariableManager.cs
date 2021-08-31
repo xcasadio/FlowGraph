@@ -9,43 +9,25 @@ namespace FlowGraphBase
     /// </summary>
     public class NamedVariableManager
     {
-        #region Singleton
-
         /// <summary>
         /// Gets
         /// </summary>
         public static NamedVariableManager Instance { get; } = new NamedVariableManager();
 
-        #endregion //Singleton
-
-        #region Fields
-
         public event EventHandler<EventArgs<string, string>> OnRenamed;
 
         private const string NullToken = "<null>";
-
-        #endregion //Fields
-
-        #region Properties
 
         /// <summary>
         /// 
         /// </summary>
         public ObservableCollection<NamedVariable> Vars { get; } = new ObservableCollection<NamedVariable>();
 
-        #endregion //Properties
-
-        #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
         private NamedVariableManager()
         { }
-
-        #endregion //Constructors
-
-        #region Methods
 
         /// <summary>
         /// 
@@ -238,8 +220,6 @@ namespace FlowGraphBase
             return !Contains(name);
         }
 
-        #region Persistence
-
         /// <summary>
         /// 
         /// </summary>
@@ -282,9 +262,5 @@ namespace FlowGraphBase
                 v.InternalValueContainer.Save(varNode);
             }
         }
-
-        #endregion // Persistence
-
-        #endregion //Methods
     }
 }

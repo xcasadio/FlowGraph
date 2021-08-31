@@ -24,8 +24,6 @@ namespace FlowSimulator.Undo
     /// </summary>
     class CreateConnectionUndoCommand : IUndoCommand
     {
-		#region Fields
-
         readonly FlowGraphControlViewModel _FlowGraphVM;
 
         ConnectionViewModel _ConnectionVM;
@@ -34,14 +32,6 @@ namespace FlowSimulator.Undo
         readonly PointCollection _Points;
         readonly ConnectorViewModel _SourceConnector;
         readonly Point _SourceConnectorHotspot;
-
-		#endregion //Fields
-	
-		#region Properties
-		
-		#endregion //Properties
-	
-		#region Constructors
 
         /// <summary>
         /// 
@@ -56,10 +46,6 @@ namespace FlowSimulator.Undo
             _SourceConnector = connectionVm.SourceConnector;
             _SourceConnectorHotspot = connectionVm.SourceConnectorHotspot;
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -88,8 +74,6 @@ namespace FlowSimulator.Undo
 
             //_FlowGraphVM.DeleteConnection(_ConnectionVM);
         }
-
-		#endregion //Methods
     }
 
     /// <summary>
@@ -97,8 +81,6 @@ namespace FlowSimulator.Undo
     /// </summary>
     class DeleteConnectionUndoCommand : IUndoCommand
     {
-        #region Fields
-
         readonly FlowGraphControlViewModel _FlowGraphVM;
 
         ConnectionViewModel _ConnectionVM;
@@ -107,14 +89,6 @@ namespace FlowSimulator.Undo
         readonly PointCollection _Points;
         readonly ConnectorViewModel _SourceConnector;
         readonly Point _SourceConnectorHotspot;
-
-		#endregion //Fields
-	
-		#region Properties
-		
-		#endregion //Properties
-	
-		#region Constructors
 
         /// <summary>
         /// 
@@ -129,10 +103,6 @@ namespace FlowSimulator.Undo
             _SourceConnector = connectionVM_.SourceConnector;
             _SourceConnectorHotspot = connectionVM_.SourceConnectorHotspot;
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -160,8 +130,6 @@ namespace FlowSimulator.Undo
             _FlowGraphVM.AddConnection(copy);
             _ConnectionVM = copy;
         }
-
-		#endregion //Methods
     }
 
     /// <summary>
@@ -169,18 +137,8 @@ namespace FlowSimulator.Undo
     /// </summary>
     class CreateConnectionsUndoCommand : IUndoCommand
     {
-        #region Fields
-
         readonly FlowGraphControlViewModel _FlowGraphVM;
         readonly IEnumerable<ConnectionViewModel> _ConnectionsVM;
-
-        #endregion //Fields
-
-        #region Properties
-
-        #endregion //Properties
-
-        #region Constructors
 
         /// <summary>
         /// 
@@ -190,10 +148,6 @@ namespace FlowSimulator.Undo
             _FlowGraphVM = fgv_;
             _ConnectionsVM = connectionsVM_;
         }
-
-        #endregion //Constructors
-
-        #region Methods
 
         /// <summary>
         /// 
@@ -210,8 +164,6 @@ namespace FlowSimulator.Undo
         {
             _FlowGraphVM.DeleteConnections(_ConnectionsVM);
         }
-
-        #endregion //Methods
     }
 
     /// <summary>
@@ -219,18 +171,8 @@ namespace FlowSimulator.Undo
     /// </summary>
     class DeleteConnectionsUndoCommand : IUndoCommand
     {
-        #region Fields
-
         readonly FlowGraphControlViewModel _FlowGraphVM;
         readonly List<ConnectionInfo> _ConnectionInfoList = new List<ConnectionInfo>();
-
-		#endregion //Fields
-	
-		#region Properties
-		
-		#endregion //Properties
-	
-		#region Constructors
 
         /// <summary>
         /// 
@@ -252,10 +194,6 @@ namespace FlowSimulator.Undo
                     });
             }
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -299,7 +237,5 @@ namespace FlowSimulator.Undo
 
             _FlowGraphVM.AddConnections(connList);
         }
-
-		#endregion //Methods
     }
 }

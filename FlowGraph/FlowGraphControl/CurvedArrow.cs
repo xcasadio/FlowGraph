@@ -12,8 +12,6 @@ namespace FlowGraphUI
     /// </summary>
     public class CurvedArrow : Shape
     {
-        #region Dependency Property/Event Definitions
-
         public static readonly DependencyProperty ArrowHeadLengthProperty =
             DependencyProperty.Register("ArrowHeadLength", typeof(double), typeof(CurvedArrow),
                 new FrameworkPropertyMetadata(8.0, FrameworkPropertyMetadataOptions.AffectsRender));
@@ -30,10 +28,6 @@ namespace FlowGraphUI
         // This event uses the bubbling routing strategy
         public static readonly RoutedEvent ActivatedEvent = EventManager.RegisterRoutedEvent(
             "Activated", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(CurvedArrow));
-
-        #endregion // Dependency Property/Event Definitions
-
-        #region Properties
 
         /// <summary>
         /// 
@@ -73,10 +67,6 @@ namespace FlowGraphUI
             get => (PointCollection)GetValue(PointsProperty);
             set => SetValue(PointsProperty, value);
         }
-
-        #endregion // Properties
-
-        #region Contructors
 
         /// <summary>
         /// 
@@ -131,10 +121,6 @@ namespace FlowGraphUI
                 Dispatcher.BeginInvoke(new Action( () => OnNodeSlotActivated(sender, e)));
             }
         }
-
-        #endregion // Constructors
-
-        #region Private Methods
 
         /// <summary>
         /// Return the shape's geometry.
@@ -286,7 +272,5 @@ namespace FlowGraphUI
 
             return pathGeometry;
         }
-
-        #endregion // Private Methods
     }
 }

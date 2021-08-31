@@ -16,13 +16,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
     [Category("Variable")]
     public abstract class GenericVariableNode<T> : VariableNode
     {
-		#region Fields
-
         private T _Value;
-
-		#endregion //Fields
-	
-		#region Properties
 
         /// <summary>
         /// 
@@ -65,10 +59,6 @@ namespace FlowGraphBase.Node.StandardVariableNode
             }
         }
 
-		#endregion //Properties
-	
-		#region Constructors
-		
         /// <summary>
         /// 
         /// </summary>
@@ -85,10 +75,6 @@ namespace FlowGraphBase.Node.StandardVariableNode
         protected GenericVariableNode()
         {
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -128,11 +114,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
         {
             node_.InnerText = (string)Convert.ChangeType(Value, typeof(string));
         }
-
-		#endregion //Methods
     }
-
-    #region Declaration
 
     /// <summary>
     /// 
@@ -220,8 +202,6 @@ namespace FlowGraphBase.Node.StandardVariableNode
             return node;
         }
     }
-
-    #region signed
 
     /// <summary>
     /// 
@@ -419,10 +399,6 @@ namespace FlowGraphBase.Node.StandardVariableNode
         }
     }
 
-    #endregion // signed
-
-    #region unsigned
-
     /// <summary>
     /// 
     /// </summary>
@@ -534,8 +510,4 @@ namespace FlowGraphBase.Node.StandardVariableNode
             return node;
         }
     }
-
-    #endregion // signed
-
-    #endregion // Declaration
 }

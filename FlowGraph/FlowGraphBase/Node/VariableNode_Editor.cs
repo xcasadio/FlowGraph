@@ -22,12 +22,6 @@ namespace FlowGraphBase.Node
     public abstract partial class VariableNode
         : SequenceNode
     {
-		#region Fields
-		
-		#endregion //Fields
-	
-		#region Properties
-
         /// <summary>
         /// 
         /// </summary>
@@ -43,10 +37,6 @@ namespace FlowGraphBase.Node
         /// </summary>
         public override string Title => "";
 
-        #endregion //Properties
-	
-		#region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -54,10 +44,6 @@ namespace FlowGraphBase.Node
         public VariableNode()
         {
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -83,7 +69,5 @@ namespace FlowGraphBase.Node
         /// </summary>
         /// <param name="node_"></param>
         protected abstract void SaveValue(XmlNode node_);
-
-		#endregion //Methods
     }
 }

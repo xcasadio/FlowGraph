@@ -12,8 +12,6 @@ namespace FlowGraphBase.Process
     /// </summary>
     public class ProcessLauncher : INotifyPropertyChanged
     {
-        #region Instance
-
         private static ProcessLauncher _Singleton;
 
         /// <summary>
@@ -32,10 +30,6 @@ namespace FlowGraphBase.Process
             }
         }
 
-        #endregion //Instance
-
-		#region Fields
-
         private readonly List<ProcessingContext> _CallStacks = new List<ProcessingContext>();
         private int _CurrentCallStackIndex;
 
@@ -48,10 +42,6 @@ namespace FlowGraphBase.Process
 
         private BackgroundWorker _BGWorker;
         private volatile bool _IsClosing;
-
-		#endregion //Fields
-	
-		#region Properties
 
         /// <summary>
         /// Gets
@@ -74,10 +64,6 @@ namespace FlowGraphBase.Process
         /// </summary>
         public IEnumerable<ProcessingContext> CallStack => _CallStacks;
 
-        #endregion //Properties
-	
-		#region Constructors
-		
         /// <summary>
         /// 
         /// </summary>
@@ -85,10 +71,6 @@ namespace FlowGraphBase.Process
         {
 
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -361,8 +343,6 @@ namespace FlowGraphBase.Process
             return false;
         }
 
-        #region IPropertyNotify
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
@@ -376,9 +356,5 @@ namespace FlowGraphBase.Process
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
-        #endregion // IPropertyNotify
-
-		#endregion //Methods
     }
 }

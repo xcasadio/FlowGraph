@@ -13,8 +13,6 @@ namespace NetworkModel
     /// </summary>
     public sealed class NodeViewModel : AbstractModelBase
     {
-        #region Private Data Members
-
         /// <summary>
         /// The sequence link with this MVVM
         /// </summary>
@@ -67,8 +65,6 @@ namespace NetworkModel
         /// Set to 'true' when the node is selected.
         /// </summary>
         private bool isSelected;
-
-        #endregion Private Data Members
 
         /// <summary>
         /// 
@@ -480,8 +476,6 @@ namespace NetworkModel
             return null;
         }
 
-        #region Private Methods
-
         /// <summary>
         /// 
         /// </summary>
@@ -613,7 +607,5 @@ namespace NetworkModel
 
             return node;
         }
-
-        #endregion Private Methods
     }
 }

@@ -9,13 +9,7 @@ namespace FlowSimulator.UI
     /// </summary>
     public static class VariableTypeInspector
     {
-		#region Fields
-
         private static readonly List<Type> _Types = new List<Type>();
-
-		#endregion //Fields
-	
-		#region Properties
 
         /// <summary>
         /// 
@@ -76,10 +70,6 @@ namespace FlowSimulator.UI
             set;
         }
 
-		#endregion //Properties
-	
-		#region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -101,10 +91,6 @@ namespace FlowSimulator.UI
             _Types.Add(typeof(object));
         }
 
-		#endregion //Constructors
-	
-		#region Methods
-		
         /// <summary>
         /// 
         /// </summary>
@@ -162,14 +148,14 @@ namespace FlowSimulator.UI
         /// 
         /// </summary>
         /// <param name="type_"></param>
-        public static object CreateDefaultValueFromType(Type type_)
+        public static object CreateDefaultValueFromType(Type type)
         {
-            if (type_ == typeof(string))
+            if (type == typeof(string))
             {
                 return string.Empty;
             }
 
-            return Activator.CreateInstance(type_);
+            return Activator.CreateInstance(type);
         }
 
         /// <summary>
@@ -189,7 +175,5 @@ namespace FlowSimulator.UI
 
             return a_ == b_;
         }
-
-		#endregion //Methods
     }
 }

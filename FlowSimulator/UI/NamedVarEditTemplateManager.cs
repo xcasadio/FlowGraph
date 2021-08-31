@@ -9,21 +9,7 @@ namespace FlowSimulator.UI
     /// </summary>
     static class NamedVarEditTemplateManager
     {
-        #region Fields
-
         private static readonly Dictionary<Type, DataTemplate> _TemplatesByTypes = new Dictionary<Type, DataTemplate>(15);
-
-        #endregion //Fields
-        
-        #region Properties
-        
-        #endregion //Properties
-        
-        #region Constructors
-
-        #endregion //Constructors
-        
-        #region Methods
 
         /// <summary>
         /// 
@@ -112,7 +98,5 @@ namespace FlowSimulator.UI
         {
             return type_ == null ? false : _TemplatesByTypes.ContainsKey(type_);
         }
-        
-        #endregion //Methods
     }
 }

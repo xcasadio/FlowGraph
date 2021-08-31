@@ -13,18 +13,12 @@ namespace FlowGraphBase.Node
         //static private readonly int UndefinedID = -1;
         private static int _freeId;
 
-        #region Fields
-
         //Used to convert a SequenceNode to a Node (graphic node)
         protected List<NodeSlot> _nodeSlots = new List<NodeSlot>();
 
         private string _CustomText;
 
         private bool _IsProcessing;
-
-        #endregion // Fields
-
-        #region Properties
 
         /// <summary>
         /// 
@@ -94,8 +88,6 @@ namespace FlowGraphBase.Node
                 OnPropertyChanged("IsProcessing");
             }
         }
-
-        #region Creation
 
         /// <summary>
         /// 
@@ -301,12 +293,6 @@ namespace FlowGraphBase.Node
         [Browsable(false)]
         public bool HasSlotVariableOut => (SlotFlag & SlotAvailableFlag.VarOut) == SlotAvailableFlag.VarOut;
 
-        #endregion
-
-        #endregion // Properties
-
-        #region Constructor
-
         /// <summary>
         /// 
         /// </summary>
@@ -317,10 +303,6 @@ namespace FlowGraphBase.Node
             InitializeSlots();
         }
 
-        #endregion // Constructor
-
-        #region Methods
-
         /// <summary>
         /// 
         /// </summary>
@@ -329,8 +311,6 @@ namespace FlowGraphBase.Node
             CustomText = null;
             IsProcessing = false;
         }
-
-        #region Creation
 
         /// <summary>
         /// 
@@ -425,10 +405,6 @@ namespace FlowGraphBase.Node
             }
         }
 
-        #endregion
-
-        #region Helper
-
         /// <summary>
         /// 
         /// </summary>
@@ -438,10 +414,6 @@ namespace FlowGraphBase.Node
         {
             return index_ < (SlotConnectorIn == null ? 0 : 1);
         }
-
-        #endregion
-
-        #region Save
 
         /// <summary>
         /// 
@@ -492,9 +464,5 @@ namespace FlowGraphBase.Node
                 }
             }
         }
-
-        #endregion // Save
-
-        #endregion // Methods
     }
 }

@@ -18,12 +18,6 @@ namespace FlowSimulator.UI
     /// </summary>
     public partial class ScriptElementControl : UserControl
     {
-		#region Fields
-		
-		#endregion //Fields
-	
-		#region Properties
-
         /// <summary>
         /// 
         /// </summary>
@@ -31,10 +25,6 @@ namespace FlowSimulator.UI
         {
             get;
         }
-
-		#endregion //Properties
-	
-		#region Constructors
 
         /// <summary>
         /// 
@@ -61,12 +51,6 @@ namespace FlowSimulator.UI
             textEditor.TextArea.DefaultInputHandler.NestedInputHandlers.Add(
                 new SearchInputHandler(textEditor.TextArea));
         }
-
-		#endregion //Constructors
-	
-		#region Methods
-
-        #region Folding
 
         FoldingManager foldingManager;
         AbstractFoldingStrategy foldingStrategy;
@@ -130,10 +114,6 @@ namespace FlowSimulator.UI
             }
         }
 
-        #endregion // Folding
-
-        #region Completion
-
         CompletionWindow completionWindow;
 
         /// <summary>
@@ -180,8 +160,6 @@ namespace FlowSimulator.UI
             // do not set e.Handled=true - we still want to insert the character that was typed
         }
 
-        #endregion // Completion
-
         /// <summary>
         /// 
         /// </summary>
@@ -204,7 +182,5 @@ namespace FlowSimulator.UI
 
             }
         }
-
-		#endregion //Methods
     }
 }

@@ -14,8 +14,6 @@ namespace NetworkUI
     /// </summary>
     public partial class NetworkView
     {
-        #region Private Data Members
-
         /// <summary>
         /// When dragging a connection, this is set to the ConnectorItem that was initially dragged out.
         /// </summary>
@@ -41,10 +39,6 @@ namespace NetworkUI
         /// It is used for feedback when dragging a connection over a prospective connector.
         /// </summary>
         private FrameworkElementAdorner feedbackAdorner;
-
-        #endregion Private Data Members
-
-        #region Private Methods
 
         /// <summary>
         /// Event raised when the user starts to drag a connector.
@@ -320,7 +314,5 @@ namespace NetworkUI
             adornerLayer.Remove(feedbackAdorner);
             feedbackAdorner = null;
         }
-
-        #endregion Private Methods
     }
 }

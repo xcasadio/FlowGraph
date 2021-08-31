@@ -10,20 +10,10 @@ namespace FlowSimulator.CustomNode
     [Category("Event"), Name("Test Started")]
     public class EventNodeTestStarted : EventNode
     {
-		#region Fields
-		
-		#endregion //Fields
-	
-		#region Properties
-
         /// <summary>
         /// 
         /// </summary>
         public override string Title => "Test Started Event";
-
-        #endregion //Properties
-	
-		#region Constructors
 
         /// <summary>
         /// 
@@ -43,10 +33,6 @@ namespace FlowSimulator.CustomNode
         {
 
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -81,7 +67,5 @@ namespace FlowSimulator.CustomNode
         {
             return new EventNodeTestStarted();
         }
-
-		#endregion //Methods
     }
 }

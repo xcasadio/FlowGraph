@@ -13,8 +13,6 @@ namespace FlowGraphBase.Node
     class ActionNode
         : SequenceNode
     {
-        #region nested struct 
- 
         /// <summary>
         /// 
         /// </summary>
@@ -34,16 +32,8 @@ namespace FlowGraphBase.Node
             public string ErrorMessage;
         }
 
-        #endregion // nested struct
-
-        #region Fields
-
         private string _errorMessage = "";
         private ProcessingInfo _state;
-
-		#endregion //Fields
-	
-		#region Properties
 
         /// <summary>
         /// 
@@ -71,10 +61,6 @@ namespace FlowGraphBase.Node
             }
         }
 
-		#endregion //Properties
-	
-		#region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -84,10 +70,6 @@ namespace FlowGraphBase.Node
         {
 
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -117,7 +99,5 @@ namespace FlowGraphBase.Node
         /// <param name="slot_"></param>
         /// <returns></returns>
         public abstract ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_);
-
-		#endregion //Methods        
     }
 }

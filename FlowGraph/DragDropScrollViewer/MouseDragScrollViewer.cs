@@ -10,9 +10,7 @@ namespace MouseDragScrollViewer
     /// </summary>
     public class MouseDragScrollViewer : ScrollViewer
     {
-        #region Dependency Property Definitions
-
-//         public static readonly DependencyProperty IsMouseDraggingProperty =
+        //         public static readonly DependencyProperty IsMouseDraggingProperty =
 //                 DependencyProperty.Register("IsMouseDragging", typeof(bool), typeof(MouseDragScrollViewer),
 //                                             new FrameworkPropertyMetadata(false));
 
@@ -95,9 +93,7 @@ namespace MouseDragScrollViewer
         {
             get => (double)GetValue(DragMarginProperty);
             set => SetValue(DragMarginProperty, value);
-        }        
-
-        #endregion // Dependency Property Definitions
+        }
 
         private DispatcherTimer _dragScrollTimer;
         private double _dragVelocity;

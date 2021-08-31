@@ -7,26 +7,12 @@ namespace FlowGraphBase.Process
     /// </summary>
     public class MemoryStackFrameManager
     {
-        #region Fields
-
         readonly Stack<MemoryStack> _StackFrames = new Stack<MemoryStack>(2);
-
-        #endregion //Fields
-
-        #region Properties
 
         /// <summary>
         /// 
         /// </summary>
         public MemoryStack CurrentFrame => _StackFrames.Count == 0 ? null : _StackFrames.Peek();
-
-        #endregion //Properties
-
-        #region Constructors
-
-        #endregion //Constructors
-
-        #region Methods
 
         /// <summary>
         /// 
@@ -51,7 +37,5 @@ namespace FlowGraphBase.Process
         {
             _StackFrames.Clear();
         }
-
-        #endregion //Methods
     }
 }

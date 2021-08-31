@@ -8,20 +8,10 @@ namespace FlowGraphBase
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
     public class Category : Attribute
     {
-		#region Fields
-
         public string CategoryPath
         {
             get;
         }
-
-		#endregion //Fields
-	
-		#region Properties
-		
-		#endregion //Properties
-	
-		#region Constructors
 
         /// <summary>
         /// / as separator
@@ -31,12 +21,6 @@ namespace FlowGraphBase
         {
             CategoryPath = category_;
         }
-
-		#endregion //Constructors
-	
-		#region Methods
-		
-		#endregion //Methods
     }
 
     /// <summary>
@@ -45,20 +29,10 @@ namespace FlowGraphBase
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
     public class Name : Attribute
     {
-        #region Fields
-
         public string DisplayName
         {
             get;
         }
-
-        #endregion //Fields
-
-        #region Properties
-
-        #endregion //Properties
-
-        #region Constructors
 
         /// <summary>
         /// / as separator
@@ -68,12 +42,6 @@ namespace FlowGraphBase
         {
             DisplayName = name_;
         }
-
-        #endregion //Constructors
-
-        #region Methods
-
-        #endregion //Methods
     }
 
     /// <summary>
@@ -82,8 +50,6 @@ namespace FlowGraphBase
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
     public class Visible : Attribute
     {
-        #region Fields
-
         /// <summary>
         /// 
         /// </summary>
@@ -91,14 +57,6 @@ namespace FlowGraphBase
         {
             get;
         }
-
-        #endregion //Fields
-
-        #region Properties
-
-        #endregion //Properties
-
-        #region Constructors
 
         /// <summary>
         /// 
@@ -108,11 +66,5 @@ namespace FlowGraphBase
         {
             Value = val_;
         }
-
-        #endregion //Constructors
-
-        #region Methods
-
-        #endregion //Methods
     }
 }

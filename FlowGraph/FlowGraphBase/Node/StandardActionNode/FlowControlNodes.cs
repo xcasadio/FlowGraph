@@ -15,8 +15,6 @@ namespace FlowGraphBase.Node.StandardActionNode
     public class BranchNode : 
         ActionNode
     {
-        #region Enum
-
         public enum NodeSlotId
         {
             In,
@@ -24,8 +22,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             OutFalse,
             VarCond,
         }
-
-        #endregion
 
         public override string Title => "Branch";
 
@@ -114,8 +110,6 @@ namespace FlowGraphBase.Node.StandardActionNode
     public class DoNNode :
         ActionNode
     {
-        #region Enum
-
         public enum NodeSlotId
         {
             InEnter,
@@ -124,8 +118,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             VarInN,
             VarCounter,
         }
-
-        #endregion
 
         bool _IsInitial;
         int _Counter;
@@ -237,16 +229,12 @@ namespace FlowGraphBase.Node.StandardActionNode
     public class DoOnceNode :
         ActionNode
     {
-        #region Enum
-
         public enum NodeSlotId
         {
             InEnter,
             InReset,
             Out,
         }
-
-        #endregion
 
         public override string Title => "Do Once";
 
@@ -329,8 +317,6 @@ namespace FlowGraphBase.Node.StandardActionNode
     public class FlipFlopNode :
         ActionNode
     {
-        #region Enum
-
         public enum NodeSlotId
         {
             InEnter,
@@ -338,8 +324,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             OutB,
             VarOutIsA,
         }
-
-        #endregion
 
         public override string Title => "Flip Flop";
 
@@ -425,8 +409,6 @@ namespace FlowGraphBase.Node.StandardActionNode
     public class ForLoopNode :
         ActionNode
     {
-        #region Nested struct
-
         /// <summary>
         /// 
         /// </summary>
@@ -435,10 +417,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             public int Counter;
             public bool IsWaitingLoopBody;
         }
-
-        #endregion // Nested struct
-
-        #region Enum
 
         public enum NodeSlotId
         {
@@ -449,8 +427,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             VarInLastIndex,
             VarOutIndex,
         }
-
-        #endregion
 
         public override string Title => "For Loop";
 
@@ -498,8 +474,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             {
                 int firstIndex = 0, lastIndex = -1;
 
-                #region first index
-
                 object objFirstIndex = GetValueFromSlot((int)NodeSlotId.VarInFirstIndex);
 
                 if (objFirstIndex == null)
@@ -517,10 +491,6 @@ namespace FlowGraphBase.Node.StandardActionNode
                     firstIndex = (int)objFirstIndex;
                 }
 
-                #endregion // first index
-
-                #region last index
-
                 object objLastIndex = GetValueFromSlot((int)NodeSlotId.VarInLastIndex);
 
                 if (objLastIndex == null)
@@ -537,8 +507,6 @@ namespace FlowGraphBase.Node.StandardActionNode
                 {
                     lastIndex = (int)objLastIndex;
                 }
-
-                #endregion last index
 
                 MemoryStackItem memoryItem = context_.CurrentFrame.GetValueFromID(Id);
 
@@ -612,8 +580,6 @@ namespace FlowGraphBase.Node.StandardActionNode
     public class ForLoopWithBreakNode :
         ActionNode
     {
-        #region Nested struct
-
         /// <summary>
         /// 
         /// </summary>
@@ -623,10 +589,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             public bool IsWaitingLoopBody;
             public ProcessingContextStep Step;
         }
-
-        #endregion // Nested struct
-
-        #region Enum
 
         public enum NodeSlotId
         {
@@ -638,8 +600,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             VarOutIndex,
             InBreak
         }
-
-        #endregion
 
         public override string Title => "For Loop With Break";
 
@@ -688,8 +648,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             {
                 int firstIndex = 0, lastIndex = -1;
 
-                #region first index
-
                 object objFirstIndex = GetValueFromSlot((int)NodeSlotId.VarInFirstIndex);
 
                 if (objFirstIndex == null)
@@ -707,10 +665,6 @@ namespace FlowGraphBase.Node.StandardActionNode
                     firstIndex = (int)objFirstIndex;
                 }
 
-                #endregion // first index
-
-                #region last index
-
                 object objLastIndex = GetValueFromSlot((int)NodeSlotId.VarInLastIndex);
 
                 if (objLastIndex == null)
@@ -727,8 +681,6 @@ namespace FlowGraphBase.Node.StandardActionNode
                 {
                     lastIndex = (int)objLastIndex;
                 }
-
-                #endregion last index
 
                 MemoryStackItem memoryItem = context_.CurrentFrame.GetValueFromID(Id);
 
@@ -815,8 +767,6 @@ namespace FlowGraphBase.Node.StandardActionNode
     public class GateNode :
         ActionNode
     {
-        #region Enum
-
         public enum NodeSlotId
         {
             InEnter,
@@ -826,8 +776,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             VarInStartClosed,
             Out
         }
-
-        #endregion
 
         public override string Title => "Gate";
 

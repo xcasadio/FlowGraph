@@ -9,15 +9,9 @@ namespace FlowSimulator.UI
     /// </summary>
     public partial class NewScriptWindow : Window
     {
-		#region Fields
-
         public delegate bool IsValidInputNameDelegate(string name_);
 
         private bool _DialogResult;
-
-		#endregion //Fields
-	
-		#region Properties
 
         /// <summary>
         /// 
@@ -36,10 +30,6 @@ namespace FlowSimulator.UI
             get;
             set;
         }
-
-		#endregion //Properties
-	
-		#region Constructors
 
         /// <summary>
         /// 
@@ -60,10 +50,6 @@ namespace FlowSimulator.UI
             
             Closing += OnClosing;
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -106,7 +92,5 @@ namespace FlowSimulator.UI
             _DialogResult = false;
             Close();
         }
-
-		#endregion //Methods
     }
 }

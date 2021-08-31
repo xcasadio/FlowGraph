@@ -15,8 +15,6 @@ namespace NetworkUI
     /// </summary>
     public partial class NetworkView : Control
     {
-        #region Dependency Property/Event Definitions
-
         private static readonly DependencyPropertyKey NodesPropertyKey =
             DependencyProperty.RegisterReadOnly("Nodes", typeof(ImpObservableCollection<object>), typeof(NetworkView),
                 new FrameworkPropertyMetadata());
@@ -121,10 +119,6 @@ namespace NetworkUI
         public static readonly RoutedCommand InvertSelectionCommand;
         public static readonly RoutedCommand CancelConnectionDraggingCommand;
 
-        #endregion Dependency Property/Event Definitions
-
-        #region Private Data Members
-
         /// <summary>
         /// Cached reference to the NodeItemsControl in the visual-tree.
         /// </summary>
@@ -139,8 +133,6 @@ namespace NetworkUI
         /// Cached list of currently selected nodes.
         /// </summary>
         private List<object> initialSelectedNodes;
-
-        #endregion Private Data Members
 
         public NetworkView()
         {
@@ -611,8 +603,6 @@ namespace NetworkUI
             draggingConnectionDataContext = null;
         }
 
-        #region Private Methods
-
         /// <summary>
         /// Static constructor.
         /// </summary>
@@ -981,7 +971,5 @@ namespace NetworkUI
             }
             return nodeItem;
         }
-
-        #endregion Private Methods
     }
 }

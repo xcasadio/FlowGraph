@@ -7,16 +7,6 @@ namespace FlowSimulator.UI
     /// </summary>
     public partial class DebugControl : UserControl
     {
-		#region Fields
-		
-		#endregion //Fields
-	
-		#region Properties
-		
-		#endregion //Properties
-	
-		#region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -24,11 +14,5 @@ namespace FlowSimulator.UI
         {
             InitializeComponent();
         }
-
-		#endregion //Constructors
-	
-		#region Methods
-		
-		#endregion //Methods
     }
 }

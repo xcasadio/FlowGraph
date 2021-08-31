@@ -27,8 +27,6 @@ namespace FlowSimulator
     /// </summary>
     public partial class MainWindow : Window
     {
-		#region Fields
-
         private readonly string _UserSettingsFile = "userSettings.xml";
         private readonly string _DockSettingsFile = "dockSettings.xml";
 
@@ -38,10 +36,6 @@ namespace FlowSimulator
         private string _FileOpened = "";
 
         private double _LastLeft, _LastTop, _LastWidth, _LastHeight;
-
-		#endregion //Fields
-	
-		#region Properties
 
         /// <summary>
         /// 
@@ -61,10 +55,6 @@ namespace FlowSimulator
         /// 
         /// </summary>
         internal DetailsControl DetailsControl => detailsControl;
-
-        #endregion //Properties
-	
-		#region Constructors
 
         /// <summary>
         /// 
@@ -87,12 +77,6 @@ namespace FlowSimulator
             Loaded += OnLoaded;
             Closed += OnClosed;
         }
-
-		#endregion //Constructors
-	
-		#region Methods
-
-        #region Window event
 
         /// <summary>
         /// 
@@ -165,12 +149,6 @@ namespace FlowSimulator
             }
         }
 
-        #endregion // Window event
-
-        #region Commands
-
-        #region flow graph debugging
-
         /// <summary>
         /// 
         /// </summary>
@@ -210,10 +188,6 @@ namespace FlowSimulator
         {
             ProcessLauncher.Instance.Stop();
         }
-
-        #endregion // flow graph debugging
-
-        #region Project commands
 
         /// <summary>
         /// 
@@ -264,12 +238,6 @@ namespace FlowSimulator
         {
             Exit();
         }
-
-        #endregion // Project commands
-
-        #endregion // Commands
-
-        #region Menu
 
         /// <summary>
         /// 
@@ -367,10 +335,6 @@ namespace FlowSimulator
                 "Information", 
                 MessageBoxButton.OK);
         }
-
-        #endregion //Menu
-
-        #region Project
 
         /// <summary>
         /// 
@@ -522,10 +486,6 @@ namespace FlowSimulator
             }
         }
 
-        #endregion // Project
-
-        #region Persistence
-
         /// <summary>
         /// 
         /// </summary>
@@ -663,8 +623,6 @@ namespace FlowSimulator
             xmlDoc.Save(_UserSettingsFile);
         }
 
-        #endregion // Persistence
-
         /// <summary>
         /// 
         /// </summary>
@@ -714,7 +672,5 @@ namespace FlowSimulator
                 doc.IsSelected = true;
             }
         }
-        
-        #endregion //Methods
     }
 }

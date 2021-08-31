@@ -58,8 +58,6 @@ namespace FlowGraphBase
             return el;
         }
 
-        #region Save/Load value
-
         /// <summary>
         /// 
         /// </summary>
@@ -104,7 +102,5 @@ namespace FlowGraphBase
                 node_.AddAttribute("valueType", "null");
             }
         }
-
-        #endregion // XmlNode Extension
     }
 }

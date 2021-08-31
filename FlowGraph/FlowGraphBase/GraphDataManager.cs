@@ -12,20 +12,10 @@ namespace FlowGraphBase
     /// </summary>
     public class GraphDataManager
     {
-        #region Singleton
-
         /// <summary>
         /// Gets
         /// </summary>
         public static GraphDataManager Instance { get; } = new GraphDataManager();
-
-        #endregion //Singleton
-
-        #region Fields
-
-        #endregion //Fields
-
-        #region Properties
 
         /// <summary>
         /// 
@@ -66,10 +56,6 @@ namespace FlowGraphBase
             get;
         }
 
-        #endregion //Properties
-
-        #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -79,10 +65,6 @@ namespace FlowGraphBase
             GraphFunctionListBackup = new List<SequenceFunction>();
             ScriptElementListBackup = new List<ScriptElement>();
         }
-
-        #endregion //Constructors
-
-        #region Methods
 
         /// <summary>
         /// 
@@ -150,8 +132,6 @@ namespace FlowGraphBase
             return null;
         }
 
-        #region Sequence
-
         /// <summary>
         /// 
         /// </summary>
@@ -216,10 +196,6 @@ namespace FlowGraphBase
         {
             GraphList.Remove(seq_);
         }
-
-        #endregion // Sequence
-
-        #region Function
 
         /// <summary>
         /// 
@@ -286,10 +262,6 @@ namespace FlowGraphBase
             GraphFunctionList.Remove(seq_);
         }
 
-        #endregion // Sequence
-
-        #region Script
-
         /// <summary>
         /// 
         /// </summary>
@@ -333,10 +305,6 @@ namespace FlowGraphBase
         {
             ScriptElementList.Remove(el_);
         }
-
-        #endregion
-
-        #region Persistence
 
         /// <summary>
         /// 
@@ -411,9 +379,5 @@ namespace FlowGraphBase
                 el.Save(scriptList);
             }
         }
-
-        #endregion // Persistence
-
-        #endregion //Methods
     }
 }

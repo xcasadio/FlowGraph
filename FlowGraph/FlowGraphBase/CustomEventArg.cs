@@ -13,12 +13,6 @@ namespace FlowGraphBase
     /// </summary>
     public class FunctionSlotChangedEventArg : EventArgs
     {
-		#region Fields
-		
-		#endregion //Fields
-	
-		#region Properties
-
         /// <summary>
         /// 
         /// </summary>
@@ -35,10 +29,6 @@ namespace FlowGraphBase
             get;
         }
 
-		#endregion //Properties
-	
-		#region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -49,11 +39,5 @@ namespace FlowGraphBase
             Type = type_;
             FunctionSlot = slot_;
         }
-
-		#endregion //Constructors
-	
-		#region Methods
-		
-		#endregion //Methods
     }
 }

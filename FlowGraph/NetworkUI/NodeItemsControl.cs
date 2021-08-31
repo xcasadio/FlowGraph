@@ -16,8 +16,6 @@ namespace NetworkUI
             Focusable = false;
         }
 
-        #region Private Methods
-
         /// <summary>
         /// Find the NodeItem UI element that has the specified data context.
         /// Return null if no such NodeItem exists.
@@ -42,7 +40,5 @@ namespace NetworkUI
         {
             return item is NodeItem;
         }
-
-        #endregion Private Methods
     }
 }

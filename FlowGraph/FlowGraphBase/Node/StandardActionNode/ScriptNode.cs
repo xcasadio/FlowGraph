@@ -13,8 +13,6 @@ namespace FlowGraphBase.Node.StandardActionNode
     public class ScriptNode
         : ActionNode
     {
-        #region Enum
-
         public enum NodeSlotId
         {
             In,
@@ -23,25 +21,13 @@ namespace FlowGraphBase.Node.StandardActionNode
             OutputStart = 1073741823 // int.MaxValue / 2
         }
 
-        #endregion
-
-        #region Fields
-
         private int _ScriptElementID = -1; // used when the node is loaded, in order to retrieve the ScriptElement
         private ScriptElement _ScriptElement;
-
-        #endregion //Fields
-
-        #region Properties
 
         /// <summary>
         /// 
         /// </summary>
         public override string Title => "Script " + (GetScriptElement() == null ? "<null>" : _ScriptElement.Name);
-
-        #endregion //Properties
-
-        #region Constructors
 
         /// <summary>
         /// 
@@ -61,10 +47,6 @@ namespace FlowGraphBase.Node.StandardActionNode
         {
 
         }
-
-        #endregion //Constructors
-
-        #region Methods
 
         /// <summary>
         /// 
@@ -228,8 +210,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             return new ScriptNode(_ScriptElement);
         }
 
-        #region Persistence
-
         /// <summary>
         /// 
         /// </summary>
@@ -261,10 +241,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             node_.AddAttribute("ScriptElementID", GetScriptElement().ID.ToString());
         }
 
-        #endregion // Persistence
-
-        #region Link with ScriptElement
-
         /// <summary>
         /// 
         /// </summary>
@@ -279,10 +255,6 @@ namespace FlowGraphBase.Node.StandardActionNode
                     break;
             }
         }
-
-        #endregion // Link with SequenceScriptElement
-
-        #endregion //Methods
     }
 
     /// <summary>

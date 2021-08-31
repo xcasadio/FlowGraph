@@ -7,22 +7,8 @@ namespace FlowGraphBase.Process
     /// </summary>
     public class MemoryStack
     {
-        #region Fields
-
         private int _FreeID = int.MaxValue;
         private readonly Dictionary<int, MemoryStackItem> _Variable = new Dictionary<int, MemoryStackItem>();
-
-        #endregion //Fields
-
-        #region Properties
-
-        #endregion //Properties
-
-        #region Constructors
-
-        #endregion //Constructors
-
-        #region Methods
 
         /// <summary>
         /// 
@@ -97,7 +83,5 @@ namespace FlowGraphBase.Process
             _FreeID--;
             return _FreeID;
         }
-
-        #endregion //Methods
     }
 }

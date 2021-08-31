@@ -17,15 +17,9 @@ namespace FlowGraphBase
     /// </summary>
     public class SequenceFunctionSlot : INotifyPropertyChanged
     {
-		#region Fields
-
         private string _Name;
         private Type _VarType;
         private bool _IsArray;
-
-		#endregion //Fields
-	
-		#region Properties
 
         /// <summary>
         /// 
@@ -91,10 +85,6 @@ namespace FlowGraphBase
             }
         }
 
-		#endregion //Properties
-	
-		#region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -105,12 +95,6 @@ namespace FlowGraphBase
             ID = id_;
             SlotType = type_;
         }
-
-		#endregion //Constructors
-	
-		#region Methods
-
-        #region INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -125,9 +109,5 @@ namespace FlowGraphBase
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
-        #endregion // INotifyPropertyChanged
-
-		#endregion //Methods
     }
 }

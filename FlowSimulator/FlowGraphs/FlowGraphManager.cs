@@ -12,30 +12,16 @@ namespace FlowSimulator.FlowGraphs
     /// </summary>
     public class FlowGraphManager
     {
-        #region Singleton
-
         /// <summary>
         /// Gets
         /// </summary>
         public static FlowGraphManager Instance { get; } = new FlowGraphManager();
-
-        #endregion //Singleton
-
-        #region Fields
-
-        #endregion //Fields
-	
-		#region Properties
 
         /// <summary>
         /// 
         /// </summary>
         public ObservableCollection<FlowGraphControlViewModel> FlowGraphList { get; } = new ObservableCollection<FlowGraphControlViewModel>();
 
-        #endregion //Properties
-	
-		#region Constructors
-		
         /// <summary>
         /// 
         /// </summary>
@@ -43,10 +29,6 @@ namespace FlowSimulator.FlowGraphs
         {
 
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -99,8 +81,6 @@ namespace FlowSimulator.FlowGraphs
             return false;
         }
 
-        #region Persistence
-
         /// <summary>
         /// 
         /// </summary>
@@ -149,9 +129,5 @@ namespace FlowSimulator.FlowGraphs
                 wm.Save(list);
             }
         }
-
-        #endregion // Persistence
-
-        #endregion //Methods
     }
 }

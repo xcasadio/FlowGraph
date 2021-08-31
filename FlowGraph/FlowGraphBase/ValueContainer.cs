@@ -10,15 +10,9 @@ namespace FlowGraphBase
     /// </summary>
     class ValueContainer : INotifyPropertyChanged
     {
-		#region Fields
-
         private const string NullToken = "<null>";
         private Type _variableType;
         private object _value;
-
-		#endregion //Fields
-	
-		#region Properties
 
         /// <summary>
         /// Used as nested link with a variable node
@@ -84,10 +78,6 @@ namespace FlowGraphBase
             }
         }
 
-		#endregion //Properties
-	
-		#region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -107,12 +97,6 @@ namespace FlowGraphBase
         {
             Load(node);
         }
-
-		#endregion //Constructors
-	
-		#region Methods
-
-        #region Persistence
 
         /// <summary>
         /// 
@@ -168,19 +152,11 @@ namespace FlowGraphBase
             }
         }
 
-        #endregion // Persistence
-
-        #region INotifyPropertyChanged
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        #endregion // INotifyPropertyChanged
-
-		#endregion //Methods
     }
 }

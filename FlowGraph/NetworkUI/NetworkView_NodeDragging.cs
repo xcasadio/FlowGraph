@@ -9,8 +9,6 @@ namespace NetworkUI
     /// </summary>
     public partial class NetworkView
     {
-        #region Private Methods
-
         /// <summary>
         /// Event raised when the user starts to drag a node.
         /// </summary>
@@ -88,7 +86,5 @@ namespace NetworkUI
             IsDraggingNode = false;
             IsNotDraggingNode = true;
         }
-
-        #endregion Private Methods
     }
 }

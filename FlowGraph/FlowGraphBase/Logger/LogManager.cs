@@ -9,16 +9,10 @@ namespace FlowGraphBase.Logger
     /// </summary>
     public sealed class LogManager
 	{
-        #region Singleton
-
         /// <summary>
         /// Gets
         /// </summary>
         public static LogManager Instance { get; } = new LogManager();
-
-        #endregion //Singleton
-
-		#region Fields
 
         internal event EventHandler NbErrorChanged;
         private int _nbErrors;
@@ -29,10 +23,6 @@ namespace FlowGraphBase.Logger
 #else
         private LogVerbosity _verbosity = LogVerbosity.Info;
 #endif
-
-		#endregion
-
-		#region Properties
 
         /// <summary>
         /// Gets/Sets
@@ -56,15 +46,7 @@ namespace FlowGraphBase.Logger
             }
         }
 
-		#endregion
-
-		#region Constructors
-
-		#endregion
-
-		#region Methods
-
-		/// <summary>
+        /// <summary>
 		/// 
 		/// </summary>
 		/// <param name="log"></param>
@@ -150,7 +132,5 @@ namespace FlowGraphBase.Logger
 
             WriteLine(LogVerbosity.Error, strBldr.ToString());
         }
-
-		#endregion
-	}
+    }
 }

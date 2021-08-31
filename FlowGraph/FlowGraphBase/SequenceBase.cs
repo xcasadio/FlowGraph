@@ -13,17 +13,11 @@ namespace FlowGraphBase
     /// </summary>
     public class SequenceBase : INotifyPropertyChanged
     {
-        #region Fields
-
         static int _newId;
-        
+
         protected readonly Dictionary<int, SequenceNode> SequenceNodes = new Dictionary<int, SequenceNode>();
 
         private string _name, _description;
-
-        #endregion // Fields
-
-        #region Properties
 
         /// <summary>
         /// Gets/Sets
@@ -31,7 +25,7 @@ namespace FlowGraphBase
         public string Name
         {
             get => _name;
-            set 
+            set
             {
                 if (string.Equals(_name, value) == false)
                 {
@@ -47,7 +41,7 @@ namespace FlowGraphBase
         public string Description
         {
             get => _description;
-            set 
+            set
             {
                 if (string.Equals(_description, value) == false)
                 {
@@ -76,10 +70,6 @@ namespace FlowGraphBase
         /// </summary>
         public int NodeCount => SequenceNodes.Values.Count;
 
-        #endregion // Properties
-
-        #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -98,10 +88,6 @@ namespace FlowGraphBase
         {
             Load(node);
         }
-
-        #endregion // Constructors
-
-        #region Methods
 
         /// <summary>
         /// 
@@ -181,8 +167,6 @@ namespace FlowGraphBase
             }
         }
 
-        #region Persistence
-
         /// <summary>
         /// 
         /// </summary>
@@ -259,10 +243,6 @@ namespace FlowGraphBase
             }
         }
 
-        #endregion // Persistence
-
-        #region IPropertyNotify
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
@@ -273,9 +253,5 @@ namespace FlowGraphBase
         {
             if (PropertyChanged != null) PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        #endregion // IPropertyNotify
-
-        #endregion // Methods
     }
 }

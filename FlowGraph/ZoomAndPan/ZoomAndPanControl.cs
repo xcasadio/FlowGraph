@@ -11,8 +11,6 @@ namespace ZoomAndPan
     /// </summary>
     public partial class ZoomAndPanControl : ContentControl, IScrollInfo
     {
-        #region Internal Data Members
-
         /// <summary>
         /// Reference to the underlying content, which is named PART_Content in the template.
         /// </summary>
@@ -57,10 +55,6 @@ namespace ZoomAndPan
         /// </summary>
         private double constrainedContentViewportHeight;
 
-        #endregion Internal Data Members
-
-        #region IScrollInfo Data Members
-
         //
         // These data members are for the implementation of the IScrollInfo interface.
         // This interface works with the ScrollViewer such that when ZoomAndPanControl is 
@@ -100,10 +94,6 @@ namespace ZoomAndPan
         /// Or set to null if there is no ScrollViewer.
         /// </summary>
         private ScrollViewer scrollOwner;
-
-        #endregion IScrollInfo Data Members
-
-        #region Dependency Property Definitions
 
         //
         // Definitions for dependency properties.
@@ -160,8 +150,6 @@ namespace ZoomAndPan
         public static readonly DependencyProperty IsMouseWheelScrollingEnabledProperty =
                 DependencyProperty.Register("IsMouseWheelScrollingEnabled", typeof(bool), typeof(ZoomAndPanControl),
                                             new FrameworkPropertyMetadata(false));
-
-        #endregion Dependency Property Definitions
 
         /// <summary>
         /// Get/set the X offset (in content coordinates) of the view on the content.
@@ -475,8 +463,6 @@ namespace ZoomAndPan
 
             ZoomTo(new Rect(0, 0, content.ActualWidth, content.ActualHeight));
         }
-
-        #region Internal Methods
 
         /// <summary>
         /// Static constructor to define metadata for the control (and link it to the style in Generic.xaml).
@@ -959,7 +945,5 @@ namespace ZoomAndPan
 
             return size;
         }
-
-        #endregion Internal Methods
     }
 }

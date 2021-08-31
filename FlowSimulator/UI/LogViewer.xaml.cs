@@ -11,14 +11,8 @@ namespace FlowSimulator.UI
     /// </summary>
     public partial class LogViewer : UserControl
     {
-		#region Fields
-
         ScrollViewer _ScrollViewer;
         bool _IsAutoScroll = true;
-
-		#endregion //Fields
-	
-		#region Properties
 
         /// <summary>
         /// 
@@ -41,10 +35,6 @@ namespace FlowSimulator.UI
             }
         }
 
-		#endregion //Properties
-	
-		#region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -55,10 +45,6 @@ namespace FlowSimulator.UI
 
             LogEditor.LogEntries.CollectionChanged += OnCollectionChanged;
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -93,7 +79,5 @@ namespace FlowSimulator.UI
         {
             LogEditor.LogEntries.Clear();
         }
-
-		#endregion //Methods
     }
 }

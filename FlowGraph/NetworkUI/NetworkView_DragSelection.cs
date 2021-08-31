@@ -12,8 +12,6 @@ namespace NetworkUI
     /// </summary>
     public partial class NetworkView
     {
-        #region Private Data Members
-
         /// <summary>
         /// Set to 'true' when the control key and the left mouse button is currently held down.
         /// </summary>
@@ -48,10 +46,6 @@ namespace NetworkUI
         /// The threshold distance the mouse-cursor must move before drag-selection begins.
         /// </summary>
         private static readonly double DragThreshold = 5;
-
-        #endregion Private Data Members
-
-        #region Private Methods
 
         /// <summary>
         /// Called when the user holds down the mouse.
@@ -254,7 +248,5 @@ namespace NetworkUI
                 }
             }
         }
-
-        #endregion Private Methods
     }
 }

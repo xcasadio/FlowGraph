@@ -12,25 +12,16 @@ namespace FlowGraphBase.Node.StandardActionNode
     public class ReturnNode
         : ActionNode
     {
-        #region Enum
-
         public enum NodeSlotId
         {
             In,
             InputStart
         }
 
-        #endregion
-
-        #region Fields
-
         private int _FunctionID = -1; // used when the node is loaded, in order to retrieve the function
         private SequenceFunction _Function;
 
         private List<int> _OutputIds = new List<int>();
-        #endregion //Fields
-
-        #region Properties
 
         /// <summary>
         /// 
@@ -43,10 +34,6 @@ namespace FlowGraphBase.Node.StandardActionNode
                 return "ReturnNode"; 
             }
         }
-
-        #endregion //Properties
-
-        #region Constructors
 
         /// <summary>
         /// 
@@ -67,10 +54,6 @@ namespace FlowGraphBase.Node.StandardActionNode
         {
 
         }
-
-        #endregion //Constructors
-
-        #region Methods
 
         /// <summary>
         /// 
@@ -182,8 +165,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             return new ReturnNode(_Function);
         }
 
-        #region Persistence
-
         /// <summary>
         /// 
         /// </summary>
@@ -204,10 +185,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             node_.AddAttribute("functionID", GetFunction().Id.ToString());
         }
 
-        #endregion // Persistence
-
-        #region Link with SequenceFunction
-
         /// <summary>
         /// 
         /// </summary>
@@ -216,9 +193,5 @@ namespace FlowGraphBase.Node.StandardActionNode
         void OnFuntionPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
         }
-
-        #endregion // Link with SequenceFunction
-
-        #endregion //Methods
     }
 }

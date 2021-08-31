@@ -19,8 +19,6 @@ namespace FlowGraphBase.Script
     /// </summary>
     public class ScriptElement : INotifyPropertyChanged
     {
-		#region Fields
-
         public delegate bool ScriptEntryDelegate(ScriptSlotDataCollection params_, ScriptSlotDataCollection ret_);
         public ScriptEntryDelegate _ScriptDelegate;
 
@@ -33,10 +31,6 @@ namespace FlowGraphBase.Script
 
         private readonly ObservableCollection<SequenceFunctionSlot> _Slots = new ObservableCollection<SequenceFunctionSlot>();
         private int _NextSlotId;
-
-		#endregion //Fields
-	
-		#region Properties
 
         /// <summary>
         /// Gets/Sets
@@ -181,10 +175,6 @@ namespace FlowGraphBase.Script
             }
         }
 
-		#endregion //Properties
-	
-		#region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -208,10 +198,6 @@ namespace FlowGraphBase.Script
             Load(node_);
             _Slots.CollectionChanged += OnSlotCollectionChanged;
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -315,8 +301,6 @@ namespace FlowGraphBase.Script
 
             return _ScriptDelegate(parameters, returnVals);
         }
-
-        #region Compilation
 
         /// <summary>
         /// 
@@ -472,10 +456,6 @@ namespace FlowGraphBase.Script
             }
         }
 
-        #endregion // Compilation
-
-        #region INotifyPropertyChanged Members
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
@@ -489,10 +469,6 @@ namespace FlowGraphBase.Script
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
-        #endregion // INotifyPropertyChanged Members
-
-        #region Persistence
 
         /// <summary>
         /// 
@@ -583,10 +559,6 @@ namespace FlowGraphBase.Script
                 LogManager.Instance.WriteException(ex);
             }
         }
-
-        #endregion //Persistence
-
-		#endregion //Methods
 
         /// <summary>
         /// 

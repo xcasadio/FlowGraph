@@ -11,16 +11,6 @@ namespace FlowSimulator.UI
     /// </summary>
     public partial class DetailsControl : UserControl
     {
-		#region Fields
-
-		#endregion //Fields
-	
-		#region Properties
-
-		#endregion //Properties
-	
-		#region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -28,10 +18,6 @@ namespace FlowSimulator.UI
         {
             InitializeComponent();
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -99,7 +85,5 @@ namespace FlowSimulator.UI
                 }
             }
         }
-
-        #endregion //Methods
     }
 }

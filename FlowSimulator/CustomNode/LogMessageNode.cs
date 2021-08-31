@@ -12,16 +12,12 @@ namespace FlowSimulator.CustomNode
     [Category("Action"), Name("Log")]
     public class LogMessageNode : ActionNode
     {
-        #region Enum
-
         public enum NodeSlotId
         {
             In,
             Out,
             Message
         }
-
-        #endregion
 
         /// <summary>
         /// 

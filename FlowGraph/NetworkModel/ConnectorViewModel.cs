@@ -11,8 +11,6 @@ namespace NetworkModel
     /// </summary>
     public sealed class ConnectorViewModel : AbstractModelBase
     {
-		#region Fields
-
         /// <summary>
         /// Event raised when the connector hotspot has been updated.
         /// </summary>
@@ -28,10 +26,6 @@ namespace NetworkModel
         /// This is pushed through from ConnectorItem in the UI.
         /// </summary>
         private Point hotspot;
-
-		#endregion //Fields
-	
-		#region Properties
 
         /// <summary>
         /// The name of the connector.
@@ -158,10 +152,6 @@ namespace NetworkModel
             }
         }
 
-		#endregion //Properties
-	
-		#region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -176,10 +166,6 @@ namespace NetworkModel
             SourceSlot = slot;
             SourceSlot.PropertyChanged += OnSlotPropertyChanged;
         }
-
-		#endregion //Constructors
-
-        #region Methods
 
         /// <summary>
         /// 
@@ -255,7 +241,5 @@ namespace NetworkModel
                 HotspotUpdated(this, EventArgs.Empty);
             }
         }
-
-        #endregion Methods
     }
 }

@@ -13,18 +13,12 @@ namespace FlowGraphBase
     /// </summary>
     public class SequenceFunction : SequenceBase
     {
-		#region Fields
-
         public const string XmlAttributeTypeValue = "Function";
 
         public event EventHandler<FunctionSlotChangedEventArg> FunctionSlotChanged;
 
         private readonly ObservableCollection<SequenceFunctionSlot> _Slots = new ObservableCollection<SequenceFunctionSlot>();
         private int _NextSlotId;
-
-		#endregion //Fields
-
-        #region Properties
 
         /// <summary>
         /// 
@@ -60,10 +54,6 @@ namespace FlowGraphBase
             }
         }
 
-		#endregion //Properties
-	
-		#region Constructors
-		
         /// <summary>
         /// 
         /// </summary>
@@ -84,10 +74,6 @@ namespace FlowGraphBase
         {
             _Slots.CollectionChanged += OnSlotCollectionChanged;
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -157,8 +143,6 @@ namespace FlowGraphBase
             OnPropertyChanged("Outputs");
         }
 
-        #region Persistence
-
         /// <summary>
         /// 
         /// </summary>
@@ -212,9 +196,5 @@ namespace FlowGraphBase
                 slotNode.AddAttribute("id", s.ID.ToString());
             }
         }
-
-        #endregion // Persistence
-
-        #endregion //Methods
     }
 }

@@ -12,8 +12,6 @@ namespace FlowGraphBase.Node.StandardActionNode
     public class CallFunctionNode
         : ActionNode
     {
-        #region Enum
-
         public enum NodeSlotId
         {
             In,
@@ -22,25 +20,13 @@ namespace FlowGraphBase.Node.StandardActionNode
             OutputStart = 1073741823 // int.MaxValue / 2
         }
 
-        #endregion
-
-        #region Fields
-
         private int _FunctionID = -1; // used when the node is loaded, in order to retrieve the function
         private SequenceFunction _Function;
-
-        #endregion //Fields
-
-        #region Properties
 
         /// <summary>
         /// 
         /// </summary>
         public override string Title => (GetFunction() == null ? "<null>" : _Function.Name) + " function";
-
-        #endregion //Properties
-
-        #region Constructors
 
         /// <summary>
         /// 
@@ -61,10 +47,6 @@ namespace FlowGraphBase.Node.StandardActionNode
         {
 
         }
-
-        #endregion //Constructors
-
-        #region Methods
 
         /// <summary>
         /// 
@@ -193,8 +175,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             return new CallFunctionNode(_Function);
         }
 
-        #region Persistence
-
         /// <summary>
         /// 
         /// </summary>
@@ -226,10 +206,6 @@ namespace FlowGraphBase.Node.StandardActionNode
             node_.AddAttribute("functionID", GetFunction().Id.ToString());
         }
 
-        #endregion // Persistence
-
-        #region Link with SequenceFunction
-
         /// <summary>
         /// 
         /// </summary>
@@ -244,9 +220,5 @@ namespace FlowGraphBase.Node.StandardActionNode
                     break;
             }
         }
-
-        #endregion // Link with SequenceFunction
-
-        #endregion //Methods
     }
 }

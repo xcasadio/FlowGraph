@@ -7,12 +7,6 @@ namespace FlowGraphBase.Process
     /// </summary>
     public class ProcessingContextStep
     {
-		#region Fields
-
-        #endregion //Fields
-	
-		#region Properties
-		
         /// <summary>
         /// Gets
         /// </summary>
@@ -28,10 +22,6 @@ namespace FlowGraphBase.Process
         /// </summary>
 	    public NodeSlot Slot { get; }
 
-        #endregion //Properties
-	
-		#region Constructors
-		
         /// <summary>
         /// 
         /// </summary>
@@ -44,11 +34,5 @@ namespace FlowGraphBase.Process
             MemoryStack = stack_;
             Slot = slot_;
         }
-
-		#endregion //Constructors
-	
-		#region Methods
-		
-		#endregion //Methods
     }
 }

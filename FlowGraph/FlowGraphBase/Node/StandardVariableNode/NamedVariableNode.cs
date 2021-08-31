@@ -10,13 +10,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
     [Visible(false)]
     public class NamedVariableNode : VariableNode
     {
-		#region Fields
-
         NamedVariable _Value;
-
-		#endregion //Fields
-	
-		#region Properties
 
         public override string Title => _Value.Name;
 
@@ -39,10 +33,6 @@ namespace FlowGraphBase.Node.StandardVariableNode
             set => _Value.InternalValueContainer.Value = value;
         }
 
-		#endregion //Properties
-	
-		#region Constructors
-		
         /// <summary>
         /// 
         /// </summary>
@@ -63,10 +53,6 @@ namespace FlowGraphBase.Node.StandardVariableNode
             _Value.PropertyChanged += OnNamedVariablePropertyChanged;
             AddSlot(0, string.Empty, SlotType.VarInOut, _Value.VariableType);
         }
-
-		#endregion //Constructors
-	
-		#region Methods
 
         /// <summary>
         /// 
@@ -128,6 +114,5 @@ namespace FlowGraphBase.Node.StandardVariableNode
             base.Load(node_);
             _Value = (NamedVariable)LoadValue(node_.SelectSingleNode("Value"));
         }
-		#endregion //Methods
     }
 }

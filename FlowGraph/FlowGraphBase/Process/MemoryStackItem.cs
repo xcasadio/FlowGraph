@@ -7,13 +7,7 @@ namespace FlowGraphBase.Process
     /// </summary>
     public class MemoryStackItem : INotifyPropertyChanged
     {
-		#region Fields
-
         private object _Value;
-
-		#endregion //Fields
-	
-		#region Properties
 
         /// <summary>
         /// 
@@ -36,10 +30,6 @@ namespace FlowGraphBase.Process
             }
         }
 
-		#endregion //Properties
-	
-		#region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -50,12 +40,6 @@ namespace FlowGraphBase.Process
             ID = id_;
             _Value = val_;
         }
-
-		#endregion //Constructors
-	
-		#region Methods
-
-        #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -70,10 +54,6 @@ namespace FlowGraphBase.Process
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
-        #endregion // INotifyPropertyChanged Members
-
-        #region Object
 
         /// <summary>
         /// 
@@ -101,9 +81,5 @@ namespace FlowGraphBase.Process
         {
             return string.Format("{0} : {1}", ID, (_Value == null ? "<null>" : _Value.ToString()));
         }
-
-        #endregion // Object
-
-        #endregion //Methods
     }
 }

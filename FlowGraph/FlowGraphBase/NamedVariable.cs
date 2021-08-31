@@ -8,14 +8,8 @@ namespace FlowGraphBase
     /// </summary>
     public class NamedVariable : INotifyPropertyChanged
     {
-		#region Fields
-
         string _Name;
         ValueContainer _Value;
-
-		#endregion //Fields
-	
-		#region Properties
 
         /// <summary>
         /// 
@@ -69,10 +63,6 @@ namespace FlowGraphBase
             }
         }
 
-		#endregion //Properties
-	
-		#region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -84,10 +74,6 @@ namespace FlowGraphBase
             InternalValueContainer = var_;
         }
 
-		#endregion //Constructors
-	
-		#region Methods
-
         /// <summary>
         /// 
         /// </summary>
@@ -97,8 +83,6 @@ namespace FlowGraphBase
         {
             OnPropertyChanged(e.PropertyName);
         }
-
-        #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -113,9 +97,5 @@ namespace FlowGraphBase
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
-        #endregion // INotifyPropertyChanged Members
-
-		#endregion //Methods
     }
 }

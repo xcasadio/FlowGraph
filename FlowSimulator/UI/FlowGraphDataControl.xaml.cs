@@ -13,26 +13,12 @@ namespace FlowSimulator.UI
     /// </summary>
     public partial class FlowGraphDataControl : UserControl
     {
-		#region Fields
-
-        #region Drag & Drop
-
         public const string DragPrefixFunction = "SequenceFunction#";
         public const string DragPrefixNamedVar = "NamedVariable#";
         public const string DragPrefixScriptElement = "ScriptElement#";
 
         private Point _DragStartPoint;
         private bool _IsDragAndDrop;
-
-        #endregion
-
-		#endregion //Fields
-	
-		#region Properties
-		
-		#endregion //Properties
-	
-		#region Constructors
 
         /// <summary>
         /// 
@@ -41,14 +27,6 @@ namespace FlowSimulator.UI
         {
             InitializeComponent();
         }
-
-		#endregion //Constructors
-	
-		#region Methods
-
-        #region flow graph management
-
-        #region Graph Command
 
         /// <summary>
         /// 
@@ -178,10 +156,6 @@ namespace FlowSimulator.UI
             }
         }
 
-        #endregion // Graph Command
-
-        #region Function Command
-
         /// <summary>
         /// 
         /// </summary>
@@ -297,8 +271,6 @@ namespace FlowSimulator.UI
             }
         }
 
-        #region Drag and drop function
-
         /// <summary>
         /// 
         /// </summary>
@@ -356,12 +328,6 @@ namespace FlowSimulator.UI
                 }
             }
         }
-
-        #endregion // Drag and drop function
-
-        #endregion // Function Command
-
-        #region Variable Command
 
         /// <summary>
         /// 
@@ -436,8 +402,6 @@ namespace FlowSimulator.UI
             }
         }
 
-        #region Drag and drop Variable
-
         /// <summary>
         /// 
         /// </summary>
@@ -496,12 +460,6 @@ namespace FlowSimulator.UI
             }
         }
 
-        #endregion // Drag and drop function
-
-        #endregion // Variable Command
-
-        #region Script Command
-        
         /// <summary>
         /// 
         /// </summary>
@@ -597,8 +555,6 @@ namespace FlowSimulator.UI
             }
         }
 
-        #region Drag and drop Variable
-
         /// <summary>
         /// 
         /// </summary>
@@ -636,13 +592,5 @@ namespace FlowSimulator.UI
                 }
             }
         }
-
-        #endregion // Drag and drop function
-
-        #endregion // Script Command
-
-        #endregion // flow graph management
-
-        #endregion //Methods
     }
 }

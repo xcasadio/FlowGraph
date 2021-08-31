@@ -6,12 +6,6 @@
     /// </summary>
     public class ConnectionBadIndicator
     {
-        #region Fields
-
-        #endregion //Fields
-
-        #region Properties
-
         /// <summary>
         /// 
         /// </summary>
@@ -20,10 +14,6 @@
             get;
         }
 
-        #endregion //Properties
-
-        #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -31,11 +21,5 @@
         {
             Message = msg_;
         }
-
-        #endregion //Constructors
-
-        #region Methods
-
-        #endregion //Methods
     }
 }

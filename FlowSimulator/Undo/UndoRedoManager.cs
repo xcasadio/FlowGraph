@@ -10,8 +10,6 @@ namespace FlowSimulator.Undo
     /// </summary>
     public class UndoRedoManager : INotifyPropertyChanged
     {
-        #region Fields
-
         public event EventHandler UndoRedoCommandListChanged;
         public event EventHandler UndoRedoCommandExecuted;
 
@@ -23,10 +21,6 @@ namespace FlowSimulator.Undo
         /// </summary>
         bool _IsProcessing;
 
-        #endregion //Fields
-
-        #region Properties
-
         /// <summary>
         /// Gets if can undo
         /// </summary>
@@ -36,14 +30,6 @@ namespace FlowSimulator.Undo
         /// Gets if can redo
         /// </summary>
         public bool CanRedo => _Redo.Count == 0 ? false : true;
-
-        #endregion //Properties
-
-        #region Constructors
-
-        #endregion //Constructors
-
-        #region Methods
 
         /// <summary>
         /// 
@@ -208,8 +194,6 @@ namespace FlowSimulator.Undo
             }
         }
 
-        #region INotifyPropertyChanged
-
         /// <summary>
         /// Raises the PropertyChanged event.
         /// </summary>
@@ -225,9 +209,5 @@ namespace FlowSimulator.Undo
         /// Event raised to indicate that a property value has changed.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion // INotifyPropertyChanged
-
-        #endregion //Methods
     }
 }

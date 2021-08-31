@@ -3,20 +3,12 @@ using FlowGraphBase.Logger;
 
 namespace FlowGraphBase.Script
 {
-    #region class GlobalVar
-
     /// <summary>
     /// 
     /// </summary>
     public static class GlobalVar
     {
-        #region Fields
-
         private static readonly Dictionary<string, object> _Vars = new Dictionary<string, object>();
-
-        #endregion // Fields
-
-        #region Methods
 
         /// <summary>
         /// Set a value associate to a key
@@ -60,27 +52,15 @@ namespace FlowGraphBase.Script
         {
             return _Vars.ContainsKey(key_);
         }
-
-        #endregion // Methods
     }
-
-    #endregion // class GlobalVar
-
-    #region class Sequence
 
     /// <summary>
     /// 
     /// </summary>
     public static class ScriptSequence
     {
-        #region Fields
-
         private static volatile uint _Sequence;
 
-
-        #endregion // Fields
-
-        #region Methods
 
         /// <summary>
         /// 
@@ -90,9 +70,5 @@ namespace FlowGraphBase.Script
         {
             return _Sequence++;
         }
-
-        #endregion // Methods
     }
-
-    #endregion // class Sequence
 }
