@@ -222,8 +222,7 @@ namespace NetworkUI
             // The hit test may have hit a UI element that is below 'ConnectorItem' so
             // search up the tree.
             //
-            var hitItem = result.VisualHit as FrameworkElement;
-            if (hitItem == null)
+            if (!(result.VisualHit is FrameworkElement hitItem))
             {
                 return false;
             }

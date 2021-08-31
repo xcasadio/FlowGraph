@@ -46,8 +46,7 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         private void listBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var item = ItemsControl.ContainerFromElement(sender as ListBox, e.OriginalSource as DependencyObject) as ListBoxItem;
-            if (item != null)
+            if (ItemsControl.ContainerFromElement(sender as ListBox, e.OriginalSource as DependencyObject) is ListBoxItem item)
             {
                 MainWindow.Instance.DetailsControl.DataContext = item.DataContext;
             }
@@ -111,7 +110,7 @@ namespace FlowSimulator.UI
                 && listBoxGraphs.SelectedItem is Sequence)
             {
                 FlowGraphControlViewModel flowGraphVM = 
-                    FlowGraphManager.Instance.GetViewModelByID((listBoxGraphs.SelectedItem as Sequence).Id);
+                    FlowGraphManager.Instance.GetViewModelById((listBoxGraphs.SelectedItem as Sequence).Id);
 
                 SequenceParametersWindow win = new SequenceParametersWindow
                 {
@@ -143,7 +142,7 @@ namespace FlowSimulator.UI
                 && listBoxGraphs.SelectedItem is Sequence)
             {
                 FlowGraphControlViewModel flowGraphVM =
-                    FlowGraphManager.Instance.GetViewModelByID((listBoxGraphs.SelectedItem as Sequence).Id);
+                    FlowGraphManager.Instance.GetViewModelById((listBoxGraphs.SelectedItem as Sequence).Id);
 
                 if (MessageBox.Show(
                         "Do you really want to delete the graph " + flowGraphVM.Name + " ?",
@@ -226,7 +225,7 @@ namespace FlowSimulator.UI
                 && listBoxGraphFunctions.SelectedItem is SequenceFunction)
             {
                 FlowGraphControlViewModel flowGraphVM =
-                    FlowGraphManager.Instance.GetViewModelByID((listBoxGraphFunctions.SelectedItem as SequenceBase).Id);
+                    FlowGraphManager.Instance.GetViewModelById((listBoxGraphFunctions.SelectedItem as SequenceBase).Id);
 
                 SequenceParametersWindow win = new SequenceParametersWindow
                 {
@@ -258,7 +257,7 @@ namespace FlowSimulator.UI
                 && listBoxGraphFunctions.SelectedItem is SequenceFunction)
             {
                 FlowGraphControlViewModel flowGraphVM =
-                    FlowGraphManager.Instance.GetViewModelByID((listBoxGraphFunctions.SelectedItem as SequenceBase).Id);
+                    FlowGraphManager.Instance.GetViewModelById((listBoxGraphFunctions.SelectedItem as SequenceBase).Id);
 
                 if (MessageBox.Show(
                         "Do you really want to delete the function " + flowGraphVM.Name + " ?",

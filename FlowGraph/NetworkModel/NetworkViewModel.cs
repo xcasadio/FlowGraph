@@ -10,32 +10,32 @@ namespace NetworkModel
         /// <summary>
         /// The collection of nodes in the network.
         /// </summary>
-        private ImpObservableCollection<NodeViewModel> nodesViewModel;
+        private ImpObservableCollection<NodeViewModel> _nodesViewModel;
 
         /// <summary>
         /// The collection of connections in the network.
         /// </summary>
-        private ImpObservableCollection<ConnectionViewModel> connectionsViewModel;
+        private ImpObservableCollection<ConnectionViewModel> _connectionsViewModel;
 
         /// <summary>
         /// The collection of nodes in the network.
         /// </summary>
-        public ImpObservableCollection<NodeViewModel> NodesViewModel => nodesViewModel ?? (nodesViewModel = new ImpObservableCollection<NodeViewModel>());
+        public ImpObservableCollection<NodeViewModel> Nodes => _nodesViewModel ?? (_nodesViewModel = new ImpObservableCollection<NodeViewModel>());
 
         /// <summary>
         /// The collection of connections in the network.
         /// </summary>
-        public ImpObservableCollection<ConnectionViewModel> ConnectionsViewModel
+        public ImpObservableCollection<ConnectionViewModel> Connections
         {
             get
             {
-                if (connectionsViewModel == null)
+                if (_connectionsViewModel == null)
                 {
-                    connectionsViewModel = new ImpObservableCollection<ConnectionViewModel>();
-                    connectionsViewModel.ItemsRemoved += connections_ItemsRemoved;
+                    _connectionsViewModel = new ImpObservableCollection<ConnectionViewModel>();
+                    _connectionsViewModel.ItemsRemoved += connections_ItemsRemoved;
                 }
 
-                return connectionsViewModel;
+                return _connectionsViewModel;
             }
         }
 

@@ -293,7 +293,7 @@ namespace FlowSimulator.UI
             //
             // Add the new connection to the view-model.
             //
-            Network.ConnectionsViewModel.Add(connection);
+            Network.Connections.Add(connection);
 
             return connection;
         }
@@ -371,7 +371,7 @@ namespace FlowSimulator.UI
                 // The connection was unsuccessful.
                 // Maybe the user dragged it out and dropped it in empty space.
                 //
-                Network.ConnectionsViewModel.Remove(newConnection);
+                Network.Connections.Remove(newConnection);
 //                 _connectorDraggedOut = connectorDraggedOut;
 //                 _ConnectorDraggedOver = connectorDraggedOver;
 // 
@@ -399,7 +399,7 @@ namespace FlowSimulator.UI
                 // eg input -> input or output -> output, are not allowed,
                 // Remove the connection.
                 //
-                Network.ConnectionsViewModel.Remove(newConnection);
+                Network.Connections.Remove(newConnection);
                 return;
             }
 
@@ -413,7 +413,7 @@ namespace FlowSimulator.UI
             var existingConnection = FindConnection(connectorDraggedOut, connectorDraggedOver);
             if (existingConnection != null)
             {
-                Network.ConnectionsViewModel.Remove(existingConnection);
+                Network.Connections.Remove(existingConnection);
             }
 
             // Finalize the connection by reordering the source & destination
@@ -629,7 +629,7 @@ namespace FlowSimulator.UI
         public void DeleteSelectedNodes()
         {
             // Take a copy of the selected nodes list so we can delete nodes while iterating.
-            var nodesCopy = Network.NodesViewModel.ToArray();
+            var nodesCopy = Network.Nodes.ToArray();
 
             List<NodeViewModel> selectedNodes = new List<NodeViewModel>();
             foreach (var node in nodesCopy)
@@ -659,8 +659,8 @@ namespace FlowSimulator.UI
                 UndoRedoManager.Add(new DeleteNodeUndoCommand(this, node));
             }
 
-            Network.ConnectionsViewModel.RemoveRange(node.AttachedConnections);
-            Network.NodesViewModel.Remove(node);
+            Network.Connections.RemoveRange(node.AttachedConnections);
+            Network.Nodes.Remove(node);
         }
 
         /// <summary>
@@ -676,10 +676,10 @@ namespace FlowSimulator.UI
 
             foreach (var node in nodes_)
             {
-                Network.ConnectionsViewModel.RemoveRange(node.AttachedConnections);
+                Network.Connections.RemoveRange(node.AttachedConnections);
             }
             
-            Network.NodesViewModel.RemoveRange(nodes_);
+            Network.Nodes.RemoveRange(nodes_);
         }
 
         /// <summary>
@@ -692,7 +692,7 @@ namespace FlowSimulator.UI
                 UndoRedoManager.Add(new CreateNodeUndoCommand(this, node_));
             }
 
-            Network.NodesViewModel.Add(node_);
+            Network.Nodes.Add(node_);
         }
 
         /// <summary>
@@ -769,7 +769,7 @@ namespace FlowSimulator.UI
             }
 
             UndoRedoManager.Add(new CreateNodesUndoCommand(this, newNodes));
-            Network.NodesViewModel.AddRange(newNodes);
+            Network.Nodes.AddRange(newNodes);
 
             return newNodes;
         }
@@ -784,7 +784,7 @@ namespace FlowSimulator.UI
                 UndoRedoManager.Add(new CreateConnectionUndoCommand(this, connection));
             }
 
-            Network.ConnectionsViewModel.Add(connection);
+            Network.Connections.Add(connection);
         }
 
         /// <summary>
@@ -797,7 +797,7 @@ namespace FlowSimulator.UI
                 UndoRedoManager.Add(new DeleteConnectionUndoCommand(this, connection));
             }
 
-            Network.ConnectionsViewModel.Remove(connection);
+            Network.Connections.Remove(connection);
         }
 
         /// <summary>
@@ -810,7 +810,7 @@ namespace FlowSimulator.UI
                 UndoRedoManager.Add(new CreateConnectionsUndoCommand(this, connections));
             }
 
-            Network.ConnectionsViewModel.AddRange(connections);
+            Network.Connections.AddRange(connections);
         }
 
         /// <summary>
@@ -823,7 +823,7 @@ namespace FlowSimulator.UI
                 UndoRedoManager.Add(new DeleteConnectionsUndoCommand(this, connections));
             }
 
-            Network.ConnectionsViewModel.RemoveRange(connections);
+            Network.Connections.RemoveRange(connections);
         }
 
         /// <summary>
@@ -834,7 +834,7 @@ namespace FlowSimulator.UI
             // Function already contains nodes when it is created
             // so we need to create the corresponding NodeViewModel for each node
             if (Sequence is SequenceFunction
-                && Network.NodesViewModel.Count == 0)
+                && Network.Nodes.Count == 0)
             {
                 IEnumerator<SequenceNode> it = Sequence.Nodes.GetEnumerator();
                 int i = 0;
@@ -846,7 +846,7 @@ namespace FlowSimulator.UI
                         X = 50 + i * 150,
                         Y = 50
                     };
-                    Network.NodesViewModel.Add(nodeVM);
+                    Network.Nodes.Add(nodeVM);
                     i++;
                 }
             }
@@ -859,13 +859,13 @@ namespace FlowSimulator.UI
         {
             Sequence.RemoveAllNodes();
 
-            foreach (var node in Network.NodesViewModel)
+            foreach (var node in Network.Nodes)
             {
                 node.SeqNode.RemoveAllConnections();
             }
 
             //connect all nodes
-            foreach (var link in Network.ConnectionsViewModel)
+            foreach (var link in Network.Connections)
             {
                 if (link.SourceConnector != null
                     && link.DestConnector != null)
@@ -904,7 +904,7 @@ namespace FlowSimulator.UI
                 }
             }
 
-            foreach (var node in Network.NodesViewModel)
+            foreach (var node in Network.Nodes)
             {
                 Sequence.AddNode(node.SeqNode);
             }
@@ -931,13 +931,13 @@ namespace FlowSimulator.UI
 
                     if (nodeNode != null)
                     {
-                        NodeViewModel nodeVM = new NodeViewModel(node)
+                        NodeViewModel nodeVm = new NodeViewModel(node)
                         {
                             X = double.Parse(nodeNode.Attributes["x"].Value),
                             Y = double.Parse(nodeNode.Attributes["y"].Value),
                             ZIndex = int.Parse(nodeNode.Attributes["z"].Value)
                         };
-                        Network.NodesViewModel.Add(nodeVM);
+                        Network.Nodes.Add(nodeVm);
                     }
                     else
                     {
@@ -954,7 +954,7 @@ namespace FlowSimulator.UI
                     NodeViewModel destNode = GetNodeVMBySequenceID(int.Parse(linkNode.Attributes["destNodeID"].Value));
                     cvm.SourceConnector = srcNode.GetConnectorFromSlotId(int.Parse(linkNode.Attributes["srcNodeSlotID"].Value));
                     cvm.DestConnector = destNode.GetConnectorFromSlotId(int.Parse(linkNode.Attributes["destNodeSlotID"].Value));
-                    Network.ConnectionsViewModel.Add(cvm);
+                    Network.Connections.Add(cvm);
                 }
 
                 _XmlNodeLoaded = node_;
@@ -972,7 +972,7 @@ namespace FlowSimulator.UI
         /// <returns></returns>
         private NodeViewModel GetNodeVMBySequenceID(int seqId_)
         {
-            foreach (NodeViewModel n in Network.NodesViewModel)
+            foreach (NodeViewModel n in Network.Nodes)
             {
                 if (n.SeqNode.Id == seqId_)
                 {
@@ -996,7 +996,7 @@ namespace FlowSimulator.UI
             graphNode.AddAttribute("designerVersion", version.ToString());
 
             //save all nodes
-            foreach (NodeViewModel nodeVM in Network.NodesViewModel)
+            foreach (NodeViewModel nodeVM in Network.Nodes)
             {
                 XmlNode nodeNode = graphNode.SelectSingleNode("NodeList/Node[@id='" + nodeVM.SeqNode.Id + "']");
 

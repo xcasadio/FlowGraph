@@ -22,14 +22,12 @@ namespace Utils
                 return null;
             }
 
-            Window window = element.Parent as Window;
-            if (window != null)
+            if (element.Parent is Window window)
             {
                 return window;
             }
 
-            FrameworkElement parentElement = element.Parent as FrameworkElement;
-            if (parentElement != null)
+            if (element.Parent is FrameworkElement parentElement)
             {
                 return FindParentWindow(parentElement);
             }
@@ -43,8 +41,7 @@ namespace Utils
             FrameworkElement parent = (FrameworkElement)childElement.Parent;
             if (parent != null)
             {
-                DataContextT data = parent.DataContext as DataContextT;
-                if (data != null)
+                if (parent.DataContext is DataContextT data)
                 {
                     if (parent.Name == name)
                     {
@@ -62,8 +59,7 @@ namespace Utils
             parent = (FrameworkElement)childElement.TemplatedParent;
             if (parent != null)
             {
-                DataContextT data = parent.DataContext as DataContextT;
-                if (data != null)
+                if (parent.DataContext is DataContextT data)
                 {
                     if (parent.Name == name)
                     {
@@ -86,8 +82,7 @@ namespace Utils
         {
             if (childElement.Parent != null)
             {
-                DataContextT data = ((FrameworkElement)childElement.Parent).DataContext as DataContextT;
-                if (data != null)
+                if (((FrameworkElement)childElement.Parent).DataContext is DataContextT data)
                 {
                     return (FrameworkElement)childElement.Parent;
                 }
@@ -101,8 +96,7 @@ namespace Utils
 
             if (childElement.TemplatedParent != null)
             {
-                DataContextT data = ((FrameworkElement)childElement.TemplatedParent).DataContext as DataContextT;
-                if (data != null)
+                if (((FrameworkElement)childElement.TemplatedParent).DataContext is DataContextT data)
                 {
                     return (FrameworkElement)childElement.TemplatedParent;
                 }
@@ -123,8 +117,7 @@ namespace Utils
             FrameworkElement parentElement = (FrameworkElement)VisualTreeHelper.GetParent(childElement);
             if (parentElement != null)
             {
-                ParentT parent = parentElement as ParentT;
-                if (parent != null)
+                if (parentElement is ParentT parent)
                 {
                     return parent;
                 }
@@ -140,8 +133,7 @@ namespace Utils
         {
             if (childElement.Parent != null)
             {
-                ParentT parent = childElement.Parent as ParentT;
-                if (parent != null)
+                if (childElement.Parent is ParentT parent)
                 {
                     return parent;
                 }
@@ -155,8 +147,7 @@ namespace Utils
 
             if (childElement.TemplatedParent != null)
             {
-                ParentT parent = childElement.TemplatedParent as ParentT;
-                if (parent != null)
+                if (childElement.TemplatedParent is ParentT parent)
                 {
                     return parent;
                 }
@@ -171,8 +162,7 @@ namespace Utils
             FrameworkElement parentElement = (FrameworkElement)VisualTreeHelper.GetParent(childElement);
             if (parentElement != null)
             {
-                ParentT parent = parentElement as ParentT;
-                if (parent != null)
+                if (parentElement is ParentT parent)
                 {
                     return parent;
                 }
@@ -188,8 +178,7 @@ namespace Utils
         {
             if (childElement.Parent != null)
             {
-                ParentT parent = childElement.Parent as ParentT;
-                if (parent != null)
+                if (childElement.Parent is ParentT parent)
                 {
                     if (parent.DataContext == dataContext)
                     {
@@ -206,8 +195,7 @@ namespace Utils
 
             if (childElement.TemplatedParent != null)
             {
-                ParentT parent = childElement.TemplatedParent as ParentT;
-                if (parent != null)
+                if (childElement.TemplatedParent is ParentT parent)
                 {
                     if (parent.DataContext == dataContext)
                     {
@@ -225,8 +213,7 @@ namespace Utils
             FrameworkElement parentElement = (FrameworkElement)VisualTreeHelper.GetParent(childElement);
             if (parentElement != null)
             {
-                ParentT parent = parentElement as ParentT;
-                if (parent != null)
+                if (parentElement is ParentT parent)
                 {
                     return parent;
                 }
@@ -383,14 +370,12 @@ namespace Utils
         {
             if (element.Parent != null)
             {
-                T ancestor = element.Parent as T;
-                if (ancestor != null)
+                if (element.Parent is T ancestor)
                 {
                     return ancestor;
                 }
 
-                FrameworkElement parent = element.Parent as FrameworkElement;
-                if (parent != null)
+                if (element.Parent is FrameworkElement parent)
                 {
                     return FindAncestor<T>(parent);
                 }
@@ -398,14 +383,12 @@ namespace Utils
 
             if (element.TemplatedParent != null)
             {
-                T ancestor = element.TemplatedParent as T;
-                if (ancestor != null)
+                if (element.TemplatedParent is T ancestor)
                 {
                     return ancestor;
                 }
 
-                FrameworkElement parent = element.TemplatedParent as FrameworkElement;
-                if (parent != null)
+                if (element.TemplatedParent is FrameworkElement parent)
                     {
                     return FindAncestor<T>(parent);
                     }
@@ -414,14 +397,12 @@ namespace Utils
             DependencyObject visualParent = VisualTreeHelper.GetParent(element);
             if (visualParent != null)
             {
-                T visualAncestor = visualParent as T;
-                if (visualAncestor != null)
+                if (visualParent is T visualAncestor)
                 {
                     return visualAncestor;
             }
 
-                FrameworkElement visualElement = visualParent as FrameworkElement;
-                if (visualElement != null)
+                if (visualParent is FrameworkElement visualElement)
             {
                     return FindAncestor<T>(visualElement);
                 }
@@ -458,8 +439,7 @@ namespace Utils
         public static ElementT FindElementWithName<ElementT>(Visual rootElement, string name)
             where ElementT : FrameworkElement
         {
-            FrameworkElement rootFrameworkElement = rootElement as FrameworkElement;
-            if (rootFrameworkElement != null)
+            if (rootElement is FrameworkElement rootFrameworkElement)
             {
                 rootFrameworkElement.UpdateLayout();
             }
@@ -469,8 +449,7 @@ namespace Utils
             {
                 Visual childElement = (Visual)VisualTreeHelper.GetChild(rootElement, i);
 
-                ElementT typedChildElement = childElement as ElementT;
-                if (typedChildElement != null)
+                if (childElement is ElementT typedChildElement)
                 {
                     if (typedChildElement.Name == name)
                 {
@@ -497,8 +476,7 @@ namespace Utils
         {
             Trace.Assert(rootElement != null);
 
-            FrameworkElement rootFrameworkElement = rootElement as FrameworkElement;
-            if (rootFrameworkElement != null)
+            if (rootElement is FrameworkElement rootFrameworkElement)
         {
                 rootFrameworkElement.UpdateLayout();
         }
@@ -508,8 +486,7 @@ namespace Utils
             {
                 Visual childElement = (Visual)VisualTreeHelper.GetChild(rootElement, i);
 
-                ElementT typedChildElement = childElement as ElementT;
-                if (typedChildElement != null &&
+                if (childElement is ElementT typedChildElement &&
                     typedChildElement.DataContext == data)
                 {
                     if (typedChildElement.Name == name)
@@ -537,10 +514,9 @@ namespace Utils
             if (rootElement == null)
             {
                 throw new ArgumentNullException("rootElement");
-            }            
+            }
 
-            FrameworkElement rootFrameworkElement = rootElement as FrameworkElement;
-            if (rootFrameworkElement != null)
+            if (rootElement is FrameworkElement rootFrameworkElement)
         {
                 rootFrameworkElement.UpdateLayout();
             }
@@ -553,8 +529,7 @@ namespace Utils
             {
                 Visual childElement = (Visual)VisualTreeHelper.GetChild(rootElement, i);
 
-                ElementT typedChildElement = childElement as ElementT;
-                if (typedChildElement != null)
+                if (childElement is ElementT typedChildElement)
                     {
                     return typedChildElement;
                     }
@@ -588,9 +563,8 @@ namespace Utils
             {
                 throw new ArgumentNullException("rootElement");
             }
-            
-            FrameworkElement rootFrameworkElement = rootElement as FrameworkElement;
-            if (rootFrameworkElement != null)
+
+            if (rootElement is FrameworkElement rootFrameworkElement)
             {
                 rootFrameworkElement.UpdateLayout();
             }
@@ -600,8 +574,7 @@ namespace Utils
             {
                 Visual childElement = (Visual)VisualTreeHelper.GetChild(rootElement, i);
 
-                ElementT typedChildElement = childElement as ElementT;
-                if (typedChildElement != null &&
+                if (childElement is ElementT typedChildElement &&
                     typedChildElement.DataContext == data)
                 {
                     return typedChildElement;
@@ -625,8 +598,7 @@ namespace Utils
             where DataTemplateT : class
                     {
             object resource = element.TryFindResource(new DataTemplateKey(type));
-            DataTemplateT dataTemplate = resource as DataTemplateT;
-            if (dataTemplate != null)
+            if (resource is DataTemplateT dataTemplate)
                         {
                 return dataTemplate;
                         }
@@ -727,8 +699,7 @@ namespace Utils
             Trace.Write(indentStr);
             Trace.Write(root.GetType().Name);
 
-            FrameworkElement rootElement = root as FrameworkElement;
-            if (rootElement != null)
+            if (root is FrameworkElement rootElement)
         {
                 if (rootElement.DataContext != null)
             {

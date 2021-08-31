@@ -100,7 +100,7 @@ namespace FlowSimulator.Undo
         /// </summary>
         public void Redo()
         {
-            _FlowGraphVM.Network.NodesViewModel.AddRange(_NodesVM);
+            _FlowGraphVM.Network.Nodes.AddRange(_NodesVM);
 
             List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
 
@@ -306,7 +306,7 @@ namespace FlowSimulator.Undo
             }
 
             _FlowGraphVM.DeleteConnections(connList);
-            _FlowGraphVM.Network.NodesViewModel.RemoveRange(_NodesVM);
+            _FlowGraphVM.Network.Nodes.RemoveRange(_NodesVM);
         }
 
         /// <summary>
@@ -334,7 +334,7 @@ namespace FlowSimulator.Undo
                 _ConnectionInfoList[i] = inf;
             }
 
-            _FlowGraphVM.Network.NodesViewModel.AddRange(_NodesVM);
+            _FlowGraphVM.Network.Nodes.AddRange(_NodesVM);
             _FlowGraphVM.AddConnections(connList);
         }
 

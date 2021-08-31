@@ -42,11 +42,13 @@ namespace FlowSimulator
             DependencyObject parentObject = GetParentObject(child);
 
             //we've reached the end of the tree
-            if (parentObject == null) return null;
+            if (parentObject == null)
+            {
+                return null;
+            }
 
             //check if the parent matches the type we're looking for
-            T parent = parentObject as T;
-            if (parent != null)
+            if (parentObject is T parent)
             {
                 return parent;
             }
@@ -66,25 +68,34 @@ namespace FlowSimulator
         /// null.</returns>
         public static DependencyObject GetParentObject(this DependencyObject child)
         {
-            if (child == null) return null;
+            if (child == null)
+            {
+                return null;
+            }
 
             //handle content elements separately
-            ContentElement contentElement = child as ContentElement;
-            if (contentElement != null)
+            if (child is ContentElement contentElement)
             {
                 DependencyObject parent = ContentOperations.GetParent(contentElement);
-                if (parent != null) return parent;
+                if (parent != null)
+                {
+                    return parent;
+                }
 
-                FrameworkContentElement fce = contentElement as FrameworkContentElement;
-                if (fce != null) return fce.Parent;
+                if (contentElement is FrameworkContentElement fce)
+                {
+                    return fce.Parent;
+                }
             }
 
             //also try searching for parent in framework elements (such as DockPanel, etc)
-            FrameworkElement frameworkElement = child as FrameworkElement;
-            if (frameworkElement != null)
+            if (child is FrameworkElement frameworkElement)
             {
                 DependencyObject parent = frameworkElement.Parent;
-                if (parent != null) return parent;
+                if (parent != null)
+                {
+                    return parent;
+                }
             }
 
             //if it's not a ContentElement/FrameworkElement, rely on VisualTreeHelper
@@ -102,8 +113,7 @@ namespace FlowSimulator
         {
             do
             {
-                var anchestor = current as T;
-                if (anchestor != null)
+                if (current is T anchestor)
                 {
                     return anchestor;
                 }

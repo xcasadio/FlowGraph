@@ -31,9 +31,8 @@ namespace FlowGraphBase
                 {
                     return;
                 }
-                var stringValue = value as string;
 
-                if (stringValue != null)
+                if (value is string stringValue)
                 {
                     if (string.IsNullOrWhiteSpace(stringValue))
                     {
@@ -156,7 +155,7 @@ namespace FlowGraphBase
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

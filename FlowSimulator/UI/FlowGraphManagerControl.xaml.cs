@@ -38,7 +38,7 @@ namespace FlowSimulator.UI
             }
 
             TabItem tab = new TabItem();
-            FlowGraphControlViewModel fgvm = FlowGraphManager.Instance.GetViewModelByID(seq_.Id);
+            FlowGraphControlViewModel fgvm = FlowGraphManager.Instance.GetViewModelById(seq_.Id);
             tab.DataContext = fgvm;
 
             FlowGraphControl fgc = new FlowGraphControl
@@ -109,9 +109,7 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            TabItem tab = tabControl.SelectedItem as TabItem;
-
-            if (tab != null)
+            if (tabControl.SelectedItem is TabItem tab)
             {
                 int index = tabControl.Items.IndexOf(tab);
                 tabControl.Items.Remove(tab);

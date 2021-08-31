@@ -33,13 +33,13 @@ namespace FlowSimulator.FlowGraphs
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id_"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public FlowGraphControlViewModel GetViewModelByID(int id_)
+        public FlowGraphControlViewModel GetViewModelById(int id)
         {
             foreach (FlowGraphControlViewModel vm in FlowGraphList)
             {
-                if (vm.ID == id_)
+                if (vm.ID == id)
                 {
                     return vm;
                 }
@@ -59,17 +59,17 @@ namespace FlowSimulator.FlowGraphs
         /// <summary>
         /// 
         /// </summary>
-        internal void Add(FlowGraphControlViewModel viewModel_)
+        internal void Add(FlowGraphControlViewModel viewModel)
         {
-            FlowGraphList.Add(viewModel_);
+            FlowGraphList.Add(viewModel);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        internal void Remove(FlowGraphControlViewModel viewModel_)
+        internal void Remove(FlowGraphControlViewModel viewModel)
         {
-            FlowGraphList.Remove(viewModel_);
+            FlowGraphList.Remove(viewModel);
         }
 
         /// <summary>
@@ -84,16 +84,16 @@ namespace FlowSimulator.FlowGraphs
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        public void Load(XmlNode node_)
+        /// <param name="node"></param>
+        public void Load(XmlNode node)
         {
             try
             {
-                GraphDataManager.Instance.Load(node_);
+                GraphDataManager.Instance.Load(node);
 
-                int version = int.Parse(node_.SelectSingleNode("GraphList").Attributes["version"].Value);
+                int version = int.Parse(node.SelectSingleNode("GraphList").Attributes["version"].Value);
 
-                foreach (XmlNode graphNode in node_.SelectNodes("GraphList/Graph"))
+                foreach (XmlNode graphNode in node.SelectNodes("GraphList/Graph"))
                 {
                     FlowGraphList.Add(new FlowGraphControlViewModel(graphNode));
                 }
@@ -107,8 +107,8 @@ namespace FlowSimulator.FlowGraphs
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        public void Save(XmlNode node_)
+        /// <param name="node"></param>
+        public void Save(XmlNode node)
         {
             // Create all sequence to reflect all changes make (because it is not done in real time)
             foreach (FlowGraphControlViewModel wm in FlowGraphList)
@@ -116,11 +116,11 @@ namespace FlowSimulator.FlowGraphs
                 wm.CreateSequence();
             }
 
-            GraphDataManager.Instance.Save(node_);
+            GraphDataManager.Instance.Save(node);
 
             const int version = 1;
 
-            XmlNode list = node_.SelectSingleNode("GraphList");
+            XmlNode list = node.SelectSingleNode("GraphList");
 
             list.AddAttribute("designerVersion", version.ToString());
 

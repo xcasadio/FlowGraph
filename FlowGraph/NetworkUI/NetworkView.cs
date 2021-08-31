@@ -703,8 +703,7 @@ namespace NetworkUI
 
             if (e.OldValue != null)
             {
-                var notifyCollectionChanged = e.OldValue as INotifyCollectionChanged;
-                if (notifyCollectionChanged != null)
+                if (e.OldValue is INotifyCollectionChanged notifyCollectionChanged)
                 {
                     //
                     // Unhook events from previous collection.
@@ -715,8 +714,7 @@ namespace NetworkUI
 
             if (e.NewValue != null)
             {
-                var enumerable = e.NewValue as IEnumerable;
-                if (enumerable != null)
+                if (e.NewValue is IEnumerable enumerable)
                 {
                     //
                     // Populate 'Nodes' from 'NodesSource'.
@@ -727,8 +725,7 @@ namespace NetworkUI
                     }
                 }
 
-                var notifyCollectionChanged = e.NewValue as INotifyCollectionChanged;
-                if (notifyCollectionChanged != null)
+                if (e.NewValue is INotifyCollectionChanged notifyCollectionChanged)
                 {
                     //
                     // Hook events in new collection.
@@ -790,8 +787,7 @@ namespace NetworkUI
 
             if (e.OldValue != null)
             {
-                INotifyCollectionChanged notifyCollectionChanged = e.NewValue as INotifyCollectionChanged;
-                if (notifyCollectionChanged != null)
+                if (e.NewValue is INotifyCollectionChanged notifyCollectionChanged)
                 {
                     //
                     // Unhook events from previous collection.
@@ -802,8 +798,7 @@ namespace NetworkUI
 
             if (e.NewValue != null)
             {
-                IEnumerable enumerable = e.NewValue as IEnumerable;
-                if (enumerable != null)
+                if (e.NewValue is IEnumerable enumerable)
                 {
                     //
                     // Populate 'Connections' from 'ConnectionsSource'.
@@ -814,8 +809,7 @@ namespace NetworkUI
                     }
                 }
 
-                INotifyCollectionChanged notifyCollectionChanged = e.NewValue as INotifyCollectionChanged;
-                if (notifyCollectionChanged != null)
+                if (e.NewValue is INotifyCollectionChanged notifyCollectionChanged)
                 {
                     //
                     // Hook events in new collection.
@@ -964,8 +958,7 @@ namespace NetworkUI
         /// </summary>
         internal NodeItem FindAssociatedNodeItem(object node)
         {
-            NodeItem nodeItem = node as NodeItem;
-            if (nodeItem == null)
+            if (!(node is NodeItem nodeItem))
             {
                 nodeItem = nodeItemsControl.FindAssociatedNodeItem(node);
             }
