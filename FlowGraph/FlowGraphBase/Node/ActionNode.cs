@@ -95,9 +95,9 @@ namespace FlowGraphBase.Node
         /// Methods call when the node is activated.
         /// The other node connected to the input connector has activated his output link.
         /// </summary>
-        /// <param name="context_"></param>
-        /// <param name="slot_"></param>
+        /// <param name="context"></param>
+        /// <param name="slot"></param>
         /// <returns></returns>
-        public abstract ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_);
+        public abstract ProcessingInfo ActivateLogic(ProcessingContext context, NodeSlot slot);
     }
 }

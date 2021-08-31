@@ -15,30 +15,30 @@ namespace FlowGraphBase.Node.StandardEventNode
             OutputStart
         }
 
-        private int _FunctionID = -1; // used when the node is loaded, in order to retrieve the function
-        private SequenceFunction _Function;
+        private int _functionId = -1; // used when the node is loaded, in order to retrieve the function
+        private SequenceFunction _function;
 
         /// <summary>
         /// 
         /// </summary>
-        public override string Title => (GetFunction() == null ? "<null>" : _Function.Name) + " function";
+        public override string Title => (GetFunction() == null ? "<null>" : _function.Name) + " function";
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        public OnEnterFunctionEvent(SequenceFunction func_)
+        public OnEnterFunctionEvent(SequenceFunction func)
         {
-            _Function = func_;
-            _Function.PropertyChanged += OnFuntionPropertyChanged;
+            _function = func;
+            _function.PropertyChanged += OnFuntionPropertyChanged;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        public OnEnterFunctionEvent(XmlNode node_)
-            : base(node_)
+        public OnEnterFunctionEvent(XmlNode node)
+            : base(node)
         {
 
         }
@@ -54,7 +54,7 @@ namespace FlowGraphBase.Node.StandardEventNode
             {
                 if (e.FunctionSlot.SlotType == FunctionSlotType.Input)
                 {
-                    AddFunctionSlot((int)NodeSlotId.OutputStart + e.FunctionSlot.ID, SlotType.VarOut, e.FunctionSlot);
+                    AddFunctionSlot((int)NodeSlotId.OutputStart + e.FunctionSlot.Id, SlotType.VarOut, e.FunctionSlot);
                     //AddSlot((int)NodeSlotId.OutputStart + e.FunctionSlot.Id, e.FunctionSlot.Name, SlotType.VarOut, typeof(int));
                 }
             }
@@ -62,7 +62,7 @@ namespace FlowGraphBase.Node.StandardEventNode
             {
                 if (e.FunctionSlot.SlotType == FunctionSlotType.Input)
                 {
-                    RemoveSlotById((int)NodeSlotId.OutputStart + e.FunctionSlot.ID);
+                    RemoveSlotById((int)NodeSlotId.OutputStart + e.FunctionSlot.Id);
                 }
             }
 
@@ -76,9 +76,9 @@ namespace FlowGraphBase.Node.StandardEventNode
         {
             GetFunction();
 
-            foreach (SequenceFunctionSlot slot in _Function.Inputs)
+            foreach (SequenceFunctionSlot slot in _function.Inputs)
             {
-                AddFunctionSlot((int)NodeSlotId.OutputStart + slot.ID, SlotType.VarOut, slot);
+                AddFunctionSlot((int)NodeSlotId.OutputStart + slot.Id, SlotType.VarOut, slot);
                 //AddSlot((int)NodeSlotId.OutputStart + slot.Id, slot.Name, SlotType.VarOut, typeof(int));
             }
 
@@ -92,24 +92,24 @@ namespace FlowGraphBase.Node.StandardEventNode
         /// <returns></returns>
         private SequenceFunction GetFunction()
         {
-            if (_Function == null
-                && _FunctionID != -1)
+            if (_function == null
+                && _functionId != -1)
             {
-                SetFunction(GraphDataManager.Instance.GetFunctionByID(_FunctionID));
+                SetFunction(GraphDataManager.Instance.GetFunctionById(_functionId));
             }
 
-            return _Function;
+            return _function;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        private void SetFunction(SequenceFunction func_)
+        private void SetFunction(SequenceFunction func)
         {
-            _Function = func_;
-            _Function.PropertyChanged += OnFuntionPropertyChanged;
-            _Function.FunctionSlotChanged += OnFunctionSlotChanged;
+            _function = func;
+            _function.PropertyChanged += OnFuntionPropertyChanged;
+            _function.FunctionSlotChanged += OnFunctionSlotChanged;
             UpdateNodeSlot();
         }
 
@@ -127,7 +127,7 @@ namespace FlowGraphBase.Node.StandardEventNode
         /// 
         /// </summary>
         /// <param name="para_"></param>
-        protected override void TriggeredImpl(object para_)
+        protected override void TriggeredImpl(object para)
         {
             //SetValueInSlot(1, para_);
         }
@@ -136,20 +136,20 @@ namespace FlowGraphBase.Node.StandardEventNode
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        protected override void Load(XmlNode node_)
+        protected override void Load(XmlNode node)
         {
-            base.Load(node_);
-            _FunctionID = int.Parse(node_.Attributes["functionID"].Value);
+            base.Load(node);
+            _functionId = int.Parse(node.Attributes["functionID"].Value);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        public override void Save(XmlNode node_)
+        public override void Save(XmlNode node)
         {
-            base.Save(node_);
-            node_.AddAttribute("functionID", GetFunction().Id.ToString());
+            base.Save(node);
+            node.AddAttribute("functionID", GetFunction().Id.ToString());
         }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace FlowGraphBase.Node.StandardEventNode
         /// <returns></returns>
         protected override SequenceNode CopyImpl()
         {
-            return new OnEnterFunctionEvent(_Function);
+            return new OnEnterFunctionEvent(_function);
         }
 
         /// <summary>

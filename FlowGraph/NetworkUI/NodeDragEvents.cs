@@ -68,29 +68,29 @@ namespace NetworkUI
         /// <summary>
         /// The amount the node has been dragged horizontally.
         /// </summary>
-        public double horizontalChange;
+        private double _horizontalChange;
 
         /// <summary>
         /// The amount the node has been dragged vertically.
         /// </summary>
-        public double verticalChange;
+        private double _verticalChange;
 
         internal NodeDraggingEventArgs(RoutedEvent routedEvent, object source, ICollection nodes, double horizontalChange, double verticalChange) :
             base(routedEvent, source, nodes)
         {
-            this.horizontalChange = horizontalChange;
-            this.verticalChange = verticalChange;
+            this._horizontalChange = horizontalChange;
+            this._verticalChange = verticalChange;
         }
 
         /// <summary>
         /// The amount the node has been dragged horizontally.
         /// </summary>
-        public double HorizontalChange => horizontalChange;
+        public double HorizontalChange => _horizontalChange;
 
         /// <summary>
         /// The amount the node has been dragged vertically.
         /// </summary>
-        public double VerticalChange => verticalChange;
+        public double VerticalChange => _verticalChange;
     }
 
     /// <summary>

@@ -63,9 +63,9 @@ namespace FlowSimulator
         /// <param name="e"></param>
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            if (e.ExceptionObject is Exception)
+            if (e.ExceptionObject is Exception exception)
             {
-                Exception ex = Helper.GetFirstException(e.ExceptionObject as Exception);
+                Exception ex = Helper.GetFirstException(exception);
 #if DEBUG
                 MessageBox.Show(ex.Message, "Uncaught Thread Exception." + ex.Message + "\n" + ex.StackTrace,
                                 MessageBoxButton.OK, MessageBoxImage.Error);

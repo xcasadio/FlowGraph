@@ -16,9 +16,9 @@ namespace FlowGraphBase.Node
         //Used to convert a SequenceNode to a Node (graphic node)
         protected List<NodeSlot> _nodeSlots = new List<NodeSlot>();
 
-        private string _CustomText;
+        private string _customText;
 
-        private bool _IsProcessing;
+        private bool _isProcessing;
 
         /// <summary>
         /// 
@@ -62,10 +62,10 @@ namespace FlowGraphBase.Node
         /// </summary>
         public string CustomText
         {
-            get => _CustomText;
+            get => _customText;
             set 
             { 
-                _CustomText = value;
+                _customText = value;
                 OnPropertyChanged("CustomText");
             }
         }
@@ -81,10 +81,10 @@ namespace FlowGraphBase.Node
         /// </summary>
         public bool IsProcessing
         {
-            get => _IsProcessing;
+            get => _isProcessing;
             set 
             {
-                _IsProcessing = value;
+                _isProcessing = value;
                 OnPropertyChanged("IsProcessing");
             }
         }
@@ -317,9 +317,9 @@ namespace FlowGraphBase.Node
         /// </summary>
         /// <param name="connectionType_"></param>
         /// <param name="slot_"></param>
-        protected void AddFunctionSlot(int slotId, SlotType connectionType_, SequenceFunctionSlot slot_)
+        protected void AddFunctionSlot(int slotId, SlotType connectionType, SequenceFunctionSlot slot)
         {
-            AddSlot(new NodeFunctionSlot(slotId, this, connectionType_, slot_));
+            AddSlot(new NodeFunctionSlot(slotId, this, connectionType, slot));
         }
 
         /// <summary>
@@ -332,18 +332,18 @@ namespace FlowGraphBase.Node
         /// <param name="saveInternalValue_"></param>
         /// <param name="controlType_"></param>
         /// <param name="tag_"></param>
-        protected void AddSlot(int slotId, string text_, SlotType connectionType_, Type type_ = null,
-            bool saveInternalValue_ = true, VariableControlType controlType_ = VariableControlType.ReadOnly,
-            object tag_ = null)
+        protected void AddSlot(int slotId, string text, SlotType connectionType, Type type = null,
+            bool saveInternalValue = true, VariableControlType controlType = VariableControlType.ReadOnly,
+            object tag = null)
         {
-            if (connectionType_ == SlotType.VarIn
-                || connectionType_ == SlotType.VarOut)
+            if (connectionType == SlotType.VarIn
+                || connectionType == SlotType.VarOut)
             {
-                AddSlot(new NodeSlotVar(slotId, this, text_, connectionType_, type_, controlType_, tag_, saveInternalValue_));
+                AddSlot(new NodeSlotVar(slotId, this, text, connectionType, type, controlType, tag, saveInternalValue));
             }
             else
             {
-                AddSlot(new NodeSlot(slotId, this, text_, connectionType_, type_, controlType_, tag_));
+                AddSlot(new NodeSlot(slotId, this, text, connectionType, type, controlType, tag));
             }
         }
 
@@ -351,52 +351,52 @@ namespace FlowGraphBase.Node
         /// 
         /// </summary>
         /// <param name="ite_"></param>
-        private void AddSlot(NodeSlot ite_)
+        private void AddSlot(NodeSlot ite)
         {
             foreach (NodeSlot slot in _nodeSlots)
             {
-                if (slot.ID == ite_.ID)
+                if (slot.Id == ite.Id)
                 {
-                    throw new InvalidOperationException("A slot with the Id '" + ite_.ID + "' already exists.");
+                    throw new InvalidOperationException("A slot with the Id '" + ite.Id + "' already exists.");
                 }
             }
 
             if (HasSlotConnectorIn == false
-                && ite_.ConnectionType == SlotType.NodeIn)
+                && ite.ConnectionType == SlotType.NodeIn)
             {
                 throw new InvalidOperationException("This type of node can not have IN connector.");
             }
 
             if (HasSlotConnectorOut == false
-                && ite_.ConnectionType == SlotType.NodeOut)
+                && ite.ConnectionType == SlotType.NodeOut)
             {
                 throw new InvalidOperationException("This type of node can not have OUT connector.");
             }
 
             if (HasSlotVariableIn == false
-                && ite_.ConnectionType == SlotType.VarIn)
+                && ite.ConnectionType == SlotType.VarIn)
             {
                 throw new InvalidOperationException("This type of node can not have IN variable.");
             }
 
             if (HasSlotVariableOut == false
-                && ite_.ConnectionType == SlotType.VarOut)
+                && ite.ConnectionType == SlotType.VarOut)
             {
                 throw new InvalidOperationException("This type of node can not have OUT variable.");
             }
 
-            _nodeSlots.Add(ite_);
+            _nodeSlots.Add(ite);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="id_"></param>
-        public void RemoveSlotById(int id_)
+        public void RemoveSlotById(int id)
         {
             foreach (NodeSlot s in _nodeSlots)
             {
-                if (s.ID == id_)
+                if (s.Id == id)
                 {
                     _nodeSlots.Remove(s);
                     OnPropertyChanged("Slots");
@@ -410,33 +410,33 @@ namespace FlowGraphBase.Node
         /// </summary>
         /// <param name="index_"></param>
         /// <returns></returns>
-        public bool IsConnectorIn(int index_)
+        public bool IsConnectorIn(int index)
         {
-            return index_ < (SlotConnectorIn == null ? 0 : 1);
+            return index < (SlotConnectorIn == null ? 0 : 1);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="seqNodeNode_"></param>
-        public virtual void Save(XmlNode seqNodeNode_)
+        public virtual void Save(XmlNode seqNodeNode)
         {
             const int version = 1;
-            seqNodeNode_.AddAttribute("version", version.ToString());
+            seqNodeNode.AddAttribute("version", version.ToString());
 
-            seqNodeNode_.AddAttribute("comment", Comment);
-            seqNodeNode_.AddAttribute("id", Id.ToString());
+            seqNodeNode.AddAttribute("comment", Comment);
+            seqNodeNode.AddAttribute("id", Id.ToString());
 
             string typeName = GetType().AssemblyQualifiedName;
             int index = typeName.IndexOf(',', typeName.IndexOf(',') + 1);
             typeName = typeName.Substring(0, index);
-            seqNodeNode_.AddAttribute("type", typeName);
+            seqNodeNode.AddAttribute("type", typeName);
 
             //Save slots
             foreach (NodeSlot slot in _nodeSlots)
             {
-                XmlNode nodeSlot = seqNodeNode_.OwnerDocument.CreateElement("Slot");
-                seqNodeNode_.AppendChild(nodeSlot);
+                XmlNode nodeSlot = seqNodeNode.OwnerDocument.CreateElement("Slot");
+                seqNodeNode.AppendChild(nodeSlot);
                 slot.Save(nodeSlot);
             }
         }
@@ -445,22 +445,22 @@ namespace FlowGraphBase.Node
         /// 
         /// </summary>
         /// <param name="connectionListNode_"></param>
-        public void SaveConnections(XmlNode connectionListNode_)
+        public void SaveConnections(XmlNode connectionListNode)
         {
             const int versionConnection = 1;
             foreach (NodeSlot slot in _nodeSlots)
             {
                 foreach (NodeSlot otherSlot in slot.ConnectedNodes)
                 {
-                    XmlNode linkNode = connectionListNode_.OwnerDocument.CreateElement("Connection");
-                    connectionListNode_.AppendChild(linkNode);
+                    XmlNode linkNode = connectionListNode.OwnerDocument.CreateElement("Connection");
+                    connectionListNode.AppendChild(linkNode);
 
                     linkNode.AddAttribute("version", versionConnection.ToString());
 
                     linkNode.AddAttribute("srcNodeID", Id.ToString());
-                    linkNode.AddAttribute("srcNodeSlotID", slot.ID.ToString());
+                    linkNode.AddAttribute("srcNodeSlotID", slot.Id.ToString());
                     linkNode.AddAttribute("destNodeID", otherSlot.Node.Id.ToString());
-                    linkNode.AddAttribute("destNodeSlotID", otherSlot.ID.ToString());
+                    linkNode.AddAttribute("destNodeSlotID", otherSlot.Id.ToString());
                 }
             }
         }

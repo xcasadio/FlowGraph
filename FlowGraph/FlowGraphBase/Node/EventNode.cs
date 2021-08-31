@@ -17,8 +17,8 @@ namespace FlowGraphBase.Node
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        public EventNode(XmlNode node_)
-            : base(node_)
+        public EventNode(XmlNode node)
+            : base(node)
         {
         }
 
@@ -35,16 +35,16 @@ namespace FlowGraphBase.Node
         /// </summary>
         /// <param name="context_"></param>
         /// <param name="index_"></param>
-        public void Triggered(ProcessingContext context_, int index_, object para_)
+        public void Triggered(ProcessingContext context, int index, object para)
         {
-            TriggeredImpl(para_);
-            ActivateOutputLink(context_, index_);
+            TriggeredImpl(para);
+            ActivateOutputLink(context, index);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="para_"></param>
-        protected abstract void TriggeredImpl(object para_);
+        protected abstract void TriggeredImpl(object para);
     }
 }

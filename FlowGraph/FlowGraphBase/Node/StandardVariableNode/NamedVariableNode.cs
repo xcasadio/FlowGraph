@@ -10,35 +10,35 @@ namespace FlowGraphBase.Node.StandardVariableNode
     [Visible(false)]
     public class NamedVariableNode : VariableNode
     {
-        NamedVariable _Value;
+        NamedVariable _value;
 
-        public override string Title => _Value.Name;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string VariableName => _Value.Name;
+        public override string Title => _value.Name;
 
         /// <summary>
         /// 
         /// </summary>
-        public Type VariableType => _Value.VariableType;
+        public string VariableName => _value.Name;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Type VariableType => _value.VariableType;
 
         /// <summary>
         /// 
         /// </summary>
         public override object Value
         {
-            get => _Value.Value;
-            set => _Value.InternalValueContainer.Value = value;
+            get => _value.Value;
+            set => _value.InternalValueContainer.Value = value;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        public NamedVariableNode(XmlNode node_)
-            : base(node_)
+        public NamedVariableNode(XmlNode node)
+            : base(node)
         {
             InitializeSlots();
         }
@@ -47,11 +47,11 @@ namespace FlowGraphBase.Node.StandardVariableNode
         /// 
         /// </summary>
         /// <param name="name_"></param>
-        public NamedVariableNode(string name_)
+        public NamedVariableNode(string name)
         {
-            _Value = NamedVariableManager.Instance.GetNamedVariable(name_);
-            _Value.PropertyChanged += OnNamedVariablePropertyChanged;
-            AddSlot(0, string.Empty, SlotType.VarInOut, _Value.VariableType);
+            _value = NamedVariableManager.Instance.GetNamedVariable(name);
+            _value.PropertyChanged += OnNamedVariablePropertyChanged;
+            AddSlot(0, string.Empty, SlotType.VarInOut, _value.VariableType);
         }
 
         /// <summary>
@@ -61,9 +61,9 @@ namespace FlowGraphBase.Node.StandardVariableNode
         {
             base.InitializeSlots();
 
-            if (_Value != null) // call only when loaded with xml
+            if (_value != null) // call only when loaded with xml
             {
-                AddSlot(0, string.Empty, SlotType.VarInOut, _Value.VariableType);
+                AddSlot(0, string.Empty, SlotType.VarInOut, _value.VariableType);
             }
         }
 
@@ -73,7 +73,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
         /// <returns></returns>
         protected override SequenceNode CopyImpl()
         {
-            return new NamedVariableNode(_Value.Name);
+            return new NamedVariableNode(_value.Name);
         }
 
         /// <summary>
@@ -91,28 +91,28 @@ namespace FlowGraphBase.Node.StandardVariableNode
         /// </summary>
         /// <param name="node_"></param>
         /// <returns></returns>
-        protected override object LoadValue(XmlNode node_)
+        protected override object LoadValue(XmlNode node)
         {
-            return NamedVariableManager.Instance.GetNamedVariable(node_.Attributes["varName"].Value);
+            return NamedVariableManager.Instance.GetNamedVariable(node.Attributes["varName"].Value);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        protected override void SaveValue(XmlNode node_)
+        protected override void SaveValue(XmlNode node)
         {
-            node_.AddAttribute("varName", _Value.Name);
+            node.AddAttribute("varName", _value.Name);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        protected override void Load(XmlNode node_)
+        protected override void Load(XmlNode node)
         {
-            base.Load(node_);
-            _Value = (NamedVariable)LoadValue(node_.SelectSingleNode("Value"));
+            base.Load(node);
+            _value = (NamedVariable)LoadValue(node.SelectSingleNode("Value"));
         }
     }
 }

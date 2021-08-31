@@ -99,7 +99,7 @@ namespace FlowGraphBase
         /// <param name="var"></param>
         public void Add(string name, object var)
         {
-            NamedVariable namedVar = new NamedVariable(name, new ValueContainer(var == null ? null : var.GetType(), var));
+            NamedVariable namedVar = new NamedVariable(name, new ValueContainer(var?.GetType(), var));
             Vars.Add(namedVar);
         }
 
@@ -118,9 +118,9 @@ namespace FlowGraphBase
         /// 
         /// </summary>
         /// <param name="name_"></param>
-        public void Remove(NamedVariable var_)
+        public void Remove(NamedVariable var)
         {
-            Vars.Remove(var_);
+            Vars.Remove(var);
         }
 
         /// <summary>
@@ -152,10 +152,7 @@ namespace FlowGraphBase
                 {
                     v.Name = newName;
 
-                    if (OnRenamed != null)
-                    {
-                        OnRenamed(this, new EventArgs<string, string>(name, newName));
-                    }
+                    OnRenamed?.Invoke(this, new EventArgs<string, string>(name, newName));
 
                     break;
                 }

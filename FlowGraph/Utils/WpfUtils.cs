@@ -672,9 +672,9 @@ namespace Utils
             for (int i = 0; i < numChildren; ++i)
             {
                 DependencyObject childElement = VisualTreeHelper.GetChild(rootElement, i);
-                if (childElement is T)
+                if (childElement is T element)
                 {
-                    foundElements.Add((T)childElement);
+                    foundElements.Add(element);
                     continue;
                 }
 

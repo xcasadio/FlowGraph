@@ -93,9 +93,9 @@ namespace NetworkModel
         {
             get
             {
-                if (SeqNode is ActionNode)
+                if (SeqNode is ActionNode node)
                 {
-                    return (SeqNode as ActionNode).State.State;
+                    return node.State.State;
                 }
 
                 return ActionNode.LogicState.Ok;
@@ -109,20 +109,20 @@ namespace NetworkModel
         {
             get
             {
-                if (SeqNode is VariableNode)
+                if (SeqNode is VariableNode node)
                 {
-                    return (SeqNode as VariableNode).Value;
+                    return node.Value;
                 }
 
                 return null;
             }
             set
             {
-                if (SeqNode is VariableNode)
+                if (SeqNode is VariableNode node)
                 {
                     try
                     {
-                        (SeqNode as VariableNode).Value = value;
+                        node.Value = value;
                     }
                     catch (Exception /*ex*/)
                     {
@@ -175,9 +175,9 @@ namespace NetworkModel
         {
             get
             {
-                if (SeqNode is ActionNode)
+                if (SeqNode is ActionNode node)
                 {
-                    return (SeqNode as ActionNode).ErrorMessage;
+                    return node.ErrorMessage;
                 }
 
                 return "";
@@ -262,10 +262,7 @@ namespace NetworkModel
 
                 size = value;
 
-                if (SizeChanged != null)
-                {
-                    SizeChanged(this, EventArgs.Empty);
-                }
+                SizeChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -467,7 +464,7 @@ namespace NetworkModel
         {
             foreach (ConnectorViewModel c in allConnectors)
             {
-                if (c.SourceSlot.ID == id_)
+                if (c.SourceSlot.Id == id_)
                 {
                     return c;
                 }
@@ -498,7 +495,7 @@ namespace NetworkModel
 
                 foreach (NodeSlot slot in SeqNode.Slots)
                 {
-                    if (slot.ID == c.SourceSlot.ID)
+                    if (slot.Id == c.SourceSlot.Id)
                     {
                         contains = true;
                         break;
@@ -535,7 +532,7 @@ namespace NetworkModel
         {
             foreach (ConnectorViewModel c in allConnectors)
             {
-                if (c.SourceSlot.ID == slot_.ID)
+                if (c.SourceSlot.Id == slot_.Id)
                 {
                     return true;
                 }

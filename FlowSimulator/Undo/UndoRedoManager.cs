@@ -53,10 +53,7 @@ namespace FlowSimulator.Undo
             OnPropertyChanged("CanUndo");
             OnPropertyChanged("CanRedo");
 
-            if (UndoRedoCommandListChanged != null)
-            {
-                UndoRedoCommandListChanged(null, EventArgs.Empty);
-            }
+            UndoRedoCommandListChanged?.Invoke(null, EventArgs.Empty);
         }
 
         /// <summary>
@@ -74,10 +71,7 @@ namespace FlowSimulator.Undo
             OnPropertyChanged("CanUndo");
             OnPropertyChanged("CanRedo");
 
-            if (UndoRedoCommandListChanged != null)
-            {
-                UndoRedoCommandListChanged(null, EventArgs.Empty);
-            }
+            UndoRedoCommandListChanged?.Invoke(null, EventArgs.Empty);
         }
 
         /// <summary>
@@ -102,10 +96,7 @@ namespace FlowSimulator.Undo
                     OnPropertyChanged("CanUndo");
                     OnPropertyChanged("CanRedo");
 
-                    if (UndoRedoCommandExecuted != null)
-                    {
-                        UndoRedoCommandExecuted(null, EventArgs.Empty);
-                    }
+                    UndoRedoCommandExecuted?.Invoke(null, EventArgs.Empty);
                 }
                 catch (Exception ex)
                 {
@@ -140,10 +131,7 @@ namespace FlowSimulator.Undo
                     OnPropertyChanged("CanUndo");
                     OnPropertyChanged("CanRedo");
 
-                    if (UndoRedoCommandExecuted != null)
-                    {
-                        UndoRedoCommandExecuted(null, EventArgs.Empty);
-                    }
+                    UndoRedoCommandExecuted?.Invoke(null, EventArgs.Empty);
                 }
                 catch (Exception ex)
                 {
@@ -188,10 +176,7 @@ namespace FlowSimulator.Undo
             OnPropertyChanged("CanUndo");
             OnPropertyChanged("CanRedo");
 
-            if (UndoRedoCommandListChanged != null)
-            {
-                UndoRedoCommandListChanged(null, EventArgs.Empty);
-            }
+            UndoRedoCommandListChanged?.Invoke(null, EventArgs.Empty);
         }
 
         /// <summary>
@@ -199,10 +184,7 @@ namespace FlowSimulator.Undo
         /// </summary>
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// <summary>

@@ -8,22 +8,22 @@ namespace FlowGraphBase.Script
     /// </summary>
     public static class GlobalVar
     {
-        private static readonly Dictionary<string, object> _Vars = new Dictionary<string, object>();
+        private static readonly Dictionary<string, object> Vars = new Dictionary<string, object>();
 
         /// <summary>
         /// Set a value associate to a key
         /// </summary>
         /// <param name="key_"></param>
         /// <param name="val_"></param>
-        public static void Set(string key_, object val_)
+        public static void Set(string key, object val)
         {
-            if (_Vars.ContainsKey(key_))
+            if (Vars.ContainsKey(key))
             {
-                _Vars[key_] = val_;
+                Vars[key] = val;
             }
             else
             {
-                _Vars.Add(key_, val_);
+                Vars.Add(key, val);
             }
         }
 
@@ -32,15 +32,15 @@ namespace FlowGraphBase.Script
         /// </summary>
         /// <param name="key_"></param>
         /// <returns>the value by the associate key else returns null</returns>
-        public static object Get(string key_)
+        public static object Get(string key)
         {
-            if (_Vars.ContainsKey(key_) == false)
+            if (Vars.ContainsKey(key) == false)
             {
-                LogManager.Instance.WriteLine(LogVerbosity.Error, "GlobalVar.Get() : can't find the field with the key '{0}'", key_);
+                LogManager.Instance.WriteLine(LogVerbosity.Error, "GlobalVar.Get() : can't find the field with the key '{0}'", key);
                 return null;
             }
 
-            return _Vars[key_];
+            return Vars[key];
         }
 
         /// <summary>
@@ -48,9 +48,9 @@ namespace FlowGraphBase.Script
         /// </summary>
         /// <param name="key_"></param>
         /// <returns>true if the key exist else returns false</returns>
-        public static bool ContainsKey(string key_)
+        public static bool ContainsKey(string key)
         {
-            return _Vars.ContainsKey(key_);
+            return Vars.ContainsKey(key);
         }
     }
 
@@ -59,7 +59,7 @@ namespace FlowGraphBase.Script
     /// </summary>
     public static class ScriptSequence
     {
-        private static volatile uint _Sequence;
+        private static volatile uint _sequence;
 
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace FlowGraphBase.Script
         /// <returns>an unique uint</returns>
         public static uint GetNext()
         {
-            return _Sequence++;
+            return _sequence++;
         }
     }
 }

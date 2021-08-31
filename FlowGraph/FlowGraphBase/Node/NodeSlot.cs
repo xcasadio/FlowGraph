@@ -42,11 +42,11 @@ namespace FlowGraphBase.Node
     {
         public event EventHandler Activated;
 
-        private string _Text;
-        private Type _VariableType;
-        private VariableControlType _ControlType;
+        private string _text;
+        private Type _variableType;
+        private VariableControlType _controlType;
 
-        public int ID { get; }
+        public int Id { get; }
         public SequenceNode Node { get; }
         public virtual SlotType ConnectionType { get; }
         public object Tag { get; }
@@ -57,12 +57,12 @@ namespace FlowGraphBase.Node
         /// </summary>
         public virtual string Text
         {
-            get => _Text;
-            set 
+            get => _text;
+            set
             {
-                if (string.Equals(_Text, value) == false)
+                if (string.Equals(_text, value) == false)
                 {
-                    _Text = value;
+                    _text = value;
                     OnPropertyChanged("Text");
                 }
             }
@@ -73,12 +73,12 @@ namespace FlowGraphBase.Node
         /// </summary>
         public virtual Type VariableType
         {
-            get => _VariableType;
+            get => _variableType;
             set
             {
-                if (_VariableType != value)
+                if (_variableType != value)
                 {
-                    _VariableType = value;
+                    _variableType = value;
                     OnPropertyChanged("VariableType");
                 }
             }
@@ -89,12 +89,12 @@ namespace FlowGraphBase.Node
         /// </summary>
         public virtual VariableControlType ControlType
         {
-            get => _ControlType;
+            get => _controlType;
             set
             {
-                if (_ControlType != value)
+                if (_controlType != value)
                 {
-                    _ControlType = value;
+                    _controlType = value;
                     OnPropertyChanged("ControlType");
                 }
             }
@@ -103,58 +103,58 @@ namespace FlowGraphBase.Node
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="slotId_"></param>
-        /// <param name="node_"></param>
-        /// <param name="connectionType_"></param>
-        /// <param name="controlType_"></param>
-        /// <param name="tag_"></param>
-        protected NodeSlot(int slotId_, SequenceNode node_, SlotType connectionType_,
-            VariableControlType controlType_ = VariableControlType.ReadOnly,
-            object tag_ = null)
+        /// <param name="slotId"></param>
+        /// <param name="node"></param>
+        /// <param name="connectionType"></param>
+        /// <param name="controlType"></param>
+        /// <param name="tag"></param>
+        protected NodeSlot(int slotId, SequenceNode node, SlotType connectionType,
+            VariableControlType controlType = VariableControlType.ReadOnly,
+            object tag = null)
         {
             ConnectedNodes = new List<NodeSlot>();
 
-            ID = slotId_;
-            Node = node_;
-            ConnectionType = connectionType_;
-            ControlType = controlType_;
-            Tag = tag_;
+            Id = slotId;
+            Node = node;
+            ConnectionType = connectionType;
+            ControlType = controlType;
+            Tag = tag;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="slotId_"></param>
-        /// <param name="node_"></param>
-        /// <param name="text_"></param>
-        /// <param name="connectionType_"></param>
-        /// <param name="type_"></param>
-        /// <param name="controlType_"></param>
-        /// <param name="tag_"></param>
-        public NodeSlot(int slotId_, SequenceNode node_, string text_,
-            SlotType connectionType_, Type type_ = null,
-            VariableControlType controlType_ = VariableControlType.ReadOnly,
-            object tag_ = null) :
-            this(slotId_, node_, connectionType_, controlType_, tag_)
+        /// <param name="slotId"></param>
+        /// <param name="node"></param>
+        /// <param name="text"></param>
+        /// <param name="connectionType"></param>
+        /// <param name="type"></param>
+        /// <param name="controlType"></param>
+        /// <param name="tag"></param>
+        public NodeSlot(int slotId, SequenceNode node, string text,
+            SlotType connectionType, Type type = null,
+            VariableControlType controlType = VariableControlType.ReadOnly,
+            object tag = null) :
+            this(slotId, node, connectionType, controlType, tag)
         {
-            Text = text_;
-            VariableType = type_;
+            Text = text;
+            VariableType = type;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="dst_"></param>
-        public bool ConnectTo(NodeSlot dst_)
+        /// <param name="dst"></param>
+        public bool ConnectTo(NodeSlot dst)
         {
-            if (dst_.Node == Node)
+            if (dst.Node == Node)
             {
                 throw new InvalidOperationException("Try to connect itself");
             }
 
             foreach (NodeSlot s in ConnectedNodes)
             {
-                if (s.Node == dst_.Node) // already connected
+                if (s.Node == dst.Node) // already connected
                 {
                     return true;
                     //throw new InvalidOperationException("");
@@ -165,7 +165,7 @@ namespace FlowGraphBase.Node
             {
                 case SlotType.NodeIn:
                 case SlotType.NodeOut:
-                    if ((dst_.Node is VariableNode))
+                    if (dst.Node is VariableNode)
                     {
                         return false;
                     }
@@ -174,15 +174,15 @@ namespace FlowGraphBase.Node
                 case SlotType.VarIn:
                 case SlotType.VarOut:
                 case SlotType.VarInOut:
-                    if ((dst_.Node is VariableNode) == false
-                        && (dst_ is NodeSlotVar) == false)
+                    if (dst.Node is VariableNode == false
+                        && dst is NodeSlotVar == false)
                     {
                         return false;
                     }
                     break;
             }
 
-            ConnectedNodes.Add(dst_);
+            ConnectedNodes.Add(dst);
 
             return true;
         }
@@ -190,10 +190,10 @@ namespace FlowGraphBase.Node
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="slot_"></param>
-        public bool DisconnectFrom(NodeSlot slot_)
+        /// <param name="slot"></param>
+        public bool DisconnectFrom(NodeSlot slot)
         {
-            ConnectedNodes.Remove(slot_);
+            ConnectedNodes.Remove(slot);
             return true;
         }
 
@@ -208,41 +208,38 @@ namespace FlowGraphBase.Node
         /// <summary>
         /// Used to activate the nodes in the next step, see Sequence.Run()
         /// </summary>
-        /// <param name="context_"></param>
-        public void RegisterNodes(ProcessingContext context_)
+        /// <param name="context"></param>
+        public void RegisterNodes(ProcessingContext context)
         {
             foreach (NodeSlot slot in ConnectedNodes)
             {
                 if (slot.Node is ActionNode)
                 {
-                    context_.RegisterNextExecution(slot);
+                    context.RegisterNextExecution(slot);
                 }
             }
 
-            if (Activated != null)
-            {
-                Activated.Invoke(this, EventArgs.Empty);
-            }
+            Activated?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        public virtual void Save(XmlNode node_)
+        /// <param name="node"></param>
+        public virtual void Save(XmlNode node)
         {
             const int version = 1;
-            node_.AddAttribute("version", version.ToString());
-            node_.AddAttribute("index", ID.ToString());
+            node.AddAttribute("version", version.ToString());
+            node.AddAttribute("index", Id.ToString());
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        public virtual void Load(XmlNode node_)
+        /// <param name="node"></param>
+        public virtual void Load(XmlNode node)
         {
-            int version = int.Parse(node_.Attributes["version"].Value);
+            int version = int.Parse(node.Attributes["version"].Value);
             //Don't load Id, it is set manually inside the constructor
         }
 
@@ -250,7 +247,7 @@ namespace FlowGraphBase.Node
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 
@@ -259,91 +256,92 @@ namespace FlowGraphBase.Node
     /// </summary>
     public class NodeSlotVar : NodeSlot
     {
-        private readonly ValueContainer _Value;
-        private readonly bool _SaveValue;
+        private readonly ValueContainer _value;
+        private readonly bool _saveValue;
 
         /// <summary>
         /// Used as nested link with a variable node
         /// </summary>
         public object Value
         {
-            get => _Value.Value;
-            set { _Value.Value = value; OnPropertyChanged("Value"); }
+            get => _value.Value;
+            set { _value.Value = value; OnPropertyChanged("Value"); }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="slotId_"></param>
-        /// <param name="node_"></param>
-        /// <param name="text_"></param>
-        /// <param name="connectionType_"></param>
-        /// <param name="type_"></param>
-        /// <param name="controlType_"></param>
-        /// <param name="tag_"></param>
-        public NodeSlotVar(int slotId_, SequenceNode node_, string text_,
-            SlotType connectionType_, Type type_ = null,
-            VariableControlType controlType_ = VariableControlType.ReadOnly,
-            object tag_ = null, bool saveValue_ = true) :
-            base(slotId_, node_, text_, connectionType_, type_, controlType_, tag_)
+        /// <param name="slotId"></param>
+        /// <param name="node"></param>
+        /// <param name="text"></param>
+        /// <param name="connectionType"></param>
+        /// <param name="type"></param>
+        /// <param name="controlType"></param>
+        /// <param name="tag"></param>
+        /// <param name="saveValue"></param>
+        public NodeSlotVar(int slotId, SequenceNode node, string text,
+            SlotType connectionType, Type type = null,
+            VariableControlType controlType = VariableControlType.ReadOnly,
+            object tag = null, bool saveValue = true) :
+            base(slotId, node, text, connectionType, type, controlType, tag)
         {
-            _SaveValue = saveValue_;
+            _saveValue = saveValue;
 
             object val = null;
 
-            if (type_ == typeof(bool))
+            if (type == typeof(bool))
             {
                 val = true;
             }
-            else if (type_ == typeof(sbyte)
-                || type_ == typeof(char)
-                || type_ == typeof(short)
-                || type_ == typeof(int)
-                || type_ == typeof(long)
-                || type_ == typeof(byte)
-                || type_ == typeof(ushort)
-                || type_ == typeof(uint)
-                || type_ == typeof(ulong)
-                || type_ == typeof(float)
-                || type_ == typeof(double))
+            else if (type == typeof(sbyte)
+                || type == typeof(char)
+                || type == typeof(short)
+                || type == typeof(int)
+                || type == typeof(long)
+                || type == typeof(byte)
+                || type == typeof(ushort)
+                || type == typeof(uint)
+                || type == typeof(ulong)
+                || type == typeof(float)
+                || type == typeof(double))
             {
-                val = Convert.ChangeType(0, type_);
+                val = Convert.ChangeType(0, type);
             }
-            else if (type_ == typeof(string))
+            else if (type == typeof(string))
             {
                 val = string.Empty;
             }
 
-            _Value = new ValueContainer(type_, val);
+            _value = new ValueContainer(type, val);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        public override void Save(XmlNode node_)
+        /// <param name="node"></param>
+        public override void Save(XmlNode node)
         {
-            base.Save(node_);
+            base.Save(node);
 
-            node_.AddAttribute("saveValue", _SaveValue.ToString());
+            node.AddAttribute("saveValue", _saveValue.ToString());
 
-            if (_SaveValue)
+            if (_saveValue)
             {
-                _Value.Save(node_);
+                _value.Save(node);
             }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        public override void Load(XmlNode node_)
+        /// <param name="node"></param>
+        public override void Load(XmlNode node)
         {
-            base.Load(node_);
+            base.Load(node);
 
-            if (_SaveValue)
+            if (_saveValue)
             {
-                _Value.Load(node_);
+                _value.Load(node);
             }
         }
     }
@@ -354,19 +352,19 @@ namespace FlowGraphBase.Node
     /// </summary>
     public class NodeFunctionSlot : NodeSlotVar
     {
-        private readonly SequenceFunctionSlot _FuncSlot;
+        private readonly SequenceFunctionSlot _funcSlot;
 
         /// <summary>
         /// 
         /// </summary>
         public override string Text
         {
-            get => _FuncSlot == null ? string.Empty : _FuncSlot.Name;
-            set 
+            get => _funcSlot == null ? string.Empty : _funcSlot.Name;
+            set
             {
-                if (_FuncSlot != null)
+                if (_funcSlot != null)
                 {
-                    _FuncSlot.Name = value;
+                    _funcSlot.Name = value;
                 }
             }
         }
@@ -376,12 +374,12 @@ namespace FlowGraphBase.Node
         /// </summary>
         public override Type VariableType
         {
-            get => _FuncSlot == null ? null : _FuncSlot.VariableType;
+            get => _funcSlot?.VariableType;
             set
             {
-                if (_FuncSlot != null)
+                if (_funcSlot != null)
                 {
-                    _FuncSlot.VariableType = value;
+                    _funcSlot.VariableType = value;
                 }
             }
         }
@@ -389,33 +387,33 @@ namespace FlowGraphBase.Node
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="slotId_"></param>
-        /// <param name="node_"></param>
-        /// <param name="connectionType_"></param>
-        /// <param name="slot_"></param>
-        /// <param name="controlType_"></param>
-        /// <param name="tag_"></param>
-        /// <param name="saveValue_"></param>
+        /// <param name="slotId"></param>
+        /// <param name="node"></param>
+        /// <param name="connectionType"></param>
+        /// <param name="slot"></param>
+        /// <param name="controlType"></param>
+        /// <param name="tag"></param>
+        /// <param name="saveValue"></param>
         public NodeFunctionSlot(
-            int slotId_, 
-            SequenceNode node_, 
-            SlotType connectionType_, 
-            SequenceFunctionSlot slot_,
-            VariableControlType controlType_ = VariableControlType.ReadOnly,
-            object tag_ = null, 
-            bool saveValue_ = true) :
+            int slotId,
+            SequenceNode node,
+            SlotType connectionType,
+            SequenceFunctionSlot slot,
+            VariableControlType controlType = VariableControlType.ReadOnly,
+            object tag = null,
+            bool saveValue = true) :
 
-                base(slotId_, 
-                    node_, 
-                    slot_.Name,
-                    connectionType_, 
-                    slot_.VariableType,
-                    controlType_,
-                    tag_, 
-                    saveValue_)
+                base(slotId,
+                    node,
+                    slot.Name,
+                    connectionType,
+                    slot.VariableType,
+                    controlType,
+                    tag,
+                    saveValue)
         {
-            _FuncSlot = slot_;
-            _FuncSlot.PropertyChanged += OnFunctionSlotPropertyChanged;
+            _funcSlot = slot;
+            _funcSlot.PropertyChanged += OnFunctionSlotPropertyChanged;
         }
 
         /// <summary>
@@ -434,7 +432,7 @@ namespace FlowGraphBase.Node
                 case "VariableType":
                     OnPropertyChanged("VariableType");
                     break;
-                //IsArray
+                    //IsArray
             }
         }
     }

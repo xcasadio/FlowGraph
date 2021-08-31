@@ -44,8 +44,7 @@ namespace FlowSimulator.Undo
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("{0} : Create node {1}",
-                _FlowGraphVM.Sequence.Name, _NodeVM.Title);
+            return $"{_FlowGraphVM.Sequence.Name} : Create node {_NodeVM.Title}";
         }
     }
 
@@ -147,8 +146,7 @@ namespace FlowSimulator.Undo
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("Graph[{0}] : Create nodes",
-                _FlowGraphVM.Sequence.Name);
+            return $"Graph[{_FlowGraphVM.Sequence.Name}] : Create nodes";
         }
     }
 
@@ -242,8 +240,7 @@ namespace FlowSimulator.Undo
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("{0} : Delete node {1}",
-                _FlowGraphVM.Sequence.Name, _NodeVM.Title);
+            return $"{_FlowGraphVM.Sequence.Name} : Delete node {_NodeVM.Title}";
         }
     }
 
@@ -344,8 +341,7 @@ namespace FlowSimulator.Undo
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("Graph[{0}] : Delete nodes",
-                _FlowGraphVM.Sequence.Name);
+            return $"Graph[{_FlowGraphVM.Sequence.Name}] : Delete nodes";
         }
     }
 
@@ -403,8 +399,7 @@ namespace FlowSimulator.Undo
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("{0} : Node position changed",
-                _FlowGraphVM.Sequence.Name);
+            return $"{_FlowGraphVM.Sequence.Name} : Node position changed";
         }
     }
 

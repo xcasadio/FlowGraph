@@ -29,8 +29,8 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        public BranchNode(XmlNode node_)
-            : base(node_) { }
+        public BranchNode(XmlNode node)
+            : base(node) { }
 
         /// <summary>
         /// 
@@ -56,7 +56,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         /// <returns></returns>
-        public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
+        public override ProcessingInfo ActivateLogic(ProcessingContext context, NodeSlot slot)
         {
             ProcessingInfo info = new ProcessingInfo
             {
@@ -80,11 +80,11 @@ namespace FlowGraphBase.Node.StandardActionNode
 
                 if (cond)
                 {
-                    ActivateOutputLink(context_, (int)NodeSlotId.OutTrue);
+                    ActivateOutputLink(context, (int)NodeSlotId.OutTrue);
                 }
                 else
                 {
-                    ActivateOutputLink(context_, (int)NodeSlotId.OutFalse);
+                    ActivateOutputLink(context, (int)NodeSlotId.OutFalse);
                 }
             }
 
@@ -119,8 +119,8 @@ namespace FlowGraphBase.Node.StandardActionNode
             VarCounter,
         }
 
-        bool _IsInitial;
-        int _Counter;
+        bool _isInitial;
+        int _counter;
 
         public override string Title => "Do N";
 
@@ -128,8 +128,8 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        public DoNNode(XmlNode node_)
-            : base(node_) { }
+        public DoNNode(XmlNode node)
+            : base(node) { }
 
         /// <summary>
         /// 
@@ -156,23 +156,23 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         /// <returns></returns>
-        public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
+        public override ProcessingInfo ActivateLogic(ProcessingContext context, NodeSlot slot)
         {
             ProcessingInfo info = new ProcessingInfo
             {
                 State = LogicState.Ok
             };
 
-            if (slot_.ID == (int)NodeSlotId.InReset)
+            if (slot.Id == (int)NodeSlotId.InReset)
             {
-                _Counter = 0;
-                _IsInitial = false;
+                _counter = 0;
+                _isInitial = false;
             }
-            else if (slot_.ID == (int)NodeSlotId.InEnter)
+            else if (slot.Id == (int)NodeSlotId.InEnter)
             {
-                MemoryStackItem memoryItem = context_.CurrentFrame.GetValueFromID(Id);
+                MemoryStackItem memoryItem = context.CurrentFrame.GetValueFromId(Id);
 
-                if (_IsInitial == false)
+                if (_isInitial == false)
                 {
                     object objN = GetValueFromSlot((int)NodeSlotId.VarInN);
 
@@ -191,19 +191,19 @@ namespace FlowGraphBase.Node.StandardActionNode
 
                         if (memoryItem == null)
                         {
-                            memoryItem = context_.CurrentFrame.Allocate(Id, n);
+                            memoryItem = context.CurrentFrame.Allocate(Id, n);
                         }
 
                         memoryItem.Value = n;
                     }
 
-                    _IsInitial = true;
+                    _isInitial = true;
                 }
 
-                if (_Counter < (int)memoryItem.Value)
+                if (_counter < (int)memoryItem.Value)
                 {
-                    _Counter++;
-                    ActivateOutputLink(context_, (int)NodeSlotId.Out);
+                    _counter++;
+                    ActivateOutputLink(context, (int)NodeSlotId.Out);
                 }
             }
 
@@ -242,8 +242,8 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        public DoOnceNode(XmlNode node_)
-            : base(node_) { }
+        public DoOnceNode(XmlNode node)
+            : base(node) { }
 
         /// <summary>
         /// 
@@ -267,30 +267,30 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         /// <returns></returns>
-        public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
+        public override ProcessingInfo ActivateLogic(ProcessingContext context, NodeSlot slot)
         {
             ProcessingInfo info = new ProcessingInfo
             {
                 State = LogicState.Ok
             };
 
-            MemoryStackItem memoryItem = context_.CurrentFrame.GetValueFromID(Id);
+            MemoryStackItem memoryItem = context.CurrentFrame.GetValueFromId(Id);
 
             if (memoryItem == null)
             {
-                memoryItem = context_.CurrentFrame.Allocate(Id, false);
+                memoryItem = context.CurrentFrame.Allocate(Id, false);
             }
 
-            if (slot_.ID == (int)NodeSlotId.InReset)
+            if (slot.Id == (int)NodeSlotId.InReset)
             {
                 memoryItem.Value = false;
             }
-            else if (slot_.ID == (int)NodeSlotId.InEnter)
+            else if (slot.Id == (int)NodeSlotId.InEnter)
             {
                 if ((bool)memoryItem.Value == false)
                 {
                     memoryItem.Value = true;
-                    ActivateOutputLink(context_, (int)NodeSlotId.Out);
+                    ActivateOutputLink(context, (int)NodeSlotId.Out);
                 }
             }
 
@@ -331,8 +331,8 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        public FlipFlopNode(XmlNode node_)
-            : base(node_) { }
+        public FlipFlopNode(XmlNode node)
+            : base(node) { }
 
         /// <summary>
         /// 
@@ -357,34 +357,34 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         /// <returns></returns>
-        public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
+        public override ProcessingInfo ActivateLogic(ProcessingContext context, NodeSlot slot)
         {
             ProcessingInfo info = new ProcessingInfo
             {
                 State = LogicState.Ok
             };
 
-            MemoryStackItem memoryItem = context_.CurrentFrame.GetValueFromID(Id);
+            MemoryStackItem memoryItem = context.CurrentFrame.GetValueFromId(Id);
 
             if (memoryItem == null)
             {
-                memoryItem = context_.CurrentFrame.Allocate(Id, true);
+                memoryItem = context.CurrentFrame.Allocate(Id, true);
             }
             
-            if (slot_.ID == (int)NodeSlotId.InEnter)
+            if (slot.Id == (int)NodeSlotId.InEnter)
             {
                 bool val = (bool)memoryItem.Value;
-                memoryItem.Value = !((bool)memoryItem.Value);
+                memoryItem.Value = !(bool)memoryItem.Value;
 
                 SetValueInSlot((int)NodeSlotId.VarOutIsA, val);
 
                 if (val)
                 {
-                    ActivateOutputLink(context_, (int)NodeSlotId.OutA);
+                    ActivateOutputLink(context, (int)NodeSlotId.OutA);
                 }
                 else
                 {
-                    ActivateOutputLink(context_, (int)NodeSlotId.OutB);
+                    ActivateOutputLink(context, (int)NodeSlotId.OutB);
                 }
             }
 
@@ -434,8 +434,8 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        public ForLoopNode(XmlNode node_)
-            : base(node_) { }
+        public ForLoopNode(XmlNode node)
+            : base(node) { }
 
         /// <summary>
         /// 
@@ -463,14 +463,14 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         /// <returns></returns>
-        public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
+        public override ProcessingInfo ActivateLogic(ProcessingContext context, NodeSlot slot)
         {
             ProcessingInfo info = new ProcessingInfo
             {
                 State = LogicState.Ok
             };
 
-            if (slot_.ID == (int)NodeSlotId.In)
+            if (slot.Id == (int)NodeSlotId.In)
             {
                 int firstIndex = 0, lastIndex = -1;
 
@@ -508,11 +508,11 @@ namespace FlowGraphBase.Node.StandardActionNode
                     lastIndex = (int)objLastIndex;
                 }
 
-                MemoryStackItem memoryItem = context_.CurrentFrame.GetValueFromID(Id);
+                MemoryStackItem memoryItem = context.CurrentFrame.GetValueFromId(Id);
 
                 if (memoryItem == null)
                 {
-                    memoryItem = context_.CurrentFrame.Allocate(Id, new ForLoopNodeInfo { Counter = firstIndex, IsWaitingLoopBody = false });
+                    memoryItem = context.CurrentFrame.Allocate(Id, new ForLoopNodeInfo { Counter = firstIndex, IsWaitingLoopBody = false });
                 }
 
                 ForLoopNodeInfo memoryInfo = (ForLoopNodeInfo)memoryItem.Value;
@@ -530,15 +530,15 @@ namespace FlowGraphBase.Node.StandardActionNode
                         // register again this node in order to active itself
                         // after the sequence activated by the loop body slot
                         // is finished
-                        context_.RegisterNextExecution(GetSlotById((int)NodeSlotId.In)); 
-                        ProcessingContext newContext = context_.PushNewContext();
+                        context.RegisterNextExecution(GetSlotById((int)NodeSlotId.In)); 
+                        ProcessingContext newContext = context.PushNewContext();
                         newContext.Finished += OnLoopBodyFinished;
                         ActivateOutputLink(newContext, (int)NodeSlotId.OutLoop);
                     }
                     else
                     {
-                        context_.CurrentFrame.Deallocate(Id);
-                        ActivateOutputLink(context_, (int)NodeSlotId.OutCompleted);
+                        context.CurrentFrame.Deallocate(Id);
+                        ActivateOutputLink(context, (int)NodeSlotId.OutCompleted);
                     }
                 }
             }
@@ -556,7 +556,7 @@ namespace FlowGraphBase.Node.StandardActionNode
             ProcessingContext context = sender as ProcessingContext;
             context.Finished -= OnLoopBodyFinished;
 
-            MemoryStackItem memoryItem = context.Parent.CurrentFrame.GetValueFromID(Id);
+            MemoryStackItem memoryItem = context.Parent.CurrentFrame.GetValueFromId(Id);
             ForLoopNodeInfo memoryInfo = (ForLoopNodeInfo)memoryItem.Value;
             memoryInfo.IsWaitingLoopBody = false;
             memoryItem.Value = memoryInfo;
@@ -607,8 +607,8 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        public ForLoopWithBreakNode(XmlNode node_)
-            : base(node_) { }
+        public ForLoopWithBreakNode(XmlNode node)
+            : base(node) { }
 
         /// <summary>
         /// 
@@ -637,14 +637,14 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         /// <returns></returns>
-        public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
+        public override ProcessingInfo ActivateLogic(ProcessingContext context, NodeSlot slot)
         {
             ProcessingInfo info = new ProcessingInfo
             {
                 State = LogicState.Ok
             };
 
-            if (slot_.ID == (int)NodeSlotId.In)
+            if (slot.Id == (int)NodeSlotId.In)
             {
                 int firstIndex = 0, lastIndex = -1;
 
@@ -682,11 +682,11 @@ namespace FlowGraphBase.Node.StandardActionNode
                     lastIndex = (int)objLastIndex;
                 }
 
-                MemoryStackItem memoryItem = context_.CurrentFrame.GetValueFromID(Id);
+                MemoryStackItem memoryItem = context.CurrentFrame.GetValueFromId(Id);
 
                 if (memoryItem == null)
                 {
-                    memoryItem = context_.CurrentFrame.Allocate(Id, new ForLoopNodeInfo { Counter = firstIndex, IsWaitingLoopBody = false });
+                    memoryItem = context.CurrentFrame.Allocate(Id, new ForLoopNodeInfo { Counter = firstIndex, IsWaitingLoopBody = false });
                 }
 
                 ForLoopNodeInfo memoryInfo = (ForLoopNodeInfo)memoryItem.Value;
@@ -702,27 +702,27 @@ namespace FlowGraphBase.Node.StandardActionNode
                         // register again this node in order to active itself
                         // after the sequence activated by the loop body slot
                         // is finished
-                        memoryInfo.Step = context_.RegisterNextExecution(GetSlotById((int)NodeSlotId.In));
+                        memoryInfo.Step = context.RegisterNextExecution(GetSlotById((int)NodeSlotId.In));
                         memoryItem.Value = memoryInfo;
                         
-                        ProcessingContext newContext = context_.PushNewContext();
+                        ProcessingContext newContext = context.PushNewContext();
                         newContext.Finished += OnLoopBodyFinished;
                         ActivateOutputLink(newContext, (int)NodeSlotId.OutLoop);
                     }
                     else
                     {
-                        context_.CurrentFrame.Deallocate(Id);
-                        ActivateOutputLink(context_, (int)NodeSlotId.OutCompleted);
+                        context.CurrentFrame.Deallocate(Id);
+                        ActivateOutputLink(context, (int)NodeSlotId.OutCompleted);
                     }
                 }
             }
-            else if (slot_.ID == (int)NodeSlotId.InBreak)
+            else if (slot.Id == (int)NodeSlotId.InBreak)
             {
-                MemoryStackItem memoryItem = context_.CurrentFrame.GetValueFromID(Id);
+                MemoryStackItem memoryItem = context.CurrentFrame.GetValueFromId(Id);
                 ForLoopNodeInfo memoryInfo = (ForLoopNodeInfo)memoryItem.Value;
-                context_.RemoveExecution(context_, memoryInfo.Step);
-                context_.CurrentFrame.Deallocate(Id);
-                ActivateOutputLink(context_, (int)NodeSlotId.OutCompleted);
+                context.RemoveExecution(context, memoryInfo.Step);
+                context.CurrentFrame.Deallocate(Id);
+                ActivateOutputLink(context, (int)NodeSlotId.OutCompleted);
             }
 
             return info;
@@ -738,7 +738,7 @@ namespace FlowGraphBase.Node.StandardActionNode
             ProcessingContext context = sender as ProcessingContext;
             context.Finished -= OnLoopBodyFinished;
 
-            MemoryStackItem memoryItem = context.Parent.CurrentFrame.GetValueFromID(Id);
+            MemoryStackItem memoryItem = context.Parent.CurrentFrame.GetValueFromId(Id);
             if (memoryItem != null)
             {
                 ForLoopNodeInfo memoryInfo = (ForLoopNodeInfo)memoryItem.Value;
@@ -783,8 +783,8 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        public GateNode(XmlNode node_)
-            : base(node_) { }
+        public GateNode(XmlNode node)
+            : base(node) { }
 
         /// <summary>
         /// 
@@ -812,40 +812,40 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         /// <returns></returns>
-        public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
+        public override ProcessingInfo ActivateLogic(ProcessingContext context, NodeSlot slot)
         {
             ProcessingInfo info = new ProcessingInfo
             {
                 State = LogicState.Ok
             };
 
-            MemoryStackItem memoryItem = context_.CurrentFrame.GetValueFromID(Id);
+            MemoryStackItem memoryItem = context.CurrentFrame.GetValueFromId(Id);
 
             if (memoryItem == null)
             {
                 object a = GetValueFromSlot((int)NodeSlotId.VarInStartClosed);
                 bool state = a != null ? (bool)a : true;
-                memoryItem = context_.CurrentFrame.Allocate(Id, state);
+                memoryItem = context.CurrentFrame.Allocate(Id, state);
             }
 
             bool val = (bool)memoryItem.Value;
 
-            if (slot_.ID == (int)NodeSlotId.InEnter)
+            if (slot.Id == (int)NodeSlotId.InEnter)
             {
                 if (val)
                 {
-                    ActivateOutputLink(context_, (int)NodeSlotId.Out);
+                    ActivateOutputLink(context, (int)NodeSlotId.Out);
                 }
             }
-            else if (slot_.ID == (int)NodeSlotId.InOpen)
+            else if (slot.Id == (int)NodeSlotId.InOpen)
             {
                 memoryItem.Value = true;
             }
-            else if (slot_.ID == (int)NodeSlotId.InClose)
+            else if (slot.Id == (int)NodeSlotId.InClose)
             {
                 memoryItem.Value = false;
             }
-            else if (slot_.ID == (int)NodeSlotId.InToggle)
+            else if (slot.Id == (int)NodeSlotId.InToggle)
             {
                 memoryItem.Value = !val;
             }

@@ -254,9 +254,9 @@ namespace FlowSimulator
                 MenuItem item = new MenuItem
                 {
                     Header = content.Title,
-                    IsChecked = content is LayoutDocument ? 
-                        (content as LayoutDocument).IsVisible : content is LayoutAnchorable ? 
-                            (content as LayoutAnchorable).IsVisible : false
+                    IsChecked = content is LayoutDocument document ? 
+                        document.IsVisible : content is LayoutAnchorable anchorable ? 
+                            anchorable.IsVisible : false
                 };
                 item.Click += MenuItemLayout_Click;
                 item.Tag = content;
@@ -551,9 +551,8 @@ namespace FlowSimulator
                     {
                         //args.Content = args.Content;
                         //args.Content = Application.Current.MainWindow.FindName(args.Model.ContentId);
-                        if (args.Content is LayoutAnchorable)
+                        if (args.Content is LayoutAnchorable layout)
                         {
-                            LayoutAnchorable layout = args.Content as LayoutAnchorable;
                             if (layout.CanHide
                                 && layout.IsHidden)
                             {
@@ -649,10 +648,9 @@ namespace FlowSimulator
 
             foreach (LayoutDocument ld in list)
             {
-                if (ld.Content is ScriptElementControl)
+                if (ld.Content is ScriptElementControl control)
                 {
-                    ScriptElementControl s = ld.Content as ScriptElementControl;
-                    if (s.Script.ID == el_.ID)
+                    if (control.Script.Id == el_.Id)
                     {
                         ld.IsSelected = true;
                         return;

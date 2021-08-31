@@ -17,9 +17,9 @@ namespace FlowGraphBase
         /// / as separator
         /// </summary>
         /// <param name="category_"></param>
-        public Category(string category_)
+        public Category(string category)
         {
-            CategoryPath = category_;
+            CategoryPath = category;
         }
     }
 
@@ -38,9 +38,9 @@ namespace FlowGraphBase
         /// / as separator
         /// </summary>
         /// <param name="category_"></param>
-        public Name(string name_)
+        public Name(string name)
         {
-            DisplayName = name_;
+            DisplayName = name;
         }
     }
 
@@ -62,9 +62,9 @@ namespace FlowGraphBase
         /// 
         /// </summary>
         /// <param name="val_"></param>
-        public Visible(bool val_)
+        public Visible(bool val)
         {
-            Value = val_;
+            Value = val;
         }
     }
 }

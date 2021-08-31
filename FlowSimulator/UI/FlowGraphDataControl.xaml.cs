@@ -60,9 +60,9 @@ namespace FlowSimulator.UI
         private void OpenGraph_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (listBoxGraphs.SelectedItem != null
-                && listBoxGraphs.SelectedItem is Sequence)
+                && listBoxGraphs.SelectedItem is Sequence item)
             {
-                MainWindow.Instance.FlowGraphManagerControl.OpenGraphInNewTab(listBoxGraphs.SelectedItem as SequenceBase);
+                MainWindow.Instance.FlowGraphManagerControl.OpenGraphInNewTab(item);
             }
         }
 
@@ -107,10 +107,10 @@ namespace FlowSimulator.UI
         private void RenameGraph_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (listBoxGraphs.SelectedItem != null
-                && listBoxGraphs.SelectedItem is Sequence)
+                && listBoxGraphs.SelectedItem is Sequence sequence)
             {
                 FlowGraphControlViewModel flowGraphVM = 
-                    FlowGraphManager.Instance.GetViewModelById((listBoxGraphs.SelectedItem as Sequence).Id);
+                    FlowGraphManager.Instance.GetViewModelById(sequence.Id);
 
                 SequenceParametersWindow win = new SequenceParametersWindow
                 {
@@ -139,10 +139,10 @@ namespace FlowSimulator.UI
         private void DeleteGraph_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (listBoxGraphs.SelectedItem != null
-                && listBoxGraphs.SelectedItem is Sequence)
+                && listBoxGraphs.SelectedItem is Sequence sequence)
             {
                 FlowGraphControlViewModel flowGraphVM =
-                    FlowGraphManager.Instance.GetViewModelById((listBoxGraphs.SelectedItem as Sequence).Id);
+                    FlowGraphManager.Instance.GetViewModelById(sequence.Id);
 
                 if (MessageBox.Show(
                         "Do you really want to delete the graph " + flowGraphVM.Name + " ?",
@@ -174,9 +174,9 @@ namespace FlowSimulator.UI
         private void OpenFunction_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (listBoxGraphFunctions.SelectedItem != null
-                && listBoxGraphFunctions.SelectedItem is SequenceFunction)
+                && listBoxGraphFunctions.SelectedItem is SequenceFunction item)
             {
-                MainWindow.Instance.FlowGraphManagerControl.OpenGraphInNewTab(listBoxGraphFunctions.SelectedItem as SequenceBase);
+                MainWindow.Instance.FlowGraphManagerControl.OpenGraphInNewTab(item);
             }
         }
 
@@ -222,10 +222,10 @@ namespace FlowSimulator.UI
         private void RenameFunction_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (listBoxGraphFunctions.SelectedItem != null
-                && listBoxGraphFunctions.SelectedItem is SequenceFunction)
+                && listBoxGraphFunctions.SelectedItem is SequenceFunction function)
             {
                 FlowGraphControlViewModel flowGraphVM =
-                    FlowGraphManager.Instance.GetViewModelById((listBoxGraphFunctions.SelectedItem as SequenceBase).Id);
+                    FlowGraphManager.Instance.GetViewModelById(function.Id);
 
                 SequenceParametersWindow win = new SequenceParametersWindow
                 {
@@ -254,10 +254,10 @@ namespace FlowSimulator.UI
         private void DeleteFunction_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (listBoxGraphFunctions.SelectedItem != null
-                && listBoxGraphFunctions.SelectedItem is SequenceFunction)
+                && listBoxGraphFunctions.SelectedItem is SequenceFunction function)
             {
                 FlowGraphControlViewModel flowGraphVM =
-                    FlowGraphManager.Instance.GetViewModelById((listBoxGraphFunctions.SelectedItem as SequenceBase).Id);
+                    FlowGraphManager.Instance.GetViewModelById(function.Id);
 
                 if (MessageBox.Show(
                         "Do you really want to delete the function " + flowGraphVM.Name + " ?",
@@ -304,14 +304,13 @@ namespace FlowSimulator.UI
                 Vector diff = _DragStartPoint - mousePos;
 
                 if (e.LeftButton == MouseButtonState.Pressed &&
-                    sender is ListBox &&
-                    e.OriginalSource is DependencyObject &&
+                    sender is ListBox listBox &&
+                    e.OriginalSource is DependencyObject source &&
                     (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
                     Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
                 {
-                    ListBox listBox = sender as ListBox;
                     ListBoxItem listBoxItem =
-                        Helper.FindAnchestor<ListBoxItem>((DependencyObject)e.OriginalSource);
+                        Helper.FindAnchestor<ListBoxItem>(source);
 
                     if (listBoxItem != null)
                     {
@@ -361,9 +360,8 @@ namespace FlowSimulator.UI
         private void RenameNamedVar_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (listBoxGraphNamedVars.SelectedItem != null
-                && listBoxGraphNamedVars.SelectedItem is NamedVariable)
+                && listBoxGraphNamedVars.SelectedItem is NamedVariable @var)
             {
-                NamedVariable var = listBoxGraphNamedVars.SelectedItem as NamedVariable;
                 NewNamedVarWindow win = new NewNamedVarWindow(var)
                 {
                     Title = "Rename Named Variable",
@@ -388,10 +386,8 @@ namespace FlowSimulator.UI
         private void DeleteNamedVar_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (listBoxGraphNamedVars.SelectedItem != null
-                && listBoxGraphNamedVars.SelectedItem is NamedVariable)
+                && listBoxGraphNamedVars.SelectedItem is NamedVariable variable)
             {
-                NamedVariable variable = listBoxGraphNamedVars.SelectedItem as NamedVariable;
-
                 if (MessageBox.Show(
                         "Do you really want to delete the named variable " + variable.Name + " ?",
                         "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
@@ -435,14 +431,13 @@ namespace FlowSimulator.UI
                 Vector diff = _DragStartPoint - mousePos;
 
                 if (e.LeftButton == MouseButtonState.Pressed &&
-                    sender is ListBox &&
-                    e.OriginalSource is DependencyObject &&
+                    sender is ListBox listBox &&
+                    e.OriginalSource is DependencyObject source &&
                     (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
                     Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
                 {
-                    ListBox listBox = sender as ListBox;
                     ListBoxItem listBoxItem =
-                        Helper.FindAnchestor<ListBoxItem>((DependencyObject)e.OriginalSource);
+                        Helper.FindAnchestor<ListBoxItem>(source);
 
                     if (listBoxItem != null)
                     {
@@ -478,9 +473,9 @@ namespace FlowSimulator.UI
         private void OpenScript_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (listBoxGraphScripts.SelectedItem != null
-                && listBoxGraphScripts.SelectedItem is ScriptElement)
+                && listBoxGraphScripts.SelectedItem is ScriptElement item)
             {
-                MainWindow.Instance.OpenScriptElement(listBoxGraphScripts.SelectedItem as ScriptElement);
+                MainWindow.Instance.OpenScriptElement(item);
             }
         }
 
@@ -515,9 +510,8 @@ namespace FlowSimulator.UI
         private void RenameScript_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (listBoxGraphScripts.SelectedItem != null
-                && listBoxGraphScripts.SelectedItem is ScriptElement)
+                && listBoxGraphScripts.SelectedItem is ScriptElement el)
             {
-                ScriptElement el = listBoxGraphScripts.SelectedItem as ScriptElement;
                 NewScriptWindow win = new NewScriptWindow(el)
                 {
                     //win.IsValidInputNameCallback = GraphDataManager.Instance.IsValidName;
@@ -541,10 +535,8 @@ namespace FlowSimulator.UI
         private void DeleteScript_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (listBoxGraphScripts.SelectedItem != null
-                && listBoxGraphScripts.SelectedItem is ScriptElement)
+                && listBoxGraphScripts.SelectedItem is ScriptElement el)
             {
-                ScriptElement el = listBoxGraphScripts.SelectedItem as ScriptElement;
-
                 if (MessageBox.Show(
                         "Do you really want to delete the named variable " + el.Name + " ?",
                         "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
@@ -568,14 +560,13 @@ namespace FlowSimulator.UI
                 Vector diff = _DragStartPoint - mousePos;
 
                 if (e.LeftButton == MouseButtonState.Pressed &&
-                    sender is ListBox &&
-                    e.OriginalSource is DependencyObject &&
+                    sender is ListBox listBox &&
+                    e.OriginalSource is DependencyObject source &&
                     (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
                     Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
                 {
-                    ListBox listBox = sender as ListBox;
                     ListBoxItem listBoxItem =
-                        Helper.FindAnchestor<ListBoxItem>((DependencyObject)e.OriginalSource);
+                        Helper.FindAnchestor<ListBoxItem>(source);
 
                     if (listBoxItem != null)
                     {
@@ -584,7 +575,7 @@ namespace FlowSimulator.UI
 
                         if (var != null)
                         {
-                            DataObject dragData = new DataObject(DataFormats.Text, DragPrefixScriptElement + var.ID);
+                            DataObject dragData = new DataObject(DataFormats.Text, DragPrefixScriptElement + var.Id);
                             DragDrop.DoDragDrop(listBoxItem, dragData, DragDropEffects.Move);
                         }
                     }

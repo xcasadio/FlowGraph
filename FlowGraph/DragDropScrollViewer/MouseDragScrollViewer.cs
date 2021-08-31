@@ -237,8 +237,8 @@ namespace MouseDragScrollViewer
                 vOffset = _dragVelocity * DragInterval;
             }
 
-            if (DragHorizontalDelegate != null) DragHorizontalDelegate(hOffset);
-            if (DragVerticalDelegate != null) DragVerticalDelegate(vOffset);
+            DragHorizontalDelegate?.Invoke(hOffset);
+            DragVerticalDelegate?.Invoke(vOffset);
 
             _dragVelocity = Math.Min(DragMaxVelocity, _dragVelocity + (DragAcceleration * DragInterval));
         }

@@ -132,9 +132,9 @@ namespace FlowGraphBase
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        public void Load(XmlNode node_)
+        public void Load(XmlNode node)
         {
-            XmlNode valNode = node_.SelectSingleNode("ValueContainer");
+            XmlNode valNode = node.SelectSingleNode("ValueContainer");
             int version = int.Parse(valNode.Attributes["version"].Value);
             string typeStr = valNode.Attributes["type"].Value;
             string valStr = valNode.InnerText;

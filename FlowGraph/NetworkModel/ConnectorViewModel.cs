@@ -236,10 +236,7 @@ namespace NetworkModel
         {
             OnPropertyChanged("Hotspot");
 
-            if (HotspotUpdated != null)
-            {
-                HotspotUpdated(this, EventArgs.Empty);
-            }
+            HotspotUpdated?.Invoke(this, EventArgs.Empty);
         }
     }
 }

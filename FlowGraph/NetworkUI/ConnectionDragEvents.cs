@@ -10,34 +10,34 @@ namespace NetworkUI
         /// <summary>
         /// The NodeItem or it's DataContext (when non-NULL).
         /// </summary>
-        private readonly object node;
+        private readonly object _node;
 
         /// <summary>
         /// The ConnectorItem or it's DataContext (when non-NULL).
         /// </summary>
-        private readonly object draggedOutConnector;
+        private readonly object _draggedOutConnector;
 
         /// <summary>
         /// The connector that will be dragged out.
         /// </summary>
-        protected object connection;
+        protected object Connection;
 
         /// <summary>
         /// The NodeItem or it's DataContext (when non-NULL).
         /// </summary>
-        public object Node => node;
+        public object Node => _node;
 
         /// <summary>
         /// The ConnectorItem or it's DataContext (when non-NULL).
         /// </summary>
-        public object ConnectorDraggedOut => draggedOutConnector;
+        public object ConnectorDraggedOut => _draggedOutConnector;
 
         protected ConnectionDragEventArgs(RoutedEvent routedEvent, object source, object node, object connection, object connector) :
             base(routedEvent, source)
         {
-            this.node = node;
-            draggedOutConnector = connector;
-            this.connection = connection;
+            this._node = node;
+            _draggedOutConnector = connector;
+            this.Connection = connection;
         }
     }
 
@@ -51,8 +51,8 @@ namespace NetworkUI
         /// </summary>
         public object Connection
         {
-            get => connection;
-            set => connection = value;
+            get => base.Connection;
+            set => base.Connection = value;
         }
 
         internal ConnectionDragStartedEventArgs(RoutedEvent routedEvent, object source, object node, object connector) :
@@ -74,35 +74,35 @@ namespace NetworkUI
         /// <summary>
         /// The ConnectorItem or it's DataContext (when non-NULL).
         /// </summary>
-        private readonly object draggedOverConnector;
+        private readonly object _draggedOverConnector;
 
         /// <summary>
         /// Set to 'true' / 'false' to indicate that the connection from the dragged out connection to the dragged over connector is valid.
         /// </summary>
-        private bool connectionOk = true;
+        private bool _connectionOk = true;
 
         /// <summary>
         /// The indicator to display.
         /// </summary>
-        private object feedbackIndicator;
+        private object _feedbackIndicator;
 
         /// <summary>
         /// The ConnectorItem or it's DataContext (when non-NULL).
         /// </summary>
-        public object DraggedOverConnector => draggedOverConnector;
+        public object DraggedOverConnector => _draggedOverConnector;
 
         /// <summary>
         /// The connection that will be dragged out.
         /// </summary>
-        public object Connection => connection;
+        public object Connection => base.Connection;
 
         /// <summary>
         /// Set to 'true' / 'false' to indicate that the connection from the dragged out connection to the dragged over connector is valid.
         /// </summary>
         public bool ConnectionOk
         {
-            get => connectionOk;
-            set => connectionOk = value;
+            get => _connectionOk;
+            set => _connectionOk = value;
         }
 
         /// <summary>
@@ -110,15 +110,15 @@ namespace NetworkUI
         /// </summary>
         public object FeedbackIndicator
         {
-            get => feedbackIndicator;
-            set => feedbackIndicator = value;
+            get => _feedbackIndicator;
+            set => _feedbackIndicator = value;
         }
 
         internal QueryConnectionFeedbackEventArgs(RoutedEvent routedEvent, object source, 
             object node, object connection, object connector, object draggedOverConnector) :
             base(routedEvent, source, node, connection, connector)
         {
-            this.draggedOverConnector = draggedOverConnector;
+            this._draggedOverConnector = draggedOverConnector;
         }
     }
 
@@ -135,7 +135,7 @@ namespace NetworkUI
         /// <summary>
         /// The connection being dragged out.
         /// </summary>
-        public object Connection => connection;
+        public object Connection => base.Connection;
 
         internal ConnectionDraggingEventArgs(RoutedEvent routedEvent, object source,
                 object node, object connection, object connector) :
@@ -157,22 +157,22 @@ namespace NetworkUI
         /// <summary>
         /// The ConnectorItem or it's DataContext (when non-NULL).
         /// </summary>
-        private readonly object connectorDraggedOver;
+        private readonly object _connectorDraggedOver;
 
         /// <summary>
         /// The ConnectorItem or it's DataContext (when non-NULL).
         /// </summary>
-        public object ConnectorDraggedOver => connectorDraggedOver;
+        public object ConnectorDraggedOver => _connectorDraggedOver;
 
         /// <summary>
         /// The connection that will be dragged out.
         /// </summary>
-        public object Connection => connection;
+        public object Connection => base.Connection;
 
         internal ConnectionDragCompletedEventArgs(RoutedEvent routedEvent, object source, object node, object connection, object connector, object connectorDraggedOver) :
             base(routedEvent, source, node, connection, connector)
         {
-            this.connectorDraggedOver = connectorDraggedOver;
+            this._connectorDraggedOver = connectorDraggedOver;
         }
     }
 

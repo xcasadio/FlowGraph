@@ -24,14 +24,14 @@ namespace Utils
         //
         // Placement of the child.
         //
-        private readonly AdornerPlacement horizontalAdornerPlacement = AdornerPlacement.Inside;
-        private readonly AdornerPlacement verticalAdornerPlacement = AdornerPlacement.Inside;
+        private readonly AdornerPlacement _horizontalAdornerPlacement = AdornerPlacement.Inside;
+        private readonly AdornerPlacement _verticalAdornerPlacement = AdornerPlacement.Inside;
 
         //
         // Offset of the child.
         //
-        private readonly double offsetX;
-        private readonly double offsetY;
+        private readonly double _offsetX;
+        private readonly double _offsetY;
 
         //
         // Position of the child (when not set to NaN).
@@ -72,10 +72,10 @@ namespace Utils
             }
 
             Child = adornerChildElement;
-            this.horizontalAdornerPlacement = horizontalAdornerPlacement;
-            this.verticalAdornerPlacement = verticalAdornerPlacement;
-            this.offsetX = offsetX;
-            this.offsetY = offsetY;
+            this._horizontalAdornerPlacement = horizontalAdornerPlacement;
+            this._verticalAdornerPlacement = verticalAdornerPlacement;
+            this._offsetX = offsetX;
+            this._offsetY = offsetY;
 
             adornedElement.SizeChanged += adornedElement_SizeChanged;
 
@@ -118,53 +118,53 @@ namespace Utils
             {
                 case HorizontalAlignment.Left:
                 {
-                    if (horizontalAdornerPlacement == AdornerPlacement.Mouse)
+                    if (_horizontalAdornerPlacement == AdornerPlacement.Mouse)
                     {
                         double adornerWidth = Child.DesiredSize.Width;
                         Point position = Mouse.GetPosition(AdornerLayer.GetAdornerLayer(AdornedElement));
-                        return (position.X - adornerWidth) + offsetX;
+                        return (position.X - adornerWidth) + _offsetX;
                     }
 
-                    if (horizontalAdornerPlacement == AdornerPlacement.Outside)
+                    if (_horizontalAdornerPlacement == AdornerPlacement.Outside)
                     {
-                        return -Child.DesiredSize.Width + offsetX;
+                        return -Child.DesiredSize.Width + _offsetX;
                     }
-                    return offsetX;
+                    return _offsetX;
                 }
                 case HorizontalAlignment.Right:
                 {
-                    if (horizontalAdornerPlacement == AdornerPlacement.Mouse)
+                    if (_horizontalAdornerPlacement == AdornerPlacement.Mouse)
                     {
                         Point position = Mouse.GetPosition(AdornerLayer.GetAdornerLayer(AdornedElement));
-                        return position.X + offsetX;
+                        return position.X + _offsetX;
                     }
 
-                    if (horizontalAdornerPlacement == AdornerPlacement.Outside)
+                    if (_horizontalAdornerPlacement == AdornerPlacement.Outside)
                     {
                         double adornedWidth = AdornedElement.ActualWidth;
-                        return adornedWidth + offsetX;
+                        return adornedWidth + _offsetX;
                     }
                     else
                     {
                         double adornerWidth = Child.DesiredSize.Width;
                         double adornedWidth = AdornedElement.ActualWidth;
                         double x = adornedWidth - adornerWidth;
-                        return x + offsetX;
+                        return x + _offsetX;
                     }
                 }
                 case HorizontalAlignment.Center:
                 {
                     double adornerWidth = Child.DesiredSize.Width;
 
-                    if (horizontalAdornerPlacement == AdornerPlacement.Mouse)
+                    if (_horizontalAdornerPlacement == AdornerPlacement.Mouse)
                     {
                         Point position = Mouse.GetPosition(AdornerLayer.GetAdornerLayer(AdornedElement));
-                        return (position.X - (adornerWidth / 2)) + offsetX;
+                        return (position.X - (adornerWidth / 2)) + _offsetX;
                     }
 
                     double adornedWidth = AdornedElement.ActualWidth;
                     double x = (adornedWidth / 2) - (adornerWidth / 2);
-                    return x + offsetX;
+                    return x + _offsetX;
                 }
                 case HorizontalAlignment.Stretch:
                 {
@@ -184,53 +184,53 @@ namespace Utils
             {
                 case VerticalAlignment.Top:
                 {
-                    if (verticalAdornerPlacement == AdornerPlacement.Mouse)
+                    if (_verticalAdornerPlacement == AdornerPlacement.Mouse)
                     {
                         double adornerWidth = Child.DesiredSize.Width;
                         Point position = Mouse.GetPosition(AdornerLayer.GetAdornerLayer(AdornedElement));
-                        return (position.Y - adornerWidth) + offsetY;
+                        return (position.Y - adornerWidth) + _offsetY;
                     }
 
-                    if (verticalAdornerPlacement == AdornerPlacement.Outside)
+                    if (_verticalAdornerPlacement == AdornerPlacement.Outside)
                     {
-                        return -Child.DesiredSize.Height + offsetY;
+                        return -Child.DesiredSize.Height + _offsetY;
                     }
-                    return offsetY;
+                    return _offsetY;
                 }
                 case VerticalAlignment.Bottom:
                 {
-                    if (verticalAdornerPlacement == AdornerPlacement.Mouse)
+                    if (_verticalAdornerPlacement == AdornerPlacement.Mouse)
                     {
                         Point position = Mouse.GetPosition(AdornerLayer.GetAdornerLayer(AdornedElement));
-                        return position.Y + offsetY;
+                        return position.Y + _offsetY;
                     }
 
-                    if (verticalAdornerPlacement == AdornerPlacement.Outside)
+                    if (_verticalAdornerPlacement == AdornerPlacement.Outside)
                     {
                         double adornedHeight = AdornedElement.ActualHeight;
-                        return adornedHeight + offsetY;
+                        return adornedHeight + _offsetY;
                     }
                     else
                     {
                         double adornerHeight = Child.DesiredSize.Height;
                         double adornedHeight = AdornedElement.ActualHeight;
                         double x = adornedHeight - adornerHeight;
-                        return x + offsetY;
+                        return x + _offsetY;
                     }
                 }
                 case VerticalAlignment.Center:
                 {
                     double adornerHeight = Child.DesiredSize.Height;
 
-                    if (verticalAdornerPlacement == AdornerPlacement.Mouse)
+                    if (_verticalAdornerPlacement == AdornerPlacement.Mouse)
                     {
                         Point position = Mouse.GetPosition(AdornerLayer.GetAdornerLayer(AdornedElement));
-                        return (position.Y - (adornerHeight/2)) + offsetY;
+                        return (position.Y - (adornerHeight/2)) + _offsetY;
                     }
 
                     double adornedHeight = AdornedElement.ActualHeight;
                     double y = (adornedHeight / 2) - (adornerHeight / 2);
-                    return y + offsetY;
+                    return y + _offsetY;
                 }
                 case VerticalAlignment.Stretch:
                 {

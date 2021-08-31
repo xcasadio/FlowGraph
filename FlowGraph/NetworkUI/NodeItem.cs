@@ -134,10 +134,7 @@ namespace NetworkUI
 
             BringToFront();
 
-            if (ParentNetworkView != null)
-            {
-                ParentNetworkView.Focus();
-            }
+            ParentNetworkView?.Focus();
 
             if (e.ChangedButton == MouseButton.Left && ParentNetworkView != null)
             {

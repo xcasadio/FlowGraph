@@ -19,8 +19,8 @@ namespace FlowSimulator.CustomNode
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        public EventNodeTestStarted(XmlNode node_)
-            : base(node_)
+        public EventNodeTestStarted(XmlNode node)
+            : base(node)
         {
 
         }
@@ -49,9 +49,9 @@ namespace FlowSimulator.CustomNode
         /// 
         /// </summary>
         /// <param name="para_"></param>
-        protected override void TriggeredImpl(object para_)
+        protected override void TriggeredImpl(object para)
         {
-            SetValueInSlot(1, para_);
+            SetValueInSlot(1, para);
         }
 
         /*protected override void Load(XmlNode node_)

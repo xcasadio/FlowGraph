@@ -37,9 +37,9 @@ namespace NetworkUI
             //
             // Cache the NodeItem for each selected node whilst dragging is in progress.
             //
-            if (cachedSelectedNodeItems == null)
+            if (_cachedSelectedNodeItems == null)
             {
-                cachedSelectedNodeItems = new List<NodeItem>();
+                _cachedSelectedNodeItems = new List<NodeItem>();
 
                 foreach (var selectedNode in SelectedNodes)
                 {
@@ -49,14 +49,14 @@ namespace NetworkUI
                         throw new ApplicationException("Unexpected code path!");
                     }
 
-                    cachedSelectedNodeItems.Add(nodeItem);
+                    _cachedSelectedNodeItems.Add(nodeItem);
                 }
             }
 
             // 
             // Update the position of the node within the Canvas.
             //
-            foreach (var nodeItem in cachedSelectedNodeItems)
+            foreach (var nodeItem in _cachedSelectedNodeItems)
             {
                 nodeItem.X += e.HorizontalChange;
                 nodeItem.Y += e.VerticalChange;
@@ -76,9 +76,9 @@ namespace NetworkUI
             var eventArgs = new NodeDragCompletedEventArgs(NodeDragCompletedEvent, this, SelectedNodes);
             RaiseEvent(eventArgs);
 
-            if (cachedSelectedNodeItems != null)
+            if (_cachedSelectedNodeItems != null)
             {
-                cachedSelectedNodeItems = null;
+                _cachedSelectedNodeItems = null;
             }
 
             IsDragging = false;

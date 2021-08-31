@@ -132,13 +132,13 @@ namespace FlowSimulator.UI
             {
                 SequenceBase seq = null;
 
-                if (tabControl.SelectedItem is TabItem)
+                if (tabControl.SelectedItem is TabItem tabItem)
                 {
-                    TabItem item = (tabControl.SelectedItem as TabItem);
+                    TabItem item = tabItem;
 
-                    if (item.Content is FlowGraphControl)
+                    if (item.Content is FlowGraphControl control)
                     {
-                        seq = (item.Content as FlowGraphControl).ViewModel.Sequence;
+                        seq = control.ViewModel.Sequence;
                     }
                 }
 

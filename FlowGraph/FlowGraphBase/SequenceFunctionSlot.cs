@@ -17,14 +17,14 @@ namespace FlowGraphBase
     /// </summary>
     public class SequenceFunctionSlot : INotifyPropertyChanged
     {
-        private string _Name;
-        private Type _VarType;
-        private bool _IsArray;
+        private string _name;
+        private Type _varType;
+        private bool _isArray;
 
         /// <summary>
         /// 
         /// </summary>
-        public int ID
+        public int Id
         {
             get;
         }
@@ -42,12 +42,12 @@ namespace FlowGraphBase
         /// </summary>
         public string Name
         {
-            get => _Name;
+            get => _name;
             set
             {
-                if (_Name != value)
+                if (_name != value)
                 {
-                    _Name = value;
+                    _name = value;
                     OnPropertyChanged("Name");
                 }
             }
@@ -58,12 +58,12 @@ namespace FlowGraphBase
         /// </summary>
         public Type VariableType
         {
-            get => _VarType;
+            get => _varType;
             set
             {
-                if (_VarType != value)
+                if (_varType != value)
                 {
-                    _VarType = value;
+                    _varType = value;
                     OnPropertyChanged("VariableType");
                 }
             }
@@ -74,12 +74,12 @@ namespace FlowGraphBase
         /// </summary>
         public bool IsArray
         {
-            get => _IsArray;
+            get => _isArray;
             set
             {
-                if (_IsArray != value)
+                if (_isArray != value)
                 {
-                    _IsArray = value;
+                    _isArray = value;
                     OnPropertyChanged("IsArray");
                 }
             }
@@ -88,12 +88,12 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id_"></param>
-        /// <param name="type_"></param>
-        public SequenceFunctionSlot(int id_, FunctionSlotType type_)
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        public SequenceFunctionSlot(int id, FunctionSlotType type)
         {
-            ID = id_;
-            SlotType = type_;
+            Id = id;
+            SlotType = type;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -104,10 +104,7 @@ namespace FlowGraphBase
         /// <param name="propertyName"></param>
         public void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -107,25 +107,16 @@ namespace NetworkUI
         {
             base.OnMouseDown(e);
 
-            if (ParentNodeItem != null)
-            {
-                ParentNodeItem.BringToFront();
-            }
+            ParentNodeItem?.BringToFront();
 
-            if (ParentNetworkView != null)
-            {
-                ParentNetworkView.Focus();
-            }
+            ParentNetworkView?.Focus();
 
             if (e.ChangedButton == MouseButton.Left)
             {
-                if (ParentNodeItem != null)
-                {
-                    //
-                    // Delegate to parent node to execute selection logic.
-                    //
-                    ParentNodeItem.LeftMouseDownSelectionLogic();
-                }
+                //
+                // Delegate to parent node to execute selection logic.
+                //
+                ParentNodeItem?.LeftMouseDownSelectionLogic();
 
                 lastMousePoint = e.GetPosition(ParentNetworkView);
                 isLeftMouseDown = true;
@@ -133,13 +124,10 @@ namespace NetworkUI
             }
             else if (e.ChangedButton == MouseButton.Right)
             {
-                if (ParentNodeItem != null)
-                {
-                    //
-                    // Delegate to parent node to execute selection logic.
-                    //
-                    ParentNodeItem.RightMouseDownSelectionLogic();
-                }
+                //
+                // Delegate to parent node to execute selection logic.
+                //
+                ParentNodeItem?.RightMouseDownSelectionLogic();
             }
         }
 
@@ -234,13 +222,10 @@ namespace NetworkUI
                         //
                         // Execute mouse up selection logic only if there was no drag operation.
                         //
-                        if (ParentNodeItem != null)
-                        {
-                            //
-                            // Delegate to parent node to execute selection logic.
-                            //
-                            ParentNodeItem.LeftMouseUpSelectionLogic();
-                        }
+                        //
+                        // Delegate to parent node to execute selection logic.
+                        //
+                        ParentNodeItem?.LeftMouseUpSelectionLogic();
                     }
 
                     isLeftMouseDown = false;

@@ -83,19 +83,16 @@ namespace FlowGraphUI
         /// <param name="e"></param>
         void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (e.OldValue is ConnectionViewModel)
+            if (e.OldValue is ConnectionViewModel value)
             {
-                ConnectionViewModel model = e.OldValue as ConnectionViewModel;
-
-                if (model.SourceConnector != null)
+                if (value.SourceConnector != null)
                 {
-                    model.SourceConnector.SourceSlot.Activated -= OnNodeSlotActivated;
+                    value.SourceConnector.SourceSlot.Activated -= OnNodeSlotActivated;
                 }
             }
 
-            if (e.NewValue is ConnectionViewModel)
+            if (e.NewValue is ConnectionViewModel model)
             {
-                ConnectionViewModel model = e.NewValue as ConnectionViewModel;
                 if (model.SourceConnector != null)
                 {
                     model.SourceConnector.SourceSlot.Activated -= OnNodeSlotActivated;

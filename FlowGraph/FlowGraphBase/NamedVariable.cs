@@ -8,18 +8,18 @@ namespace FlowGraphBase
     /// </summary>
     public class NamedVariable : INotifyPropertyChanged
     {
-        string _Name;
-        ValueContainer _Value;
+        string _name;
+        ValueContainer _value;
 
         /// <summary>
         /// 
         /// </summary>
         public string Name
         {
-            get => _Name;
+            get => _name;
             set
             {
-                _Name = value;
+                _name = value;
                 OnPropertyChanged("Name");
             }
         }
@@ -29,34 +29,34 @@ namespace FlowGraphBase
         /// </summary>
         public object Value
         {
-            get => _Value.Value;
-            set => _Value.Value = value;
+            get => _value.Value;
+            set => _value.Value = value;
             //OnPropertyChanged("Value");
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public Type VariableType => _Value.VariableType;
+        public Type VariableType => _value.VariableType;
 
         /// <summary>
         /// 
         /// </summary>
         internal ValueContainer InternalValueContainer
         {
-            get => _Value;
+            get => _value;
             set 
             {
-                if (_Value != null)
+                if (_value != null)
                 {
-                    _Value.PropertyChanged -= OnValueContainerPropertyChanged;
+                    _value.PropertyChanged -= OnValueContainerPropertyChanged;
                 }
 
-                _Value = value;
+                _value = value;
 
-                if (_Value != null)
+                if (_value != null)
                 {
-                    _Value.PropertyChanged += OnValueContainerPropertyChanged;
+                    _value.PropertyChanged += OnValueContainerPropertyChanged;
                 }
 
                 OnPropertyChanged("InternalValueContainer");
@@ -66,12 +66,12 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="name_"></param>
-        /// <param name="var_"></param>
-        internal NamedVariable(string name_, ValueContainer var_)
+        /// <param name="name"></param>
+        /// <param name="var"></param>
+        internal NamedVariable(string name, ValueContainer var)
         {
-            Name = name_;
-            InternalValueContainer = var_;
+            Name = name;
+            InternalValueContainer = var;
         }
 
         /// <summary>
@@ -92,10 +92,7 @@ namespace FlowGraphBase
         /// <param name="propertyName"></param>
         public void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

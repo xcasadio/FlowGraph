@@ -9,7 +9,7 @@ namespace FlowSimulator.UI
     /// </summary>
     static class NamedVarEditTemplateManager
     {
-        private static readonly Dictionary<Type, DataTemplate> _TemplatesByTypes = new Dictionary<Type, DataTemplate>(15);
+        private static readonly Dictionary<Type, DataTemplate> TemplatesByTypes = new Dictionary<Type, DataTemplate>(15);
 
         /// <summary>
         /// 
@@ -55,35 +55,35 @@ namespace FlowSimulator.UI
         /// </summary>
         /// <param name="type_"></param>
         /// <param name="template_"></param>
-        public static void Add(Type type_, DataTemplate template_)
+        public static void Add(Type type, DataTemplate template)
         {
-            if (type_ == null)
+            if (type == null)
             {
                 throw new ArgumentNullException("Type cannot be null");
             }
 
-            if (template_ == null)
+            if (template == null)
             {
                 throw new ArgumentNullException("DataTemplate cannot be null");
             }
 
-            _TemplatesByTypes.Add(type_, template_);
+            TemplatesByTypes.Add(type, template);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="type_"></param>
-        public static DataTemplate GetTemplateByType(Type type_)
+        public static DataTemplate GetTemplateByType(Type type)
         {
-            if (type_ == null)
+            if (type == null)
             {
                 return null;
             }
 
-            if (_TemplatesByTypes.ContainsKey(type_))
+            if (TemplatesByTypes.ContainsKey(type))
             {
-                return _TemplatesByTypes[type_];
+                return TemplatesByTypes[type];
             }
 
             return null;
@@ -94,9 +94,9 @@ namespace FlowSimulator.UI
         /// </summary>
         /// <param name="type_"></param>
         /// <returns></returns>
-        public static bool ContainsType(Type type_)
+        public static bool ContainsType(Type type)
         {
-            return type_ == null ? false : _TemplatesByTypes.ContainsKey(type_);
+            return type == null ? false : TemplatesByTypes.ContainsKey(type);
         }
     }
 }

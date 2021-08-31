@@ -122,17 +122,17 @@ namespace NetworkUI
         /// <summary>
         /// Cached reference to the NodeItemsControl in the visual-tree.
         /// </summary>
-        private NodeItemsControl nodeItemsControl;
+        private NodeItemsControl _nodeItemsControl;
 
         /// <summary>
         /// Cached reference to the ItemsControl for connections in the visual-tree.
         /// </summary>
-        private ItemsControl connectionItemsControl;
+        private ItemsControl _connectionItemsControl;
 
         /// <summary>
         /// Cached list of currently selected nodes.
         /// </summary>
-        private List<object> initialSelectedNodes;
+        private List<object> _initialSelectedNodes;
 
         public NetworkView()
         {
@@ -420,38 +420,38 @@ namespace NetworkUI
         {
             get
             {
-                if (nodeItemsControl != null)
+                if (_nodeItemsControl != null)
                 {
-                    return nodeItemsControl.SelectedItem;
+                    return _nodeItemsControl.SelectedItem;
                 }
 
-                if (initialSelectedNodes == null)
-                {
-                    return null;
-                }
-
-                if (initialSelectedNodes.Count != 1)
+                if (_initialSelectedNodes == null)
                 {
                     return null;
                 }
 
-                return initialSelectedNodes[0];
+                if (_initialSelectedNodes.Count != 1)
+                {
+                    return null;
+                }
+
+                return _initialSelectedNodes[0];
             }
             set
             {
-                if (nodeItemsControl != null)
+                if (_nodeItemsControl != null)
                 {
-                    nodeItemsControl.SelectedItem = value;
+                    _nodeItemsControl.SelectedItem = value;
                 }
                 else
                 {
-                    if (initialSelectedNodes == null)
+                    if (_initialSelectedNodes == null)
                     {
-                        initialSelectedNodes = new List<object>();
+                        _initialSelectedNodes = new List<object>();
                     }
 
-                    initialSelectedNodes.Clear();
-                    initialSelectedNodes.Add(value);
+                    _initialSelectedNodes.Clear();
+                    _initialSelectedNodes.Add(value);
                 }
             }
         }
@@ -463,17 +463,17 @@ namespace NetworkUI
         {
             get
             {
-                if (nodeItemsControl != null)
+                if (_nodeItemsControl != null)
                 {
-                    return nodeItemsControl.SelectedItems;
+                    return _nodeItemsControl.SelectedItems;
                 }
 
-                if (initialSelectedNodes == null)
+                if (_initialSelectedNodes == null)
                 {
-                    initialSelectedNodes = new List<object>();
+                    _initialSelectedNodes = new List<object>();
                 }
 
-                return initialSelectedNodes;
+                return _initialSelectedNodes;
             }
         }
 
@@ -591,16 +591,16 @@ namespace NetworkUI
             //
             ClearFeedbackAdorner();
 
-            draggedOutConnectorItem.CancelConnectionDragging();
+            _draggedOutConnectorItem.CancelConnectionDragging();
 
             IsDragging = false;
             IsNotDragging = true;
             IsDraggingConnection = false;
             IsNotDraggingConnection = true;
-            draggedOutConnectorItem = null;
-            draggedOutNodeDataContext = null;
-            draggedOutConnectorDataContext = null;
-            draggingConnectionDataContext = null;
+            _draggedOutConnectorItem = null;
+            _draggedOutNodeDataContext = null;
+            _draggedOutConnectorDataContext = null;
+            _draggingConnectionDataContext = null;
         }
 
         /// <summary>
@@ -701,15 +701,12 @@ namespace NetworkUI
             //
             c.Nodes.Clear();
 
-            if (e.OldValue != null)
+            if (e.OldValue is INotifyCollectionChanged notifyCollectionChanged)
             {
-                if (e.OldValue is INotifyCollectionChanged notifyCollectionChanged)
-                {
-                    //
-                    // Unhook events from previous collection.
-                    //
-                    notifyCollectionChanged.CollectionChanged -= c.NodesSource_CollectionChanged;
-                }
+                //
+                // Unhook events from previous collection.
+                //
+                notifyCollectionChanged.CollectionChanged -= c.NodesSource_CollectionChanged;
             }
 
             if (e.NewValue != null)
@@ -725,12 +722,12 @@ namespace NetworkUI
                     }
                 }
 
-                if (e.NewValue is INotifyCollectionChanged notifyCollectionChanged)
+                if (e.NewValue is INotifyCollectionChanged notifyCollectionChanged2)
                 {
                     //
                     // Hook events in new collection.
                     //
-                    notifyCollectionChanged.CollectionChanged += c.NodesSource_CollectionChanged;
+                    notifyCollectionChanged2.CollectionChanged += c.NodesSource_CollectionChanged;
                 }
             }
         }
@@ -869,8 +866,8 @@ namespace NetworkUI
             // Cache the parts of the visual tree that we need access to later.
             //
 
-            nodeItemsControl = (NodeItemsControl)Template.FindName("PART_NodeItemsControl", this);
-            if (nodeItemsControl == null)
+            _nodeItemsControl = (NodeItemsControl)Template.FindName("PART_NodeItemsControl", this);
+            if (_nodeItemsControl == null)
             {
                 throw new ApplicationException("Failed to find 'PART_NodeItemsControl' in the visual tree for 'NetworkView'.");
             }
@@ -878,32 +875,32 @@ namespace NetworkUI
             //
             // Synchronize initial selected nodes to the NodeItemsControl.
             //
-            if (initialSelectedNodes != null && initialSelectedNodes.Count > 0)
+            if (_initialSelectedNodes != null && _initialSelectedNodes.Count > 0)
             {
-                foreach (var node in initialSelectedNodes)
+                foreach (var node in _initialSelectedNodes)
                 {
-                    nodeItemsControl.SelectedItems.Add(node);
+                    _nodeItemsControl.SelectedItems.Add(node);
                 }
             }
 
-            initialSelectedNodes = null; // Don't need this any more.
+            _initialSelectedNodes = null; // Don't need this any more.
 
-            nodeItemsControl.SelectionChanged += nodeItemsControl_SelectionChanged;
+            _nodeItemsControl.SelectionChanged += nodeItemsControl_SelectionChanged;
 
-            connectionItemsControl = (ItemsControl)Template.FindName("PART_ConnectionItemsControl", this);
-            if (connectionItemsControl == null)
+            _connectionItemsControl = (ItemsControl)Template.FindName("PART_ConnectionItemsControl", this);
+            if (_connectionItemsControl == null)
             {
                 throw new ApplicationException("Failed to find 'PART_ConnectionItemsControl' in the visual tree for 'NetworkView'.");
             }
 
-            dragSelectionCanvas = (FrameworkElement)Template.FindName("PART_DragSelectionCanvas", this);
-            if (dragSelectionCanvas == null)
+            _dragSelectionCanvas = (FrameworkElement)Template.FindName("PART_DragSelectionCanvas", this);
+            if (_dragSelectionCanvas == null)
             {
                 throw new ApplicationException("Failed to find 'PART_DragSelectionCanvas' in the visual tree for 'NetworkView'.");
             }
 
-            dragSelectionBorder = (FrameworkElement)Template.FindName("PART_DragSelectionBorder", this);
-            if (dragSelectionBorder == null)
+            _dragSelectionBorder = (FrameworkElement)Template.FindName("PART_DragSelectionBorder", this);
+            if (_dragSelectionBorder == null)
             {
                 throw new ApplicationException("Failed to find 'PART_dragSelectionBorder' in the visual tree for 'NetworkView'.");
             }
@@ -914,10 +911,7 @@ namespace NetworkUI
         /// </summary>
         private void nodeItemsControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (SelectionChanged != null)
-            {
-                SelectionChanged(this, new SelectionChangedEventArgs(Selector.SelectionChangedEvent, e.RemovedItems, e.AddedItems));
-            }
+            SelectionChanged?.Invoke(this, new SelectionChangedEventArgs(Selector.SelectionChangedEvent, e.RemovedItems, e.AddedItems));
         }
 
         /// <summary>
@@ -925,7 +919,7 @@ namespace NetworkUI
         /// </summary>
         internal int FindMaxZIndex()
         {
-            if (nodeItemsControl == null)
+            if (_nodeItemsControl == null)
             {
                 return 0;
             }
@@ -934,7 +928,7 @@ namespace NetworkUI
 
             for (int nodeIndex = 0; ; ++nodeIndex)
             {
-                NodeItem nodeItem = (NodeItem)nodeItemsControl.ItemContainerGenerator.ContainerFromIndex(nodeIndex);
+                NodeItem nodeItem = (NodeItem)_nodeItemsControl.ItemContainerGenerator.ContainerFromIndex(nodeIndex);
                 if (nodeItem == null)
                 {
                     break;
@@ -960,7 +954,7 @@ namespace NetworkUI
         {
             if (!(node is NodeItem nodeItem))
             {
-                nodeItem = nodeItemsControl.FindAssociatedNodeItem(node);
+                nodeItem = _nodeItemsControl.FindAssociatedNodeItem(node);
             }
             return nodeItem;
         }

@@ -15,32 +15,32 @@ namespace NetworkUI
         /// <summary>
         /// Set to 'true' when the control key and the left mouse button is currently held down.
         /// </summary>
-        private bool isControlAndLeftMouseButtonDown;
+        private bool _isControlAndLeftMouseButtonDown;
 
         /// <summary>
         /// Set to 'true' when the user is dragging out the selection rectangle.
         /// </summary>
-        private bool isDraggingSelectionRect;
+        private bool _isDraggingSelectionRect;
 
         /// <summary>
         /// Records the original mouse down point when the user is dragging out a selection rectangle.
         /// </summary>
-        private Point origMouseDownPoint;
+        private Point _origMouseDownPoint;
 
         /// <summary>
         /// A reference to the canvas that contains the drag selection rectangle.
         /// </summary>
-        private FrameworkElement dragSelectionCanvas;
+        private FrameworkElement _dragSelectionCanvas;
 
         /// <summary>
         /// The border that represents the drag selection rectangle.
         /// </summary>
-        private FrameworkElement dragSelectionBorder;
+        private FrameworkElement _dragSelectionBorder;
 
         /// <summary>
         /// Cached list of selected NodeItems, used while dragging nodes.
         /// </summary>
-        private List<NodeItem> cachedSelectedNodeItems;
+        private List<NodeItem> _cachedSelectedNodeItems;
 
         /// <summary>
         /// The threshold distance the mouse-cursor must move before drag-selection begins.
@@ -64,8 +64,8 @@ namespace NetworkUI
                 //
                 SelectedNodes.Clear();
 
-                isControlAndLeftMouseButtonDown = true;
-                origMouseDownPoint = e.GetPosition(this);
+                _isControlAndLeftMouseButtonDown = true;
+                _origMouseDownPoint = e.GetPosition(this);
 
                 CaptureMouse();
 
@@ -84,22 +84,22 @@ namespace NetworkUI
             {
                 bool wasDragSelectionApplied = false;
 
-                if (isDraggingSelectionRect)
+                if (_isDraggingSelectionRect)
                 {
                     //
                     // Drag selection has ended, apply the 'selection rectangle'.
                     //
 
-                    isDraggingSelectionRect = false;
+                    _isDraggingSelectionRect = false;
                     ApplyDragSelectionRect();
 
                     e.Handled = true;
                     wasDragSelectionApplied = true;
                 }
                 
-                if (isControlAndLeftMouseButtonDown)
+                if (_isControlAndLeftMouseButtonDown)
                 {
-                    isControlAndLeftMouseButtonDown = false;
+                    _isControlAndLeftMouseButtonDown = false;
                     ReleaseMouseCapture();
 
 
@@ -123,17 +123,17 @@ namespace NetworkUI
         {
             base.OnMouseMove(e);
 
-            if (isDraggingSelectionRect)
+            if (_isDraggingSelectionRect)
             {
                 //
                 // Drag selection is in progress.
                 //
                 Point curMouseDownPoint = e.GetPosition(this);
-                UpdateDragSelectionRect(origMouseDownPoint, curMouseDownPoint);
+                UpdateDragSelectionRect(_origMouseDownPoint, curMouseDownPoint);
 
                 e.Handled = true;
             }
-            else if (isControlAndLeftMouseButtonDown)
+            else if (_isControlAndLeftMouseButtonDown)
             {
                 //
                 // The user is left-dragging the mouse,
@@ -141,15 +141,15 @@ namespace NetworkUI
                 // they have dragged past the threshold value.
                 //
                 Point curMouseDownPoint = e.GetPosition(this);
-                var dragDelta = curMouseDownPoint - origMouseDownPoint;
+                var dragDelta = curMouseDownPoint - _origMouseDownPoint;
                 double dragDistance = Math.Abs(dragDelta.Length);
                 if (dragDistance > DragThreshold)
                 {
                     //
                     // When the mouse has been dragged more than the threshold value commence drag selection.
                     //
-                    isDraggingSelectionRect = true;
-                    InitDragSelectionRect(origMouseDownPoint, curMouseDownPoint);
+                    _isDraggingSelectionRect = true;
+                    InitDragSelectionRect(_origMouseDownPoint, curMouseDownPoint);
                 }
 
                 e.Handled = true;
@@ -163,7 +163,7 @@ namespace NetworkUI
         {
             UpdateDragSelectionRect(pt1, pt2);
 
-            dragSelectionCanvas.Visibility = Visibility.Visible;
+            _dragSelectionCanvas.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -202,10 +202,10 @@ namespace NetworkUI
             //
             // Update the coordinates of the rectangle used for drag selection.
             //
-            Canvas.SetLeft(dragSelectionBorder, x);
-            Canvas.SetTop(dragSelectionBorder, y);
-            dragSelectionBorder.Width = width;
-            dragSelectionBorder.Height = height;
+            Canvas.SetLeft(_dragSelectionBorder, x);
+            Canvas.SetTop(_dragSelectionBorder, y);
+            _dragSelectionBorder.Width = width;
+            _dragSelectionBorder.Height = height;
         }
 
         /// <summary>
@@ -213,12 +213,12 @@ namespace NetworkUI
         /// </summary>
         private void ApplyDragSelectionRect()
         {
-            dragSelectionCanvas.Visibility = Visibility.Collapsed;
+            _dragSelectionCanvas.Visibility = Visibility.Collapsed;
 
-            double x = Canvas.GetLeft(dragSelectionBorder);
-            double y = Canvas.GetTop(dragSelectionBorder);
-            double width = dragSelectionBorder.Width;
-            double height = dragSelectionBorder.Height;
+            double x = Canvas.GetLeft(_dragSelectionBorder);
+            double y = Canvas.GetTop(_dragSelectionBorder);
+            double width = _dragSelectionBorder.Width;
+            double height = _dragSelectionBorder.Height;
             Rect dragRect = new Rect(x, y, width, height);
 
             //
@@ -230,14 +230,14 @@ namespace NetworkUI
             //
             // Clear the current selection.
             //
-            nodeItemsControl.SelectedItems.Clear();
+            _nodeItemsControl.SelectedItems.Clear();
 
             //
             // Find and select all the list box items.
             //
             for (int nodeIndex = 0; nodeIndex < Nodes.Count; ++nodeIndex) 
             {
-                var nodeItem = (NodeItem) nodeItemsControl.ItemContainerGenerator.ContainerFromIndex(nodeIndex);
+                var nodeItem = (NodeItem) _nodeItemsControl.ItemContainerGenerator.ContainerFromIndex(nodeIndex);
                 var transformToAncestor = nodeItem.TransformToAncestor(this);
                 Point itemPt1 = transformToAncestor.Transform(new Point(0, 0));
                 Point itemPt2 = transformToAncestor.Transform(new Point(nodeItem.ActualWidth, nodeItem.ActualHeight));

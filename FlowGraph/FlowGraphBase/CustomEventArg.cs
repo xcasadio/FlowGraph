@@ -34,10 +34,10 @@ namespace FlowGraphBase
         /// </summary>
         /// <param name="type_"></param>
         /// <param name="slot_"></param>
-        public FunctionSlotChangedEventArg(FunctionSlotChangedType type_, SequenceFunctionSlot slot_)
+        public FunctionSlotChangedEventArg(FunctionSlotChangedType type, SequenceFunctionSlot slot)
         {
-            Type = type_;
-            FunctionSlot = slot_;
+            Type = type;
+            FunctionSlot = slot;
         }
     }
 }

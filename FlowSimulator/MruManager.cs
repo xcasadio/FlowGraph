@@ -252,10 +252,7 @@ namespace FlowSimulator
                 // Owner should handle this event and open file.
                 if (s.Length > 0)
                 {
-                    if (MruOpenEvent != null)
-                    {
-                        MruOpenEvent(this, new MruFileOpenEventArgs(s));
-                    }
+                    MruOpenEvent?.Invoke(this, new MruFileOpenEventArgs(s));
                 }
             }
         }

@@ -21,29 +21,29 @@ namespace FlowGraphBase.Node.StandardActionNode
             OutputStart = 1073741823 // int.MaxValue / 2
         }
 
-        private int _ScriptElementID = -1; // used when the node is loaded, in order to retrieve the ScriptElement
-        private ScriptElement _ScriptElement;
+        private int _scriptElementId = -1; // used when the node is loaded, in order to retrieve the ScriptElement
+        private ScriptElement _scriptElement;
 
         /// <summary>
         /// 
         /// </summary>
-        public override string Title => "Script " + (GetScriptElement() == null ? "<null>" : _ScriptElement.Name);
+        public override string Title => "Script " + (GetScriptElement() == null ? "<null>" : _scriptElement.Name);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="el_"></param>
-        public ScriptNode(ScriptElement el_)
+        /// <param name="el"></param>
+        public ScriptNode(ScriptElement el)
         {
-            SetScriptElement(el_);
+            SetScriptElement(el);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        public ScriptNode(XmlNode node_)
-            : base(node_)
+        /// <param name="node"></param>
+        public ScriptNode(XmlNode node)
+            : base(node)
         {
 
         }
@@ -59,22 +59,22 @@ namespace FlowGraphBase.Node.StandardActionNode
             {
                 if (e.FunctionSlot.SlotType == FunctionSlotType.Input)
                 {
-                    AddFunctionSlot((int)NodeSlotId.InputStart + e.FunctionSlot.ID, SlotType.VarIn, e.FunctionSlot);
+                    AddFunctionSlot((int)NodeSlotId.InputStart + e.FunctionSlot.Id, SlotType.VarIn, e.FunctionSlot);
                 }
                 else if (e.FunctionSlot.SlotType == FunctionSlotType.Output)
                 {
-                    AddFunctionSlot((int)NodeSlotId.OutputStart + e.FunctionSlot.ID, SlotType.VarOut, e.FunctionSlot);
+                    AddFunctionSlot((int)NodeSlotId.OutputStart + e.FunctionSlot.Id, SlotType.VarOut, e.FunctionSlot);
                 }
             }
             else if (e.Type == FunctionSlotChangedType.Removed)
             {
                 if (e.FunctionSlot.SlotType == FunctionSlotType.Input)
                 {
-                    RemoveSlotById((int)NodeSlotId.InputStart + e.FunctionSlot.ID);
+                    RemoveSlotById((int)NodeSlotId.InputStart + e.FunctionSlot.Id);
                 }
                 else if (e.FunctionSlot.SlotType == FunctionSlotType.Output)
                 {
-                    RemoveSlotById((int)NodeSlotId.OutputStart + e.FunctionSlot.ID);
+                    RemoveSlotById((int)NodeSlotId.OutputStart + e.FunctionSlot.Id);
                 }
             }
 
@@ -88,14 +88,14 @@ namespace FlowGraphBase.Node.StandardActionNode
         {
             GetScriptElement();
 
-            foreach (SequenceFunctionSlot slot in _ScriptElement.Inputs)
+            foreach (SequenceFunctionSlot slot in _scriptElement.Inputs)
             {
-                AddFunctionSlot((int)NodeSlotId.InputStart + slot.ID, SlotType.VarIn, slot);
+                AddFunctionSlot((int)NodeSlotId.InputStart + slot.Id, SlotType.VarIn, slot);
             }
 
-            foreach (SequenceFunctionSlot slot in _ScriptElement.Outputs)
+            foreach (SequenceFunctionSlot slot in _scriptElement.Outputs)
             {
-                AddFunctionSlot((int)NodeSlotId.OutputStart + slot.ID, SlotType.VarOut, slot);
+                AddFunctionSlot((int)NodeSlotId.OutputStart + slot.Id, SlotType.VarOut, slot);
             }
 
             OnPropertyChanged("Slots");
@@ -115,24 +115,24 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <returns></returns>
         private ScriptElement GetScriptElement()
         {
-            if (_ScriptElement == null
-                && _ScriptElementID != -1)
+            if (_scriptElement == null
+                && _scriptElementId != -1)
             {
-                SetScriptElement(GraphDataManager.Instance.GetScriptByID(_ScriptElementID));
+                SetScriptElement(GraphDataManager.Instance.GetScriptById(_scriptElementId));
             }
 
-            return _ScriptElement;
+            return _scriptElement;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        private void SetScriptElement(ScriptElement el_)
+        private void SetScriptElement(ScriptElement el)
         {
-            _ScriptElement = el_;
-            _ScriptElement.PropertyChanged += OnFuntionPropertyChanged;
-            _ScriptElement.FunctionSlotChanged += OnFunctionSlotChanged;
+            _scriptElement = el;
+            _scriptElement.PropertyChanged += OnFuntionPropertyChanged;
+            _scriptElement.FunctionSlotChanged += OnFunctionSlotChanged;
             UpdateNodeSlot();
         }
 
@@ -151,7 +151,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         /// <returns></returns>
-        public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
+        public override ProcessingInfo ActivateLogic(ProcessingContext context, NodeSlot slot)
         {
             ProcessingInfo info = new ProcessingInfo
             {
@@ -159,13 +159,12 @@ namespace FlowGraphBase.Node.StandardActionNode
             };
 
             //call script with input nodes
-            List<ScriptSlotData> list = new List<ScriptSlotData>(_ScriptElement.InputCount);
+            List<ScriptSlotData> list = new List<ScriptSlotData>(_scriptElement.InputCount);
             foreach (NodeSlot slotVarIn in SlotVariableIn)
             {
-                if (slotVarIn is NodeSlotVar)
+                if (slotVarIn is NodeSlotVar varSlot)
                 {
-                    NodeSlotVar varSlot = slotVarIn as NodeSlotVar;
-                    list.Add(new ScriptSlotData(varSlot.Text, varSlot.ID, GetValueFromSlot(varSlot.ID)));
+                    list.Add(new ScriptSlotData(varSlot.Text, varSlot.Id, GetValueFromSlot(varSlot.Id)));
                 }
             }
             ScriptSlotDataCollection parameters = new ScriptSlotDataCollection(list);
@@ -174,16 +173,15 @@ namespace FlowGraphBase.Node.StandardActionNode
             //            
             foreach (NodeSlot slotVarOut in SlotVariableOut)
             {
-                if (slotVarOut is NodeSlotVar)
+                if (slotVarOut is NodeSlotVar varSlot)
                 {
-                    NodeSlotVar varSlot = slotVarOut as NodeSlotVar;
-                    list.Add(new ScriptSlotData(varSlot.Text, varSlot.ID, GetValueFromSlot(varSlot.ID)));
+                    list.Add(new ScriptSlotData(varSlot.Text, varSlot.Id, GetValueFromSlot(varSlot.Id)));
                 }
             }
             ScriptSlotDataCollection returnVals = new ScriptSlotDataCollection(list);
             list.Clear();
 
-            if (_ScriptElement.Run(parameters, returnVals) == false)
+            if (_scriptElement.Run(parameters, returnVals) == false)
             {
                 info.ErrorMessage = "Some errors in the execution of the script";
                 info.State = LogicState.Error;
@@ -196,7 +194,7 @@ namespace FlowGraphBase.Node.StandardActionNode
                 SetValueInSlot(s.Id, s.Value);
             }
 
-            ActivateOutputLink(context_, (int)NodeSlotId.Out);
+            ActivateOutputLink(context, (int)NodeSlotId.Out);
 
             return info;
         }
@@ -207,38 +205,38 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <returns></returns>
         protected override SequenceNode CopyImpl()
         {
-            return new ScriptNode(_ScriptElement);
+            return new ScriptNode(_scriptElement);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        protected override void Load(XmlNode node_)
+        /// <param name="node"></param>
+        protected override void Load(XmlNode node)
         {
-            base.Load(node_);
-            _ScriptElementID = int.Parse(node_.Attributes["ScriptElementID"].Value);
+            base.Load(node);
+            _scriptElementId = int.Parse(node.Attributes["ScriptElementID"].Value);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="connectionListNode_"></param>
-        /// <param name="sequence_"></param>
-        internal override void ResolveLinks(XmlNode connectionListNode_, SequenceBase sequence_)
+        /// <param name="connectionListNode"></param>
+        /// <param name="sequence"></param>
+        internal override void ResolveLinks(XmlNode connectionListNode, SequenceBase sequence)
         {
             GetScriptElement();
-            base.ResolveLinks(connectionListNode_, sequence_);
+            base.ResolveLinks(connectionListNode, sequence);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        public override void Save(XmlNode node_)
+        /// <param name="node"></param>
+        public override void Save(XmlNode node)
         {
-            base.Save(node_);
-            node_.AddAttribute("ScriptElementID", GetScriptElement().ID.ToString());
+            base.Save(node);
+            node.AddAttribute("ScriptElementID", GetScriptElement().Id.ToString());
         }
 
         /// <summary>
@@ -285,32 +283,32 @@ namespace FlowGraphBase.Node.StandardActionNode
     /// </summary>
     public class ScriptSlotDataCollection
     {
-        private readonly IList<ScriptSlotData> _List;
+        private readonly IList<ScriptSlotData> _list;
 
         /// <summary>
         /// 
         /// </summary>
-        internal IEnumerable<ScriptSlotData> List => _List;
+        internal IEnumerable<ScriptSlotData> List => _list;
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="list_"></param>
-        public ScriptSlotDataCollection(IEnumerable<ScriptSlotData> list_)
+        /// <param name="list"></param>
+        public ScriptSlotDataCollection(IEnumerable<ScriptSlotData> list)
         {
-            _List = new List<ScriptSlotData>(list_);
+            _list = new List<ScriptSlotData>(list);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="name_"></param>
+        /// <param name="name"></param>
         /// <returns></returns>
-        public ScriptSlotData Get(string name_)
+        public ScriptSlotData Get(string name)
         {
-            foreach (ScriptSlotData data in _List)
+            foreach (ScriptSlotData data in _list)
             {
-                if (string.Equals(data.Text, name_))
+                if (string.Equals(data.Text, name))
                 {
                     return data;
                 }
@@ -322,15 +320,15 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="name_"></param>
+        /// <param name="name"></param>
         /// <returns></returns>
-        public bool SetValue(string name_, object value_)
+        public bool SetValue(string name, object value)
         {
-            for (int i = 0; i < _List.Count; i++)
+            for (int i = 0; i < _list.Count; i++)
             {
-                if (string.Equals(_List[i].Text, name_))
+                if (string.Equals(_list[i].Text, name))
                 {
-                    _List[i].Value = value_;
+                    _list[i].Value = value;
                     return true;
                 }
             }

@@ -186,10 +186,7 @@ namespace NetworkModel
         /// </summary>
         private void OnConnectionChanged()
         {
-            if (ConnectionChanged != null)
-            {
-                ConnectionChanged(this, EventArgs.Empty);
-            }
+            ConnectionChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>

@@ -106,7 +106,7 @@ namespace FlowSimulator.Logger
 
             _singleton._streamClose = true;
             _singleton._isAlive = false;
-            if (_singleton._task != null) _singleton._task.Wait();
+            _singleton._task?.Wait();
             _singleton._writer.Close();
             _singleton = null;
         }

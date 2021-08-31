@@ -87,19 +87,19 @@ namespace FlowGraphBase
         /// <typeparam name="T"></typeparam>
         /// <param name="node_"></param>
         /// <param name="value_"></param>
-        public static void SaveValue(this XmlNode node_, object value_)
+        public static void SaveValue(this XmlNode node, object value)
         {
-            if (value_ != null)
+            if (value != null)
             {
-                string typeName = value_.GetType().AssemblyQualifiedName;
+                string typeName = value.GetType().AssemblyQualifiedName;
                 int index = typeName.IndexOf(',', typeName.IndexOf(',') + 1);
                 typeName = typeName.Substring(0, index);
-                node_.AddAttribute("valueType", typeName);
-                node_.InnerText = Convert.ToString(value_);
+                node.AddAttribute("valueType", typeName);
+                node.InnerText = Convert.ToString(value);
             }
             else
             {
-                node_.AddAttribute("valueType", "null");
+                node.AddAttribute("valueType", "null");
             }
         }
     }

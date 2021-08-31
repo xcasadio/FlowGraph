@@ -57,9 +57,9 @@ namespace FlowSimulator.UI
             {
                 object o = logContent.Template.FindName("logScrollViewer", logContent);
 
-                if (o != null && o is ScrollViewer)
+                if (o != null && o is ScrollViewer viewer)
                 {
-                    _ScrollViewer = o as ScrollViewer;
+                    _ScrollViewer = viewer;
                 }
             }
 

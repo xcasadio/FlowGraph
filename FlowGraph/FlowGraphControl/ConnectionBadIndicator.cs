@@ -17,9 +17,9 @@
         /// <summary>
         /// 
         /// </summary>
-        public ConnectionBadIndicator(string msg_)
+        public ConnectionBadIndicator(string msg)
         {
-            Message = msg_;
+            Message = msg;
         }
     }
 }

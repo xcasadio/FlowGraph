@@ -168,9 +168,8 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         void MenuItemCreateNode_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is MenuItem)
+            if (sender is MenuItem item)
             {
-                MenuItem item = sender as MenuItem;
                 Type type = item.Tag as Type;
                 CreateNode((SequenceNode)Activator.CreateInstance(type));
             }
@@ -827,8 +826,8 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         private void networkControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (sender is NetworkView
-                && (sender as NetworkView).IsUndoRegisterEnabled)
+            if (sender is NetworkView view
+                && view.IsUndoRegisterEnabled)
             {
                 if (e.RemovedItems.Count > 0)
                 {
@@ -836,9 +835,9 @@ namespace FlowSimulator.UI
 
                     foreach (object node in e.RemovedItems)
                     {
-                        if (node is NodeViewModel)
+                        if (node is NodeViewModel model)
                         {
-                            list.Add(node as NodeViewModel);
+                            list.Add(model);
                         }
                     }
 
@@ -854,9 +853,9 @@ namespace FlowSimulator.UI
 
                     foreach (object node in e.AddedItems)
                     {
-                        if (node is NodeViewModel)
+                        if (node is NodeViewModel model)
                         {
-                            list.Add(node as NodeViewModel);
+                            list.Add(model);
                         }
                     }
 
@@ -867,10 +866,7 @@ namespace FlowSimulator.UI
                 }
             }
 
-            if (SelectionChanged != null)
-            {
-                SelectionChanged(this, new SelectionChangedEventArgs(Selector.SelectionChangedEvent, e.RemovedItems, e.AddedItems));
-            }
+            SelectionChanged?.Invoke(this, new SelectionChangedEventArgs(Selector.SelectionChangedEvent, e.RemovedItems, e.AddedItems));
         }
 
         /// <summary>
@@ -880,14 +876,10 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         private void EditCustomVariable_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (e.OriginalSource is FrameworkElement)
+            if (e.OriginalSource is FrameworkElement fe)
             {
-                FrameworkElement fe = e.OriginalSource as FrameworkElement;
-                
-                if (fe.DataContext is VariableNode)
+                if (fe.DataContext is VariableNode varNode)
                 {
-                    VariableNode varNode = fe.DataContext as VariableNode;
-
                     {
                         LogManager.Instance.WriteLine(LogVerbosity.Warning, "Variable node => No custom editor for this type");
                     }
@@ -925,7 +917,7 @@ namespace FlowSimulator.UI
                     if (data.StartsWith(FlowGraphDataControl.DragPrefixFunction))
                     {
                         string id = data.Split('#')[1];
-                        SequenceFunction func = GraphDataManager.Instance.GetFunctionByID(int.Parse(id));
+                        SequenceFunction func = GraphDataManager.Instance.GetFunctionById(int.Parse(id));
                         CallFunctionNode seqNode = new CallFunctionNode(func);
                         ViewModel.CreateNode(seqNode, e.GetPosition(networkControl), false);
                     }
@@ -939,7 +931,7 @@ namespace FlowSimulator.UI
                     {
                         string idStr = data.Split('#')[1];
                         int id = int.Parse(idStr);
-                        ScriptElement el = GraphDataManager.Instance.GetScriptByID(id);
+                        ScriptElement el = GraphDataManager.Instance.GetScriptById(id);
                         ScriptNode seqNode = new ScriptNode(el);
                         ViewModel.CreateNode(seqNode, e.GetPosition(networkControl), false);
                     }

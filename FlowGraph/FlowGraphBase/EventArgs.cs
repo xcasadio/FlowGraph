@@ -28,14 +28,14 @@ namespace FlowGraphBase
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
-    public class EventArgs<T, U> : EventArgs
+    public class EventArgs<T, TU> : EventArgs
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="value"></param>
         /// <param name="value2"></param>
-        public EventArgs(T value, U value2)
+        public EventArgs(T value, TU value2)
         {
             Value = value;
             Value2 = value2;
@@ -49,6 +49,6 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        public U Value2 { get; }
+        public TU Value2 { get; }
     }
 }

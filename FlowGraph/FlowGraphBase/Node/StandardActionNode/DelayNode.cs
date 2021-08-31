@@ -27,8 +27,8 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        public DelayNode(XmlNode node_)
-            : base(node_)
+        public DelayNode(XmlNode node)
+            : base(node)
         {
 
         }
@@ -59,7 +59,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         /// <returns></returns>
-        public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
+        public override ProcessingInfo ActivateLogic(ProcessingContext context, NodeSlot slot)
         {
             ProcessingInfo info = new ProcessingInfo
             {
@@ -80,11 +80,11 @@ namespace FlowGraphBase.Node.StandardActionNode
                 return info;
             }
 
-            MemoryStackItem memoryItem = context_.CurrentFrame.GetValueFromID(Id);
+            MemoryStackItem memoryItem = context.CurrentFrame.GetValueFromId(Id);
 
             if (memoryItem == null)
             {
-                memoryItem = context_.CurrentFrame.Allocate(Id, TimeSpan.Zero);
+                memoryItem = context.CurrentFrame.Allocate(Id, TimeSpan.Zero);
             }
 
             TimeSpan startTime = (TimeSpan)memoryItem.Value;
@@ -105,14 +105,14 @@ namespace FlowGraphBase.Node.StandardActionNode
             {
                 startTime = TimeSpan.Zero;
                 memoryItem.Value = startTime;
-                ActivateOutputLink(context_, (int)NodeSlotId.Out);
+                ActivateOutputLink(context, (int)NodeSlotId.Out);
                 CustomText = String.Empty;
                 return info;
             }
 
-            CustomText = string.Format("Delay ({0:0.000} seconds left)", delayDouble - totalSecs);
+            CustomText = $"Delay ({delayDouble - totalSecs:0.000} seconds left)";
 
-            context_.RegisterNextExecution(GetSlotById((int)NodeSlotId.In));
+            context.RegisterNextExecution(GetSlotById((int)NodeSlotId.In));
             return info;
         }
 

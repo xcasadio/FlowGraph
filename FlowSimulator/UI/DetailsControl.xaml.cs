@@ -64,14 +64,10 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         private void btnDeleteSlot_Click(object sender, MouseButtonEventArgs e)
         {
-            if (sender is Image)
+            if (sender is Image img)
             {
-                Image img = sender as Image;
-
-                if (img.Tag is int)
+                if (img.Tag is int id)
                 {
-                    int id = (int)img.Tag;
-
                     if (DataContext is SequenceFunction)
                     {
                         SequenceFunction func = DataContext as SequenceFunction;

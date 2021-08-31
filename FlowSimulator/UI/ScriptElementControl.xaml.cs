@@ -108,10 +108,7 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         void foldingUpdateTimer_Tick(object sender, EventArgs e)
         {
-            if (foldingStrategy != null)
-            {
-                foldingStrategy.UpdateFoldings(foldingManager, textEditor.Document);
-            }
+            foldingStrategy?.UpdateFoldings(foldingManager, textEditor.Document);
         }
 
         CompletionWindow completionWindow;

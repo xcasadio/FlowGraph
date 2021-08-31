@@ -28,11 +28,11 @@ namespace FlowGraphBase.Process
         /// <param name="seq_"></param>
         /// <param name="stack_"></param>
         /// <param name="slot_"></param>
-        public ProcessingContextStep(SequenceBase seq_, MemoryStack stack_, NodeSlot slot_)
+        public ProcessingContextStep(SequenceBase seq, MemoryStack stack, NodeSlot slot)
         {
-            SequenceBase = seq_;
-            MemoryStack = stack_;
-            Slot = slot_;
+            SequenceBase = seq;
+            MemoryStack = stack;
+            Slot = slot;
         }
     }
 }

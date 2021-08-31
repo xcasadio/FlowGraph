@@ -153,11 +153,9 @@ namespace FlowSimulator.UI
         /// <returns></returns>
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            if (item is ConnectorViewModel)
+            if (item is ConnectorViewModel model)
             {
-                ConnectorViewModel c = item as ConnectorViewModel;
-
-                switch (c.Type)
+                switch (model.Type)
                 {
                     case ConnectorType.Input:
                         return NodeInTemplate;

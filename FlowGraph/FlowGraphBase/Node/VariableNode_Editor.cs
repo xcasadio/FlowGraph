@@ -49,12 +49,12 @@ namespace FlowGraphBase.Node
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        public override void Save(XmlNode node_)
+        public override void Save(XmlNode node)
         {
-            base.Save(node_);
+            base.Save(node);
 
-            XmlNode valueNode = node_.OwnerDocument.CreateElement("Value");
-            node_.AppendChild(valueNode);
+            XmlNode valueNode = node.OwnerDocument.CreateElement("Value");
+            node.AppendChild(valueNode);
             SaveValue(valueNode);
         }
 
@@ -62,12 +62,12 @@ namespace FlowGraphBase.Node
         /// Load the value from XmlNode
         /// </summary>
         /// <param name="node_"></param>
-        protected abstract object LoadValue(XmlNode node_);
+        protected abstract object LoadValue(XmlNode node);
 
         /// <summary>
         /// Save the value into a XmlNode
         /// </summary>
         /// <param name="node_"></param>
-        protected abstract void SaveValue(XmlNode node_);
+        protected abstract void SaveValue(XmlNode node);
     }
 }

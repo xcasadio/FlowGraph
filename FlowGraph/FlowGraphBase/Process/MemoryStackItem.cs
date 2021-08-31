@@ -7,24 +7,24 @@ namespace FlowGraphBase.Process
     /// </summary>
     public class MemoryStackItem : INotifyPropertyChanged
     {
-        private object _Value;
+        private object _value;
 
         /// <summary>
         /// 
         /// </summary>
-        public int ID { get; }
+        public int Id { get; }
 
         /// <summary>
         /// 
         /// </summary>
         public object Value
         {
-            get => _Value;
+            get => _value;
             set
             {
-                if (_Value != value)
+                if (_value != value)
                 {
-                    _Value = value;
+                    _value = value;
                     OnPropertyChanged("Value");
                 }
             }
@@ -33,12 +33,12 @@ namespace FlowGraphBase.Process
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id_"></param>
-        /// <param name="val_"></param>
-        public MemoryStackItem(int id_, object val_)
+        /// <param name="id"></param>
+        /// <param name="val"></param>
+        public MemoryStackItem(int id, object val)
         {
-            ID = id_;
-            _Value = val_;
+            Id = id;
+            _value = val;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -49,10 +49,7 @@ namespace FlowGraphBase.Process
         /// <param name="propertyName"></param>
         public void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// <summary>
@@ -70,7 +67,7 @@ namespace FlowGraphBase.Process
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return base.GetHashCode() * ID.GetHashCode();
+            return base.GetHashCode() * Id.GetHashCode();
         }
 
         /// <summary>
@@ -79,7 +76,7 @@ namespace FlowGraphBase.Process
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("{0} : {1}", ID, (_Value == null ? "<null>" : _Value.ToString()));
+            return $"{Id} : {(_value == null ? "<null>" : _value.ToString())}";
         }
     }
 }

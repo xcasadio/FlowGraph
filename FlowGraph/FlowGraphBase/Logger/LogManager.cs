@@ -41,7 +41,7 @@ namespace FlowGraphBase.Logger
                 {
                     _nbErrors = value;
 
-                    if (NbErrorChanged != null) NbErrorChanged.Invoke(this, EventArgs.Empty);
+                    NbErrorChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }

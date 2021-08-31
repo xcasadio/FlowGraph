@@ -77,7 +77,7 @@ namespace FlowGraphBaseTest
             var memoryStack = new MemoryStack();
             sequence.AllocateAllVariables(memoryStack);
             Check.That(stringNode.Value)
-                .IsEqualTo(memoryStack.GetValueFromID(stringNode.Id).Value);
+                .IsEqualTo(memoryStack.GetValueFromId(stringNode.Id).Value);
         }
 
         [Test]

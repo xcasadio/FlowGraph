@@ -23,8 +23,8 @@ namespace ZoomAndPan
         /// </summary>
         public bool CanVerticallyScroll
         {
-            get => canVerticallyScroll;
-            set => canVerticallyScroll = value;
+            get => _canVerticallyScroll;
+            set => _canVerticallyScroll = value;
         }
 
         /// <summary>
@@ -32,29 +32,29 @@ namespace ZoomAndPan
         /// </summary>
         public bool CanHorizontallyScroll
         {
-            get => canHorizontallyScroll;
-            set => canHorizontallyScroll = value;
+            get => _canHorizontallyScroll;
+            set => _canHorizontallyScroll = value;
         }
 
         /// <summary>
         /// The width of the content (with 'ContentScale' applied).
         /// </summary>
-        public double ExtentWidth => unScaledExtent.Width * ContentScale;
+        public double ExtentWidth => _unScaledExtent.Width * ContentScale;
 
         /// <summary>
         /// The height of the content (with 'ContentScale' applied).
         /// </summary>
-        public double ExtentHeight => unScaledExtent.Height * ContentScale;
+        public double ExtentHeight => _unScaledExtent.Height * ContentScale;
 
         /// <summary>
         /// Get the width of the viewport onto the content.
         /// </summary>
-        public double ViewportWidth => viewport.Width;
+        public double ViewportWidth => _viewport.Width;
 
         /// <summary>
         /// Get the height of the viewport onto the content.
         /// </summary>
-        public double ViewportHeight => viewport.Height;
+        public double ViewportHeight => _viewport.Height;
 
         /// <summary>
         /// Reference to the ScrollViewer that is wrapped (in XAML) around the ZoomAndPanControl.
@@ -62,8 +62,8 @@ namespace ZoomAndPan
         /// </summary>
         public ScrollViewer ScrollOwner
         {
-            get => scrollOwner;
-            set => scrollOwner = value;
+            get => _scrollOwner;
+            set => _scrollOwner = value;
         }
 
         /// <summary>
@@ -81,20 +81,20 @@ namespace ZoomAndPan
         /// </summary>
         public void SetHorizontalOffset(double offset)
         {
-            if (disableScrollOffsetSync)
+            if (_disableScrollOffsetSync)
             {
                 return;
             }
 
             try
             {
-                disableScrollOffsetSync = true;
+                _disableScrollOffsetSync = true;
 
                 ContentOffsetX = offset / ContentScale;
             }
             finally
             {
-                disableScrollOffsetSync = false;
+                _disableScrollOffsetSync = false;
             }
         }
 
@@ -103,20 +103,20 @@ namespace ZoomAndPan
         /// </summary>
         public void SetVerticalOffset(double offset)
         {
-            if (disableScrollOffsetSync)
+            if (_disableScrollOffsetSync)
             {
                 return;
             }
 
             try
             {
-                disableScrollOffsetSync = true;
+                _disableScrollOffsetSync = true;
 
                 ContentOffsetY = offset / ContentScale;
             }
             finally
             {
-                disableScrollOffsetSync = false;
+                _disableScrollOffsetSync = false;
             }
         }
 
@@ -237,9 +237,9 @@ namespace ZoomAndPan
         /// </summary>
         public Rect MakeVisible(Visual visual, Rect rectangle)
         {
-            if (content.IsAncestorOf(visual))
+            if (_content.IsAncestorOf(visual))
             {
-                Rect transformedRect = visual.TransformToAncestor(content).TransformBounds(rectangle);
+                Rect transformedRect = visual.TransformToAncestor(_content).TransformBounds(rectangle);
                 Rect viewportRect = new Rect(ContentOffsetX, ContentOffsetY, ContentViewportWidth, ContentViewportHeight);
                 if (!transformedRect.Contains(viewportRect))
                 {

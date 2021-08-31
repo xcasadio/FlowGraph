@@ -921,7 +921,7 @@ namespace FlowSimulator.UI
                 int version = int.Parse(node_.Attributes["version"].Value);
 
                 int graphId = int.Parse(node_.Attributes["id"].Value);
-                Sequence = GraphDataManager.Instance.GetByID(graphId);
+                Sequence = GraphDataManager.Instance.GetById(graphId);
 
                 foreach (SequenceNode node in Sequence.Nodes)
                 {
@@ -941,7 +941,8 @@ namespace FlowSimulator.UI
                     }
                     else
                     {
-                        throw new InvalidOperationException("Can't find node from xml " + string.Format("id={0}", nodeNode.Attributes["id"].Value));
+                        throw new InvalidOperationException("Can't find node from xml " +
+                                                            $"id={nodeNode.Attributes["id"].Value}");
                     } 
                 }
 

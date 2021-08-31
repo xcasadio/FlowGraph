@@ -84,8 +84,8 @@ namespace AdornedControl
 
             DataContextChanged += AdornedControl_DataContextChanged;
 
-            closeAdornerTimer.Tick += closeAdornerTimer_Tick;
-            closeAdornerTimer.Interval = TimeSpan.FromSeconds(CloseAdornerTimeOut);
+            _closeAdornerTimer.Tick += closeAdornerTimer_Tick;
+            _closeAdornerTimer.Interval = TimeSpan.FromSeconds(CloseAdornerTimeOut);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace AdornedControl
                 && !IsMouseOver
                 && IsAlwaysVisible == false)
             {
-                closeAdornerTimer.Start();
+                _closeAdornerTimer.Start();
             }
         }
 
@@ -117,7 +117,7 @@ namespace AdornedControl
 
             IsAdornerVisible = false;
 
-            closeAdornerTimer.Stop();
+            _closeAdornerTimer.Stop();
             _adornerShowState = AdornerShowState.Hidden;
         }
 
@@ -353,7 +353,7 @@ namespace AdornedControl
         /// <summary>
         /// This timer is used to fade out and close the _adorner.
         /// </summary>
-        private readonly DispatcherTimer closeAdornerTimer = new DispatcherTimer();
+        private readonly DispatcherTimer _closeAdornerTimer = new DispatcherTimer();
 
         /// <summary>
         /// Static constructor to register command bindings.
@@ -444,7 +444,7 @@ namespace AdornedControl
         private static void IsMouseOverShowEnabled_PropertyChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
             AdornedControl c = (AdornedControl)o;
-            c.closeAdornerTimer.Stop();
+            c._closeAdornerTimer.Stop();
             c.HideAdorner();
         }
 
@@ -463,7 +463,7 @@ namespace AdornedControl
         private static void CloseAdornerTimeOut_PropertyChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
             AdornedControl c = (AdornedControl)o;
-            c.closeAdornerTimer.Interval = TimeSpan.FromSeconds(c.CloseAdornerTimeOut);
+            c._closeAdornerTimer.Interval = TimeSpan.FromSeconds(c.CloseAdornerTimeOut);
         }
 
         /// <summary>
@@ -623,7 +623,7 @@ namespace AdornedControl
                 return;
             }
 
-            closeAdornerTimer.Stop();
+            _closeAdornerTimer.Stop();
 
             FadeInAdorner();
         }
@@ -639,7 +639,7 @@ namespace AdornedControl
                 return;
             }
 
-            closeAdornerTimer.Start();
+            _closeAdornerTimer.Start();
         }
 
         /// <summary>
@@ -648,7 +648,7 @@ namespace AdornedControl
         /// </summary>
         private void closeAdornerTimer_Tick(object sender, EventArgs e)
         {
-            closeAdornerTimer.Stop();
+            _closeAdornerTimer.Stop();
 
             FadeOutAdorner();
         }
@@ -731,7 +731,7 @@ namespace AdornedControl
             //
             // Stop the timer that might be about to fade out the _adorner.
             //
-            closeAdornerTimer.Stop();
+            _closeAdornerTimer.Stop();
 
             if (_adornerLayer != null && _adorner != null)
             {

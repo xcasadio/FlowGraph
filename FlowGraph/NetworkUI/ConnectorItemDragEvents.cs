@@ -35,29 +35,29 @@ namespace NetworkUI
         /// <summary>
         /// The amount the connector has been dragged horizontally.
         /// </summary>
-        private readonly double horizontalChange;
+        private readonly double _horizontalChange;
 
         /// <summary>
         /// The amount the connector has been dragged vertically.
         /// </summary>
-        private readonly double verticalChange;
+        private readonly double _verticalChange;
 
         public ConnectorItemDraggingEventArgs(RoutedEvent routedEvent, object source, double horizontalChange, double verticalChange) :
             base(routedEvent, source)
         {
-            this.horizontalChange = horizontalChange;
-            this.verticalChange = verticalChange;
+            this._horizontalChange = horizontalChange;
+            this._verticalChange = verticalChange;
         }
 
         /// <summary>
         /// The amount the node has been dragged horizontally.
         /// </summary>
-        public double HorizontalChange => horizontalChange;
+        public double HorizontalChange => _horizontalChange;
 
         /// <summary>
         /// The amount the node has been dragged vertically.
         /// </summary>
-        public double VerticalChange => verticalChange;
+        public double VerticalChange => _verticalChange;
     }
 
     /// <summary>

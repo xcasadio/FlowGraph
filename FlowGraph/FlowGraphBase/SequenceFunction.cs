@@ -17,8 +17,8 @@ namespace FlowGraphBase
 
         public event EventHandler<FunctionSlotChangedEventArg> FunctionSlotChanged;
 
-        private readonly ObservableCollection<SequenceFunctionSlot> _Slots = new ObservableCollection<SequenceFunctionSlot>();
-        private int _NextSlotId;
+        private readonly ObservableCollection<SequenceFunctionSlot> _slots = new ObservableCollection<SequenceFunctionSlot>();
+        private int _nextSlotId;
 
         /// <summary>
         /// 
@@ -27,7 +27,7 @@ namespace FlowGraphBase
         {
             get 
             {
-                foreach (SequenceFunctionSlot s in _Slots)
+                foreach (SequenceFunctionSlot s in _slots)
                 {
                     if (s.SlotType == FunctionSlotType.Input)
                     {
@@ -44,7 +44,7 @@ namespace FlowGraphBase
         {
             get
             {
-                foreach (SequenceFunctionSlot s in _Slots)
+                foreach (SequenceFunctionSlot s in _slots)
                 {
                     if (s.SlotType == FunctionSlotType.Output)
                     {
@@ -57,75 +57,69 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        public SequenceFunction(string name_)
-            : base(name_)
+        public SequenceFunction(string name)
+            : base(name)
         {
             AddNode(new OnEnterFunctionEvent(this));
             AddNode(new ReturnNode(this));
 
-            _Slots.CollectionChanged += OnSlotCollectionChanged;
+            _slots.CollectionChanged += OnSlotCollectionChanged;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public SequenceFunction(XmlNode node_)
-            : base(node_)
+        public SequenceFunction(XmlNode node)
+            : base(node)
         {
-            _Slots.CollectionChanged += OnSlotCollectionChanged;
+            _slots.CollectionChanged += OnSlotCollectionChanged;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="name_"></param>
-        public void AddInput(string name_)
+        /// <param name="name"></param>
+        public void AddInput(string name)
         {
-            AddSlot(new SequenceFunctionSlot(++_NextSlotId, FunctionSlotType.Input) { Name = name_ });
+            AddSlot(new SequenceFunctionSlot(++_nextSlotId, FunctionSlotType.Input) { Name = name });
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="name_"></param>
-        public void AddOutput(string name_)
+        /// <param name="name"></param>
+        public void AddOutput(string name)
         {
-            AddSlot(new SequenceFunctionSlot(++_NextSlotId, FunctionSlotType.Output) { Name = name_ });
+            AddSlot(new SequenceFunctionSlot(++_nextSlotId, FunctionSlotType.Output) { Name = name });
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="slot_"></param>
-        private void AddSlot(SequenceFunctionSlot slot_)
+        /// <param name="slot"></param>
+        private void AddSlot(SequenceFunctionSlot slot)
         {
-            slot_.IsArray = false;
-            slot_.VariableType = typeof(int);
+            slot.IsArray = false;
+            slot.VariableType = typeof(int);
 
-            _Slots.Add(slot_);
+            _slots.Add(slot);
 
-            if (FunctionSlotChanged != null)
+            FunctionSlotChanged?.Invoke(this, new FunctionSlotChangedEventArg(FunctionSlotChangedType.Added, slot));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        public void RemoveSlotById(int id)
+        {
+            foreach (var slot in _slots)
             {
-                FunctionSlotChanged(this, new FunctionSlotChangedEventArg(FunctionSlotChangedType.Added, slot_));
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id_"></param>
-        public void RemoveSlotById(int id_)
-        {
-            foreach (var slot in _Slots)
-            {
-                if (slot.ID == id_)
+                if (slot.Id == id)
                 {
-                    _Slots.Remove(slot);
+                    _slots.Remove(slot);
 
-                    if (FunctionSlotChanged != null)
-                    {
-                        FunctionSlotChanged(this, new FunctionSlotChangedEventArg(FunctionSlotChangedType.Removed, slot));
-                    }
+                    FunctionSlotChanged?.Invoke(this, new FunctionSlotChangedEventArg(FunctionSlotChangedType.Removed, slot));
 
                     break;
                 }
@@ -146,17 +140,17 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        public override void Load(XmlNode node_)
+        /// <param name="node"></param>
+        public override void Load(XmlNode node)
         {
-            base.Load(node_);
+            base.Load(node);
 
-            foreach (XmlNode slotNode in node_.SelectNodes("SlotList/Slot"))
+            foreach (XmlNode slotNode in node.SelectNodes("SlotList/Slot"))
             {
                 int id = int.Parse(slotNode.Attributes["id"].Value);
                 FunctionSlotType type = (FunctionSlotType) Enum.Parse(typeof(FunctionSlotType), slotNode.Attributes["type"].Value);
 
-                if (_NextSlotId <= id) _NextSlotId = id + 1;
+                if (_nextSlotId <= id) _nextSlotId = id + 1;
 
                 SequenceFunctionSlot slot = new SequenceFunctionSlot(id, type)
                 {
@@ -165,7 +159,7 @@ namespace FlowGraphBase
                     VariableType = Type.GetType(slotNode.Attributes["varType"].Value)
                 };
 
-                _Slots.Add(slot);
+                _slots.Add(slot);
             }
         }
 
@@ -184,7 +178,7 @@ namespace FlowGraphBase
             graphNode.AppendChild(slotListNode);
 
             //save slots
-            foreach (SequenceFunctionSlot s in _Slots)
+            foreach (SequenceFunctionSlot s in _slots)
             {
                 XmlNode slotNode = node.OwnerDocument.CreateElement("Slot");
                 slotListNode.AppendChild(slotNode);
@@ -193,7 +187,7 @@ namespace FlowGraphBase
                 slotNode.AddAttribute("varType", s.VariableType.FullName);
                 slotNode.AddAttribute("isArray", s.IsArray.ToString());
                 slotNode.AddAttribute("name", s.Name);
-                slotNode.AddAttribute("id", s.ID.ToString());
+                slotNode.AddAttribute("id", s.Id.ToString());
             }
         }
     }

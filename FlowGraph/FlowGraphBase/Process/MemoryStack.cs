@@ -7,8 +7,8 @@ namespace FlowGraphBase.Process
     /// </summary>
     public class MemoryStack
     {
-        private int _FreeID = int.MaxValue;
-        private readonly Dictionary<int, MemoryStackItem> _Variable = new Dictionary<int, MemoryStackItem>();
+        private int _freeId = int.MaxValue;
+        private readonly Dictionary<int, MemoryStackItem> _variable = new Dictionary<int, MemoryStackItem>();
 
         /// <summary>
         /// 
@@ -16,10 +16,10 @@ namespace FlowGraphBase.Process
         /// <param name="id_"></param>
         /// <param name="val_"></param>
         /// <returns></returns>
-        public MemoryStackItem Allocate(int id_, object val_)
+        public MemoryStackItem Allocate(int id, object val)
         {
-            MemoryStackItem item = new MemoryStackItem(id_, val_);
-            _Variable.Add(id_, item);
+            MemoryStackItem item = new MemoryStackItem(id, val);
+            _variable.Add(id, item);
             return item;
         }
 
@@ -29,12 +29,12 @@ namespace FlowGraphBase.Process
         /// <param name="id_"></param>
         /// <param name="val_"></param>
         /// <returns></returns>
-        public MemoryStackItem Allocate(object val_)
+        public MemoryStackItem Allocate(object val)
         {
             int id = GetUnusedId();
 
-            MemoryStackItem item = new MemoryStackItem(id, val_);
-            _Variable.Add(id, item);
+            MemoryStackItem item = new MemoryStackItem(id, val);
+            _variable.Add(id, item);
             return item;
         }
 
@@ -42,18 +42,18 @@ namespace FlowGraphBase.Process
         /// 
         /// </summary>
         /// <param name="ite_"></param>
-        public void Deallocate(MemoryStackItem ite_)
+        public void Deallocate(MemoryStackItem ite)
         {
-            Deallocate(ite_.ID);
+            Deallocate(ite.Id);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="id_"></param>
-        public void Deallocate(int id_)
+        public void Deallocate(int id)
         {
-            _Variable.Remove(id_);
+            _variable.Remove(id);
         }
 
         /// <summary>
@@ -61,11 +61,11 @@ namespace FlowGraphBase.Process
         /// </summary>
         /// <param name="id_"></param>
         /// <returns></returns>
-        public MemoryStackItem GetValueFromID(int id_)
+        public MemoryStackItem GetValueFromId(int id)
         {
             MemoryStackItem item;
 
-            if (_Variable.TryGetValue(id_, out item) == false)
+            if (_variable.TryGetValue(id, out item) == false)
             {
 //                 LogManager.Instance.WriteLine(LogVerbosity.Error,
 //                     "MemoryStack.GetValueFromID() can't find the memory with the id {0}", id_);
@@ -80,8 +80,8 @@ namespace FlowGraphBase.Process
         /// <returns></returns>
         private int GetUnusedId()
         {
-            _FreeID--;
-            return _FreeID;
+            _freeId--;
+            return _freeId;
         }
     }
 }

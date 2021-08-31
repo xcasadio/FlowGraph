@@ -111,21 +111,21 @@ namespace FlowGraphBase
         /// </summary>
         /// <param name="id_"></param>
         /// <returns></returns>
-        public SequenceBase GetByID(int id_)
+        public SequenceBase GetById(int id)
         {
-            foreach (SequenceBase seq_ in GraphList)
+            foreach (SequenceBase seq in GraphList)
             {
-                if (seq_.Id == id_)
+                if (seq.Id == id)
                 {
-                    return seq_;
+                    return seq;
                 }
             }
 
-            foreach (SequenceBase seq_ in GraphFunctionList)
+            foreach (SequenceBase seq in GraphFunctionList)
             {
-                if (seq_.Id == id_)
+                if (seq.Id == id)
                 {
-                    return seq_;
+                    return seq;
                 }
             }
 
@@ -137,16 +137,16 @@ namespace FlowGraphBase
         /// </summary>
         /// <param name="name_"></param>
         /// <returns></returns>
-        public bool IsValidSequenceName(string name_)
+        public bool IsValidSequenceName(string name)
         {
-            if (string.IsNullOrWhiteSpace(name_))
+            if (string.IsNullOrWhiteSpace(name))
             {
                 return false;
             }
 
             foreach (Sequence seq in GraphList)
             {
-                if (string.Equals(seq.Name, name_))
+                if (string.Equals(seq.Name, name))
                 {
                     return false;
                 }
@@ -160,13 +160,13 @@ namespace FlowGraphBase
         /// </summary>
         /// <param name="id_"></param>
         /// <returns></returns>
-        public Sequence GetSequenceByID(int id_)
+        public Sequence GetSequenceById(int id)
         {
-            foreach (Sequence seq_ in GraphList)
+            foreach (Sequence seq in GraphList)
             {
-                if (seq_.Id == id_)
+                if (seq.Id == id)
                 {
-                    return seq_;
+                    return seq;
                 }
             }
 
@@ -184,17 +184,17 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        public void AddSequence(Sequence seq_)
+        public void AddSequence(Sequence seq)
         {
-            GraphList.Add(seq_);
+            GraphList.Add(seq);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public void RemoveSequence(Sequence seq_)
+        public void RemoveSequence(Sequence seq)
         {
-            GraphList.Remove(seq_);
+            GraphList.Remove(seq);
         }
 
         /// <summary>
@@ -202,16 +202,16 @@ namespace FlowGraphBase
         /// </summary>
         /// <param name="name_"></param>
         /// <returns></returns>
-        public bool IsValidFunctionName(string name_)
+        public bool IsValidFunctionName(string name)
         {
-            if (string.IsNullOrWhiteSpace(name_))
+            if (string.IsNullOrWhiteSpace(name))
             {
                 return false;
             }
 
             foreach (SequenceFunction seq in GraphFunctionList)
             {
-                if (string.Equals(seq.Name, name_))
+                if (string.Equals(seq.Name, name))
                 {
                     return false;
                 }
@@ -225,13 +225,13 @@ namespace FlowGraphBase
         /// </summary>
         /// <param name="id_"></param>
         /// <returns></returns>
-        public SequenceFunction GetFunctionByID(int id_)
+        public SequenceFunction GetFunctionById(int id)
         {
-            foreach (SequenceFunction seq_ in GraphFunctionList)
+            foreach (SequenceFunction seq in GraphFunctionList)
             {
-                if (seq_.Id == id_)
+                if (seq.Id == id)
                 {
-                    return seq_;
+                    return seq;
                 }
             }
 
@@ -249,17 +249,17 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        public void AddFunction(SequenceFunction seq_)
+        public void AddFunction(SequenceFunction seq)
         {
-            GraphFunctionList.Add(seq_);
+            GraphFunctionList.Add(seq);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public void RemoveFunction(SequenceFunction seq_)
+        public void RemoveFunction(SequenceFunction seq)
         {
-            GraphFunctionList.Remove(seq_);
+            GraphFunctionList.Remove(seq);
         }
 
         /// <summary>
@@ -267,11 +267,11 @@ namespace FlowGraphBase
         /// </summary>
         /// <param name="id_"></param>
         /// <returns></returns>
-        public ScriptElement GetScriptByID(int id_)
+        public ScriptElement GetScriptById(int id)
         {
             foreach (ScriptElement el in ScriptElementList)
             {
-                if (el.ID == id_)
+                if (el.Id == id)
                 {
                     return el;
                 }
@@ -292,41 +292,41 @@ namespace FlowGraphBase
         /// 
         /// </summary>
         /// <param name="el_"></param>
-        public void AddScript(ScriptElement el_)
+        public void AddScript(ScriptElement el)
         {
-            ScriptElementList.Add(el_);
+            ScriptElementList.Add(el);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="el_"></param>
-        public void RemoveScript(ScriptElement el_)
+        public void RemoveScript(ScriptElement el)
         {
-            ScriptElementList.Remove(el_);
+            ScriptElementList.Remove(el);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        public void Load(XmlNode node_)
+        public void Load(XmlNode node)
         {
             try
             {
-                int version = int.Parse(node_.SelectSingleNode("GraphList").Attributes["version"].Value);
+                int version = int.Parse(node.SelectSingleNode("GraphList").Attributes["version"].Value);
 
-                foreach (XmlNode graphNode in node_.SelectNodes("GraphList/Graph[@type='" + Sequence.XmlAttributeTypeValue + "']"))
+                foreach (XmlNode graphNode in node.SelectNodes("GraphList/Graph[@type='" + Sequence.XmlAttributeTypeValue + "']"))
                 {
                     GraphList.Add(new Sequence(graphNode));
                 }
 
-                foreach (XmlNode graphNode in node_.SelectNodes("GraphList/Graph[@type='" + SequenceFunction.XmlAttributeTypeValue + "']"))
+                foreach (XmlNode graphNode in node.SelectNodes("GraphList/Graph[@type='" + SequenceFunction.XmlAttributeTypeValue + "']"))
                 {
                     GraphFunctionList.Add(new SequenceFunction(graphNode));
                 }
 
-                foreach (XmlNode scriptNode in node_.SelectNodes("ScriptList/Script"))
+                foreach (XmlNode scriptNode in node.SelectNodes("ScriptList/Script"))
                 {
                     ScriptElementList.Add(new ScriptElement(scriptNode));
                 }
@@ -334,12 +334,12 @@ namespace FlowGraphBase
                 //////////////////////////////////////////////////////////////////////////
                 foreach (Sequence seq in GraphList)
                 {
-                    seq.ResolveNodesLinks(node_.SelectSingleNode("GraphList/Graph[@id='" + seq.Id + "']"));
+                    seq.ResolveNodesLinks(node.SelectSingleNode("GraphList/Graph[@id='" + seq.Id + "']"));
                 }
 
                 foreach (SequenceFunction seq in GraphFunctionList)
                 {
-                    seq.ResolveNodesLinks(node_.SelectSingleNode("GraphList/Graph[@id='" + seq.Id + "']"));
+                    seq.ResolveNodesLinks(node.SelectSingleNode("GraphList/Graph[@id='" + seq.Id + "']"));
                 }
             }
             catch (Exception ex)
@@ -352,12 +352,12 @@ namespace FlowGraphBase
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        public void Save(XmlNode node_)
+        public void Save(XmlNode node)
         {
             const int version = 1;
 
-            XmlNode list = node_.OwnerDocument.CreateElement("GraphList");
-            node_.AppendChild(list);
+            XmlNode list = node.OwnerDocument.CreateElement("GraphList");
+            node.AppendChild(list);
 
             list.AddAttribute("version", version.ToString());
 
@@ -371,8 +371,8 @@ namespace FlowGraphBase
                 seq.Save(list);
             }
 
-            XmlNode scriptList = node_.OwnerDocument.CreateElement("ScriptList");
-            node_.AppendChild(scriptList);
+            XmlNode scriptList = node.OwnerDocument.CreateElement("ScriptList");
+            node.AppendChild(scriptList);
 
             foreach (ScriptElement el in ScriptElementList)
             {

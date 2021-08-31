@@ -11,16 +11,16 @@ namespace Utils
         /// <summary>
         /// The collection of items that changed.
         /// </summary>
-        private readonly ICollection items;
+        private readonly ICollection _items;
 
         public CollectionItemsChangedEventArgs(ICollection items)
         {
-            this.items = items;
+            this._items = items;
         }
 
         /// <summary>
         /// The collection of items that changed.
         /// </summary>
-        public ICollection Items => items;
+        public ICollection Items => _items;
     }
 }

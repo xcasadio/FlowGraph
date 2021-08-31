@@ -7,19 +7,19 @@ namespace FlowGraphBase.Process
     /// </summary>
     public class MemoryStackFrameManager
     {
-        readonly Stack<MemoryStack> _StackFrames = new Stack<MemoryStack>(2);
+        readonly Stack<MemoryStack> _stackFrames = new Stack<MemoryStack>(2);
 
         /// <summary>
         /// 
         /// </summary>
-        public MemoryStack CurrentFrame => _StackFrames.Count == 0 ? null : _StackFrames.Peek();
+        public MemoryStack CurrentFrame => _stackFrames.Count == 0 ? null : _stackFrames.Peek();
 
         /// <summary>
         /// 
         /// </summary>
         public void AddStackFrame()
         {
-            _StackFrames.Push(new MemoryStack());
+            _stackFrames.Push(new MemoryStack());
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace FlowGraphBase.Process
         /// </summary>
         public void RemoveStackFrame()
         {
-            _StackFrames.Pop();
+            _stackFrames.Pop();
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace FlowGraphBase.Process
         /// </summary>
         public void Clear()
         {
-            _StackFrames.Clear();
+            _stackFrames.Clear();
         }
     }
 }

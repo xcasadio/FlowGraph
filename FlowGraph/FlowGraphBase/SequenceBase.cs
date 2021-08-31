@@ -170,15 +170,15 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        public virtual void Load(XmlNode node_)
+        /// <param name="node"></param>
+        public virtual void Load(XmlNode node)
         {
-            Id = int.Parse(node_.Attributes["id"].Value);
+            Id = int.Parse(node.Attributes["id"].Value);
             if (_newId <= Id) _newId = Id + 1;
-            Name = node_.Attributes["name"].Value;
-            Description = node_.Attributes["description"].Value;
+            Name = node.Attributes["name"].Value;
+            Description = node.Attributes["description"].Value;
 
-            foreach (XmlNode nodeNode in node_.SelectNodes("NodeList/Node"))
+            foreach (XmlNode nodeNode in node.SelectNodes("NodeList/Node"))
             {
                 int versionNode = int.Parse(nodeNode.Attributes["version"].Value);
 
@@ -190,7 +190,8 @@ namespace FlowGraphBase
                 }
                 else
                 {
-                    throw new InvalidOperationException("Can't create SequenceNode from xml " + string.Format("id={0}", nodeNode.Attributes["id"].Value));
+                    throw new InvalidOperationException("Can't create SequenceNode from xml " +
+                                                        $"id={nodeNode.Attributes["id"].Value}");
                 }
             }
         }
@@ -198,12 +199,12 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        internal void ResolveNodesLinks(XmlNode node_)
+        /// <param name="node"></param>
+        internal void ResolveNodesLinks(XmlNode node)
         {
-            if (node_ == null) throw new ArgumentNullException("XmlNode");
+            if (node == null) throw new ArgumentNullException("XmlNode");
 
-            XmlNode connectionListNode = node_.SelectSingleNode("ConnectionList");
+            XmlNode connectionListNode = node.SelectSingleNode("ConnectionList");
 
             foreach (var sequenceNode in SequenceNodes)
             {
@@ -251,7 +252,7 @@ namespace FlowGraphBase
         /// <param name="propertyName"></param>
         protected void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null) PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
