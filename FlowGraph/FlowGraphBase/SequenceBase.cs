@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Xml;
 using FlowGraphBase.Node;
-using System.ComponentModel;
 using FlowGraphBase.Process;
 
 namespace FlowGraphBase
@@ -15,7 +15,7 @@ namespace FlowGraphBase
     {
         #region Fields
 
-        static int _newId = 0;
+        static int _newId;
         
         protected readonly Dictionary<int, SequenceNode> SequenceNodes = new Dictionary<int, SequenceNode>();
 

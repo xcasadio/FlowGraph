@@ -1,10 +1,12 @@
-﻿namespace FlowGraphBase
+﻿using System;
+
+namespace FlowGraphBase
 {
     /// <summary>
     /// 
     /// </summary>
-    [System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Struct)]
-    public class Category : System.Attribute
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
+    public class Category : Attribute
     {
 		#region Fields
 
@@ -41,8 +43,8 @@
     /// <summary>
     /// 
     /// </summary>
-    [System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Struct)]
-    public class Name : System.Attribute
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
+    public class Name : Attribute
     {
         #region Fields
 
@@ -79,8 +81,8 @@
     /// <summary>
     /// 
     /// </summary>
-    [System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Struct)]
-    public class Visible : System.Attribute
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
+    public class Visible : Attribute
     {
         #region Fields
 

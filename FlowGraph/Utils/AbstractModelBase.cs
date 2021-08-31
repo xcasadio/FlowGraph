@@ -8,7 +8,7 @@ namespace Utils
     public abstract class AbstractModelBase : INotifyPropertyChanged
     {
 #if DEBUG
-        private static int nextObjectId = 0;
+        private static int nextObjectId;
 
         public int ObjectDebugId { get; } = nextObjectId++;
 #endif //  DEBUG

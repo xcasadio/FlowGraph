@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Windows.Documents;
-using System.Windows;
-using System.Windows.Media;
 using System.Collections;
+using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 
 //
 // This code based on code available here:
@@ -24,14 +24,14 @@ namespace Utils
         //
         // Placement of the child.
         //
-        private AdornerPlacement horizontalAdornerPlacement = AdornerPlacement.Inside;
-        private AdornerPlacement verticalAdornerPlacement = AdornerPlacement.Inside;
+        private readonly AdornerPlacement horizontalAdornerPlacement = AdornerPlacement.Inside;
+        private readonly AdornerPlacement verticalAdornerPlacement = AdornerPlacement.Inside;
 
         //
         // Offset of the child.
         //
-        private double offsetX = 0.0;
-        private double offsetY = 0.0;
+        private readonly double offsetX;
+        private readonly double offsetY;
 
         //
         // Position of the child (when not set to NaN).
@@ -94,7 +94,7 @@ namespace Utils
         //
         // The framework element that is the adorner. 
         //
-        public FrameworkElement Child { get; } = null;
+        public FrameworkElement Child { get; }
 
         //
         // Position of the child (when not set to NaN).
@@ -338,7 +338,7 @@ namespace Utils
             {
                 ArrayList list = new ArrayList();
                 list.Add(Child);
-                return (IEnumerator)list.GetEnumerator();
+                return list.GetEnumerator();
             }
         }
 

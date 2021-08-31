@@ -2,9 +2,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using FlowSimulator.FlowGraphs;
 using FlowGraphBase;
 using FlowGraphBase.Script;
+using FlowSimulator.FlowGraphs;
 
 namespace FlowSimulator.UI
 {
@@ -337,7 +337,7 @@ namespace FlowSimulator.UI
 
                         if (func != null)
                         {
-                            DataObject dragData = new DataObject(DataFormats.Text, DragPrefixFunction + func.Id.ToString());
+                            DataObject dragData = new DataObject(DataFormats.Text, DragPrefixFunction + func.Id);
                             DragDrop.DoDragDrop(listBoxItem, dragData, DragDropEffects.Move);
                         }
                     }

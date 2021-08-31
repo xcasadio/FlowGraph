@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml;
-using FlowGraphBase.Process;
 using FlowGraphBase.Logger;
+using FlowGraphBase.Process;
 
 namespace FlowGraphBase.Node.StandardActionNode
 {
@@ -40,7 +40,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         public BranchNode()
-            : base() { }
+        { }
 
         /// <summary>
         /// 
@@ -125,8 +125,8 @@ namespace FlowGraphBase.Node.StandardActionNode
 
         #endregion
 
-        bool _IsInitial = false;
-        int _Counter = 0;
+        bool _IsInitial;
+        int _Counter;
 
         public override string Title => "Do N";
 
@@ -141,7 +141,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         public DoNNode()
-            : base() { }
+        { }
 
         /// <summary>
         /// 
@@ -257,7 +257,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         public DoOnceNode()
-            : base() { }
+        { }
 
         /// <summary>
         /// 
@@ -348,7 +348,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         public FlipFlopNode()
-            : base() { }
+        { }
 
         /// <summary>
         /// 
@@ -457,7 +457,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         public ForLoopNode()
-            : base() { }
+        { }
 
         /// <summary>
         /// 
@@ -644,7 +644,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         public ForLoopWithBreakNode()
-            : base() { }
+        { }
 
         /// <summary>
         /// 
@@ -830,7 +830,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// 
         /// </summary>
         public GateNode()
-            : base() { }
+        { }
 
         /// <summary>
         /// 

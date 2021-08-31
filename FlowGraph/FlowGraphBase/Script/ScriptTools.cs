@@ -12,7 +12,7 @@ namespace FlowGraphBase.Script
     {
         #region Fields
 
-        private static Dictionary<string, object> _Vars = new Dictionary<string, object>();
+        private static readonly Dictionary<string, object> _Vars = new Dictionary<string, object>();
 
         #endregion // Fields
 
@@ -75,7 +75,7 @@ namespace FlowGraphBase.Script
     {
         #region Fields
 
-        private static volatile uint _Sequence = 0;
+        private static volatile uint _Sequence;
 
 
         #endregion // Fields

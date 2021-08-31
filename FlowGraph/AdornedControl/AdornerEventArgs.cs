@@ -7,10 +7,10 @@ namespace AdornedControl
         public AdornerEventArgs(RoutedEvent routedEvent, object source, FrameworkElement adorner) :
             base(routedEvent, source)
         {
-            this.Adorner = adorner;
+            Adorner = adorner;
         }
 
-        public FrameworkElement Adorner { get; } = null;
+        public FrameworkElement Adorner { get; }
     }
 
     public delegate void AdornerEventHandler(object sender, AdornerEventArgs e);

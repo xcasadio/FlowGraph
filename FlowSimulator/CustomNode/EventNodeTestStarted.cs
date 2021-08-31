@@ -1,6 +1,6 @@
-﻿using FlowGraphBase.Node;
-using System.Xml;
+﻿using System.Xml;
 using FlowGraphBase;
+using FlowGraphBase.Node;
 
 namespace FlowSimulator.CustomNode
 {
@@ -40,7 +40,6 @@ namespace FlowSimulator.CustomNode
         /// </summary>
         /// <param name="node_"></param>
         public EventNodeTestStarted()
-            : base()
         {
 
         }

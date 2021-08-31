@@ -1,7 +1,7 @@
 ﻿using System.Xml;
+using FlowGraphBase;
 using FlowGraphBase.Logger;
 using FlowGraphBase.Node;
-using FlowGraphBase;
 using FlowGraphBase.Process;
 
 namespace FlowSimulator.CustomNode
@@ -43,7 +43,6 @@ namespace FlowSimulator.CustomNode
         /// </summary>
         /// <param name="node_"></param>
         public LogMessageNode()
-            : base()
         {
             
         }

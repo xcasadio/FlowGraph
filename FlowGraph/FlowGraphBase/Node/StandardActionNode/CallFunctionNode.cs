@@ -1,7 +1,7 @@
-﻿using System;
+﻿using System.ComponentModel;
 using System.Xml;
-using FlowGraphBase.Process;
 using FlowGraphBase.Node.StandardEventNode;
+using FlowGraphBase.Process;
 
 namespace FlowGraphBase.Node.StandardActionNode
 {
@@ -14,7 +14,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     {
         #region Enum
 
-        public enum NodeSlotId : int
+        public enum NodeSlotId
         {
             In,
             Out,
@@ -47,7 +47,6 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// </summary>
         /// <param name="functionID_"></param>
         public CallFunctionNode(SequenceFunction function_)
-            : base()
         {
             SetFunction(function_);
         }
@@ -234,7 +233,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void OnFuntionPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        void OnFuntionPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {

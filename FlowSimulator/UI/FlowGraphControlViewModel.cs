@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
@@ -7,11 +8,10 @@ using FlowGraphBase;
 using FlowGraphBase.Logger;
 using FlowGraphBase.Node;
 using FlowGraphUI;
-using NetworkModel;
-using Utils;
 using FlowSimulator.Undo;
-using System.Collections.Generic;
+using NetworkModel;
 using NetworkUI;
+using Utils;
 
 namespace FlowSimulator.UI
 {
@@ -28,7 +28,7 @@ namespace FlowSimulator.UI
         /// This is the network that is displayed in the window.
         /// It is the main part of the view-model.
         /// </summary>
-        public NetworkViewModel network = null;
+        public NetworkViewModel network;
 
         ///
         /// The current scale at which the content is being viewed.
@@ -38,12 +38,12 @@ namespace FlowSimulator.UI
         ///
         /// The X coordinate of the offset of the viewport onto the content (in content coordinates).
         /// 
-        private double contentOffsetX = 0;
+        private double contentOffsetX;
 
         ///
         /// The Y coordinate of the offset of the viewport onto the content (in content coordinates).
         /// 
-        private double contentOffsetY = 0;
+        private double contentOffsetY;
 
         ///
         /// The width of the content (in content coordinates).
@@ -60,14 +60,14 @@ namespace FlowSimulator.UI
         /// The value for this is actually computed by the main window's ZoomAndPanControl and update in the
         /// view-model so that the value can be shared with the overview window.
         /// 
-        private double contentViewportWidth = 0;
+        private double contentViewportWidth;
 
         ///
         /// The height of the viewport onto the content (in content coordinates).
         /// The value for this is actually computed by the main window's ZoomAndPanControl and update in the
         /// view-model so that the value can be shared with the overview window.
         /// 
-        private double contentViewportHeight = 0;
+        private double contentViewportHeight;
 
         /// <summary>
         /// 
@@ -77,7 +77,7 @@ namespace FlowSimulator.UI
         /// <summary>
         /// 
         /// </summary>
-        private XmlNode _XmlNodeLoaded = null;
+        private XmlNode _XmlNodeLoaded;
 
         #endregion //Fields
 
@@ -733,7 +733,7 @@ namespace FlowSimulator.UI
                 //
                 EventHandler<EventArgs> sizeChangedEventHandler = null;
                 sizeChangedEventHandler =
-                    delegate(object sender, EventArgs e)
+                    delegate
                     {
                         //
                         // This event handler will be called after the size of the node has been determined.
@@ -916,7 +916,6 @@ namespace FlowSimulator.UI
                             || link.SourceConnector.SourceSlot.ConnectionType == SlotType.VarIn)
                     {
                         link.SourceConnector.SourceSlot.ConnectTo(link.DestConnector.SourceSlot);
-                        continue;
                     }
                 }
             }
@@ -1031,7 +1030,7 @@ namespace FlowSimulator.UI
 
         #region Undo management
 
-        List<PositionNodeUndoCommand.NodeDraggingInfo> _CachedNodesDraggingList = new List<PositionNodeUndoCommand.NodeDraggingInfo>(5);
+        readonly List<PositionNodeUndoCommand.NodeDraggingInfo> _CachedNodesDraggingList = new List<PositionNodeUndoCommand.NodeDraggingInfo>(5);
 
         /// <summary>
         /// 

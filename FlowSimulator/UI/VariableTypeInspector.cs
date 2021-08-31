@@ -11,7 +11,7 @@ namespace FlowSimulator.UI
     {
 		#region Fields
 
-        private static List<Type> _Types = new List<Type>();
+        private static readonly List<Type> _Types = new List<Type>();
 
 		#endregion //Fields
 	

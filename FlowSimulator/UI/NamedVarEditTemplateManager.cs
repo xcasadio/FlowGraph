@@ -11,7 +11,7 @@ namespace FlowSimulator.UI
     {
         #region Fields
 
-        private static Dictionary<Type, DataTemplate> _TemplatesByTypes = new Dictionary<Type, DataTemplate>(15);
+        private static readonly Dictionary<Type, DataTemplate> _TemplatesByTypes = new Dictionary<Type, DataTemplate>(15);
 
         #endregion //Fields
         

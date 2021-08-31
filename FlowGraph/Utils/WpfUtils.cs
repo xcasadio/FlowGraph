@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
-using System.Diagnostics;
 
 namespace Utils
 {
@@ -706,7 +706,7 @@ namespace Utils
                     continue;
                 }
 
-                FindTypedElements<T>(childElement, foundElements);
+                FindTypedElements(childElement, foundElements);
                 }
             }
 

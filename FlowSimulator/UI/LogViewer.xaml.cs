@@ -1,8 +1,8 @@
-﻿using System.Windows;
+﻿using System.Collections.Specialized;
+using System.Windows;
 using System.Windows.Controls;
-using FlowSimulator.Logger;
 using FlowGraphBase.Logger;
-using System.Collections.Specialized;
+using FlowSimulator.Logger;
 
 namespace FlowSimulator.UI
 {
@@ -13,7 +13,7 @@ namespace FlowSimulator.UI
     {
 		#region Fields
 
-        ScrollViewer _ScrollViewer = null;
+        ScrollViewer _ScrollViewer;
         bool _IsAutoScroll = true;
 
 		#endregion //Fields

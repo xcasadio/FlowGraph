@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Xml;
@@ -16,6 +17,8 @@ using FlowSimulator.FlowGraphs;
 using FlowSimulator.UI;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
+using MenuItem = System.Windows.Controls.MenuItem;
+using MessageBox = Xceed.Wpf.Toolkit.MessageBox;
 
 namespace FlowSimulator
 {
@@ -74,7 +77,7 @@ namespace FlowSimulator
 
             //LogManager.Instance.NbErrorChanged += new EventHandler(OnNbErrorChanged);
             Version ver = Assembly.GetExecutingAssembly().GetName().Version;
-            statusLabelVersion.Content = "v" + ver.ToString();
+            statusLabelVersion.Content = "v" + ver;
             SetTitle();
 
             LogManager.Instance.WriteLine(LogVerbosity.Info, "FlowSimulator - v{0} started", ver);
@@ -348,7 +351,7 @@ namespace FlowSimulator
         /// <param name="e"></param>
         private void MenuIte_HelpClick(object sender, RoutedEventArgs e)
         {
-            Xceed.Wpf.Toolkit.MessageBox msgBox = new Xceed.Wpf.Toolkit.MessageBox();
+            MessageBox msgBox = new MessageBox();
             windowContainer.Children.Add(msgBox);
 
             var img = new Image { Source = new BitmapImage( new Uri(
@@ -405,7 +408,7 @@ namespace FlowSimulator
         {
             SaveChangesOnDemand();
 
-            System.Windows.Forms.OpenFileDialog form = new System.Windows.Forms.OpenFileDialog();
+            OpenFileDialog form = new OpenFileDialog();
             form.Filter = "Xml files (*.xml)|*.xml";
             form.Multiselect = false;
 
@@ -437,7 +440,7 @@ namespace FlowSimulator
         /// </summary>
         private void SaveAsProject()
         {
-            System.Windows.Forms.SaveFileDialog form = new System.Windows.Forms.SaveFileDialog();
+            SaveFileDialog form = new SaveFileDialog();
             form.Filter = "Xml files (*.xml)|*.xml";
 
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -489,7 +492,7 @@ namespace FlowSimulator
                 }
                 else
                 {
-                    MessageBox.Show(this, 
+                    System.Windows.MessageBox.Show(this, 
                         "Can't load the file '" + fileName_ + "'. Please check the log.",
                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     _MruManager.Remove(fileName_);
@@ -497,7 +500,7 @@ namespace FlowSimulator
             }
             else
             {
-                MessageBox.Show(this, 
+                System.Windows.MessageBox.Show(this, 
                     "The file '" + fileName_ + "' doesn't exist.",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 _MruManager.Remove(fileName_);
@@ -529,7 +532,7 @@ namespace FlowSimulator
             if (GraphDataManager.Instance.IsChanges()
                 || FlowGraphManager.Instance.IsChanges())
             {
-                if (MessageBox.Show(this, "Save changes ?", "Save ?",
+                if (System.Windows.MessageBox.Show(this, "Save changes ?", "Save ?",
                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     SaveProject();

@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Windows.Shapes;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
-using System.Diagnostics;
+using System.Windows.Shapes;
 using NetworkModel;
 
 namespace FlowGraphUI

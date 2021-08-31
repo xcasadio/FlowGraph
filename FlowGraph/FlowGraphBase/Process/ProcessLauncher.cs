@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using FlowGraphBase.Node;
 using System.ComponentModel;
+using System.Threading;
 using FlowGraphBase.Logger;
+using FlowGraphBase.Node;
 
 namespace FlowGraphBase.Process
 {
@@ -13,7 +14,7 @@ namespace FlowGraphBase.Process
     {
         #region Instance
 
-        private static ProcessLauncher _Singleton = null;
+        private static ProcessLauncher _Singleton;
 
         /// <summary>
         /// Gets
@@ -35,14 +36,14 @@ namespace FlowGraphBase.Process
 
 		#region Fields
 
-        private List<ProcessingContext> _CallStacks = new List<ProcessingContext>();
-        private int _CurrentCallStackIndex = 0;
+        private readonly List<ProcessingContext> _CallStacks = new List<ProcessingContext>();
+        private int _CurrentCallStackIndex;
 
-        private volatile bool _UpdateOnlyOneStep = false;
-        private volatile bool _IsOnPause = false;
-        private volatile bool _MustStop = false;
+        private volatile bool _UpdateOnlyOneStep;
+        private volatile bool _IsOnPause;
+        private volatile bool _MustStop;
 
-        private ProcessingContextStep _LastExecution = null;
+        private ProcessingContextStep _LastExecution;
         private SequenceState _State = SequenceState.Stop;
 
         private BackgroundWorker _BGWorker;
@@ -104,7 +105,7 @@ namespace FlowGraphBase.Process
                         while (_IsClosing == false)
                         {
                             ProcessLoop();
-                            System.Threading.Thread.Sleep(10);
+                            Thread.Sleep(10);
                         }
                     }
                     catch (Exception ex)
@@ -254,7 +255,7 @@ namespace FlowGraphBase.Process
                 {
                     // Do sleep else all WPF bindings will block the UI thread
                     // 5ms else the UI is not enough responsive
-                    System.Threading.Thread.Sleep(5);
+                    Thread.Sleep(5);
                 }
             };
 

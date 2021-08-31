@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
 using System.Collections.ObjectModel;
+using System.Windows;
 using FlowGraphBase.Logger;
-
 
 namespace FlowSimulator.Logger
 {
@@ -82,7 +81,7 @@ namespace FlowSimulator.Logger
         {
             if (Application.Current.Dispatcher.CheckAccess())
             {
-                LogEntries.Add(new LogEntry()
+                LogEntries.Add(new LogEntry
                 {
                     Severity = "[" + Enum.GetName(typeof(LogVerbosity), verbose) + "]",
                     DateTime = DateTime.Now,

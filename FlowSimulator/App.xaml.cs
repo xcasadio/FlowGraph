@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Threading;
 using FlowGraphBase.Logger;
 
 namespace FlowSimulator
@@ -21,7 +22,7 @@ namespace FlowSimulator
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Application_DispatcherUnhandledException(object sender,
-                       System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+                       DispatcherUnhandledExceptionEventArgs e)
         {
             Exception ex = Helper.GetFirstException(e.Exception);
 

@@ -99,7 +99,7 @@ namespace MouseDragScrollViewer
 
         #endregion // Dependency Property Definitions
 
-        private DispatcherTimer _dragScrollTimer = null;
+        private DispatcherTimer _dragScrollTimer;
         private double _dragVelocity;
 
         public delegate void DragDelegate(double offset);
@@ -212,7 +212,7 @@ namespace MouseDragScrollViewer
             Up      = 2,
             Left    = 4,
             Right   = 8
-        };
+        }
 
         /// <summary>
         /// 

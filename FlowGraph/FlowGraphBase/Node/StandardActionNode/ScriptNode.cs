@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Xml;
 using FlowGraphBase.Process;
 using FlowGraphBase.Script;
@@ -15,7 +15,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     {
         #region Enum
 
-        public enum NodeSlotId : int
+        public enum NodeSlotId
         {
             In,
             Out,
@@ -48,7 +48,6 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// </summary>
         /// <param name="el_"></param>
         public ScriptNode(ScriptElement el_)
-            : base()
         {
             SetScriptElement(el_);
         }
@@ -269,7 +268,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void OnFuntionPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        void OnFuntionPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -312,7 +311,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     /// </summary>
     public class ScriptSlotDataCollection
     {
-        private IList<ScriptSlotData> _List;
+        private readonly IList<ScriptSlotData> _List;
 
         /// <summary>
         /// 

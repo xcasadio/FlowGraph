@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Windows.Controls;
 using System.Windows;
-using System.Windows.Media;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 
 namespace ZoomAndPan
 {
@@ -16,28 +16,28 @@ namespace ZoomAndPan
         /// <summary>
         /// Reference to the underlying content, which is named PART_Content in the template.
         /// </summary>
-        private FrameworkElement content = null;
+        private FrameworkElement content;
 
         /// <summary>
         /// The transform that is applied to the content to scale it by 'ContentScale'.
         /// </summary>
-        private ScaleTransform contentScaleTransform = null;
+        private ScaleTransform contentScaleTransform;
 
         /// <summary>
         /// The transform that is applied to the content to offset it by 'ContentOffsetX' and 'ContentOffsetY'.
         /// </summary>
-        private TranslateTransform contentOffsetTransform = null;
+        private TranslateTransform contentOffsetTransform;
 
         /// <summary>
         /// Enable the update of the content offset as the content scale changes.
         /// This enabled for zooming about a point (google-maps style zooming) and zooming to a rect.
         /// </summary>
-        private bool enableContentOffsetUpdateFromScale = false;
+        private bool enableContentOffsetUpdateFromScale;
 
         /// <summary>
         /// Used to disable syncronization between IScrollInfo interface and ContentOffsetX/ContentOffsetY.
         /// </summary>
-        private bool disableScrollOffsetSync = false;
+        private bool disableScrollOffsetSync;
 
         /// <summary>
         /// Normally when content offsets changes the content focus is automatically updated.
@@ -45,17 +45,17 @@ namespace ZoomAndPan
         /// When we are zooming in or out we 'disableContentFocusSync' is set to 'true' because 
         /// we are zooming in or out relative to the content focus we don't want to update the focus.
         /// </summary>
-        private bool disableContentFocusSync = false;
+        private bool disableContentFocusSync;
 
         /// <summary>
         /// The width of the viewport in content coordinates, clamped to the width of the content.
         /// </summary>
-        private double constrainedContentViewportWidth = 0.0;
+        private double constrainedContentViewportWidth;
 
         /// <summary>
         /// The height of the viewport in content coordinates, clamped to the height of the content.
         /// </summary>
-        private double constrainedContentViewportHeight = 0.0;
+        private double constrainedContentViewportHeight;
 
         #endregion Internal Data Members
 
@@ -76,12 +76,12 @@ namespace ZoomAndPan
         /// <summary>
         /// Set to 'true' when the vertical scrollbar is enabled.
         /// </summary>
-        private bool canVerticallyScroll = false;
+        private bool canVerticallyScroll;
 
         /// <summary>
         /// Set to 'true' when the vertical scrollbar is enabled.
         /// </summary>
-        private bool canHorizontallyScroll = false;
+        private bool canHorizontallyScroll;
 
         /// <summary>
         /// Records the unscaled extent of the content.
@@ -99,7 +99,7 @@ namespace ZoomAndPan
         /// Reference to the ScrollViewer that is wrapped (in XAML) around the ZoomAndPanControl.
         /// Or set to null if there is no ScrollViewer.
         /// </summary>
-        private ScrollViewer scrollOwner = null;
+        private ScrollViewer scrollOwner;
 
         #endregion IScrollInfo Data Members
 
@@ -304,7 +304,7 @@ namespace ZoomAndPan
         public void AnimatedZoomTo(double newScale, Rect contentRect)
         {
             AnimatedZoomPointToViewportCenter(newScale, new Point(contentRect.X + (contentRect.Width / 2), contentRect.Y + (contentRect.Height / 2)),
-                delegate(object sender, EventArgs e)
+                delegate
                 {
                     //
                     // At the end of the animation, ensure that we are snapped to the specified content offset.
@@ -400,7 +400,7 @@ namespace ZoomAndPan
             enableContentOffsetUpdateFromScale = true;
 
             AnimationHelper.StartAnimation(this, ContentScaleProperty, newContentScale, AnimationDuration,
-                delegate(object sender, EventArgs e)
+                delegate
                 {
                     enableContentOffsetUpdateFromScale = false;
 
@@ -542,7 +542,7 @@ namespace ZoomAndPan
             enableContentOffsetUpdateFromScale = true;
 
             AnimationHelper.StartAnimation(this, ContentScaleProperty, newContentScale, AnimationDuration,
-                delegate(object sender, EventArgs e)
+                delegate
                 {
                     enableContentOffsetUpdateFromScale = false;
 

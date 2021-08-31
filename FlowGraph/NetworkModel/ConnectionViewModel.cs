@@ -1,8 +1,8 @@
 ﻿using System;
-using Utils;
-using System.Windows.Media;
 using System.Windows;
+using System.Windows.Media;
 using FlowGraphBase.Node;
+using Utils;
 
 namespace NetworkModel
 {
@@ -16,12 +16,12 @@ namespace NetworkModel
         /// <summary>
         /// The source connector the connection is attached to.
         /// </summary>
-        private ConnectorViewModel sourceConnector = null;
+        private ConnectorViewModel sourceConnector;
 
         /// <summary>
         /// The destination connector the connection is attached to.
         /// </summary>
-        private ConnectorViewModel destConnector = null;
+        private ConnectorViewModel destConnector;
 
         /// <summary>
         /// The source and dest hotspots used for generating connection points.
@@ -32,7 +32,7 @@ namespace NetworkModel
         /// <summary>
         /// Points that make up the connection.
         /// </summary>
-        private PointCollection points = null;
+        private PointCollection points;
 
         //private bool _IsActivated = false;
 

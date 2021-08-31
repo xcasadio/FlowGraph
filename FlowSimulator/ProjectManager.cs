@@ -1,7 +1,8 @@
-﻿using System.Xml;
+﻿using System;
+using System.Xml;
+using FlowGraphBase;
 using FlowGraphBase.Logger;
 using FlowSimulator.FlowGraphs;
-using FlowGraphBase;
 
 namespace FlowSimulator
 {
@@ -46,7 +47,7 @@ namespace FlowSimulator
 
                 LogManager.Instance.WriteLine(LogVerbosity.Info, "'{0}' successfully loaded", fileName);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 LogManager.Instance.WriteException(ex);
                 return false;
@@ -76,7 +77,7 @@ namespace FlowSimulator
 
                 LogManager.Instance.WriteLine(LogVerbosity.Info, "'{0}' successfully saved", fileName);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 LogManager.Instance.WriteException(ex);
                 return false;

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml;
-using FlowGraphBase.Node.StandardEventNode;
-using FlowGraphBase.Node.StandardActionNode;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Xml;
+using FlowGraphBase.Node.StandardActionNode;
+using FlowGraphBase.Node.StandardEventNode;
 
 namespace FlowGraphBase
 {
@@ -19,8 +19,8 @@ namespace FlowGraphBase
 
         public event EventHandler<FunctionSlotChangedEventArg> FunctionSlotChanged;
 
-        private ObservableCollection<SequenceFunctionSlot> _Slots = new ObservableCollection<SequenceFunctionSlot>();
-        private int _NextSlotId = 0;
+        private readonly ObservableCollection<SequenceFunctionSlot> _Slots = new ObservableCollection<SequenceFunctionSlot>();
+        private int _NextSlotId;
 
 		#endregion //Fields
 

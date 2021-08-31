@@ -15,7 +15,6 @@
         /// </summary>
         /// <param name="seqMgr_"></param>
         public ActionNode()
-            : base()
         {
         }
     }

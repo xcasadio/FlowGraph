@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using System.Windows;
 using FlowGraphBase;
 
 namespace FlowSimulator.UI
@@ -13,7 +13,7 @@ namespace FlowSimulator.UI
 
         public delegate bool IsValidInputNameDelegate(string name_);
 
-        private bool _DialogResult = false;
+        private bool _DialogResult;
 
 		#endregion //Fields
 	

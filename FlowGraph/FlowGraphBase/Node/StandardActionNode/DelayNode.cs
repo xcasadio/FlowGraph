@@ -3,7 +3,6 @@ using System.Xml;
 using FlowGraphBase.Logger;
 using FlowGraphBase.Process;
 
-
 namespace FlowGraphBase.Node.StandardActionNode
 {
     /// <summary>
@@ -53,7 +52,6 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// </summary>
         /// <param name="node_"></param>
         public DelayNode()
-            : base()
         {
 
         }
@@ -108,7 +106,7 @@ namespace FlowGraphBase.Node.StandardActionNode
             TimeSpan startTime = (TimeSpan)memoryItem.Value;
 
             int delay = (int)intVal;
-            double delayDouble = ((double)delay) / 1000.0;
+            double delayDouble = delay / 1000.0;
             TimeSpan t = DateTime.Now.TimeOfDay.Subtract(startTime);
             double totalSecs = t.TotalSeconds;
 

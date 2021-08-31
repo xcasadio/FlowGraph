@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using FlowGraphBase.Process;
 using System.Xml;
+using FlowGraphBase.Process;
 
 namespace FlowGraphBase.Node
 {
@@ -285,8 +285,8 @@ namespace FlowGraphBase.Node
     {
         #region Fields
 
-        private ValueContainer _Value;
-        private bool _SaveValue;
+        private readonly ValueContainer _Value;
+        private readonly bool _SaveValue;
 
         #endregion //Fields
 
@@ -400,7 +400,7 @@ namespace FlowGraphBase.Node
     {
         #region Fields
 
-        private SequenceFunctionSlot _FuncSlot;
+        private readonly SequenceFunctionSlot _FuncSlot;
 
         #endregion //Fields
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -7,6 +8,7 @@ using FlowGraphBase.Script;
 using FlowSimulator.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Folding;
+using ICSharpCode.AvalonEdit.Indentation.CSharp;
 using ICSharpCode.AvalonEdit.Search;
 
 namespace FlowSimulator.UI
@@ -88,7 +90,7 @@ namespace FlowSimulator.UI
 //                     case "C++":
 //                     case "PHP":
 //                     case "Java":
-                textEditor.TextArea.IndentationStrategy = new ICSharpCode.AvalonEdit.Indentation.CSharp.CSharpIndentationStrategy(textEditor.Options);
+                textEditor.TextArea.IndentationStrategy = new CSharpIndentationStrategy(textEditor.Options);
                 foldingStrategy = new BraceFoldingStrategy();
 //                         break;
 //                     default:
@@ -193,7 +195,7 @@ namespace FlowSimulator.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ButtonBuild_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void ButtonBuild_Click(object sender, RoutedEventArgs e)
         {
             if (Script.CompilScript() == false)
             {

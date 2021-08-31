@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Xml;
 using FlowGraphBase.Process;
 
@@ -14,7 +14,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     {
         #region Enum
 
-        public enum NodeSlotId : int
+        public enum NodeSlotId
         {
             In,
             InputStart
@@ -53,7 +53,6 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// </summary>
         /// <param name="functionID_"></param>
         public ReturnNode(SequenceFunction function_)
-            : base()
         {
             _Function = function_;
             _Function.PropertyChanged += OnFuntionPropertyChanged;
@@ -212,7 +211,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void OnFuntionPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        void OnFuntionPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
         }
 

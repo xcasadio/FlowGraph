@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace NetworkUI
@@ -44,12 +44,12 @@ namespace NetworkUI
         /// <summary>
         /// Set to 'true' when left mouse button is held down.
         /// </summary>
-        private bool isLeftMouseDown = false;
+        private bool isLeftMouseDown;
 
         /// <summary>
         /// Set to 'true' when the user is dragging the connector.
         /// </summary>
-        private bool isDragging = false;
+        private bool isDragging;
 
         /// <summary>
         /// The threshold distance the mouse-cursor must move before dragging begins.

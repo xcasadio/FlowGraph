@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.CodeDom.Compiler;
-using System.ComponentModel;
-using System.Xml;
-using FlowGraphBase.Logger;
-using System.Reflection;
-using System.IO;
-using Microsoft.CSharp;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
+using System.IO;
+using System.Reflection;
+using System.Text;
+using System.Xml;
+using FlowGraphBase.Logger;
 using FlowGraphBase.Node.StandardActionNode;
+using Microsoft.CSharp;
 
 namespace FlowGraphBase.Script
 {
@@ -22,17 +22,17 @@ namespace FlowGraphBase.Script
 		#region Fields
 
         public delegate bool ScriptEntryDelegate(ScriptSlotDataCollection params_, ScriptSlotDataCollection ret_);
-        public ScriptEntryDelegate _ScriptDelegate = null;
+        public ScriptEntryDelegate _ScriptDelegate;
 
-        private static int _FreeID = 0;
+        private static int _FreeID;
 
         private string _SourceCode = string.Empty;
         private string _Name;
 
         public event EventHandler<FunctionSlotChangedEventArg> FunctionSlotChanged;
 
-        private ObservableCollection<SequenceFunctionSlot> _Slots = new ObservableCollection<SequenceFunctionSlot>();
-        private int _NextSlotId = 0;
+        private readonly ObservableCollection<SequenceFunctionSlot> _Slots = new ObservableCollection<SequenceFunctionSlot>();
+        private int _NextSlotId;
 
 		#endregion //Fields
 	

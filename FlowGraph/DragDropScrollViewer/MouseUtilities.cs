@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Windows.Media;
 using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media;
 
 namespace MouseDragScrollViewer
 {
@@ -13,9 +14,9 @@ namespace MouseDragScrollViewer
         [StructLayout(LayoutKind.Sequential)]
         private struct Win32Point
         {
-            public Int32 X;
-            public Int32 Y;
-        };
+            public readonly Int32 X;
+            public readonly Int32 Y;
+        }
 
         [DllImport("user32.dll")]
         private static extern bool GetCursorPos(ref Win32Point pt);
@@ -28,8 +29,8 @@ namespace MouseDragScrollViewer
             Win32Point mouse = new Win32Point();
             GetCursorPos(ref mouse);
 
-            System.Windows.Interop.HwndSource presentationSource =
-                (System.Windows.Interop.HwndSource)PresentationSource.FromVisual(relativeTo);
+            HwndSource presentationSource =
+                (HwndSource)PresentationSource.FromVisual(relativeTo);
 
             ScreenToClient(presentationSource.Handle, ref mouse);
 

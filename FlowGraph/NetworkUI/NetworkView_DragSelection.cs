@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace NetworkUI
@@ -17,12 +17,12 @@ namespace NetworkUI
         /// <summary>
         /// Set to 'true' when the control key and the left mouse button is currently held down.
         /// </summary>
-        private bool isControlAndLeftMouseButtonDown = false;
+        private bool isControlAndLeftMouseButtonDown;
 
         /// <summary>
         /// Set to 'true' when the user is dragging out the selection rectangle.
         /// </summary>
-        private bool isDraggingSelectionRect = false;
+        private bool isDraggingSelectionRect;
 
         /// <summary>
         /// Records the original mouse down point when the user is dragging out a selection rectangle.
@@ -32,17 +32,17 @@ namespace NetworkUI
         /// <summary>
         /// A reference to the canvas that contains the drag selection rectangle.
         /// </summary>
-        private FrameworkElement dragSelectionCanvas = null;
+        private FrameworkElement dragSelectionCanvas;
 
         /// <summary>
         /// The border that represents the drag selection rectangle.
         /// </summary>
-        private FrameworkElement dragSelectionBorder = null;
+        private FrameworkElement dragSelectionBorder;
 
         /// <summary>
         /// Cached list of selected NodeItems, used while dragging nodes.
         /// </summary>
-        private List<NodeItem> cachedSelectedNodeItems = null;
+        private List<NodeItem> cachedSelectedNodeItems;
 
         /// <summary>
         /// The threshold distance the mouse-cursor must move before drag-selection begins.

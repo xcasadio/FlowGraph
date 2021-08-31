@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Windows.Controls;
 using System.Windows;
-using NetworkModel;
-using FlowGraphBase.Node;
+using System.Windows.Controls;
 using FlowGraphBase;
+using FlowGraphBase.Node;
 using FlowGraphBase.Script;
+using NetworkModel;
 
 namespace FlowSimulator.UI
 {
@@ -31,7 +31,7 @@ namespace FlowSimulator.UI
         {
             DependencyObject parentObject = container;
 
-            while ((parentObject = Helper.GetParentObject(parentObject)) != null)
+            while ((parentObject = parentObject.GetParentObject()) != null)
             {
                 if ((parentObject as FrameworkElement).DataContext is NodeViewModel)
                 {
@@ -109,7 +109,7 @@ namespace FlowSimulator.UI
         {
             DependencyObject parentObject = container;
 
-            while ((parentObject = Helper.GetParentObject(parentObject)) != null)
+            while ((parentObject = parentObject.GetParentObject()) != null)
             {
                 if ((parentObject as FrameworkElement).DataContext is Sequence)
                 {

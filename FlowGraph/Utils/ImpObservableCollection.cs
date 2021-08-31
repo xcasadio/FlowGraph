@@ -21,10 +21,10 @@
 // USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // 
 
-using System.Collections.ObjectModel;
 using System;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
 
@@ -41,12 +41,12 @@ namespace Utils
         /// <summary>
         /// Inner list.
         /// </summary>
-        private List<T> inner = new List<T>();
+        private readonly List<T> inner = new List<T>();
 
         /// <summary>
         /// Set to 'true' when in a collection changed event.
         /// </summary>
-        private bool inCollectionChangedEvent = false;
+        private bool inCollectionChangedEvent;
 
         public ImpObservableCollection()
         {

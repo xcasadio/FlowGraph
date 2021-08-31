@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Threading;
 using System.Windows.Media.Animation;
+using System.Windows.Threading;
 using Utils;
 
 namespace AdornedControl
@@ -353,17 +353,17 @@ namespace AdornedControl
         /// <summary>
         /// Caches the _adorner layer.
         /// </summary>
-        private AdornerLayer _adornerLayer = null;
+        private AdornerLayer _adornerLayer;
 
         /// <summary>
         /// The actual _adorner create to contain our '_adorner UI content'.
         /// </summary>
-        private FrameworkElementAdorner _adorner = null;
+        private FrameworkElementAdorner _adorner;
 
         /// <summary>
         /// This timer is used to fade out and close the _adorner.
         /// </summary>
-        private DispatcherTimer closeAdornerTimer = new DispatcherTimer();
+        private readonly DispatcherTimer closeAdornerTimer = new DispatcherTimer();
         
         #endregion
 

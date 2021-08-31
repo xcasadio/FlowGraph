@@ -52,7 +52,6 @@ namespace FlowGraphBase.Node
         /// </summary>
         /// <param name="name_"></param>
         public VariableNode()
-            : base()
         {
         }
 

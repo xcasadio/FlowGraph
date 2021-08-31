@@ -1,10 +1,10 @@
-﻿using System.Windows.Controls;
+﻿using System.Diagnostics;
 using System.Windows;
-using Utils;
-using System.Diagnostics;
-using System.Windows.Media;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
+using Utils;
 
 namespace NetworkUI
 {
@@ -19,28 +19,28 @@ namespace NetworkUI
         /// <summary>
         /// When dragging a connection, this is set to the ConnectorItem that was initially dragged out.
         /// </summary>
-        private ConnectorItem draggedOutConnectorItem = null;
+        private ConnectorItem draggedOutConnectorItem;
 
         /// <summary>
         /// The view-model object for the connector that has been dragged out.
         /// </summary>
-        private object draggedOutConnectorDataContext = null;
+        private object draggedOutConnectorDataContext;
 
         /// <summary>
         /// The view-model object for the node whose connector was dragged out.
         /// </summary>
-        private object draggedOutNodeDataContext = null;
+        private object draggedOutNodeDataContext;
 
         /// <summary>
         /// The view-model object for the connection that is currently being dragged, or null if none being dragged.
         /// </summary>
-        private object draggingConnectionDataContext = null;
+        private object draggingConnectionDataContext;
 
         /// <summary>
         /// A reference to the feedback adorner that is currently in the adorner layer, or null otherwise.
         /// It is used for feedback when dragging a connection over a prospective connector.
         /// </summary>
-        private FrameworkElementAdorner feedbackAdorner = null;
+        private FrameworkElementAdorner feedbackAdorner;
 
         #endregion Private Data Members
 
@@ -83,7 +83,6 @@ namespace NetworkUI
                 // Application code didn't create any connection.
                 //
                 e.Cancel = true;
-                return;
             }
         }
 

@@ -1,22 +1,22 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using FlowGraphBase.Node;
-using NetworkModel;
-using NetworkUI;
-using FlowGraphBase;
-using System.Collections;
 using System.Windows.Controls.Primitives;
-using ZoomAndPan;
-using FlowGraphBase.Node.StandardVariableNode;
-using FlowSimulator.CustomNode;
-using FlowGraphBase.Node.StandardActionNode;
+using System.Windows.Input;
+using FlowGraphBase;
 using FlowGraphBase.Logger;
+using FlowGraphBase.Node;
+using FlowGraphBase.Node.StandardActionNode;
+using FlowGraphBase.Node.StandardVariableNode;
 using FlowGraphBase.Process;
 using FlowGraphBase.Script;
+using FlowSimulator.CustomNode;
+using NetworkModel;
+using NetworkUI;
+using ZoomAndPan;
 
 namespace FlowSimulator.UI
 {
@@ -30,9 +30,9 @@ namespace FlowSimulator.UI
         /// <summary>
         /// Use to copy/paste nodes (shared with all graphs)
         /// </summary>
-        private static List<NodeViewModel> _ClipboardNodes = new List<NodeViewModel>(10);
+        private static readonly List<NodeViewModel> _ClipboardNodes = new List<NodeViewModel>(10);
 
-        private bool _IsContextMenuCreated = false;
+        private bool _IsContextMenuCreated;
 
 
         /// <summary>
@@ -356,7 +356,7 @@ namespace FlowSimulator.UI
         /// <summary>
         /// Set to 'true' when the previous zoom rect is saved.
         /// </summary>
-        private bool prevZoomRectSet = false;
+        private bool prevZoomRectSet;
 
         /// <summary>
         /// 
@@ -816,7 +816,7 @@ namespace FlowSimulator.UI
         private void FadeOutDragZoomRect()
         {
             AnimationHelper.StartAnimation(dragZoomBorder, OpacityProperty, 0.0, 0.1,
-                delegate(object sender, EventArgs e)
+                delegate
                 {
                     dragZoomCanvas.Visibility = Visibility.Collapsed;
                 });

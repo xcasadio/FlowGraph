@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml;
 using System.ComponentModel;
+using System.Xml;
 
 namespace FlowGraphBase.Node
 {
@@ -11,7 +11,7 @@ namespace FlowGraphBase.Node
     partial class SequenceNode
     {
         //static private readonly int UndefinedID = -1;
-        private static int _freeId = 0;
+        private static int _freeId;
 
         #region Fields
 
@@ -20,7 +20,7 @@ namespace FlowGraphBase.Node
 
         private string _CustomText;
 
-        private bool _IsProcessing = false;
+        private bool _IsProcessing;
 
         #endregion // Fields
 

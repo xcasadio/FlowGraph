@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Xml;
 using System.ComponentModel;
+using System.Xml;
 
 namespace FlowGraphBase.Node.StandardVariableNode
 {
@@ -58,11 +58,10 @@ namespace FlowGraphBase.Node.StandardVariableNode
         /// </summary>
         /// <param name="name_"></param>
         public NamedVariableNode(string name_)
-            : base()
         {
             _Value = NamedVariableManager.Instance.GetNamedVariable(name_);
             _Value.PropertyChanged += OnNamedVariablePropertyChanged;
-            AddSlot(0, string.Empty, SlotType.VarInOut, _Value.VariableType, true, VariableControlType.ReadOnly);
+            AddSlot(0, string.Empty, SlotType.VarInOut, _Value.VariableType);
         }
 
 		#endregion //Constructors
@@ -78,7 +77,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
 
             if (_Value != null) // call only when loaded with xml
             {
-                AddSlot(0, string.Empty, SlotType.VarInOut, _Value.VariableType, true, VariableControlType.ReadOnly);
+                AddSlot(0, string.Empty, SlotType.VarInOut, _Value.VariableType);
             }
         }
 

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace NetworkUI
@@ -92,17 +92,17 @@ namespace NetworkUI
         /// <summary>
         /// Set to 'true' when left mouse button is held down.
         /// </summary>
-        private bool isLeftMouseDown = false;
+        private bool isLeftMouseDown;
 
         /// <summary>
         /// Set to 'true' when left mouse button and the control key are held down.
         /// </summary>
-        private bool isLeftMouseAndControlDown = false;
+        private bool isLeftMouseAndControlDown;
 
         /// <summary>
         /// Set to 'true' when dragging has started.
         /// </summary>
-        private bool isDragging = false;
+        private bool isDragging;
 
         /// <summary>
         /// The threshold distance the mouse-cursor must move before dragging begins.
@@ -273,7 +273,7 @@ namespace NetworkUI
                 {
                     lastMousePoint = curMousePoint;
 
-                    RaiseEvent(new NodeDraggingEventArgs(NodeDraggingEvent, this, new object[] { item }, offset.X, offset.Y));
+                    RaiseEvent(new NodeDraggingEventArgs(NodeDraggingEvent, this, new[] { item }, offset.X, offset.Y));
                 }
             }
             else if (isLeftMouseDown && ParentNetworkView.EnableNodeDragging)
@@ -295,7 +295,7 @@ namespace NetworkUI
                     //
                     // Raise an event to notify that that dragging has commenced.
                     //
-                    NodeDragStartedEventArgs eventArgs = new NodeDragStartedEventArgs(NodeDragStartedEvent, this, new NodeItem[] { this });
+                    NodeDragStartedEventArgs eventArgs = new NodeDragStartedEventArgs(NodeDragStartedEvent, this, new[] { this });
                     RaiseEvent(eventArgs);
 
                     if (eventArgs.Cancel)
@@ -330,7 +330,7 @@ namespace NetworkUI
                     // Raise an event to notify that node dragging has finished.
                     //
 
-                    RaiseEvent(new NodeDragCompletedEventArgs(NodeDragCompletedEvent, this, new NodeItem[] { this }));
+                    RaiseEvent(new NodeDragCompletedEventArgs(NodeDragCompletedEvent, this, new[] { this }));
 
 					ReleaseMouseCapture();
 

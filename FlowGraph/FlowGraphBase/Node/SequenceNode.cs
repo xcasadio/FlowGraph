@@ -1,7 +1,7 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Xml;
-using System.ComponentModel;
 using FlowGraphBase.Logger;
 using FlowGraphBase.Process;
 
@@ -213,7 +213,7 @@ namespace FlowGraphBase.Node
 //                 }
 
                 Type type = AppDomain.CurrentDomain.GetAssemblies()
-                       .SelectMany(t => t.GetTypes()).Single<Type>(t =>
+                       .SelectMany(t => t.GetTypes()).Single(t =>
                        {
                            return t.IsClass
                               && t.IsGenericType == false

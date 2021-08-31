@@ -1,8 +1,8 @@
 ﻿using System;
-using Utils;
+using System.ComponentModel;
 using System.Windows;
 using FlowGraphBase.Node;
-using System.ComponentModel;
+using Utils;
 
 namespace NetworkModel
 {
@@ -21,7 +21,7 @@ namespace NetworkModel
         /// <summary>
         /// The connections that are attached to this connector, or null if no connections are attached.
         /// </summary>
-        private ImpObservableCollection<ConnectionViewModel> attachedConnections = null;
+        private ImpObservableCollection<ConnectionViewModel> attachedConnections;
 
         /// <summary>
         /// The hotspot (or center) of the connector.

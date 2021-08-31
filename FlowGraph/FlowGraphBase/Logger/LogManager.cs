@@ -21,7 +21,7 @@ namespace FlowGraphBase.Logger
 		#region Fields
 
         internal event EventHandler NbErrorChanged;
-        private int _nbErrors = 0;
+        private int _nbErrors;
 
 		private readonly List<ILog> _loggers = new List<ILog>();
 

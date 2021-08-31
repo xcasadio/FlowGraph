@@ -12,8 +12,8 @@ namespace FlowSimulator.Undo
     {
 		#region Fields
 
-        FlowGraphControlViewModel _FlowGraphVM;
-        NodeViewModel _NodeVM;
+        readonly FlowGraphControlViewModel _FlowGraphVM;
+        readonly NodeViewModel _NodeVM;
 
 		#endregion //Fields
 	
@@ -72,9 +72,9 @@ namespace FlowSimulator.Undo
     {
         #region Fields
 
-        FlowGraphControlViewModel _FlowGraphVM;
-        IEnumerable<NodeViewModel> _NodesVM;
-        List<ConnectionInfo> _ConnectionInfoList = new List<ConnectionInfo>();
+        readonly FlowGraphControlViewModel _FlowGraphVM;
+        readonly IEnumerable<NodeViewModel> _NodesVM;
+        readonly List<ConnectionInfo> _ConnectionInfoList = new List<ConnectionInfo>();
 
         #endregion //Fields
 
@@ -189,9 +189,9 @@ namespace FlowSimulator.Undo
     {
         #region Fields
 
-        FlowGraphControlViewModel _FlowGraphVM;
-        NodeViewModel _NodeVM;
-        List<ConnectionInfo> _ConnectionInfoList = new List<ConnectionInfo>();
+        readonly FlowGraphControlViewModel _FlowGraphVM;
+        readonly NodeViewModel _NodeVM;
+        readonly List<ConnectionInfo> _ConnectionInfoList = new List<ConnectionInfo>();
 
         #endregion //Fields
 
@@ -298,9 +298,9 @@ namespace FlowSimulator.Undo
     {
         #region Fields
 
-        FlowGraphControlViewModel _FlowGraphVM;
-        IEnumerable<NodeViewModel> _NodesVM;
-        List<ConnectionInfo> _ConnectionInfoList = new List<ConnectionInfo>();
+        readonly FlowGraphControlViewModel _FlowGraphVM;
+        readonly IEnumerable<NodeViewModel> _NodesVM;
+        readonly List<ConnectionInfo> _ConnectionInfoList = new List<ConnectionInfo>();
 
         #endregion //Fields
 
@@ -425,8 +425,8 @@ namespace FlowSimulator.Undo
 
         #region Fields
 
-        FlowGraphControlViewModel _FlowGraphVM;
-        IEnumerable<NodeDraggingInfo> _NodeInfosVM;
+        readonly FlowGraphControlViewModel _FlowGraphVM;
+        readonly IEnumerable<NodeDraggingInfo> _NodeInfosVM;
 
         #endregion //Fields
 
@@ -493,8 +493,8 @@ namespace FlowSimulator.Undo
     {
         #region Fields
 
-        NetworkView _View;
-        IEnumerable<NodeViewModel> _NodesVM;
+        readonly NetworkView _View;
+        readonly IEnumerable<NodeViewModel> _NodesVM;
 
         #endregion //Fields
 
@@ -553,7 +553,7 @@ namespace FlowSimulator.Undo
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("Node selected");
+            return "Node selected";
         }
 
         #endregion //Methods
@@ -566,8 +566,8 @@ namespace FlowSimulator.Undo
     {
         #region Fields
 
-        NetworkView _View;
-        IEnumerable<NodeViewModel> _NodesVM;
+        readonly NetworkView _View;
+        readonly IEnumerable<NodeViewModel> _NodesVM;
 
         #endregion //Fields
 
@@ -626,7 +626,7 @@ namespace FlowSimulator.Undo
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("Node deselected");
+            return "Node deselected";
         }
 
         #endregion //Methods

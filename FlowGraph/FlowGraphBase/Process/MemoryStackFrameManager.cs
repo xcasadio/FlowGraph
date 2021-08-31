@@ -9,7 +9,7 @@ namespace FlowGraphBase.Process
     {
         #region Fields
 
-        Stack<MemoryStack> _StackFrames = new Stack<MemoryStack>(2);
+        readonly Stack<MemoryStack> _StackFrames = new Stack<MemoryStack>(2);
 
         #endregion //Fields
 

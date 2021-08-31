@@ -2,8 +2,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using FlowSimulator.FlowGraphs;
 using FlowGraphBase;
+using FlowSimulator.FlowGraphs;
 
 namespace FlowSimulator.UI
 {

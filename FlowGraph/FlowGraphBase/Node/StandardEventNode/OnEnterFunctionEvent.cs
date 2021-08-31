@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.ComponentModel;
 using System.Xml;
 
 namespace FlowGraphBase.Node.StandardEventNode
@@ -11,7 +11,7 @@ namespace FlowGraphBase.Node.StandardEventNode
     {
         #region Enum
 
-        public enum NodeSlotId : int
+        public enum NodeSlotId
         {
             Out,
             OutputStart
@@ -42,7 +42,6 @@ namespace FlowGraphBase.Node.StandardEventNode
         /// </summary>
         /// <param name="node_"></param>
         public OnEnterFunctionEvent(SequenceFunction func_)
-            : base()
         {
             _Function = func_;
             _Function.PropertyChanged += OnFuntionPropertyChanged;
@@ -187,7 +186,7 @@ namespace FlowGraphBase.Node.StandardEventNode
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void OnFuntionPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        void OnFuntionPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {

@@ -15,13 +15,13 @@ namespace FlowSimulator.Undo
         public event EventHandler UndoRedoCommandListChanged;
         public event EventHandler UndoRedoCommandExecuted;
 
-        Stack<IUndoCommand> _Undo = new Stack<IUndoCommand>();
-        Stack<IUndoCommand> _Redo = new Stack<IUndoCommand>();
+        readonly Stack<IUndoCommand> _Undo = new Stack<IUndoCommand>();
+        readonly Stack<IUndoCommand> _Redo = new Stack<IUndoCommand>();
 
         /// <summary>
         /// Used to not add/delete action when undoing or redoing
         /// </summary>
-        bool _IsProcessing = false;
+        bool _IsProcessing;
 
         #endregion //Fields
 

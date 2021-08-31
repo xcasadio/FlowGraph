@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Utils;
+using System.ComponentModel;
 using System.Windows;
 using FlowGraphBase.Node;
+using Utils;
 
 namespace NetworkModel
 {
@@ -35,17 +36,17 @@ namespace NetworkModel
         /// <summary>
         /// The X coordinate for the position of the node.
         /// </summary>
-        private double x = 0;
+        private double x;
 
         /// <summary>
         /// The Y coordinate for the position of the node.
         /// </summary>
-        private double y = 0;
+        private double y;
 
         /// <summary>
         /// The Z index of the node.
         /// </summary>
-        private int zIndex = 0;
+        private int zIndex;
 
         /// <summary>
         /// The size of the node.
@@ -61,12 +62,12 @@ namespace NetworkModel
         /// <summary>
         /// List of all connectors (connections points) attached to the node.
         /// </summary>
-        private ImpObservableCollection<ConnectorViewModel> allConnectors = new ImpObservableCollection<ConnectorViewModel>();
+        private readonly ImpObservableCollection<ConnectorViewModel> allConnectors = new ImpObservableCollection<ConnectorViewModel>();
 
         /// <summary>
         /// Set to 'true' when the node is selected.
         /// </summary>
-        private bool isSelected = false;
+        private bool isSelected;
 
         #endregion Private Data Members
 
@@ -577,7 +578,7 @@ namespace NetworkModel
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void OnSeqNodePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        void OnSeqNodePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {

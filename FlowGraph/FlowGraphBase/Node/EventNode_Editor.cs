@@ -16,7 +16,6 @@
         /// </summary>
         /// <param name="name_"></param>
         public EventNode()
-            : base()
         {
         }
     }

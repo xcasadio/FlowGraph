@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Windows.Controls;
-using System.Windows;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using Utils;
 using System.Windows.Input;
+using Utils;
 
 namespace NetworkUI
 {
@@ -116,10 +116,10 @@ namespace NetworkUI
         public static readonly RoutedEvent ConnectionDragCompletedEvent =
             EventManager.RegisterRoutedEvent("ConnectionDragCompleted", RoutingStrategy.Bubble, typeof(ConnectionDragCompletedEventHandler), typeof(NetworkView));
 
-        public static readonly RoutedCommand SelectAllCommand = null;
-        public static readonly RoutedCommand SelectNoneCommand = null;
-        public static readonly RoutedCommand InvertSelectionCommand = null;
-        public static readonly RoutedCommand CancelConnectionDraggingCommand = null;
+        public static readonly RoutedCommand SelectAllCommand;
+        public static readonly RoutedCommand SelectNoneCommand;
+        public static readonly RoutedCommand InvertSelectionCommand;
+        public static readonly RoutedCommand CancelConnectionDraggingCommand;
 
         #endregion Dependency Property/Event Definitions
 
@@ -128,17 +128,17 @@ namespace NetworkUI
         /// <summary>
         /// Cached reference to the NodeItemsControl in the visual-tree.
         /// </summary>
-        private NodeItemsControl nodeItemsControl = null;
+        private NodeItemsControl nodeItemsControl;
 
         /// <summary>
         /// Cached reference to the ItemsControl for connections in the visual-tree.
         /// </summary>
-        private ItemsControl connectionItemsControl = null;
+        private ItemsControl connectionItemsControl;
 
         /// <summary>
         /// Cached list of currently selected nodes.
         /// </summary>
-        private List<object> initialSelectedNodes = null;
+        private List<object> initialSelectedNodes;
 
         #endregion Private Data Members
 

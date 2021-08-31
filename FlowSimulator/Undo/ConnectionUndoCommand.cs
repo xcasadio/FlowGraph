@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Media;
 using FlowSimulator.UI;
 using NetworkModel;
-using System.Windows.Media;
-using System.Windows;
 
 namespace FlowSimulator.Undo
 {
@@ -26,14 +26,14 @@ namespace FlowSimulator.Undo
     {
 		#region Fields
 
-        FlowGraphControlViewModel _FlowGraphVM;
+        readonly FlowGraphControlViewModel _FlowGraphVM;
 
         ConnectionViewModel _ConnectionVM;
-        ConnectorViewModel _DestConnector;
-        Point _DestConnectorHotspot;
-        PointCollection _Points;
-        ConnectorViewModel _SourceConnector;
-        Point _SourceConnectorHotspot;
+        readonly ConnectorViewModel _DestConnector;
+        readonly Point _DestConnectorHotspot;
+        readonly PointCollection _Points;
+        readonly ConnectorViewModel _SourceConnector;
+        readonly Point _SourceConnectorHotspot;
 
 		#endregion //Fields
 	
@@ -97,14 +97,14 @@ namespace FlowSimulator.Undo
     {
         #region Fields
 
-        FlowGraphControlViewModel _FlowGraphVM;
+        readonly FlowGraphControlViewModel _FlowGraphVM;
 
         ConnectionViewModel _ConnectionVM;
-        ConnectorViewModel _DestConnector;
-        Point _DestConnectorHotspot;
-        PointCollection _Points;
-        ConnectorViewModel _SourceConnector;
-        Point _SourceConnectorHotspot;
+        readonly ConnectorViewModel _DestConnector;
+        readonly Point _DestConnectorHotspot;
+        readonly PointCollection _Points;
+        readonly ConnectorViewModel _SourceConnector;
+        readonly Point _SourceConnectorHotspot;
 
 		#endregion //Fields
 	
@@ -167,8 +167,8 @@ namespace FlowSimulator.Undo
     {
         #region Fields
 
-        FlowGraphControlViewModel _FlowGraphVM;
-        IEnumerable<ConnectionViewModel> _ConnectionsVM;
+        readonly FlowGraphControlViewModel _FlowGraphVM;
+        readonly IEnumerable<ConnectionViewModel> _ConnectionsVM;
 
         #endregion //Fields
 
@@ -217,8 +217,8 @@ namespace FlowSimulator.Undo
     {
         #region Fields
 
-        FlowGraphControlViewModel _FlowGraphVM;
-        List<ConnectionInfo> _ConnectionInfoList = new List<ConnectionInfo>();
+        readonly FlowGraphControlViewModel _FlowGraphVM;
+        readonly List<ConnectionInfo> _ConnectionInfoList = new List<ConnectionInfo>();
 
 		#endregion //Fields
 	

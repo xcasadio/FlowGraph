@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Xml;
 using FlowGraphBase.Logger;
@@ -376,7 +377,7 @@ namespace FlowGraphBase
                     seq.ResolveNodesLinks(node_.SelectSingleNode("GraphList/Graph[@id='" + seq.Id + "']"));
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 LogManager.Instance.WriteException(ex);
             }

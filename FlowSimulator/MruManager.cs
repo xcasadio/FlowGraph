@@ -1,14 +1,17 @@
 #region Using directives
 
 using System;
-using System.Diagnostics;
 using System.Collections.Generic;
-using Microsoft.Win32;
-using System.IO;
-using System.Text;
-using System.Runtime.InteropServices;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
+using System.IO;
+using System.Runtime.InteropServices;
 using System.Security;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using Microsoft.Win32;
 
 #endregion
 
@@ -16,8 +19,6 @@ namespace FlowSimulator
 {
     using StringList = List<String>;
     using StringEnumerator = IEnumerator<String>;
-    using System.Windows.Controls;
-    using System.Windows;
 
     /// <summary>
     /// MRU manager - manages Most Recently Used Files list
@@ -288,7 +289,7 @@ namespace FlowSimulator
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnOwnerClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void OnOwnerClosing(object sender, CancelEventArgs e)
         {
             int i, n;
 

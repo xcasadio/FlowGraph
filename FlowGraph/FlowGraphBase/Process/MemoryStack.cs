@@ -10,7 +10,7 @@ namespace FlowGraphBase.Process
         #region Fields
 
         private int _FreeID = int.MaxValue;
-        private Dictionary<int, MemoryStackItem> _Variable = new Dictionary<int, MemoryStackItem>();
+        private readonly Dictionary<int, MemoryStackItem> _Variable = new Dictionary<int, MemoryStackItem>();
 
         #endregion //Fields
 

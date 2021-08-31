@@ -25,12 +25,12 @@ namespace FlowGraphBase.Process
 
 		#region Fields
 
-        private static int _FreeCallID = 0;
+        private static int _FreeCallID;
 
         public event EventHandler Finished;
 
-        private List<ProcessingContextStep> _NextExecutions = new List<ProcessingContextStep>();
-        private List<ProcessingContextStep> _Executed = new List<ProcessingContextStep>();
+        private readonly List<ProcessingContextStep> _NextExecutions = new List<ProcessingContextStep>();
+        private readonly List<ProcessingContextStep> _Executed = new List<ProcessingContextStep>();
 
 		#endregion //Fields
 	

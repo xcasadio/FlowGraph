@@ -1,5 +1,4 @@
-﻿using System;
-using Utils;
+﻿using Utils;
 
 namespace NetworkModel
 {
@@ -13,12 +12,12 @@ namespace NetworkModel
         /// <summary>
         /// The collection of nodes in the network.
         /// </summary>
-        private ImpObservableCollection<NodeViewModel> nodes = null;
+        private ImpObservableCollection<NodeViewModel> nodes;
 
         /// <summary>
         /// The collection of connections in the network.
         /// </summary>
-        private ImpObservableCollection<ConnectionViewModel> connections = null;
+        private ImpObservableCollection<ConnectionViewModel> connections;
 
         #endregion Internal Data Members
 

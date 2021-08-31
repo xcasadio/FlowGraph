@@ -1,8 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Xml;
+using FlowGraphBase;
 using FlowGraphBase.Logger;
 using FlowSimulator.UI;
-using FlowGraphBase;
 
 namespace FlowSimulator.FlowGraphs
 {
@@ -117,7 +118,7 @@ namespace FlowSimulator.FlowGraphs
                     FlowGraphList.Add(new FlowGraphControlViewModel(graphNode));
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 LogManager.Instance.WriteException(ex);
             }

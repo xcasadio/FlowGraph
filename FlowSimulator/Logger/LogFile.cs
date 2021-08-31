@@ -1,8 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.IO;
 
 namespace FlowSimulator.Logger
 {
@@ -37,7 +37,7 @@ namespace FlowSimulator.Logger
         private readonly StringBuilder _stringBuilder = new StringBuilder(500);
         private readonly Task _task;
         private volatile bool _isAlive;
-        private volatile bool _streamClose = false;
+        private volatile bool _streamClose;
 
         #endregion //Fields
 
