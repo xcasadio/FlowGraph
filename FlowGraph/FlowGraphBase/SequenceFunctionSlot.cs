@@ -33,7 +33,6 @@ namespace FlowGraphBase
         public int ID
         {
             get;
-            private set;
         }
 
         /// <summary>
@@ -42,7 +41,6 @@ namespace FlowGraphBase
         public FunctionSlotType SlotType
         {
             get;
-            private set;
         }
 
         /// <summary>

@@ -16,17 +16,17 @@ namespace FlowGraphBase.Process
         /// <summary>
         /// Gets
         /// </summary>
-	    public SequenceBase SequenceBase { get; private set; }
+	    public SequenceBase SequenceBase { get; }
 
         /// <summary>
         /// Gets
         /// </summary>
-	    public MemoryStack MemoryStack { get; private set; }
+	    public MemoryStack MemoryStack { get; }
 
         /// <summary>
         /// Gets
         /// </summary>
-	    public NodeSlot Slot { get; private set; }
+	    public NodeSlot Slot { get; }
 
         #endregion //Properties
 	

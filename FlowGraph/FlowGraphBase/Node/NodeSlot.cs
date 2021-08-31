@@ -52,11 +52,11 @@ namespace FlowGraphBase.Node
 	
 		#region Properties
 
-        public int ID { get; private set; }
-        public SequenceNode Node { get; private set; }
-        public virtual SlotType ConnectionType { get; private set; }
-        public object Tag { get; private set; }
-        public List<NodeSlot> ConnectedNodes { get; private set; }
+        public int ID { get; }
+        public SequenceNode Node { get; }
+        public virtual SlotType ConnectionType { get; }
+        public object Tag { get; }
+        public List<NodeSlot> ConnectedNodes { get; }
 
         /// <summary>
         /// 

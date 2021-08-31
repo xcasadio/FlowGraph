@@ -221,9 +221,9 @@ namespace FlowGraphBase
 
             XmlNode connectionListNode = node_.SelectSingleNode("ConnectionList");
 
-            foreach (var node in SequenceNodes)
+            foreach (var sequenceNode in SequenceNodes)
             {
-                node.Value.ResolveLinks(connectionListNode, this);
+                sequenceNode.Value.ResolveLinks(connectionListNode, this);
             }
         }
 

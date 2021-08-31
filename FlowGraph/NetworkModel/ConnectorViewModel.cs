@@ -83,7 +83,6 @@ namespace NetworkModel
         public NodeSlot SourceSlot
         {
             get;
-            private set;
         }
 
         /// <summary>

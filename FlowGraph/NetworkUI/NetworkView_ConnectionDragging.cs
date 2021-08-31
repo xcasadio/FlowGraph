@@ -292,10 +292,12 @@ namespace NetworkUI
             // The view-model object 'indicator' is transformed into a UI element using
             // normal WPF data-template rules.
             //
-            ContentControl adornerElement = new ContentControl();
-            adornerElement.HorizontalAlignment = HorizontalAlignment.Left;
-            adornerElement.VerticalAlignment = VerticalAlignment.Center;
-            adornerElement.Content = indicator;
+            ContentControl adornerElement = new ContentControl
+            {
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center,
+                Content = indicator
+            };
 
             //
             // Create the adorner and add it to the adorner layer.

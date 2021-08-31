@@ -73,7 +73,7 @@ namespace FlowGraphBase.Node
         /// </summary>
         public NodeSlot GetSlotById(int id_)
         {
-            foreach (NodeSlot slot in _Slots)
+            foreach (NodeSlot slot in _nodeSlots)
             {
                 if (slot.ID == id_)
                 {
@@ -160,7 +160,7 @@ namespace FlowGraphBase.Node
             if (_freeId <= Id) _freeId = Id + 1;
             Comment = node_.Attributes["comment"].Value; // EDITOR
 
-            foreach (NodeSlot slot in _Slots)
+            foreach (NodeSlot slot in _nodeSlots)
             {
                 XmlNode nodeSlot = node_.SelectSingleNode("Slot[@index='" + slot.ID + "']");
                 if (nodeSlot != null)
@@ -264,7 +264,7 @@ namespace FlowGraphBase.Node
         /// </summary>
         public void RemoveAllConnections()
         {
-            foreach (var slot in _Slots)
+            foreach (var slot in _nodeSlots)
             {
                 slot.RemoveAllConnections();
             }

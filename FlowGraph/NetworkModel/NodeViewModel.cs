@@ -21,7 +21,6 @@ namespace NetworkModel
         public SequenceNode SeqNode
         {
             get;
-            private set;
         }
         /// <summary>
         /// 
@@ -597,14 +596,15 @@ namespace NetworkModel
         /// <returns></returns>
         public NodeViewModel Copy(bool copyConnections_ = false)
         {
-            NodeViewModel node = new NodeViewModel(SeqNode.Copy());
-
-            node.name = name;
-            node.x = x;
-            node.y = y;
-            node.zIndex = zIndex;
-            node.size = size;
-            node.isSelected = isSelected;
+            NodeViewModel node = new NodeViewModel(SeqNode.Copy())
+            {
+                name = name,
+                x = x,
+                y = y,
+                zIndex = zIndex,
+                size = size,
+                isSelected = isSelected
+            };
 
             if (copyConnections_)
             {

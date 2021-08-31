@@ -74,12 +74,14 @@ namespace FlowSimulator.Undo
         /// </summary>
         public void Undo()
         {
-            ConnectionViewModel copy = new ConnectionViewModel();
-            copy.DestConnector = _DestConnector;
-            copy.DestConnectorHotspot = _DestConnectorHotspot;
-            copy.Points = _Points;
-            copy.SourceConnector = _SourceConnector;
-            copy.SourceConnectorHotspot = _SourceConnectorHotspot;
+            ConnectionViewModel copy = new ConnectionViewModel
+            {
+                DestConnector = _DestConnector,
+                DestConnectorHotspot = _DestConnectorHotspot,
+                Points = _Points,
+                SourceConnector = _SourceConnector,
+                SourceConnectorHotspot = _SourceConnectorHotspot
+            };
 
             _FlowGraphVM.DeleteConnection(copy);
             _ConnectionVM = copy;
@@ -146,12 +148,14 @@ namespace FlowSimulator.Undo
         /// </summary>
         public void Undo()
         {
-            ConnectionViewModel copy = new ConnectionViewModel();
-            copy.DestConnector = _DestConnector;
-            copy.DestConnectorHotspot = _DestConnectorHotspot;
-            copy.Points = _Points;
-            copy.SourceConnector = _SourceConnector;
-            copy.SourceConnectorHotspot = _SourceConnectorHotspot;
+            ConnectionViewModel copy = new ConnectionViewModel
+            {
+                DestConnector = _DestConnector,
+                DestConnectorHotspot = _DestConnectorHotspot,
+                Points = _Points,
+                SourceConnector = _SourceConnector,
+                SourceConnectorHotspot = _SourceConnectorHotspot
+            };
 
             _FlowGraphVM.AddConnection(copy);
             _ConnectionVM = copy;
@@ -277,12 +281,14 @@ namespace FlowSimulator.Undo
 
             for (int i = 0; i < _ConnectionInfoList.Count; i++)
             {
-                ConnectionViewModel copy = new ConnectionViewModel();
-                copy.DestConnector = _ConnectionInfoList[i].DestConnector;
-                copy.DestConnectorHotspot = _ConnectionInfoList[i].DestConnectorHotspot;
-                copy.Points = _ConnectionInfoList[i].Points;
-                copy.SourceConnector = _ConnectionInfoList[i].SourceConnector;
-                copy.SourceConnectorHotspot = _ConnectionInfoList[i].SourceConnectorHotspot;
+                ConnectionViewModel copy = new ConnectionViewModel
+                {
+                    DestConnector = _ConnectionInfoList[i].DestConnector,
+                    DestConnectorHotspot = _ConnectionInfoList[i].DestConnectorHotspot,
+                    Points = _ConnectionInfoList[i].Points,
+                    SourceConnector = _ConnectionInfoList[i].SourceConnector,
+                    SourceConnectorHotspot = _ConnectionInfoList[i].SourceConnectorHotspot
+                };
 
                 connList.Add(copy);
 

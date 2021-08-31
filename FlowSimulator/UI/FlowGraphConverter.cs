@@ -33,9 +33,11 @@ namespace FlowSimulator.UI
             varColor = Color.Multiply(varColor, 0.4f);
             varColor.A = 153;
 
-            LinearGradientBrush linearBrush = new LinearGradientBrush();
-            linearBrush.StartPoint = new Point(0, 0);
-            linearBrush.EndPoint = new Point(0, 1);
+            LinearGradientBrush linearBrush = new LinearGradientBrush
+            {
+                StartPoint = new Point(0, 0),
+                EndPoint = new Point(0, 1)
+            };
             linearBrush.GradientStops.Add(new GradientStop(varColor, 0));
             linearBrush.GradientStops.Add(new GradientStop(Color.FromArgb(153, 0, 0, 0), 0.4));
             

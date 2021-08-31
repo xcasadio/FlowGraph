@@ -12,45 +12,34 @@ namespace NetworkModel
         /// <summary>
         /// The collection of nodes in the network.
         /// </summary>
-        private ImpObservableCollection<NodeViewModel> nodes;
+        private ImpObservableCollection<NodeViewModel> nodesViewModel;
 
         /// <summary>
         /// The collection of connections in the network.
         /// </summary>
-        private ImpObservableCollection<ConnectionViewModel> connections;
+        private ImpObservableCollection<ConnectionViewModel> connectionsViewModel;
 
         #endregion Internal Data Members
 
         /// <summary>
         /// The collection of nodes in the network.
         /// </summary>
-        public ImpObservableCollection<NodeViewModel> Nodes
-        {
-            get
-            {
-                if (nodes == null)
-                {
-                    nodes = new ImpObservableCollection<NodeViewModel>();
-                }
-
-                return nodes;
-            }
-        }
+        public ImpObservableCollection<NodeViewModel> NodesViewModel => nodesViewModel ?? (nodesViewModel = new ImpObservableCollection<NodeViewModel>());
 
         /// <summary>
         /// The collection of connections in the network.
         /// </summary>
-        public ImpObservableCollection<ConnectionViewModel> Connections
+        public ImpObservableCollection<ConnectionViewModel> ConnectionsViewModel
         {
             get
             {
-                if (connections == null)
+                if (connectionsViewModel == null)
                 {
-                    connections = new ImpObservableCollection<ConnectionViewModel>();
-                    connections.ItemsRemoved += connections_ItemsRemoved;
+                    connectionsViewModel = new ImpObservableCollection<ConnectionViewModel>();
+                    connectionsViewModel.ItemsRemoved += connections_ItemsRemoved;
                 }
 
-                return connections;
+                return connectionsViewModel;
             }
         }
 

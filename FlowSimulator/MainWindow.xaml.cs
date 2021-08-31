@@ -283,11 +283,13 @@ namespace FlowSimulator
 
             foreach (var content in dockingManager1.Layout.Descendents().OfType<LayoutContent>())
             {
-                MenuItem item = new MenuItem();
-                item.Header = content.Title;
-                item.IsChecked = content is LayoutDocument ? 
-                    (content as LayoutDocument).IsVisible : content is LayoutAnchorable ? 
-                    (content as LayoutAnchorable).IsVisible : false;
+                MenuItem item = new MenuItem
+                {
+                    Header = content.Title,
+                    IsChecked = content is LayoutDocument ? 
+                        (content as LayoutDocument).IsVisible : content is LayoutAnchorable ? 
+                            (content as LayoutAnchorable).IsVisible : false
+                };
                 item.Click += MenuItemLayout_Click;
                 item.Tag = content;
                 list.Add(content.Title, item);
@@ -703,9 +705,11 @@ namespace FlowSimulator
             var firstDocumentPane = dockingManager1.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
             if (firstDocumentPane != null)
             {
-                LayoutDocument doc = new LayoutDocument();
-                doc.Title = el_.Name;
-                doc.Content = new ScriptElementControl(el_);
+                LayoutDocument doc = new LayoutDocument
+                {
+                    Title = el_.Name,
+                    Content = new ScriptElementControl(el_)
+                };
                 firstDocumentPane.Children.Add(doc);
                 doc.IsSelected = true;
             }

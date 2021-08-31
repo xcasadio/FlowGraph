@@ -171,16 +171,18 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <returns></returns>
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
-            ProcessingInfo info = new ProcessingInfo();
-            info.State = LogicState.Ok;
+            ProcessingInfo info = new ProcessingInfo
+            {
+                State = LogicState.Ok
+            };
 
             //call script with input nodes
             List<ScriptSlotData> list = new List<ScriptSlotData>(_ScriptElement.InputCount);
-            foreach (NodeSlot slot in SlotVariableIn)
+            foreach (NodeSlot slotVarIn in SlotVariableIn)
             {
-                if (slot is NodeSlotVar)
+                if (slotVarIn is NodeSlotVar)
                 {
-                    NodeSlotVar varSlot = slot as NodeSlotVar;
+                    NodeSlotVar varSlot = slotVarIn as NodeSlotVar;
                     list.Add(new ScriptSlotData(varSlot.Text, varSlot.ID, GetValueFromSlot(varSlot.ID)));
                 }
             }
@@ -188,11 +190,11 @@ namespace FlowGraphBase.Node.StandardActionNode
             list.Clear();
 
             //            
-            foreach (NodeSlot slot in SlotVariableOut)
+            foreach (NodeSlot slotVarOut in SlotVariableOut)
             {
-                if (slot is NodeSlotVar)
+                if (slotVarOut is NodeSlotVar)
                 {
-                    NodeSlotVar varSlot = slot as NodeSlotVar;
+                    NodeSlotVar varSlot = slotVarOut as NodeSlotVar;
                     list.Add(new ScriptSlotData(varSlot.Text, varSlot.ID, GetValueFromSlot(varSlot.ID)));
                 }
             }
@@ -209,7 +211,7 @@ namespace FlowGraphBase.Node.StandardActionNode
             //set output slot value
             foreach (ScriptSlotData s in returnVals.List)
             {
-                SetValueInSlot(s.ID, s.Value);
+                SetValueInSlot(s.Id, s.Value);
             }
 
             ActivateOutputLink(context_, (int)NodeSlotId.Out);
@@ -288,21 +290,21 @@ namespace FlowGraphBase.Node.StandardActionNode
     /// </summary>
     public class ScriptSlotData
     {
-        public string Text { get; private set; }
-        public int ID { get; private set; }
+        public string Text { get; }
+        public int Id { get; }
         public object Value { get; internal set; }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="text_"></param>
-        /// <param name="id_"></param>
-        /// <param name="value_"></param>
-        public ScriptSlotData(string text_, int id_, object value_)
+        /// <param name="text"></param>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
+        public ScriptSlotData(string text, int id, object value)
         {
-            Text = text_;
-            ID = id_;
-            Value = value_;
+            Text = text;
+            Id = id;
+            Value = value;
         }
     }
 

@@ -55,12 +55,16 @@ namespace FlowSimulator.UI
             FlowGraphControlViewModel fgvm = FlowGraphManager.Instance.GetViewModelByID(seq_.Id);
             tab.DataContext = fgvm;
 
-            FlowGraphControl fgc = new FlowGraphControl();
-            fgc.DataContext = fgvm;
+            FlowGraphControl fgc = new FlowGraphControl
+            {
+                DataContext = fgvm
+            };
             tab.Content = fgc;
 
-            Binding bind = new Binding("Name");
-            bind.Source = fgvm;
+            Binding bind = new Binding("Name")
+            {
+                Source = fgvm
+            };
             tab.SetBinding(HeaderedContentControl.HeaderProperty, bind);
 
             tabControl.SelectedIndex = tabControl.Items.Add(tab);

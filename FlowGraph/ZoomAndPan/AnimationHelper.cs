@@ -25,10 +25,12 @@ namespace ZoomAndPan
         {
             double fromValue = (double)animatableElement.GetValue(dependencyProperty);
 
-            DoubleAnimation animation = new DoubleAnimation();
-            animation.From = fromValue;
-            animation.To = toValue;
-            animation.Duration = TimeSpan.FromSeconds(animationDurationSeconds);
+            DoubleAnimation animation = new DoubleAnimation
+            {
+                From = fromValue,
+                To = toValue,
+                Duration = TimeSpan.FromSeconds(animationDurationSeconds)
+            };
 
             animation.Completed += delegate(object sender, EventArgs e)
             {

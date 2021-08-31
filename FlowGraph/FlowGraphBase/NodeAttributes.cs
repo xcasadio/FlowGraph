@@ -13,7 +13,6 @@ namespace FlowGraphBase
         public string CategoryPath
         {
             get;
-            private set;
         }
 
 		#endregion //Fields
@@ -51,7 +50,6 @@ namespace FlowGraphBase
         public string DisplayName
         {
             get;
-            private set;
         }
 
         #endregion //Fields
@@ -92,7 +90,6 @@ namespace FlowGraphBase
         public bool Value
         {
             get;
-            private set;
         }
 
         #endregion //Fields

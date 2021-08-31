@@ -130,7 +130,7 @@ namespace FlowSimulator.Undo
         /// </summary>
         public void Redo()
         {
-            _FlowGraphVM.Network.Nodes.AddRange(_NodesVM);
+            _FlowGraphVM.Network.NodesViewModel.AddRange(_NodesVM);
 
             List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
 
@@ -151,12 +151,14 @@ namespace FlowSimulator.Undo
 
             for (int i = 0; i < _ConnectionInfoList.Count; i++)
             {
-                ConnectionViewModel copy = new ConnectionViewModel();
-                copy.DestConnector = _ConnectionInfoList[i].DestConnector;
-                copy.DestConnectorHotspot = _ConnectionInfoList[i].DestConnectorHotspot;
-                copy.Points = _ConnectionInfoList[i].Points;
-                copy.SourceConnector = _ConnectionInfoList[i].SourceConnector;
-                copy.SourceConnectorHotspot = _ConnectionInfoList[i].SourceConnectorHotspot;
+                ConnectionViewModel copy = new ConnectionViewModel
+                {
+                    DestConnector = _ConnectionInfoList[i].DestConnector,
+                    DestConnectorHotspot = _ConnectionInfoList[i].DestConnectorHotspot,
+                    Points = _ConnectionInfoList[i].Points,
+                    SourceConnector = _ConnectionInfoList[i].SourceConnector,
+                    SourceConnectorHotspot = _ConnectionInfoList[i].SourceConnectorHotspot
+                };
 
                 connList.Add(copy);
 
@@ -260,12 +262,14 @@ namespace FlowSimulator.Undo
 
             for (int i = 0; i < _ConnectionInfoList.Count; i++)
             {
-                ConnectionViewModel copy = new ConnectionViewModel();
-                copy.DestConnector = _ConnectionInfoList[i].DestConnector;
-                copy.DestConnectorHotspot = _ConnectionInfoList[i].DestConnectorHotspot;
-                copy.Points = _ConnectionInfoList[i].Points;
-                copy.SourceConnector = _ConnectionInfoList[i].SourceConnector;
-                copy.SourceConnectorHotspot = _ConnectionInfoList[i].SourceConnectorHotspot;
+                ConnectionViewModel copy = new ConnectionViewModel
+                {
+                    DestConnector = _ConnectionInfoList[i].DestConnector,
+                    DestConnectorHotspot = _ConnectionInfoList[i].DestConnectorHotspot,
+                    Points = _ConnectionInfoList[i].Points,
+                    SourceConnector = _ConnectionInfoList[i].SourceConnector,
+                    SourceConnectorHotspot = _ConnectionInfoList[i].SourceConnectorHotspot
+                };
 
                 connList.Add(copy);
 
@@ -364,7 +368,7 @@ namespace FlowSimulator.Undo
             }
 
             _FlowGraphVM.DeleteConnections(connList);
-            _FlowGraphVM.Network.Nodes.RemoveRange(_NodesVM);
+            _FlowGraphVM.Network.NodesViewModel.RemoveRange(_NodesVM);
         }
 
         /// <summary>
@@ -376,12 +380,14 @@ namespace FlowSimulator.Undo
 
             for (int i = 0; i < _ConnectionInfoList.Count; i++)
             {
-                ConnectionViewModel copy = new ConnectionViewModel();
-                copy.DestConnector = _ConnectionInfoList[i].DestConnector;
-                copy.DestConnectorHotspot = _ConnectionInfoList[i].DestConnectorHotspot;
-                copy.Points = _ConnectionInfoList[i].Points;
-                copy.SourceConnector = _ConnectionInfoList[i].SourceConnector;
-                copy.SourceConnectorHotspot = _ConnectionInfoList[i].SourceConnectorHotspot;
+                ConnectionViewModel copy = new ConnectionViewModel
+                {
+                    DestConnector = _ConnectionInfoList[i].DestConnector,
+                    DestConnectorHotspot = _ConnectionInfoList[i].DestConnectorHotspot,
+                    Points = _ConnectionInfoList[i].Points,
+                    SourceConnector = _ConnectionInfoList[i].SourceConnector,
+                    SourceConnectorHotspot = _ConnectionInfoList[i].SourceConnectorHotspot
+                };
 
                 connList.Add(copy);
 
@@ -390,7 +396,7 @@ namespace FlowSimulator.Undo
                 _ConnectionInfoList[i] = inf;
             }
 
-            _FlowGraphVM.Network.Nodes.AddRange(_NodesVM);
+            _FlowGraphVM.Network.NodesViewModel.AddRange(_NodesVM);
             _FlowGraphVM.AddConnections(connList);
         }
 

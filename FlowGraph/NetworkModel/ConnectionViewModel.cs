@@ -179,13 +179,14 @@ namespace NetworkModel
         /// <returns></returns>
         public ConnectionViewModel Copy()
         {
-            ConnectionViewModel newConn = new ConnectionViewModel();
-
-            newConn.DestConnector = DestConnector;
-            newConn.DestConnectorHotspot = DestConnectorHotspot;
-            newConn.Points = Points;
-            newConn.SourceConnector = SourceConnector;
-            newConn.SourceConnectorHotspot = SourceConnectorHotspot;
+            ConnectionViewModel newConn = new ConnectionViewModel
+            {
+                DestConnector = DestConnector,
+                DestConnectorHotspot = DestConnectorHotspot,
+                Points = Points,
+                SourceConnector = SourceConnector,
+                SourceConnectorHotspot = SourceConnectorHotspot
+            };
 
             return newConn;
         }

@@ -651,7 +651,7 @@ namespace FlowSimulator.UI
             }
             else
             {
-                nodes = ViewModel.Network.Nodes;
+                nodes = ViewModel.Network.NodesViewModel;
                 if (nodes.Count == 0)
                 {
                     return;

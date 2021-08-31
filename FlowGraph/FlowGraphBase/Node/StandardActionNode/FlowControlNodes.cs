@@ -62,8 +62,10 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <returns></returns>
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
-            ProcessingInfo info = new ProcessingInfo();
-            info.State = LogicState.Ok;
+            ProcessingInfo info = new ProcessingInfo
+            {
+                State = LogicState.Ok
+            };
 
             object objCond = GetValueFromSlot((int)NodeSlotId.VarCond);
 
@@ -164,8 +166,10 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <returns></returns>
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
-            ProcessingInfo info = new ProcessingInfo();
-            info.State = LogicState.Ok;
+            ProcessingInfo info = new ProcessingInfo
+            {
+                State = LogicState.Ok
+            };
 
             if (slot_.ID == (int)NodeSlotId.InReset)
             {
@@ -277,8 +281,10 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <returns></returns>
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
-            ProcessingInfo info = new ProcessingInfo();
-            info.State = LogicState.Ok;
+            ProcessingInfo info = new ProcessingInfo
+            {
+                State = LogicState.Ok
+            };
 
             MemoryStackItem memoryItem = context_.CurrentFrame.GetValueFromID(Id);
 
@@ -369,8 +375,10 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <returns></returns>
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
-            ProcessingInfo info = new ProcessingInfo();
-            info.State = LogicState.Ok;
+            ProcessingInfo info = new ProcessingInfo
+            {
+                State = LogicState.Ok
+            };
 
             MemoryStackItem memoryItem = context_.CurrentFrame.GetValueFromID(Id);
 
@@ -481,8 +489,10 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <returns></returns>
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
-            ProcessingInfo info = new ProcessingInfo();
-            info.State = LogicState.Ok;
+            ProcessingInfo info = new ProcessingInfo
+            {
+                State = LogicState.Ok
+            };
 
             if (slot_.ID == (int)NodeSlotId.In)
             {
@@ -669,8 +679,10 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <returns></returns>
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
-            ProcessingInfo info = new ProcessingInfo();
-            info.State = LogicState.Ok;
+            ProcessingInfo info = new ProcessingInfo
+            {
+                State = LogicState.Ok
+            };
 
             if (slot_.ID == (int)NodeSlotId.In)
             {
@@ -854,8 +866,10 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <returns></returns>
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
-            ProcessingInfo info = new ProcessingInfo();
-            info.State = LogicState.Ok;
+            ProcessingInfo info = new ProcessingInfo
+            {
+                State = LogicState.Ok
+            };
 
             MemoryStackItem memoryItem = context_.CurrentFrame.GetValueFromID(Id);
 

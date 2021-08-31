@@ -96,20 +96,24 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         private void CreateGraph_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            SequenceParametersWindow win = new SequenceParametersWindow();
-            win.Title = "New Graph parameters";
-            win.InputName = "name of the graph";
-            win.InputDescription = "";
-            win.IsValidInputNameCallback = GraphDataManager.Instance.IsValidSequenceName;
-            win.Owner = MainWindow.Instance;
+            SequenceParametersWindow win = new SequenceParametersWindow
+            {
+                Title = "New Graph parameters",
+                InputName = "name of the graph",
+                InputDescription = "",
+                IsValidInputNameCallback = GraphDataManager.Instance.IsValidSequenceName,
+                Owner = MainWindow.Instance
+            };
 
             if (win.ShowDialog() == false)
             {
                 return;
             }
 
-            Sequence newSeq = new Sequence(win.InputName);
-            newSeq.Description = win.InputDescription;
+            Sequence newSeq = new Sequence(win.InputName)
+            {
+                Description = win.InputDescription
+            };
             GraphDataManager.Instance.AddSequence(newSeq);
 
             FlowGraphControlViewModel wm = new FlowGraphControlViewModel(newSeq);
@@ -131,12 +135,14 @@ namespace FlowSimulator.UI
                 FlowGraphControlViewModel flowGraphVM = 
                     FlowGraphManager.Instance.GetViewModelByID((listBoxGraphs.SelectedItem as Sequence).Id);
 
-                SequenceParametersWindow win = new SequenceParametersWindow();
-                win.Title = "Graph " + flowGraphVM.Name + " parameters";
-                win.InputName = flowGraphVM.Name;
-                win.InputDescription = flowGraphVM.Description;
-                win.IsValidInputNameCallback = GraphDataManager.Instance.IsValidSequenceName;
-                win.Owner = MainWindow.Instance;
+                SequenceParametersWindow win = new SequenceParametersWindow
+                {
+                    Title = "Graph " + flowGraphVM.Name + " parameters",
+                    InputName = flowGraphVM.Name,
+                    InputDescription = flowGraphVM.Description,
+                    IsValidInputNameCallback = GraphDataManager.Instance.IsValidSequenceName,
+                    Owner = MainWindow.Instance
+                };
 
                 if (win.ShowDialog() == false)
                 {
@@ -208,20 +214,24 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         private void CreateFunction_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            SequenceParametersWindow win = new SequenceParametersWindow();
-            win.Title = "New Function parameters";
-            win.InputName = "name of the function";
-            win.InputDescription = "";
-            win.IsValidInputNameCallback = GraphDataManager.Instance.IsValidFunctionName;
-            win.Owner = MainWindow.Instance;
+            SequenceParametersWindow win = new SequenceParametersWindow
+            {
+                Title = "New Function parameters",
+                InputName = "name of the function",
+                InputDescription = "",
+                IsValidInputNameCallback = GraphDataManager.Instance.IsValidFunctionName,
+                Owner = MainWindow.Instance
+            };
 
             if (win.ShowDialog() == false)
             {
                 return;
             }
 
-            SequenceFunction newSeq = new SequenceFunction(win.InputName);
-            newSeq.Description = win.InputDescription;
+            SequenceFunction newSeq = new SequenceFunction(win.InputName)
+            {
+                Description = win.InputDescription
+            };
             GraphDataManager.Instance.AddFunction(newSeq);
 
             FlowGraphControlViewModel wm = new FlowGraphControlViewModel(newSeq);
@@ -244,12 +254,14 @@ namespace FlowSimulator.UI
                 FlowGraphControlViewModel flowGraphVM =
                     FlowGraphManager.Instance.GetViewModelByID((listBoxGraphFunctions.SelectedItem as SequenceBase).Id);
 
-                SequenceParametersWindow win = new SequenceParametersWindow();
-                win.Title = "Function " + flowGraphVM.Name + " parameters";
-                win.InputName = flowGraphVM.Name;
-                win.InputDescription = flowGraphVM.Description;
-                win.IsValidInputNameCallback = GraphDataManager.Instance.IsValidFunctionName;
-                win.Owner = MainWindow.Instance;
+                SequenceParametersWindow win = new SequenceParametersWindow
+                {
+                    Title = "Function " + flowGraphVM.Name + " parameters",
+                    InputName = flowGraphVM.Name,
+                    InputDescription = flowGraphVM.Description,
+                    IsValidInputNameCallback = GraphDataManager.Instance.IsValidFunctionName,
+                    Owner = MainWindow.Instance
+                };
 
                 if (win.ShowDialog() == false)
                 {
@@ -358,11 +370,13 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         private void CreateNamedVar_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            NewNamedVarWindow win = new NewNamedVarWindow();
-            win.Title = "New Named Variable";
-            win.InputName = "name of the variable";
-            win.IsValidInputNameCallback = NamedVariableManager.Instance.IsValidName;
-            win.Owner = MainWindow.Instance;
+            NewNamedVarWindow win = new NewNamedVarWindow
+            {
+                Title = "New Named Variable",
+                InputName = "name of the variable",
+                IsValidInputNameCallback = NamedVariableManager.Instance.IsValidName,
+                Owner = MainWindow.Instance
+            };
 
             if (win.ShowDialog() == false)
             {
@@ -385,10 +399,12 @@ namespace FlowSimulator.UI
                 && listBoxGraphNamedVars.SelectedItem is NamedVariable)
             {
                 NamedVariable var = listBoxGraphNamedVars.SelectedItem as NamedVariable;
-                NewNamedVarWindow win = new NewNamedVarWindow(var);
-                win.Title = "Rename Named Variable";
-                win.IsValidInputNameCallback = NamedVariableManager.Instance.IsValidName;
-                win.Owner = MainWindow.Instance;
+                NewNamedVarWindow win = new NewNamedVarWindow(var)
+                {
+                    Title = "Rename Named Variable",
+                    IsValidInputNameCallback = NamedVariableManager.Instance.IsValidName,
+                    Owner = MainWindow.Instance
+                };
 
                 if (win.ShowDialog() == false)
                 {
@@ -518,11 +534,13 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         private void CreateScript_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            NewScriptWindow win = new NewScriptWindow();
-            win.Title = "New script";
-            win.InputName = "name of the script";
-            //win.IsValidInputNameCallback = GraphDataManager.Instance.IsValidName;
-            win.Owner = MainWindow.Instance;
+            NewScriptWindow win = new NewScriptWindow
+            {
+                Title = "New script",
+                InputName = "name of the script",
+                //win.IsValidInputNameCallback = GraphDataManager.Instance.IsValidName;
+                Owner = MainWindow.Instance
+            };
 
             if (win.ShowDialog() == false)
             {
@@ -543,9 +561,11 @@ namespace FlowSimulator.UI
                 && listBoxGraphScripts.SelectedItem is ScriptElement)
             {
                 ScriptElement el = listBoxGraphScripts.SelectedItem as ScriptElement;
-                NewScriptWindow win = new NewScriptWindow(el);
-                //win.IsValidInputNameCallback = GraphDataManager.Instance.IsValidName;
-                win.Owner = MainWindow.Instance;
+                NewScriptWindow win = new NewScriptWindow(el)
+                {
+                    //win.IsValidInputNameCallback = GraphDataManager.Instance.IsValidName;
+                    Owner = MainWindow.Instance
+                };
 
                 if (win.ShowDialog() == false)
                 {

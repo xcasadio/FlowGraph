@@ -38,7 +38,6 @@ namespace FlowGraphBase
         public List<Sequence> GraphListBackup
         {
             get;
-            private set;
         }
 
         /// <summary>
@@ -52,7 +51,6 @@ namespace FlowGraphBase
         public List<SequenceFunction> GraphFunctionListBackup
         {
             get;
-            private set;
         }
 
         /// <summary>
@@ -66,7 +64,6 @@ namespace FlowGraphBase
         public List<ScriptElement> ScriptElementListBackup
         {
             get;
-            private set;
         }
 
         #endregion //Properties

@@ -167,17 +167,19 @@ namespace FlowGraphBase
         {
             base.Load(node_);
 
-            foreach (XmlNode node in node_.SelectNodes("SlotList/Slot"))
+            foreach (XmlNode slotNode in node_.SelectNodes("SlotList/Slot"))
             {
-                int id = int.Parse(node.Attributes["id"].Value);
-                FunctionSlotType type = (FunctionSlotType) Enum.Parse(typeof(FunctionSlotType), node.Attributes["type"].Value);
+                int id = int.Parse(slotNode.Attributes["id"].Value);
+                FunctionSlotType type = (FunctionSlotType) Enum.Parse(typeof(FunctionSlotType), slotNode.Attributes["type"].Value);
 
                 if (_NextSlotId <= id) _NextSlotId = id + 1;
 
-                SequenceFunctionSlot slot = new SequenceFunctionSlot(id, type);
-                slot.Name = node.Attributes["name"].Value;
-                slot.IsArray = bool.Parse(node.Attributes["isArray"].Value);
-                slot.VariableType = Type.GetType(node.Attributes["varType"].Value);
+                SequenceFunctionSlot slot = new SequenceFunctionSlot(id, type)
+                {
+                    Name = slotNode.Attributes["name"].Value,
+                    IsArray = bool.Parse(slotNode.Attributes["isArray"].Value),
+                    VariableType = Type.GetType(slotNode.Attributes["varType"].Value)
+                };
 
                 _Slots.Add(slot);
             }

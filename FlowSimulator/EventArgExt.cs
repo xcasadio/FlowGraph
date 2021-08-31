@@ -14,7 +14,6 @@ namespace FlowSimulator
         public T Arg
         {
             get;
-            private set;
         }
 
         /// <summary>
@@ -39,7 +38,6 @@ namespace FlowSimulator
         public U Arg2
         {
             get;
-            private set;
         }
 
         /// <summary>
@@ -66,7 +64,6 @@ namespace FlowSimulator
         public V Arg3
         {
             get;
-            private set;
         }
 
         /// <summary>

@@ -154,8 +154,10 @@ namespace FlowGraphBase.Node.StandardVariableNode
 
         protected override SequenceNode CopyImpl()
         {
-            VariableNodeObject node = new VariableNodeObject();
-            node.Value = Value;
+            VariableNodeObject node = new VariableNodeObject
+            {
+                Value = Value
+            };
             return node;
         }
     }
@@ -183,8 +185,10 @@ namespace FlowGraphBase.Node.StandardVariableNode
 
         protected override SequenceNode CopyImpl()
         {
-            VariableNodeString node = new VariableNodeString();
-            node.Value = Value;
+            VariableNodeString node = new VariableNodeString
+            {
+                Value = Value
+            };
             return node;
         }
     }
@@ -209,8 +213,10 @@ namespace FlowGraphBase.Node.StandardVariableNode
 
         protected override SequenceNode CopyImpl()
         {
-            VariableNodeBool node = new VariableNodeBool();
-            node.Value = Value;
+            VariableNodeBool node = new VariableNodeBool
+            {
+                Value = Value
+            };
             return node;
         }
     }
@@ -237,8 +243,10 @@ namespace FlowGraphBase.Node.StandardVariableNode
 
         protected override SequenceNode CopyImpl()
         {
-            VariableNodeByte node = new VariableNodeByte();
-            node.Value = Value;
+            VariableNodeByte node = new VariableNodeByte
+            {
+                Value = Value
+            };
             return node;
         }
     }
@@ -263,8 +271,10 @@ namespace FlowGraphBase.Node.StandardVariableNode
 
         protected override SequenceNode CopyImpl()
         {
-            VariableNodeChar node = new VariableNodeChar();
-            node.Value = Value;
+            VariableNodeChar node = new VariableNodeChar
+            {
+                Value = Value
+            };
             return node;
         }
     }
@@ -289,8 +299,10 @@ namespace FlowGraphBase.Node.StandardVariableNode
 
         protected override SequenceNode CopyImpl()
         {
-            VariableNodeShort node = new VariableNodeShort();
-            node.Value = Value;
+            VariableNodeShort node = new VariableNodeShort
+            {
+                Value = Value
+            };
             return node;
         }
     }
@@ -315,8 +327,10 @@ namespace FlowGraphBase.Node.StandardVariableNode
 
         protected override SequenceNode CopyImpl()
         {
-            VariableNodeInt node = new VariableNodeInt();
-            node.Value = Value;
+            VariableNodeInt node = new VariableNodeInt
+            {
+                Value = Value
+            };
             return node;
         }
     }
@@ -341,8 +355,10 @@ namespace FlowGraphBase.Node.StandardVariableNode
 
         protected override SequenceNode CopyImpl()
         {
-            VariableNodeLong node = new VariableNodeLong();
-            node.Value = Value;
+            VariableNodeLong node = new VariableNodeLong
+            {
+                Value = Value
+            };
             return node;
         }
     }
@@ -367,8 +383,10 @@ namespace FlowGraphBase.Node.StandardVariableNode
 
         protected override SequenceNode CopyImpl()
         {
-            VariableNodeFloat node = new VariableNodeFloat();
-            node.Value = Value;
+            VariableNodeFloat node = new VariableNodeFloat
+            {
+                Value = Value
+            };
             return node;
         }
     }
@@ -393,8 +411,10 @@ namespace FlowGraphBase.Node.StandardVariableNode
 
         protected override SequenceNode CopyImpl()
         {
-            VariableNodeDouble node = new VariableNodeDouble();
-            node.Value = Value;
+            VariableNodeDouble node = new VariableNodeDouble
+            {
+                Value = Value
+            };
             return node;
         }
     }
@@ -423,8 +443,10 @@ namespace FlowGraphBase.Node.StandardVariableNode
 
         protected override SequenceNode CopyImpl()
         {
-            VariableNodeUByte node = new VariableNodeUByte();
-            node.Value = Value;
+            VariableNodeUByte node = new VariableNodeUByte
+            {
+                Value = Value
+            };
             return node;
         }
     }
@@ -449,8 +471,10 @@ namespace FlowGraphBase.Node.StandardVariableNode
 
         protected override SequenceNode CopyImpl()
         {
-            VariableNodeUShort node = new VariableNodeUShort();
-            node.Value = Value;
+            VariableNodeUShort node = new VariableNodeUShort
+            {
+                Value = Value
+            };
             return node;
         }
     }
@@ -475,8 +499,10 @@ namespace FlowGraphBase.Node.StandardVariableNode
 
         protected override SequenceNode CopyImpl()
         {
-            VariableNodeUInt node = new VariableNodeUInt();
-            node.Value = Value;
+            VariableNodeUInt node = new VariableNodeUInt
+            {
+                Value = Value
+            };
             return node;
         }
     }
@@ -501,8 +527,10 @@ namespace FlowGraphBase.Node.StandardVariableNode
 
         protected override SequenceNode CopyImpl()
         {
-            VariableNodeULong node = new VariableNodeULong();
-            node.Value = Value;
+            VariableNodeULong node = new VariableNodeULong
+            {
+                Value = Value
+            };
             return node;
         }
     }

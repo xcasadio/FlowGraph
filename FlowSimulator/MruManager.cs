@@ -244,9 +244,11 @@ namespace FlowSimulator
 
             while (myEnumerator.MoveNext())
             {
-                item = new MenuItem();
-                item.Header = GetDisplayName(myEnumerator.Current);
-                item.Tag = i++;
+                item = new MenuItem
+                {
+                    Header = GetDisplayName(myEnumerator.Current),
+                    Tag = i++
+                };
 
                 // subscribe to item's Click event
                 item.Click += OnMRUClicked;
@@ -431,7 +433,7 @@ namespace FlowSimulator
             FileName = fileName;
         }
 
-        public string FileName { get; private set; }
+        public string FileName { get; }
     }
 }
 

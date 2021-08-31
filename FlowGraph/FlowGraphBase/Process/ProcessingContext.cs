@@ -47,7 +47,6 @@ namespace FlowGraphBase.Process
         public int CallID
         {
             get;
-            private set;
         }
 
         /// <summary>
@@ -65,7 +64,6 @@ namespace FlowGraphBase.Process
         public SequenceBase SequenceBase
         {
             get;
-            private set;
         }
 
         /// <summary>
@@ -74,7 +72,6 @@ namespace FlowGraphBase.Process
         private MemoryStackFrameManager MemoryStackFrame
         {
             get;
-            set;
         }
 
         /// <summary>
@@ -111,7 +108,6 @@ namespace FlowGraphBase.Process
         public ProcessingContext Parent
         {
             get;
-            private set;
         }
 
         /// <summary>

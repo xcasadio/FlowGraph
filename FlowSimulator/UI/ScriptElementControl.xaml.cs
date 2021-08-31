@@ -29,7 +29,7 @@ namespace FlowSimulator.UI
         /// </summary>
         public ScriptElement Script
         {
-            get; private set;
+            get;
         }
 
 		#endregion //Properties
@@ -51,8 +51,10 @@ namespace FlowSimulator.UI
             textEditor.TextArea.TextEntering += textEditor_TextArea_TextEntering;
             textEditor.TextArea.TextEntered += textEditor_TextArea_TextEntered;
 
-            DispatcherTimer foldingUpdateTimer = new DispatcherTimer();
-            foldingUpdateTimer.Interval = TimeSpan.FromSeconds(2);
+            DispatcherTimer foldingUpdateTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(2)
+            };
             foldingUpdateTimer.Tick += foldingUpdateTimer_Tick;
             foldingUpdateTimer.Start();
 

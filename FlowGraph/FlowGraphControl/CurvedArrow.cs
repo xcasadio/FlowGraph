@@ -211,10 +211,12 @@ namespace FlowGraphUI
             if (Points.Count == 2 || Points.Count == 3)
             {
                 // Make a straight line.
-                PathFigure fig = new PathFigure();
-                fig.IsClosed = false;
-                fig.IsFilled = false;
-                fig.StartPoint = Points[0];
+                PathFigure fig = new PathFigure
+                {
+                    IsClosed = false,
+                    IsFilled = false,
+                    StartPoint = Points[0]
+                };
 
                 for (int i = 1; i < Points.Count; ++i)
                 {
@@ -235,10 +237,12 @@ namespace FlowGraphUI
                 if (adjustedPoints.Count == 4)
                 {
                     // Make a curved line.
-                    PathFigure fig = new PathFigure();
-                    fig.IsClosed = false;
-                    fig.IsFilled = false;
-                    fig.StartPoint = adjustedPoints[0];
+                    PathFigure fig = new PathFigure
+                    {
+                        IsClosed = false,
+                        IsFilled = false,
+                        StartPoint = adjustedPoints[0]
+                    };
                     fig.Segments.Add(new BezierSegment(adjustedPoints[1], adjustedPoints[2], adjustedPoints[3], true));
 
                     pathGeometry.Figures.Add(fig);
@@ -246,10 +250,12 @@ namespace FlowGraphUI
                 else if (adjustedPoints.Count >= 5)
                 {
                     // Make a curved line.
-                    PathFigure fig = new PathFigure();
-                    fig.IsClosed = false;
-                    fig.IsFilled = false;
-                    fig.StartPoint = adjustedPoints[0];
+                    PathFigure fig = new PathFigure
+                    {
+                        IsClosed = false,
+                        IsFilled = false,
+                        StartPoint = adjustedPoints[0]
+                    };
 
                     adjustedPoints.RemoveAt(0);
 

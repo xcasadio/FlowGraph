@@ -25,7 +25,6 @@ namespace FlowGraphBase
         public FunctionSlotChangedType Type
         {
             get;
-            private set;
         }
 
         /// <summary>
@@ -34,7 +33,6 @@ namespace FlowGraphBase
         public SequenceFunctionSlot FunctionSlot
         {
             get;
-            private set;
         }
 
 		#endregion //Properties

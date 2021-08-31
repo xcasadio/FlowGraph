@@ -69,8 +69,10 @@ namespace FlowGraphBaseTest
         public void Should_allocate_memory_in_MemoryStack()
         {
             var sequence = new Sequence("test");
-            var stringNode = new VariableNodeString();
-            stringNode.Value = "Test";
+            var stringNode = new VariableNodeString
+            {
+                Value = "Test"
+            };
             sequence.AddNode(stringNode);
             var memoryStack = new MemoryStack();
             sequence.AllocateAllVariables(memoryStack);

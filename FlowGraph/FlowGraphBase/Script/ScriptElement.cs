@@ -566,10 +566,12 @@ namespace FlowGraphBase.Script
 
                     if (_NextSlotId <= id) _NextSlotId = id + 1;
 
-                    SequenceFunctionSlot slot = new SequenceFunctionSlot(id, type);
-                    slot.Name = node.Attributes["name"].Value;
-                    slot.IsArray = bool.Parse(node.Attributes["isArray"].Value);
-                    slot.VariableType = Type.GetType(node.Attributes["varType"].Value);
+                    SequenceFunctionSlot slot = new SequenceFunctionSlot(id, type)
+                    {
+                        Name = node.Attributes["name"].Value,
+                        IsArray = bool.Parse(node.Attributes["isArray"].Value),
+                        VariableType = Type.GetType(node.Attributes["varType"].Value)
+                    };
 
                     _Slots.Add(slot);
                 }

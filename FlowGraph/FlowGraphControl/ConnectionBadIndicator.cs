@@ -18,7 +18,6 @@
         public string Message
         {
             get;
-            private set;
         }
 
         #endregion //Properties

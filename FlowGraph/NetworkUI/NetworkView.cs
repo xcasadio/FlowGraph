@@ -634,23 +634,31 @@ namespace NetworkUI
 
             CancelConnectionDraggingCommand = new RoutedCommand("CancelConnectionDragging", typeof(NetworkView));
 
-            CommandBinding binding = new CommandBinding();
-            binding.Command = SelectAllCommand;
+            CommandBinding binding = new CommandBinding
+            {
+                Command = SelectAllCommand
+            };
             binding.Executed += SelectAll_Executed;
             CommandManager.RegisterClassCommandBinding(typeof(NetworkView), binding);
 
-            binding = new CommandBinding();
-            binding.Command = SelectNoneCommand;
+            binding = new CommandBinding
+            {
+                Command = SelectNoneCommand
+            };
             binding.Executed += SelectNone_Executed;
             CommandManager.RegisterClassCommandBinding(typeof(NetworkView), binding);
 
-            binding = new CommandBinding();
-            binding.Command = InvertSelectionCommand;
+            binding = new CommandBinding
+            {
+                Command = InvertSelectionCommand
+            };
             binding.Executed += InvertSelection_Executed;
             CommandManager.RegisterClassCommandBinding(typeof(NetworkView), binding);
 
-            binding = new CommandBinding();
-            binding.Command = CancelConnectionDraggingCommand;
+            binding = new CommandBinding
+            {
+                Command = CancelConnectionDraggingCommand
+            };
             binding.Executed += CancelConnectionDragging_Executed;
             CommandManager.RegisterClassCommandBinding(typeof(NetworkView), binding);
         }

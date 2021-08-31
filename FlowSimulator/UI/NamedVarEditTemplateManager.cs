@@ -30,9 +30,11 @@ namespace FlowSimulator.UI
         /// </summary>
         public static void Initialize()
         {
-            ResourceDictionary res = new ResourceDictionary();
-            res.Source = new Uri("/FlowSimulator;component/UI/SharedVisualTemplates.xaml",
-                        UriKind.RelativeOrAbsolute);
+            ResourceDictionary res = new ResourceDictionary
+            {
+                Source = new Uri("/FlowSimulator;component/UI/SharedVisualTemplates.xaml",
+                    UriKind.RelativeOrAbsolute)
+            };
 
             DataTemplate numericTemplate = (DataTemplate) res["numericTemplate"];
             DataTemplate selectableTemplate = (DataTemplate)res["selectableTemplate"];
