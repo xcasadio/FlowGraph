@@ -21,8 +21,8 @@ namespace FlowGraphBase.Node.StandardEventNode
 
 		#region Fields
 
-        private int m_FunctionID = -1; // used when the node is loaded, in order to retrieve the function
-        private SequenceFunction m_Function;
+        private int _FunctionID = -1; // used when the node is loaded, in order to retrieve the function
+        private SequenceFunction _Function;
 
 		#endregion //Fields
 	
@@ -31,7 +31,7 @@ namespace FlowGraphBase.Node.StandardEventNode
         /// <summary>
         /// 
         /// </summary>
-        public override string Title => (GetFunction() == null ? "<null>" : m_Function.Name) + " function";
+        public override string Title => (GetFunction() == null ? "<null>" : _Function.Name) + " function";
 
         #endregion //Properties
 	
@@ -44,8 +44,8 @@ namespace FlowGraphBase.Node.StandardEventNode
         public OnEnterFunctionEvent(SequenceFunction func_)
             : base()
         {
-            m_Function = func_;
-            m_Function.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(OnFuntionPropertyChanged);
+            _Function = func_;
+            _Function.PropertyChanged += OnFuntionPropertyChanged;
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace FlowGraphBase.Node.StandardEventNode
         {
             GetFunction();
 
-            foreach (SequenceFunctionSlot slot in m_Function.Inputs)
+            foreach (SequenceFunctionSlot slot in _Function.Inputs)
             {
                 AddFunctionSlot((int)NodeSlotId.OutputStart + slot.ID, SlotType.VarOut, slot);
                 //AddSlot((int)NodeSlotId.OutputStart + slot.Id, slot.Name, SlotType.VarOut, typeof(int));
@@ -111,13 +111,13 @@ namespace FlowGraphBase.Node.StandardEventNode
         /// <returns></returns>
         private SequenceFunction GetFunction()
         {
-            if (m_Function == null
-                && m_FunctionID != -1)
+            if (_Function == null
+                && _FunctionID != -1)
             {
-                SetFunction(GraphDataManager.Instance.GetFunctionByID(m_FunctionID));
+                SetFunction(GraphDataManager.Instance.GetFunctionByID(_FunctionID));
             }
 
-            return m_Function;
+            return _Function;
         }
 
         /// <summary>
@@ -126,9 +126,9 @@ namespace FlowGraphBase.Node.StandardEventNode
         /// <returns></returns>
         private void SetFunction(SequenceFunction func_)
         {
-            m_Function = func_;
-            m_Function.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(OnFuntionPropertyChanged);
-            m_Function.FunctionSlotChanged += new EventHandler<FunctionSlotChangedEventArg>(OnFunctionSlotChanged);
+            _Function = func_;
+            _Function.PropertyChanged += OnFuntionPropertyChanged;
+            _Function.FunctionSlotChanged += OnFunctionSlotChanged;
             UpdateNodeSlot();
         }
 
@@ -145,10 +145,10 @@ namespace FlowGraphBase.Node.StandardEventNode
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="param_"></param>
-        protected override void TriggeredImpl(object param_)
+        /// <param name="para_"></param>
+        protected override void TriggeredImpl(object para_)
         {
-            //SetValueInSlot(1, param_);
+            //SetValueInSlot(1, para_);
         }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace FlowGraphBase.Node.StandardEventNode
         protected override void Load(XmlNode node_)
         {
             base.Load(node_);
-            m_FunctionID = int.Parse(node_.Attributes["functionID"].Value);
+            _FunctionID = int.Parse(node_.Attributes["functionID"].Value);
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace FlowGraphBase.Node.StandardEventNode
         /// <returns></returns>
         protected override SequenceNode CopyImpl()
         {
-            return new OnEnterFunctionEvent(m_Function);
+            return new OnEnterFunctionEvent(_Function);
         }
 
         #region Link with SequenceFunction

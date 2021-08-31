@@ -74,7 +74,7 @@
                             </ListBox.ItemTemplate>
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-                                    <EventSetter Event="MouseDoubleClick" Handler="ListBoxGraphItem_MouseDoubleClick"  />
+                                    <EventSetter Event="MouseDoubleClick" Handler="ListBoxGraphIte_MouseDoubleClick"  />
                                 </Style>
                             </ListBox.ItemContainerStyle>
                         </ListBox>
@@ -117,7 +117,7 @@
                             </ListBox.ItemTemplate>
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-                                    <EventSetter Event="MouseDoubleClick" Handler="ListBoxGraphFunctionItem_MouseDoubleClick"  />
+                                    <EventSetter Event="MouseDoubleClick" Handler="ListBoxGraphFunctionIte_MouseDoubleClick"  />
                                 </Style>
                             </ListBox.ItemContainerStyle>
                         </ListBox>
@@ -193,7 +193,7 @@
                             </ListBox.ItemTemplate>
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-                                    <EventSetter Event="MouseDoubleClick" Handler="ListBoxGraphScriptItem_MouseDoubleClick"  />
+                                    <EventSetter Event="MouseDoubleClick" Handler="ListBoxGraphScriptIte_MouseDoubleClick"  />
                                 </Style>
                             </ListBox.ItemContainerStyle>
                         </ListBox>

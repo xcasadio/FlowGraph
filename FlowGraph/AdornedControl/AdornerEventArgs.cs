@@ -4,15 +4,13 @@ namespace AdornedControl
 {
     public class AdornerEventArgs : RoutedEventArgs
     {
-        private FrameworkElement adorner = null;
-
         public AdornerEventArgs(RoutedEvent routedEvent, object source, FrameworkElement adorner) :
             base(routedEvent, source)
         {
-            this.adorner = adorner;
+            this.Adorner = adorner;
         }
 
-        public FrameworkElement Adorner => adorner;
+        public FrameworkElement Adorner { get; } = null;
     }
 
     public delegate void AdornerEventHandler(object sender, AdornerEventArgs e);

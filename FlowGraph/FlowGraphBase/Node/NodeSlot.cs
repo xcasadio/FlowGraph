@@ -44,9 +44,9 @@ namespace FlowGraphBase.Node
 
         public event EventHandler Activated;
 
-        private string m_Text;
-        private Type m_VariableType;
-        private VariableControlType m_ControlType;
+        private string _Text;
+        private Type _VariableType;
+        private VariableControlType _ControlType;
 
 		#endregion //Fields
 	
@@ -63,12 +63,12 @@ namespace FlowGraphBase.Node
         /// </summary>
         public virtual string Text
         {
-            get => m_Text;
+            get => _Text;
             set 
             {
-                if (string.Equals(m_Text, value) == false)
+                if (string.Equals(_Text, value) == false)
                 {
-                    m_Text = value;
+                    _Text = value;
                     OnPropertyChanged("Text");
                 }
             }
@@ -79,12 +79,12 @@ namespace FlowGraphBase.Node
         /// </summary>
         public virtual Type VariableType
         {
-            get => m_VariableType;
+            get => _VariableType;
             set
             {
-                if (m_VariableType != value)
+                if (_VariableType != value)
                 {
-                    m_VariableType = value;
+                    _VariableType = value;
                     OnPropertyChanged("VariableType");
                 }
             }
@@ -95,12 +95,12 @@ namespace FlowGraphBase.Node
         /// </summary>
         public virtual VariableControlType ControlType
         {
-            get => m_ControlType;
+            get => _ControlType;
             set
             {
-                if (m_ControlType != value)
+                if (_ControlType != value)
                 {
-                    m_ControlType = value;
+                    _ControlType = value;
                     OnPropertyChanged("ControlType");
                 }
             }
@@ -285,8 +285,8 @@ namespace FlowGraphBase.Node
     {
         #region Fields
 
-        private ValueContainer m_Value;
-        private bool m_SaveValue;
+        private ValueContainer _Value;
+        private bool _SaveValue;
 
         #endregion //Fields
 
@@ -297,8 +297,8 @@ namespace FlowGraphBase.Node
         /// </summary>
         public object Value
         {
-            get => m_Value.Value;
-            set { m_Value.Value = value; OnPropertyChanged("Value"); }
+            get => _Value.Value;
+            set { _Value.Value = value; OnPropertyChanged("Value"); }
         }
 
         #endregion //Properties
@@ -321,7 +321,7 @@ namespace FlowGraphBase.Node
             object tag_ = null, bool saveValue_ = true) :
             base(slotId_, node_, text_, connectionType_, type_, controlType_, tag_)
         {
-            m_SaveValue = saveValue_;
+            _SaveValue = saveValue_;
 
             object val = null;
 
@@ -348,7 +348,7 @@ namespace FlowGraphBase.Node
                 val = string.Empty;
             }
 
-            m_Value = new ValueContainer(type_, val);
+            _Value = new ValueContainer(type_, val);
         }
 
         #endregion //Constructors
@@ -365,11 +365,11 @@ namespace FlowGraphBase.Node
         {
             base.Save(node_);
 
-            node_.AddAttribute("saveValue", m_SaveValue.ToString());
+            node_.AddAttribute("saveValue", _SaveValue.ToString());
 
-            if (m_SaveValue)
+            if (_SaveValue)
             {
-                m_Value.Save(node_);
+                _Value.Save(node_);
             }
         }
 
@@ -381,9 +381,9 @@ namespace FlowGraphBase.Node
         {
             base.Load(node_);
 
-            if (m_SaveValue)
+            if (_SaveValue)
             {
-                m_Value.Load(node_);
+                _Value.Load(node_);
             }
         }
 
@@ -400,7 +400,7 @@ namespace FlowGraphBase.Node
     {
         #region Fields
 
-        private SequenceFunctionSlot m_FuncSlot;
+        private SequenceFunctionSlot _FuncSlot;
 
         #endregion //Fields
 
@@ -411,12 +411,12 @@ namespace FlowGraphBase.Node
         /// </summary>
         public override string Text
         {
-            get => m_FuncSlot == null ? string.Empty : m_FuncSlot.Name;
+            get => _FuncSlot == null ? string.Empty : _FuncSlot.Name;
             set 
             {
-                if (m_FuncSlot != null)
+                if (_FuncSlot != null)
                 {
-                    m_FuncSlot.Name = value;
+                    _FuncSlot.Name = value;
                 }
             }
         }
@@ -426,12 +426,12 @@ namespace FlowGraphBase.Node
         /// </summary>
         public override Type VariableType
         {
-            get => m_FuncSlot == null ? null : m_FuncSlot.VariableType;
+            get => _FuncSlot == null ? null : _FuncSlot.VariableType;
             set
             {
-                if (m_FuncSlot != null)
+                if (_FuncSlot != null)
                 {
-                    m_FuncSlot.VariableType = value;
+                    _FuncSlot.VariableType = value;
                 }
             }
         }
@@ -468,8 +468,8 @@ namespace FlowGraphBase.Node
                     tag_, 
                     saveValue_)
         {
-            m_FuncSlot = slot_;
-            m_FuncSlot.PropertyChanged += new PropertyChangedEventHandler(OnFunctionSlotPropertyChanged);
+            _FuncSlot = slot_;
+            _FuncSlot.PropertyChanged += OnFunctionSlotPropertyChanged;
         }
 
         #endregion //Constructors

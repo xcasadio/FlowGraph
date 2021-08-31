@@ -69,13 +69,13 @@ namespace FlowSimulator.UI
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vm_"></param>
-//         public void OpenGraphInNewTab(FlowGraphControlViewModel vm_)
+        /// <param name="v_"></param>
+//         public void OpenGraphInNewTab(FlowGraphControlViewModel v_)
 //         {
 //             foreach (TabItem item in tabControl.Items)
 //             {
 //                 FlowGraphControlViewModel fgvm = item.DataContext as FlowGraphControlViewModel;
-//                 if (fgvm.Id == vm_.Id)
+//                 if (fgvm.Id == v_.Id)
 //                 {
 //                     tabControl.SelectedItem = item;
 //                     return;
@@ -83,13 +83,13 @@ namespace FlowSimulator.UI
 //             }
 // 
 //             TabItem tab = new TabItem();
-//             tab.DataContext = vm_;
+//             tab.DataContext = v_;
 //             FlowGraphControl fgc = new FlowGraphControl();
-//             fgc.DataContext = vm_;
+//             fgc.DataContext = v_;
 //             tab.Content = fgc;
 // 
 //             Binding bind = new Binding("Name");
-//             bind.Source = vm_;
+//             bind.Source = v_;
 //             tab.SetBinding(TabItem.HeaderProperty, bind);
 // 
 //             tabControl.SelectedIndex = tabControl.Items.Add(tab);
@@ -98,13 +98,13 @@ namespace FlowSimulator.UI
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vm_"></param>
-        public void CloseTab(FlowGraphControlViewModel vm_)
+        /// <param name="v_"></param>
+        public void CloseTab(FlowGraphControlViewModel v_)
         {
             foreach (TabItem item in tabControl.Items)
             {
                 FlowGraphControlViewModel fgvm = item.DataContext as FlowGraphControlViewModel;
-                if (fgvm.ID == vm_.ID)
+                if (fgvm.ID == v_.ID)
                 {
                     tabControl.Items.Remove(item);
                     return;

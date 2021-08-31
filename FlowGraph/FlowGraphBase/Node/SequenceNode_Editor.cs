@@ -16,11 +16,11 @@ namespace FlowGraphBase.Node
         #region Fields
 
         //Used to convert a SequenceNode to a Node (graphic node)
-        protected List<NodeSlot> m_Slots = new List<NodeSlot>();
+        protected List<NodeSlot> _Slots = new List<NodeSlot>();
 
-        private string m_CustomText;
+        private string _CustomText;
 
-        private bool m_IsProcessing = false;
+        private bool _IsProcessing = false;
 
         #endregion // Fields
 
@@ -68,10 +68,10 @@ namespace FlowGraphBase.Node
         /// </summary>
         public string CustomText
         {
-            get => m_CustomText;
+            get => _CustomText;
             set 
             { 
-                m_CustomText = value;
+                _CustomText = value;
                 OnPropertyChanged("CustomText");
             }
         }
@@ -80,17 +80,17 @@ namespace FlowGraphBase.Node
         /// 
         /// </summary>
         [Browsable(false)]
-        public NodeSlot[] Slots => m_Slots.ToArray();
+        public NodeSlot[] Slots => _Slots.ToArray();
 
         /// <summary>
         /// 
         /// </summary>
         public bool IsProcessing
         {
-            get => m_IsProcessing;
+            get => _IsProcessing;
             set 
             {
-                m_IsProcessing = value;
+                _IsProcessing = value;
                 OnPropertyChanged("IsProcessing");
             }
         }
@@ -105,7 +105,7 @@ namespace FlowGraphBase.Node
         {
             get
             {
-                foreach (var slot in m_Slots)
+                foreach (var slot in _Slots)
                 {
                     if (slot.ConnectionType == SlotType.NodeIn)
                     {
@@ -125,7 +125,7 @@ namespace FlowGraphBase.Node
         {
             get
             {
-                foreach (var slot in m_Slots)
+                foreach (var slot in _Slots)
                 {
                     if (slot.ConnectionType == SlotType.NodeOut)
                     {
@@ -145,7 +145,7 @@ namespace FlowGraphBase.Node
             {
                 int i = 0;
 
-                foreach (var slot in m_Slots)
+                foreach (var slot in _Slots)
                 {
                     if (slot.ConnectionType == SlotType.NodeOut)
                     {
@@ -165,7 +165,7 @@ namespace FlowGraphBase.Node
         {
             get
             {
-                foreach (var slot in m_Slots)
+                foreach (var slot in _Slots)
                 {
                     if (slot.ConnectionType == SlotType.VarIn)
                     {
@@ -185,7 +185,7 @@ namespace FlowGraphBase.Node
             {
                 int i = 0;
 
-                foreach (var slot in m_Slots)
+                foreach (var slot in _Slots)
                 {
                     if (slot.ConnectionType == SlotType.VarIn)
                     {
@@ -205,7 +205,7 @@ namespace FlowGraphBase.Node
         {
             get
             {
-                foreach (var slot in m_Slots)
+                foreach (var slot in _Slots)
                 {
                     if (slot.ConnectionType == SlotType.VarOut)
                     {
@@ -225,7 +225,7 @@ namespace FlowGraphBase.Node
             {
                 int i = 0;
 
-                foreach (var slot in m_Slots)
+                foreach (var slot in _Slots)
                 {
                     if (slot.ConnectionType == SlotType.VarOut)
                     {
@@ -245,7 +245,7 @@ namespace FlowGraphBase.Node
         {
             get
             {
-                foreach (var slot in m_Slots)
+                foreach (var slot in _Slots)
                 {
                     if (slot.ConnectionType == SlotType.VarInOut)
                     {
@@ -265,7 +265,7 @@ namespace FlowGraphBase.Node
             {
                 int i = 0;
 
-                foreach (var slot in m_Slots)
+                foreach (var slot in _Slots)
                 {
                     if (slot.ConnectionType == SlotType.VarInOut)
                     {
@@ -370,42 +370,42 @@ namespace FlowGraphBase.Node
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="item_"></param>
-        private void AddSlot(NodeSlot item_)
+        /// <param name="ite_"></param>
+        private void AddSlot(NodeSlot ite_)
         {
-            foreach (NodeSlot slot in m_Slots)
+            foreach (NodeSlot slot in _Slots)
             {
-                if (slot.ID == item_.ID)
+                if (slot.ID == ite_.ID)
                 {
-                    throw new InvalidOperationException("A slot with the Id '" + item_.ID + "' already exists.");
+                    throw new InvalidOperationException("A slot with the Id '" + ite_.ID + "' already exists.");
                 }
             }
 
             if (HasSlotConnectorIn == false
-                && item_.ConnectionType == SlotType.NodeIn)
+                && ite_.ConnectionType == SlotType.NodeIn)
             {
                 throw new InvalidOperationException("This type of node can not have IN connector.");
             }
 
             if (HasSlotConnectorOut == false
-                && item_.ConnectionType == SlotType.NodeOut)
+                && ite_.ConnectionType == SlotType.NodeOut)
             {
                 throw new InvalidOperationException("This type of node can not have OUT connector.");
             }
 
             if (HasSlotVariableIn == false
-                && item_.ConnectionType == SlotType.VarIn)
+                && ite_.ConnectionType == SlotType.VarIn)
             {
                 throw new InvalidOperationException("This type of node can not have IN variable.");
             }
 
             if (HasSlotVariableOut == false
-                && item_.ConnectionType == SlotType.VarOut)
+                && ite_.ConnectionType == SlotType.VarOut)
             {
                 throw new InvalidOperationException("This type of node can not have OUT variable.");
             }
 
-            m_Slots.Add(item_);
+            _Slots.Add(ite_);
         }
 
         /// <summary>
@@ -414,11 +414,11 @@ namespace FlowGraphBase.Node
         /// <param name="id_"></param>
         public void RemoveSlotById(int id_)
         {
-            foreach (NodeSlot s in m_Slots)
+            foreach (NodeSlot s in _Slots)
             {
                 if (s.ID == id_)
                 {
-                    m_Slots.Remove(s);
+                    _Slots.Remove(s);
                     OnPropertyChanged("Slots");
                     break;
                 }
@@ -461,7 +461,7 @@ namespace FlowGraphBase.Node
             seqNodeNode_.AddAttribute("type", typeName);
 
             //Save slots
-            foreach (NodeSlot slot in m_Slots)
+            foreach (NodeSlot slot in _Slots)
             {
                 XmlNode nodeSlot = seqNodeNode_.OwnerDocument.CreateElement("Slot");
                 seqNodeNode_.AppendChild(nodeSlot);
@@ -476,7 +476,7 @@ namespace FlowGraphBase.Node
         public void SaveConnections(XmlNode connectionListNode_)
         {
             const int versionConnection = 1;
-            foreach (NodeSlot slot in m_Slots)
+            foreach (NodeSlot slot in _Slots)
             {
                 foreach (NodeSlot otherSlot in slot.ConnectedNodes)
                 {

@@ -7,11 +7,11 @@ namespace FlowSimulator.UI
     /// <summary>
     /// 
     /// </summary>
-    static public class VariableTypeInspector
+    public static class VariableTypeInspector
     {
 		#region Fields
 
-        static private List<Type> m_Types = new List<Type>();
+        private static List<Type> _Types = new List<Type>();
 
 		#endregion //Fields
 	
@@ -20,12 +20,12 @@ namespace FlowSimulator.UI
         /// <summary>
         /// 
         /// </summary>
-        static public IEnumerable<Type> Types => m_Types;
+        public static IEnumerable<Type> Types => _Types;
 
         /// <summary>
         /// 
         /// </summary>
-        static public Color BooleanColor
+        public static Color BooleanColor
         {
             get;
             set;
@@ -34,7 +34,7 @@ namespace FlowSimulator.UI
         /// <summary>
         /// 
         /// </summary>
-        static public Color IntegerColor
+        public static Color IntegerColor
         {
             get;
             set;
@@ -43,7 +43,7 @@ namespace FlowSimulator.UI
         /// <summary>
         /// 
         /// </summary>
-        static public Color DoubleColor
+        public static Color DoubleColor
         {
             get;
             set;
@@ -52,7 +52,7 @@ namespace FlowSimulator.UI
         /// <summary>
         /// 
         /// </summary>
-        static public Color StringColor
+        public static Color StringColor
         {
             get;
             set;
@@ -61,7 +61,7 @@ namespace FlowSimulator.UI
         /// <summary>
         /// 
         /// </summary>
-        static public Color ObjectColor
+        public static Color ObjectColor
         {
             get;
             set;
@@ -70,7 +70,7 @@ namespace FlowSimulator.UI
         /// <summary>
         /// 
         /// </summary>
-        static public Color MessageColor
+        public static Color MessageColor
         {
             get;
             set;
@@ -85,20 +85,20 @@ namespace FlowSimulator.UI
         /// </summary>
         static VariableTypeInspector()
         {
-            m_Types.Add(typeof(bool));
-            m_Types.Add(typeof(sbyte));
-            m_Types.Add(typeof(char)); 
-            m_Types.Add(typeof(short));
-            m_Types.Add(typeof(int));
-            m_Types.Add(typeof(long));
-            m_Types.Add(typeof(byte));
-            m_Types.Add(typeof(ushort));
-            m_Types.Add(typeof(uint));
-            m_Types.Add(typeof(ulong));
-            m_Types.Add(typeof(float));
-            m_Types.Add(typeof(double));
-            m_Types.Add(typeof(string));
-            m_Types.Add(typeof(object));
+            _Types.Add(typeof(bool));
+            _Types.Add(typeof(sbyte));
+            _Types.Add(typeof(char)); 
+            _Types.Add(typeof(short));
+            _Types.Add(typeof(int));
+            _Types.Add(typeof(long));
+            _Types.Add(typeof(byte));
+            _Types.Add(typeof(ushort));
+            _Types.Add(typeof(uint));
+            _Types.Add(typeof(ulong));
+            _Types.Add(typeof(float));
+            _Types.Add(typeof(double));
+            _Types.Add(typeof(string));
+            _Types.Add(typeof(object));
         }
 
 		#endregion //Constructors
@@ -108,7 +108,7 @@ namespace FlowSimulator.UI
         /// <summary>
         /// 
         /// </summary>
-        static public void SetDefaultValues()
+        public static void SetDefaultValues()
         {
             BooleanColor = Colors.Red;
             IntegerColor = Colors.Cyan;
@@ -122,7 +122,7 @@ namespace FlowSimulator.UI
         /// 
         /// </summary>
         /// <param name="type_"></param>
-        static public Color GetColorFromType(Type type_)
+        public static Color GetColorFromType(Type type_)
         {
             if (type_ == typeof(bool))
             {
@@ -162,7 +162,7 @@ namespace FlowSimulator.UI
         /// 
         /// </summary>
         /// <param name="type_"></param>
-        static public object CreateDefaultValueFromType(Type type_)
+        public static object CreateDefaultValueFromType(Type type_)
         {
             if (type_ == typeof(string))
             {
@@ -178,7 +178,7 @@ namespace FlowSimulator.UI
         /// <param name="a_"></param>
         /// <param name="b_"></param>
         /// <returns></returns>
-        static public bool CheckCompatibilityType(Type a_, Type b_)
+        public static bool CheckCompatibilityType(Type a_, Type b_)
         {
             if (a_ == typeof(float)
                 || a_ == typeof(double))

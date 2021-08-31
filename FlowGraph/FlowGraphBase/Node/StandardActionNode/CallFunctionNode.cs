@@ -26,8 +26,8 @@ namespace FlowGraphBase.Node.StandardActionNode
 
         #region Fields
 
-        private int m_FunctionID = -1; // used when the node is loaded, in order to retrieve the function
-        private SequenceFunction m_Function;
+        private int _FunctionID = -1; // used when the node is loaded, in order to retrieve the function
+        private SequenceFunction _Function;
 
         #endregion //Fields
 
@@ -36,7 +36,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <summary>
         /// 
         /// </summary>
-        public override string Title => (GetFunction() == null ? "<null>" : m_Function.Name) + " function";
+        public override string Title => (GetFunction() == null ? "<null>" : _Function.Name) + " function";
 
         #endregion //Properties
 
@@ -109,13 +109,13 @@ namespace FlowGraphBase.Node.StandardActionNode
         {
             GetFunction();
 
-            foreach (SequenceFunctionSlot slot in m_Function.Inputs)
+            foreach (SequenceFunctionSlot slot in _Function.Inputs)
             {
                 AddFunctionSlot((int)NodeSlotId.InputStart + slot.ID, SlotType.VarIn, slot);
                 //AddSlot((int)NodeSlotId.InputStart + slot.Id, slot.Name, SlotType.VarIn, slot.VarType);
             }
 
-            foreach (SequenceFunctionSlot slot in m_Function.Outputs)
+            foreach (SequenceFunctionSlot slot in _Function.Outputs)
             {
                 AddFunctionSlot((int)NodeSlotId.OutputStart + slot.ID, SlotType.VarOut, slot);
                 //AddSlot((int)NodeSlotId.OutputStart + slot.Id, slot.Name, SlotType.VarOut, slot.VarType);
@@ -138,13 +138,13 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <returns></returns>
         private SequenceFunction GetFunction()
         {
-            if (m_Function == null
-                && m_FunctionID != -1)
+            if (_Function == null
+                && _FunctionID != -1)
             {
-                SetFunction(GraphDataManager.Instance.GetFunctionByID(m_FunctionID));
+                SetFunction(GraphDataManager.Instance.GetFunctionByID(_FunctionID));
             }
 
-            return m_Function;
+            return _Function;
         }
 
         /// <summary>
@@ -153,9 +153,9 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <returns></returns>
         private void SetFunction(SequenceFunction func_)
         {
-            m_Function = func_;
-            m_Function.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(OnFuntionPropertyChanged);
-            m_Function.FunctionSlotChanged += new EventHandler<FunctionSlotChangedEventArg>(OnFunctionSlotChanged);
+            _Function = func_;
+            _Function.PropertyChanged += OnFuntionPropertyChanged;
+            _Function.FunctionSlotChanged += OnFunctionSlotChanged;
             UpdateNodeSlot();
         }
 
@@ -189,7 +189,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <returns></returns>
         protected override SequenceNode CopyImpl()
         {
-            return new CallFunctionNode(m_Function);
+            return new CallFunctionNode(_Function);
         }
 
         #region Persistence
@@ -201,7 +201,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         protected override void Load(XmlNode node_)
         {
             base.Load(node_);
-            m_FunctionID = int.Parse(node_.Attributes["functionID"].Value);
+            _FunctionID = int.Parse(node_.Attributes["functionID"].Value);
         }
 
         /// <summary>

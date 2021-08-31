@@ -11,7 +11,7 @@ namespace FlowSimulator.UI
     {
         #region Fields
 
-        static private Dictionary<Type, DataTemplate> m_TemplatesByTypes = new Dictionary<Type, DataTemplate>(15);
+        private static Dictionary<Type, DataTemplate> _TemplatesByTypes = new Dictionary<Type, DataTemplate>(15);
 
         #endregion //Fields
         
@@ -28,7 +28,7 @@ namespace FlowSimulator.UI
         /// <summary>
         /// 
         /// </summary>
-        static public void Initialize()
+        public static void Initialize()
         {
             ResourceDictionary res = new ResourceDictionary();
             res.Source = new Uri("/FlowSimulator;component/UI/SharedVisualTemplates.xaml",
@@ -67,7 +67,7 @@ namespace FlowSimulator.UI
         /// </summary>
         /// <param name="type_"></param>
         /// <param name="template_"></param>
-        static public void Add(Type type_, DataTemplate template_)
+        public static void Add(Type type_, DataTemplate template_)
         {
             if (type_ == null)
             {
@@ -79,23 +79,23 @@ namespace FlowSimulator.UI
                 throw new ArgumentNullException("DataTemplate cannot be null");
             }
 
-            m_TemplatesByTypes.Add(type_, template_);
+            _TemplatesByTypes.Add(type_, template_);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="type_"></param>
-        static public DataTemplate GetTemplateByType(Type type_)
+        public static DataTemplate GetTemplateByType(Type type_)
         {
             if (type_ == null)
             {
                 return null;
             }
 
-            if (m_TemplatesByTypes.ContainsKey(type_))
+            if (_TemplatesByTypes.ContainsKey(type_))
             {
-                return m_TemplatesByTypes[type_];
+                return _TemplatesByTypes[type_];
             }
 
             return null;
@@ -106,9 +106,9 @@ namespace FlowSimulator.UI
         /// </summary>
         /// <param name="type_"></param>
         /// <returns></returns>
-        static public bool ContainsType(Type type_)
+        public static bool ContainsType(Type type_)
         {
-            return type_ == null ? false : m_TemplatesByTypes.ContainsKey(type_);
+            return type_ == null ? false : _TemplatesByTypes.ContainsKey(type_);
         }
         
         #endregion //Methods

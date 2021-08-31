@@ -19,9 +19,9 @@ namespace FlowGraphBase
     {
 		#region Fields
 
-        private string m_Name;
-        private Type m_VarType;
-        private bool m_IsArray;
+        private string _Name;
+        private Type _VarType;
+        private bool _IsArray;
 
 		#endregion //Fields
 	
@@ -50,12 +50,12 @@ namespace FlowGraphBase
         /// </summary>
         public string Name
         {
-            get => m_Name;
+            get => _Name;
             set
             {
-                if (m_Name != value)
+                if (_Name != value)
                 {
-                    m_Name = value;
+                    _Name = value;
                     OnPropertyChanged("Name");
                 }
             }
@@ -66,12 +66,12 @@ namespace FlowGraphBase
         /// </summary>
         public Type VariableType
         {
-            get => m_VarType;
+            get => _VarType;
             set
             {
-                if (m_VarType != value)
+                if (_VarType != value)
                 {
-                    m_VarType = value;
+                    _VarType = value;
                     OnPropertyChanged("VariableType");
                 }
             }
@@ -82,12 +82,12 @@ namespace FlowGraphBase
         /// </summary>
         public bool IsArray
         {
-            get => m_IsArray;
+            get => _IsArray;
             set
             {
-                if (m_IsArray != value)
+                if (_IsArray != value)
                 {
-                    m_IsArray = value;
+                    _IsArray = value;
                     OnPropertyChanged("IsArray");
                 }
             }

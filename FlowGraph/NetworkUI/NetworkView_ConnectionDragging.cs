@@ -49,7 +49,7 @@ namespace NetworkUI
         /// <summary>
         /// Event raised when the user starts to drag a connector.
         /// </summary>
-        private void ConnectorItem_DragStarted(object source, ConnectorItemDragStartedEventArgs e)
+        private void ConnectorIte_DragStarted(object source, ConnectorItemDragStartedEventArgs e)
         {
             Focus();
 
@@ -90,7 +90,7 @@ namespace NetworkUI
         /// <summary>
         /// Event raised while the user is dragging a connector.
         /// </summary>
-        private void ConnectorItem_Dragging(object source, ConnectorItemDraggingEventArgs e)
+        private void ConnectorIte_Dragging(object source, ConnectorItemDraggingEventArgs e)
         {
             e.Handled = true;
 
@@ -156,7 +156,7 @@ namespace NetworkUI
         /// <summary>
         /// Event raised when the user has finished dragging a connector.
         /// </summary>
-        private void ConnectorItem_DragCompleted(object source, ConnectorItemDragCompletedEventArgs e)
+        private void ConnectorIte_DragCompleted(object source, ConnectorItemDragCompletedEventArgs e)
         {
             e.Handled = true;
 

@@ -10,8 +10,8 @@ namespace FlowGraphBase
     {
 		#region Fields
 
-        string m_Name;
-        ValueContainer m_Value;
+        string _Name;
+        ValueContainer _Value;
 
 		#endregion //Fields
 	
@@ -22,10 +22,10 @@ namespace FlowGraphBase
         /// </summary>
         public string Name
         {
-            get => m_Name;
+            get => _Name;
             set
             {
-                m_Name = value;
+                _Name = value;
                 OnPropertyChanged("Name");
             }
         }
@@ -35,34 +35,34 @@ namespace FlowGraphBase
         /// </summary>
         public object Value
         {
-            get => m_Value.Value;
-            set => m_Value.Value = value;
+            get => _Value.Value;
+            set => _Value.Value = value;
             //OnPropertyChanged("Value");
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public Type VariableType => m_Value.VariableType;
+        public Type VariableType => _Value.VariableType;
 
         /// <summary>
         /// 
         /// </summary>
         internal ValueContainer InternalValueContainer
         {
-            get => m_Value;
+            get => _Value;
             set 
             {
-                if (m_Value != null)
+                if (_Value != null)
                 {
-                    m_Value.PropertyChanged -= new PropertyChangedEventHandler(OnValueContainerPropertyChanged);
+                    _Value.PropertyChanged -= OnValueContainerPropertyChanged;
                 }
 
-                m_Value = value;
+                _Value = value;
 
-                if (m_Value != null)
+                if (_Value != null)
                 {
-                    m_Value.PropertyChanged += new PropertyChangedEventHandler(OnValueContainerPropertyChanged);
+                    _Value.PropertyChanged += OnValueContainerPropertyChanged;
                 }
 
                 OnPropertyChanged("InternalValueContainer");

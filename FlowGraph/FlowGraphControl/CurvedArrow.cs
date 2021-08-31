@@ -83,7 +83,7 @@ namespace FlowGraphUI
         /// </summary>
         public CurvedArrow()
         {
-            DataContextChanged += new DependencyPropertyChangedEventHandler(OnDataContextChanged);
+            DataContextChanged += OnDataContextChanged;
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace FlowGraphUI
 
                 if (model.SourceConnector != null)
                 {
-                    model.SourceConnector.SourceSlot.Activated -= new EventHandler(OnNodeSlotActivated);
+                    model.SourceConnector.SourceSlot.Activated -= OnNodeSlotActivated;
                 }
             }
 
@@ -108,8 +108,8 @@ namespace FlowGraphUI
                 ConnectionViewModel model = e.NewValue as ConnectionViewModel;
                 if (model.SourceConnector != null)
                 {
-                    model.SourceConnector.SourceSlot.Activated -= new EventHandler(OnNodeSlotActivated);
-                    model.SourceConnector.SourceSlot.Activated += new EventHandler(OnNodeSlotActivated);
+                    model.SourceConnector.SourceSlot.Activated -= OnNodeSlotActivated;
+                    model.SourceConnector.SourceSlot.Activated += OnNodeSlotActivated;
                 }
             }
         }

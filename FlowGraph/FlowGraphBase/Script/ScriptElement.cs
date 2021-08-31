@@ -22,18 +22,17 @@ namespace FlowGraphBase.Script
 		#region Fields
 
         public delegate bool ScriptEntryDelegate(ScriptSlotDataCollection params_, ScriptSlotDataCollection ret_);
-        public ScriptEntryDelegate m_ScriptDelegate = null;
+        public ScriptEntryDelegate _ScriptDelegate = null;
 
-        static private int m_FreeID = 0;
+        private static int _FreeID = 0;
 
-        private string m_SourceCode = string.Empty;
-        private string m_Name;
-        private int m_ID;
+        private string _SourceCode = string.Empty;
+        private string _Name;
 
         public event EventHandler<FunctionSlotChangedEventArg> FunctionSlotChanged;
 
-        private ObservableCollection<SequenceFunctionSlot> m_Slots = new ObservableCollection<SequenceFunctionSlot>();
-        private int m_NextSlotId = 0;
+        private ObservableCollection<SequenceFunctionSlot> _Slots = new ObservableCollection<SequenceFunctionSlot>();
+        private int _NextSlotId = 0;
 
 		#endregion //Fields
 	
@@ -44,10 +43,10 @@ namespace FlowGraphBase.Script
         /// </summary>
         public string ScriptSourceCode
         {
-            get => m_SourceCode;
+            get => _SourceCode;
             set
             { 
-                m_SourceCode = value;
+                _SourceCode = value;
                 OnPropertyChanged("ScriptSourceCode");
             }
         }
@@ -57,10 +56,10 @@ namespace FlowGraphBase.Script
         /// </summary>
         private string ScriptSourceCodeBackup
         {
-            get => m_SourceCode;
+            get => _SourceCode;
             set
             {
-                m_SourceCode = value;
+                _SourceCode = value;
                 OnPropertyChanged("ScriptSourceCode");
             }
         }
@@ -93,10 +92,10 @@ namespace FlowGraphBase.Script
         /// </summary>
         public string Name
         {
-            get => m_Name;
+            get => _Name;
             set 
             { 
-                m_Name = value;
+                _Name = value;
                 OnPropertyChanged("Name");
             }
         }
@@ -104,7 +103,7 @@ namespace FlowGraphBase.Script
         /// <summary>
         /// 
         /// </summary>
-        public int ID => m_ID;
+        public int ID { get; private set; }
 
         /// <summary>
         /// 
@@ -115,7 +114,7 @@ namespace FlowGraphBase.Script
             {
                 int count = 0;
 
-                foreach (SequenceFunctionSlot s in m_Slots)
+                foreach (SequenceFunctionSlot s in _Slots)
                 {
                     if (s.SlotType == FunctionSlotType.Input)
                     {
@@ -136,7 +135,7 @@ namespace FlowGraphBase.Script
             {
                 int count = 0;
 
-                foreach (SequenceFunctionSlot s in m_Slots)
+                foreach (SequenceFunctionSlot s in _Slots)
                 {
                     if (s.SlotType == FunctionSlotType.Output)
                     {
@@ -155,7 +154,7 @@ namespace FlowGraphBase.Script
         {
             get
             {
-                foreach (SequenceFunctionSlot s in m_Slots)
+                foreach (SequenceFunctionSlot s in _Slots)
                 {
                     if (s.SlotType == FunctionSlotType.Input)
                     {
@@ -172,7 +171,7 @@ namespace FlowGraphBase.Script
         {
             get
             {
-                foreach (SequenceFunctionSlot s in m_Slots)
+                foreach (SequenceFunctionSlot s in _Slots)
                 {
                     if (s.SlotType == FunctionSlotType.Output)
                     {
@@ -191,13 +190,13 @@ namespace FlowGraphBase.Script
         /// </summary>
         public ScriptElement()
         {
-            m_ID = m_FreeID++;
+            ID = _FreeID++;
 
             ScriptSourceCode = "";
             ScriptSourceCodeBackup = "";
             LastScriptSourceCodeCompiled = "";
 
-            m_Slots.CollectionChanged += new NotifyCollectionChangedEventHandler(OnSlotCollectionChanged);
+            _Slots.CollectionChanged += OnSlotCollectionChanged;
         }
 
         /// <summary>
@@ -207,7 +206,7 @@ namespace FlowGraphBase.Script
         public ScriptElement(XmlNode node_)
         {
             Load(node_);
-            m_Slots.CollectionChanged += new NotifyCollectionChangedEventHandler(OnSlotCollectionChanged);
+            _Slots.CollectionChanged += OnSlotCollectionChanged;
         }
 
 		#endregion //Constructors
@@ -239,7 +238,7 @@ namespace FlowGraphBase.Script
         /// <param name="name_"></param>
         public void AddInput(string name_)
         {
-            AddSlot(new SequenceFunctionSlot(++m_NextSlotId, FunctionSlotType.Input) { Name = name_ });
+            AddSlot(new SequenceFunctionSlot(++_NextSlotId, FunctionSlotType.Input) { Name = name_ });
         }
 
         /// <summary>
@@ -248,7 +247,7 @@ namespace FlowGraphBase.Script
         /// <param name="name_"></param>
         public void AddOutput(string name_)
         {
-            AddSlot(new SequenceFunctionSlot(++m_NextSlotId, FunctionSlotType.Output) { Name = name_ });
+            AddSlot(new SequenceFunctionSlot(++_NextSlotId, FunctionSlotType.Output) { Name = name_ });
         }
 
         /// <summary>
@@ -260,7 +259,7 @@ namespace FlowGraphBase.Script
             slot_.IsArray = false;
             slot_.VariableType = typeof(int);
 
-            m_Slots.Add(slot_);
+            _Slots.Add(slot_);
 
             if (FunctionSlotChanged != null)
             {
@@ -274,11 +273,11 @@ namespace FlowGraphBase.Script
         /// <param name="id_"></param>
         public void RemoveSlotById(int id_)
         {
-            foreach (var slot in m_Slots)
+            foreach (var slot in _Slots)
             {
                 if (slot.ID == id_)
                 {
-                    m_Slots.Remove(slot);
+                    _Slots.Remove(slot);
 
                     if (FunctionSlotChanged != null)
                     {
@@ -309,12 +308,12 @@ namespace FlowGraphBase.Script
         /// <returns>True is the script is executed successfully</returns>
         public bool Run(ScriptSlotDataCollection parameters, ScriptSlotDataCollection returnVals)
         {
-            if (m_ScriptDelegate == null)
+            if (_ScriptDelegate == null)
             {
                 return false;
             }
 
-            return m_ScriptDelegate(parameters, returnVals);
+            return _ScriptDelegate(parameters, returnVals);
         }
 
         #region Compilation
@@ -338,7 +337,7 @@ namespace FlowGraphBase.Script
         {
             try
             {
-                string finalSrcCode = m_SrcFileTemplate.Replace("##_SCRIPT_CODE_##", srcText_);
+                string finalSrcCode = _SrcFileTemplate.Replace("##_SCRIPT_CODE_##", srcText_);
                 finalSrcCode = finalSrcCode.Replace("\r\n", "\n").Replace("\n", "\r\n");
 
                 finalSrcCode = finalSrcCode.Replace("##_CUSTOM_USING_##", ""); //TODO
@@ -455,7 +454,7 @@ namespace FlowGraphBase.Script
                         {
                             try
                             {
-                                m_ScriptDelegate = (ScriptEntryDelegate)Delegate.CreateDelegate(
+                                _ScriptDelegate = (ScriptEntryDelegate)Delegate.CreateDelegate(
                                         typeof(ScriptEntryDelegate), methInfo);
                             }
                             catch (Exception ex)
@@ -507,14 +506,14 @@ namespace FlowGraphBase.Script
             node_.AppendChild(scriptNode);
 
             scriptNode.AddAttribute("version", version.ToString());
-            scriptNode.AddAttribute("id", m_ID.ToString());
+            scriptNode.AddAttribute("id", ID.ToString());
             scriptNode.AddAttribute("name", Name);
 
             XmlNode slotListNode = node_.OwnerDocument.CreateElement("SlotList");
             scriptNode.AppendChild(slotListNode);
 
             //save slots
-            foreach (SequenceFunctionSlot s in m_Slots)
+            foreach (SequenceFunctionSlot s in _Slots)
             {
                 XmlNode slotNode = node_.OwnerDocument.CreateElement("Slot");
                 slotListNode.AppendChild(slotNode);
@@ -541,38 +540,38 @@ namespace FlowGraphBase.Script
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        public void Load(XmlNode node_)
+        /// <param name="scriptElementNode"></param>
+        public void Load(XmlNode scriptElementNode)
         {
             try
             {
                 Clear();
 
-                int version = int.Parse(node_.Attributes["version"].Value);
-                Name = node_.Attributes["name"].Value;
-                ScriptSourceCode = node_.SelectSingleNode("Code").InnerText;
+                int version = int.Parse(scriptElementNode.Attributes["version"].Value);
+                Name = scriptElementNode.Attributes["name"].Value;
+                ScriptSourceCode = scriptElementNode.SelectSingleNode("Code").InnerText;
                 ScriptSourceCodeBackup = ScriptSourceCode;
                 LastScriptSourceCodeCompiled = "";
 
-                m_ID = int.Parse(node_.Attributes["id"].Value);
-                if (m_FreeID <= m_ID)
+                ID = int.Parse(scriptElementNode.Attributes["id"].Value);
+                if (_FreeID <= ID)
                 {
-                    m_FreeID = m_ID + 1;
+                    _FreeID = ID + 1;
                 }
 
-                foreach (XmlNode node in node_.SelectNodes("SlotList/Slot"))
+                foreach (XmlNode node in scriptElementNode.SelectNodes("SlotList/Slot"))
                 {
                     int id = int.Parse(node.Attributes["id"].Value);
                     FunctionSlotType type = (FunctionSlotType)Enum.Parse(typeof(FunctionSlotType), node.Attributes["type"].Value);
 
-                    if (m_NextSlotId <= id) m_NextSlotId = id + 1;
+                    if (_NextSlotId <= id) _NextSlotId = id + 1;
 
                     SequenceFunctionSlot slot = new SequenceFunctionSlot(id, type);
                     slot.Name = node.Attributes["name"].Value;
                     slot.IsArray = bool.Parse(node.Attributes["isArray"].Value);
                     slot.VariableType = Type.GetType(node.Attributes["varType"].Value);
 
-                    m_Slots.Add(slot);
+                    _Slots.Add(slot);
                 }
 
                 CompilScript();
@@ -590,7 +589,7 @@ namespace FlowGraphBase.Script
         /// <summary>
         /// 
         /// </summary>
-        private readonly string m_SrcFileTemplate =
+        private readonly string _SrcFileTemplate =
             @"using System;
             using System.Collections.Generic;
             using System.ComponentModel;

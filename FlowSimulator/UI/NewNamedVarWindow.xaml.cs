@@ -13,7 +13,7 @@ namespace FlowSimulator.UI
 
         public delegate bool IsValidInputNameDelegate(string name_);
 
-        private bool m_DialogResult = false;
+        private bool _DialogResult = false;
 
 		#endregion //Fields
 	
@@ -53,7 +53,7 @@ namespace FlowSimulator.UI
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vm_"></param>
+        /// <param name="v_"></param>
         public NewNamedVarWindow(NamedVariable var_ = null)
         {
             InitializeComponent();
@@ -69,7 +69,7 @@ namespace FlowSimulator.UI
                 comboBox.IsEnabled = false;
             }
             
-            Closing += new CancelEventHandler(OnClosing);
+            Closing += OnClosing;
         }
 
 		#endregion //Constructors
@@ -83,7 +83,7 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         void OnClosing(object sender, CancelEventArgs e)
         {
-            DialogResult = m_DialogResult;
+            DialogResult = _DialogResult;
         }
 
         /// <summary>
@@ -97,12 +97,12 @@ namespace FlowSimulator.UI
                 || (IsValidInputNameCallback != null
                     && IsValidInputNameCallback.Invoke(InputName)))
             {
-                m_DialogResult = true;
+                _DialogResult = true;
                 Close();
             }
             else
             {
-                m_DialogResult = false;
+                _DialogResult = false;
                 labelError.Content = "'" + InputName + "' is not a valid name. Please enter a valid name.";
             }
         }
@@ -114,7 +114,7 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
-            m_DialogResult = false;
+            _DialogResult = false;
             Close();
         }
 

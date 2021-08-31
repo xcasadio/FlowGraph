@@ -90,9 +90,9 @@ namespace AdornedControl
         {
             Focusable = false; // By default don't want 'AdornedControl' to be focusable.
 
-            DataContextChanged += new DependencyPropertyChangedEventHandler(AdornedControl_DataContextChanged);
+            DataContextChanged += AdornedControl_DataContextChanged;
 
-            closeAdornerTimer.Tick += new EventHandler(closeAdornerTimer_Tick);
+            closeAdornerTimer.Tick += closeAdornerTimer_Tick;
             closeAdornerTimer.Interval = TimeSpan.FromSeconds(CloseAdornerTimeOut);
         }
 
@@ -149,7 +149,7 @@ namespace AdornedControl
             }
 
             DoubleAnimation doubleAnimation = new DoubleAnimation(1.0, new Duration(TimeSpan.FromSeconds(FadeInTime)));
-            doubleAnimation.Completed += new EventHandler(fadeInAnimation_Completed);
+            doubleAnimation.Completed += fadeInAnimation_Completed;
             doubleAnimation.Freeze();
                 
             _adorner.BeginAnimation(OpacityProperty, doubleAnimation);
@@ -179,7 +179,7 @@ namespace AdornedControl
             }
 
             DoubleAnimation fadeOutAnimation = new DoubleAnimation(0.0, new Duration(TimeSpan.FromSeconds(FadeOutTime)));
-            fadeOutAnimation.Completed += new EventHandler(fadeOutAnimation_Completed);
+            fadeOutAnimation.Completed += fadeOutAnimation_Completed;
             fadeOutAnimation.Freeze();
 
             _adorner.BeginAnimation(OpacityProperty, fadeOutAnimation);
@@ -491,15 +491,15 @@ namespace AdornedControl
             FrameworkElement oldAdornerContent = (FrameworkElement)e.OldValue;
             if (oldAdornerContent != null)
             {
-                oldAdornerContent.MouseEnter -= new MouseEventHandler(c.adornerContent_MouseEnter);
-                oldAdornerContent.MouseLeave -= new MouseEventHandler(c.adornerContent_MouseLeave);
+                oldAdornerContent.MouseEnter -= c.adornerContent_MouseEnter;
+                oldAdornerContent.MouseLeave -= c.adornerContent_MouseLeave;
             }
 
             FrameworkElement newAdornerContent = (FrameworkElement)e.NewValue;
             if (newAdornerContent != null)
             {
-                newAdornerContent.MouseEnter += new MouseEventHandler(c.adornerContent_MouseEnter);
-                newAdornerContent.MouseLeave += new MouseEventHandler(c.adornerContent_MouseLeave);
+                newAdornerContent.MouseEnter += c.adornerContent_MouseEnter;
+                newAdornerContent.MouseLeave += c.adornerContent_MouseLeave;
             }
         }
 

@@ -77,10 +77,10 @@ namespace NetworkModel
         public NodeViewModel(SequenceNode node_)
         {
             SeqNode = node_;
-            SeqNode.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(OnSeqNodePropertyChanged);
+            SeqNode.PropertyChanged += OnSeqNodePropertyChanged;
 
-            allConnectors.ItemsAdded += new EventHandler<CollectionItemsChangedEventArgs>(allConnectors_ItemsAdded);
-            allConnectors.ItemsRemoved += new EventHandler<CollectionItemsChangedEventArgs>(allConnectors_ItemsRemoved);
+            allConnectors.ItemsAdded += allConnectors_ItemsAdded;
+            allConnectors.ItemsRemoved += allConnectors_ItemsRemoved;
 
             InitializeConnectors();
         }

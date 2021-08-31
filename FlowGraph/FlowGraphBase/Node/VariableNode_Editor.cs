@@ -36,7 +36,7 @@ namespace FlowGraphBase.Node
         /// <summary>
         /// 
         /// </summary>
-        public NodeSlot VariableSlot => m_Slots[0];
+        public NodeSlot VariableSlot => _Slots[0];
 
         /// <summary>
         /// 

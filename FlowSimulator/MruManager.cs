@@ -41,8 +41,6 @@ namespace FlowSimulator
 
         private int _maxDisplayLength = 40;      // maximum length of file name for display
 
-        private string _currentDirectory;        // current directory
-
         private readonly StringList _mruList;              // MRU list (file names)
 
         private const string RegEntryName = "file";  // entry name to keep MRU (file0, file1...)
@@ -124,12 +122,7 @@ namespace FlowSimulator
         /// Set this property to change default value (optional)
         /// after call to Initialize.
         /// </summary>
-        public string CurrentDir
-        {
-            set => _currentDirectory = value;
-
-            get => _currentDirectory;
-        }
+        public string CurrentDir { set; get; }
 
         #endregion
 
@@ -163,7 +156,7 @@ namespace FlowSimulator
 
 
             // keep current directory in the time of initialization
-            _currentDirectory = Directory.GetCurrentDirectory();
+            CurrentDir = Directory.GetCurrentDirectory();
 
             // subscribe to MRU parent Popup event
             _menuItemParent.SubmenuOpened += OnMRUParentPopup;
@@ -395,7 +388,7 @@ namespace FlowSimulator
             // if file is in current directory, show only file name
             FileInfo fileInfo = new FileInfo(fullName);
 
-            if (fileInfo.DirectoryName == _currentDirectory)
+            if (fileInfo.DirectoryName == CurrentDir)
                 return GetShortDisplayName(fileInfo.Name, _maxDisplayLength);
 
             return GetShortDisplayName(fullName, _maxDisplayLength);

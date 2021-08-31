@@ -164,12 +164,12 @@ namespace NetworkUI
             //
             // Add handlers for node and connector drag events.
             //
-            AddHandler(NodeItem.NodeDragStartedEvent, new NodeDragStartedEventHandler(NodeItem_DragStarted));
-            AddHandler(NodeItem.NodeDraggingEvent, new NodeDraggingEventHandler(NodeItem_Dragging));
-            AddHandler(NodeItem.NodeDragCompletedEvent, new NodeDragCompletedEventHandler(NodeItem_DragCompleted));
-            AddHandler(ConnectorItem.ConnectorDragStartedEvent, new ConnectorItemDragStartedEventHandler(ConnectorItem_DragStarted));
-            AddHandler(ConnectorItem.ConnectorDraggingEvent, new ConnectorItemDraggingEventHandler(ConnectorItem_Dragging));
-            AddHandler(ConnectorItem.ConnectorDragCompletedEvent, new ConnectorItemDragCompletedEventHandler(ConnectorItem_DragCompleted));
+            AddHandler(NodeItem.NodeDragStartedEvent, new NodeDragStartedEventHandler(NodeIte_DragStarted));
+            AddHandler(NodeItem.NodeDraggingEvent, new NodeDraggingEventHandler(NodeIte_Dragging));
+            AddHandler(NodeItem.NodeDragCompletedEvent, new NodeDragCompletedEventHandler(NodeIte_DragCompleted));
+            AddHandler(ConnectorItem.ConnectorDragStartedEvent, new ConnectorItemDragStartedEventHandler(ConnectorIte_DragStarted));
+            AddHandler(ConnectorItem.ConnectorDraggingEvent, new ConnectorItemDraggingEventHandler(ConnectorIte_Dragging));
+            AddHandler(ConnectorItem.ConnectorDragCompletedEvent, new ConnectorItemDragCompletedEventHandler(ConnectorIte_DragCompleted));
         }
 
         /// <summary>
@@ -636,22 +636,22 @@ namespace NetworkUI
 
             CommandBinding binding = new CommandBinding();
             binding.Command = SelectAllCommand;
-            binding.Executed += new ExecutedRoutedEventHandler(SelectAll_Executed);
+            binding.Executed += SelectAll_Executed;
             CommandManager.RegisterClassCommandBinding(typeof(NetworkView), binding);
 
             binding = new CommandBinding();
             binding.Command = SelectNoneCommand;
-            binding.Executed += new ExecutedRoutedEventHandler(SelectNone_Executed);
+            binding.Executed += SelectNone_Executed;
             CommandManager.RegisterClassCommandBinding(typeof(NetworkView), binding);
 
             binding = new CommandBinding();
             binding.Command = InvertSelectionCommand;
-            binding.Executed += new ExecutedRoutedEventHandler(InvertSelection_Executed);
+            binding.Executed += InvertSelection_Executed;
             CommandManager.RegisterClassCommandBinding(typeof(NetworkView), binding);
 
             binding = new CommandBinding();
             binding.Command = CancelConnectionDraggingCommand;
-            binding.Executed += new ExecutedRoutedEventHandler(CancelConnectionDragging_Executed);
+            binding.Executed += CancelConnectionDragging_Executed;
             CommandManager.RegisterClassCommandBinding(typeof(NetworkView), binding);
         }
 
@@ -711,7 +711,7 @@ namespace NetworkUI
                     //
                     // Unhook events from previous collection.
                     //
-                    notifyCollectionChanged.CollectionChanged -= new NotifyCollectionChangedEventHandler(c.NodesSource_CollectionChanged);
+                    notifyCollectionChanged.CollectionChanged -= c.NodesSource_CollectionChanged;
                 }
             }
 
@@ -735,7 +735,7 @@ namespace NetworkUI
                     //
                     // Hook events in new collection.
                     //
-                    notifyCollectionChanged.CollectionChanged += new NotifyCollectionChangedEventHandler(c.NodesSource_CollectionChanged);
+                    notifyCollectionChanged.CollectionChanged += c.NodesSource_CollectionChanged;
                 }
             }
         }
@@ -798,7 +798,7 @@ namespace NetworkUI
                     //
                     // Unhook events from previous collection.
                     //
-                    notifyCollectionChanged.CollectionChanged -= new NotifyCollectionChangedEventHandler(c.ConnectionsSource_CollectionChanged);
+                    notifyCollectionChanged.CollectionChanged -= c.ConnectionsSource_CollectionChanged;
                 }
             }
 
@@ -822,7 +822,7 @@ namespace NetworkUI
                     //
                     // Hook events in new collection.
                     //
-                    notifyCollectionChanged.CollectionChanged += new NotifyCollectionChangedEventHandler(c.ConnectionsSource_CollectionChanged);
+                    notifyCollectionChanged.CollectionChanged += c.ConnectionsSource_CollectionChanged;
                 }
             }
         }
@@ -896,7 +896,7 @@ namespace NetworkUI
 
             initialSelectedNodes = null; // Don't need this any more.
 
-            nodeItemsControl.SelectionChanged += new SelectionChangedEventHandler(nodeItemsControl_SelectionChanged);
+            nodeItemsControl.SelectionChanged += nodeItemsControl_SelectionChanged;
 
             connectionItemsControl = (ItemsControl)Template.FindName("PART_ConnectionItemsControl", this);
             if (connectionItemsControl == null)

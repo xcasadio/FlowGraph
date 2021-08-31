@@ -9,7 +9,7 @@ namespace FlowGraphBase.Process
     {
         #region Fields
 
-        Stack<MemoryStack> m_StackFrames = new Stack<MemoryStack>(2);
+        Stack<MemoryStack> _StackFrames = new Stack<MemoryStack>(2);
 
         #endregion //Fields
 
@@ -18,7 +18,7 @@ namespace FlowGraphBase.Process
         /// <summary>
         /// 
         /// </summary>
-        public MemoryStack CurrentFrame => m_StackFrames.Count == 0 ? null : m_StackFrames.Peek();
+        public MemoryStack CurrentFrame => _StackFrames.Count == 0 ? null : _StackFrames.Peek();
 
         #endregion //Properties
 
@@ -33,7 +33,7 @@ namespace FlowGraphBase.Process
         /// </summary>
         public void AddStackFrame()
         {
-            m_StackFrames.Push(new MemoryStack());
+            _StackFrames.Push(new MemoryStack());
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace FlowGraphBase.Process
         /// </summary>
         public void RemoveStackFrame()
         {
-            m_StackFrames.Pop();
+            _StackFrames.Pop();
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace FlowGraphBase.Process
         /// </summary>
         public void Clear()
         {
-            m_StackFrames.Clear();
+            _StackFrames.Clear();
         }
 
         #endregion //Methods

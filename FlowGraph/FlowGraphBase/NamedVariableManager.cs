@@ -11,12 +11,10 @@ namespace FlowGraphBase
     {
         #region Singleton
 
-        static private NamedVariableManager m_Instance = new NamedVariableManager();
-
         /// <summary>
         /// Gets
         /// </summary>
-        static public NamedVariableManager Instance => m_Instance;
+        public static NamedVariableManager Instance { get; } = new NamedVariableManager();
 
         #endregion //Singleton
 
@@ -25,16 +23,15 @@ namespace FlowGraphBase
         public event EventHandler<EventArgs<string, string>> OnRenamed;
 
         private const string NullToken = "<null>";
-        private ObservableCollection<NamedVariable> m_Vars = new ObservableCollection<NamedVariable>();
 
-		#endregion //Fields
+        #endregion //Fields
 	
 		#region Properties
 
         /// <summary>
         /// 
         /// </summary>
-        public ObservableCollection<NamedVariable> Vars => m_Vars;
+        public ObservableCollection<NamedVariable> Vars { get; } = new ObservableCollection<NamedVariable>();
 
         #endregion //Properties
 	
@@ -57,7 +54,7 @@ namespace FlowGraphBase
         /// <returns></returns>
         internal NamedVariable GetNamedVariable(string name_)
         {
-            foreach (var v in m_Vars)
+            foreach (var v in Vars)
             {
                 if (string.Equals(v.Name, name_))
                 {
@@ -77,7 +74,7 @@ namespace FlowGraphBase
         {
             ValueContainer container = null;
 
-            foreach (var v in m_Vars)
+            foreach (var v in Vars)
             {
                 if (string.Equals(v.Name, name_))
                 {
@@ -100,7 +97,7 @@ namespace FlowGraphBase
             bool res = false;
             var_ = null;
 
-            foreach (var v in m_Vars)
+            foreach (var v in Vars)
             {
                 if (string.Equals(v.Name, name_))
                 {
@@ -121,7 +118,7 @@ namespace FlowGraphBase
         public void Add(string name_, object var_)
         {
             NamedVariable namedVar = new NamedVariable(name_, new ValueContainer(var_ == null ? null : var_.GetType(), var_));
-            m_Vars.Add(namedVar);
+            Vars.Add(namedVar);
         }
 
         /// <summary>
@@ -132,7 +129,7 @@ namespace FlowGraphBase
         private void Add(string name_, ValueContainer var_)
         {
             NamedVariable namedVar = new NamedVariable(name_, var_);
-            m_Vars.Add(namedVar);
+            Vars.Add(namedVar);
         }
 
         /// <summary>
@@ -141,7 +138,7 @@ namespace FlowGraphBase
         /// <param name="name_"></param>
         public void Remove(NamedVariable var_)
         {
-            m_Vars.Remove(var_);
+            Vars.Remove(var_);
         }
 
         /// <summary>
@@ -150,11 +147,11 @@ namespace FlowGraphBase
         /// <param name="name_"></param>
 //         public void Remove(string name_)
 //         {
-//             foreach (var v in m_Vars)
+//             foreach (var v in _Vars)
 //             {
 //                 if (string.Equals(v.Name, name_) == true)
 //                 {
-//                     m_Vars.Remove(v);
+//                     _Vars.Remove(v);
 //                     break;
 //                 }
 //             }
@@ -167,7 +164,7 @@ namespace FlowGraphBase
         /// <param name="newName_"></param>
         public void Rename(string name_, string newName_)
         {
-            foreach (var v in m_Vars)
+            foreach (var v in Vars)
             {
                 if (string.Equals(v.Name, name_))
                 {
@@ -190,7 +187,7 @@ namespace FlowGraphBase
         /// <param name="var_"></param>
         public void Update(string name_, object var_)
         {
-            foreach (var v in m_Vars)
+            foreach (var v in Vars)
             {
                 if (string.Equals(v.Name, name_))
                 {
@@ -207,7 +204,7 @@ namespace FlowGraphBase
         /// <returns></returns>
         public bool Contains(string name_)
         {
-            foreach (var v in m_Vars)
+            foreach (var v in Vars)
             {
                 if (string.Equals(v.Name, name_))
                 {
@@ -223,7 +220,7 @@ namespace FlowGraphBase
         /// </summary>
         public void Clear()
         {
-            m_Vars.Clear();
+            Vars.Clear();
         }
 
         /// <summary>
@@ -276,7 +273,7 @@ namespace FlowGraphBase
             node_.AppendChild(list);
             list.AddAttribute("version", version.ToString());
 
-            foreach (var v in m_Vars)
+            foreach (var v in Vars)
             {
                 XmlNode varNode = node_.OwnerDocument.CreateElement("NamedVariable");
                 list.AppendChild(varNode);

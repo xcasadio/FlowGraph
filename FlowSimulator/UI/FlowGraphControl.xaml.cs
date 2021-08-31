@@ -30,9 +30,9 @@ namespace FlowSimulator.UI
         /// <summary>
         /// Use to copy/paste nodes (shared with all graphs)
         /// </summary>
-        static private List<NodeViewModel> m_ClipboardNodes = new List<NodeViewModel>(10);
+        private static List<NodeViewModel> _ClipboardNodes = new List<NodeViewModel>(10);
 
-        private bool m_IsContextMenuCreated = false;
+        private bool _IsContextMenuCreated = false;
 
 
         /// <summary>
@@ -58,10 +58,10 @@ namespace FlowSimulator.UI
         /// </summary>
         public FlowGraphControl()
         {
-            DataContextChanged += new DependencyPropertyChangedEventHandler(OnDataContextChanged);
+            DataContextChanged += OnDataContextChanged;
             InitializeComponent();
 
-            Loaded += new RoutedEventHandler(OnLoaded);
+            Loaded += OnLoaded;
         }
 
 		#endregion //Constructors
@@ -80,13 +80,13 @@ namespace FlowSimulator.UI
             if (e.OldValue is FlowGraphControlViewModel)
             {
                 fgcvm = DataContext as FlowGraphControlViewModel;
-                fgcvm.ContextMenuOpened -= new EventHandler(OnContextMenuOpened);
+                fgcvm.ContextMenuOpened -= OnContextMenuOpened;
             }
 
             if (e.NewValue is FlowGraphControlViewModel)
             {
                 fgcvm = DataContext as FlowGraphControlViewModel;
-                fgcvm.ContextMenuOpened += new EventHandler(OnContextMenuOpened);
+                fgcvm.ContextMenuOpened += OnContextMenuOpened;
             }
         }
 
@@ -97,9 +97,9 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         void OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (m_IsContextMenuCreated == false)
+            if (_IsContextMenuCreated == false)
             {
-                m_IsContextMenuCreated = true;
+                _IsContextMenuCreated = true;
 
                 IEnumerable<Type> classes = AppDomain.CurrentDomain.GetAssemblies()
                            .SelectMany(t => t.GetTypes())
@@ -139,7 +139,7 @@ namespace FlowSimulator.UI
                         Header = ((Name)nameAtt).DisplayName,
                         Tag = type
                     };
-                    item.Click += new RoutedEventHandler(MenuItemCreateNode_Click);
+                    item.Click += MenuItemCreateNode_Click;
                     parent.Items.Add(item);
                 }
             }
@@ -625,7 +625,7 @@ namespace FlowSimulator.UI
         /// <summary>
         /// The 'JumpBackToPrevZoom' command was executed.
         /// </summary>
-        private void JumpBackToPrevZoom_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void JumpBackToPrevZoo_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             JumpBackToPrevZoom();
         }
@@ -633,7 +633,7 @@ namespace FlowSimulator.UI
         /// <summary>
         /// Determines whether the 'JumpBackToPrevZoom' command can be executed.
         /// </summary>
-        private void JumpBackToPrevZoom_CanExecuted(object sender, CanExecuteRoutedEventArgs e)
+        private void JumpBackToPrevZoo_CanExecuted(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = prevZoomRectSet;
         }
@@ -990,11 +990,11 @@ namespace FlowSimulator.UI
             {
                 if (networkControl.SelectedNodes.Count > 0)
                 {
-                    m_ClipboardNodes.Clear();
+                    _ClipboardNodes.Clear();
 
                     foreach (var node in networkControl.SelectedNodes)
                     {
-                        m_ClipboardNodes.Add(node as NodeViewModel);
+                        _ClipboardNodes.Add(node as NodeViewModel);
                     }
                 }
             }
@@ -1013,11 +1013,11 @@ namespace FlowSimulator.UI
         {
             try
             {
-                if (m_ClipboardNodes.Count > 0)
+                if (_ClipboardNodes.Count > 0)
                 {
                     networkControl.SelectedNodes.Clear();
                     networkControl.IsUndoRegisterEnabled = false;
-                    IEnumerable<NodeViewModel> nodes = ViewModel.CopyNodes(m_ClipboardNodes);
+                    IEnumerable<NodeViewModel> nodes = ViewModel.CopyNodes(_ClipboardNodes);
 
                     foreach (NodeViewModel node in nodes)
                     {

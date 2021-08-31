@@ -26,15 +26,15 @@ namespace FlowSimulator
     {
 		#region Fields
 
-        private readonly string m_UserSettingsFile = "userSettings.xml";
-        private readonly string m_DockSettingsFile = "dockSettings.xml";
+        private readonly string _UserSettingsFile = "userSettings.xml";
+        private readonly string _DockSettingsFile = "dockSettings.xml";
 
-        private MruManager m_MruManager;
-        private const string m_RegistryPath = "Software\\Natixis\\FlowSimulator";
+        private MruManager _MruManager;
+        private const string _RegistryPath = "Software\\Natixis\\FlowSimulator";
 
-        private string m_FileOpened = "";
+        private string _FileOpened = "";
 
-        private double m_LastLeft, m_LastTop, m_LastWidth, m_LastHeight;
+        private double _LastLeft, _LastTop, _LastWidth, _LastHeight;
 
 		#endregion //Fields
 	
@@ -81,8 +81,8 @@ namespace FlowSimulator
             VariableTypeInspector.SetDefaultValues();
             NamedVarEditTemplateManager.Initialize();
 
-            Loaded += new RoutedEventHandler(OnLoaded);
-            Closed += new EventHandler(OnClosed);
+            Loaded += OnLoaded;
+            Closed += OnClosed;
         }
 
 		#endregion //Constructors
@@ -100,14 +100,14 @@ namespace FlowSimulator
         {
             try
             {
-                m_MruManager = new MruManager();
-                m_MruManager.Initialize(
+                _MruManager = new MruManager();
+                _MruManager.Initialize(
                     this,						// owner form
                     menuItemRecentFiles,        // Recent Files menu item
                     menuItemFile,		        // parent
-                    m_RegistryPath);			// Registry path to keep MRU list
+                    _RegistryPath);			// Registry path to keep MRU list
 
-                m_MruManager.MruOpenEvent += delegate(object sender_, MruFileOpenEventArgs e_)
+                _MruManager.MruOpenEvent += delegate(object sender_, MruFileOpenEventArgs e_)
                 {
                     SaveChangesOnDemand();
                     LoadFile(e_.FileName);
@@ -119,18 +119,18 @@ namespace FlowSimulator
 //                 TaskLauncher.TaskFinish += new EventHandler<EventArg1Param<Task>>(OnTaskFinish);
 //                 TaskLauncher.TaskMessageSent += new EventHandler<EventArg2Params<int, bool>>(OnTaskMessageSent);
 //                 TaskLauncher.TaskCountChanged += new EventHandler<EventArg1Param<int>>(OnTaskCountChanged);
-//                 m_ReportControl.StartReporting += new EventHandler(OnStartReporting);
-//                 m_ReportControl.StopReporting += new EventHandler(OnStopReporting);
+//                 _ReportControl.StartReporting += new EventHandler(OnStartReporting);
+//                 _ReportControl.StopReporting += new EventHandler(OnStopReporting);
 // 
-                if (string.IsNullOrWhiteSpace(m_MruManager.GetFirstFileName) == false)
+                if (string.IsNullOrWhiteSpace(_MruManager.GetFirstFileName) == false)
                 {
-                    LoadFile(m_MruManager.GetFirstFileName);
+                    LoadFile(_MruManager.GetFirstFileName);
                 }
 
-                m_LastLeft = Left;
-                m_LastTop = Top;
-                m_LastWidth = Width;
-                m_LastHeight = Height;
+                _LastLeft = Left;
+                _LastTop = Top;
+                _LastWidth = Width;
+                _LastHeight = Height;
 
 
                 ProcessLauncher.Instance.StartLoop();
@@ -285,7 +285,7 @@ namespace FlowSimulator
                 item.IsChecked = content is LayoutDocument ? 
                     (content as LayoutDocument).IsVisible : content is LayoutAnchorable ? 
                     (content as LayoutAnchorable).IsVisible : false;
-                item.Click += new RoutedEventHandler(MenuItemLayout_Click);
+                item.Click += MenuItemLayout_Click;
                 item.Tag = content;
                 list.Add(content.Title, item);
             }
@@ -324,7 +324,7 @@ namespace FlowSimulator
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MenuItem_OpenDocumentationClick(object sender, EventArgs e)
+        private void MenuIte_OpenDocumentationClick(object sender, EventArgs e)
         {
 //             const string fileName = @"FlowSimulator - Manuel utilisateur.pdf";
 // 
@@ -346,7 +346,7 @@ namespace FlowSimulator
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MenuItem_HelpClick(object sender, RoutedEventArgs e)
+        private void MenuIte_HelpClick(object sender, RoutedEventArgs e)
         {
             Xceed.Wpf.Toolkit.MessageBox msgBox = new Xceed.Wpf.Toolkit.MessageBox();
             windowContainer.Children.Add(msgBox);
@@ -392,7 +392,7 @@ namespace FlowSimulator
             LogManager.Instance.WriteLine(LogVerbosity.Info, "New project");
             LogManager.Instance.NbErrors = 0;
 
-            m_FileOpened = "";
+            _FileOpened = "";
 
             Clear();
             SetTitle();
@@ -422,13 +422,13 @@ namespace FlowSimulator
         /// </summary>
         private void SaveProject()
         {
-            if (string.IsNullOrWhiteSpace(m_FileOpened))
+            if (string.IsNullOrWhiteSpace(_FileOpened))
             {
                 SaveAsProject();
             }
             else
             {
-                SaveFile(m_FileOpened);
+                SaveFile(_FileOpened);
             }
         }
 
@@ -461,7 +461,7 @@ namespace FlowSimulator
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void workSpaceSaveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void workSpaceSaveToolStripMenuIte_Click(object sender, EventArgs e)
         {
             SaveSettings();
             LogManager.Instance.WriteLine(LogVerbosity.Debug, "Workspace saved");
@@ -479,12 +479,12 @@ namespace FlowSimulator
 
                 if (ProjectManager.OpenFile(fileName_))
                 {
-                    m_FileOpened = fileName_;
+                    _FileOpened = fileName_;
                     SetTitle();
 
                     if (addToMRU)
                     {
-                        m_MruManager.Add(fileName_);
+                        _MruManager.Add(fileName_);
                     }
                 }
                 else
@@ -492,7 +492,7 @@ namespace FlowSimulator
                     MessageBox.Show(this, 
                         "Can't load the file '" + fileName_ + "'. Please check the log.",
                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    m_MruManager.Remove(fileName_);
+                    _MruManager.Remove(fileName_);
                 }
             }
             else
@@ -500,7 +500,7 @@ namespace FlowSimulator
                 MessageBox.Show(this, 
                     "The file '" + fileName_ + "' doesn't exist.",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                m_MruManager.Remove(fileName_);
+                _MruManager.Remove(fileName_);
             }
         }
 
@@ -512,8 +512,8 @@ namespace FlowSimulator
         {
             if (ProjectManager.SaveFile(fileName_))
             {
-                m_MruManager.Add(fileName_);
-                m_FileOpened = fileName_;
+                _MruManager.Add(fileName_);
+                _FileOpened = fileName_;
             }
         }
 
@@ -545,10 +545,10 @@ namespace FlowSimulator
             double l = Left, t = Top, w = Width, h = Height;
             WindowState winState = WindowState;
 
-            if (File.Exists(m_UserSettingsFile))
+            if (File.Exists(_UserSettingsFile))
             {
                 XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(m_UserSettingsFile);
+                xmlDoc.Load(_UserSettingsFile);
 
                 XmlNode winNode = xmlDoc.SelectSingleNode("FlowSimulator/Window");
 
@@ -564,12 +564,12 @@ namespace FlowSimulator
 
                 try
                 {
-                    //                         m_SessionControl.LoadSettings(rootNode);
-                    //                         m_MessageControl.LoadSettings(rootNode);
-                    //                         m_TaskControl.LoadSettings(rootNode);
-                    //                         m_ReportControl.LoadSettings(rootNode);
-                    //                         //m_ScriptControl.LoadSettings(rootNode);
-                    //                         m_LogControl.LoadSettings(rootNode);
+                    //                         _SessionControl.LoadSettings(rootNode);
+                    //                         _MessageControl.LoadSettings(rootNode);
+                    //                         _TaskControl.LoadSettings(rootNode);
+                    //                         _ReportControl.LoadSettings(rootNode);
+                    //                         //_ScriptControl.LoadSettings(rootNode);
+                    //                         _LogControl.LoadSettings(rootNode);
                 }
                 catch (Exception ex2)
                 {
@@ -577,7 +577,7 @@ namespace FlowSimulator
                 }
             }
 
-            if (File.Exists(m_DockSettingsFile))
+            if (File.Exists(_DockSettingsFile))
             {
                 try
                 {
@@ -597,7 +597,7 @@ namespace FlowSimulator
                         }
                     };
 
-                    using (var stream = new StreamReader(m_DockSettingsFile))
+                    using (var stream = new StreamReader(_DockSettingsFile))
                         serializer.Deserialize(stream);
                 }
                 catch (Exception ex3)
@@ -619,7 +619,7 @@ namespace FlowSimulator
         private void SaveSettings()
         {
             var serializer = new XmlLayoutSerializer(dockingManager1);
-            using (var stream = new StreamWriter(m_DockSettingsFile))
+            using (var stream = new StreamWriter(_DockSettingsFile))
             {
                 serializer.Serialize(stream);
             }
@@ -634,10 +634,10 @@ namespace FlowSimulator
             if (WindowState == WindowState.Minimized)
             {
                 winNode.AddAttribute("windowState", Enum.GetName(typeof(WindowState), WindowState.Normal));
-                winNode.AddAttribute("left", m_LastLeft.ToString());
-                winNode.AddAttribute("top", m_LastTop.ToString());
-                winNode.AddAttribute("width", m_LastWidth.ToString());
-                winNode.AddAttribute("height", m_LastHeight.ToString());
+                winNode.AddAttribute("left", _LastLeft.ToString());
+                winNode.AddAttribute("top", _LastTop.ToString());
+                winNode.AddAttribute("width", _LastWidth.ToString());
+                winNode.AddAttribute("height", _LastHeight.ToString());
             }
             else
             {
@@ -648,14 +648,14 @@ namespace FlowSimulator
                 winNode.AddAttribute("height", Height.ToString());
             }
 
-            //             m_SessionControl.SaveSettings(rootNode);
-            //             m_MessageControl.SaveSettings(rootNode);
-            //             m_TaskControl.SaveSettings(rootNode);
-            //             m_ReportControl.SaveSettings(rootNode);
-            //             m_LogControl.SaveSettings(rootNode);
-            //             m_ScriptControl.SaveSettings(rootNode);
+            //             _SessionControl.SaveSettings(rootNode);
+            //             _MessageControl.SaveSettings(rootNode);
+            //             _TaskControl.SaveSettings(rootNode);
+            //             _ReportControl.SaveSettings(rootNode);
+            //             _LogControl.SaveSettings(rootNode);
+            //             _ScriptControl.SaveSettings(rootNode);
 
-            xmlDoc.Save(m_UserSettingsFile);
+            xmlDoc.Save(_UserSettingsFile);
         }
 
         #endregion // Persistence
@@ -670,9 +670,9 @@ namespace FlowSimulator
             Title += " - DEBUG";
 #endif
 
-            if (string.IsNullOrWhiteSpace(m_FileOpened) == false)
+            if (string.IsNullOrWhiteSpace(_FileOpened) == false)
             {
-                Title += " - " + m_FileOpened;
+                Title += " - " + _FileOpened;
             }
         }
 

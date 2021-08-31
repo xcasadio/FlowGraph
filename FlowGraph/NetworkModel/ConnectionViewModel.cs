@@ -34,7 +34,7 @@ namespace NetworkModel
         /// </summary>
         private PointCollection points = null;
 
-        //private bool m_IsActivated = false;
+        //private bool _IsActivated = false;
 
         //private event EventHandler Activated;
 
@@ -68,7 +68,7 @@ namespace NetworkModel
                 if (sourceConnector != null)
                 {
                     sourceConnector.AttachedConnections.Remove(this);
-                    sourceConnector.HotspotUpdated -= new EventHandler<EventArgs>(sourceConnector_HotspotUpdated);
+                    sourceConnector.HotspotUpdated -= sourceConnector_HotspotUpdated;
                     //sourceConnector.SourceSlot.Activated -= new EventHandler(OnSourceSlotActivated); 
                 }
 
@@ -77,7 +77,7 @@ namespace NetworkModel
                 if (sourceConnector != null)
                 {
                     sourceConnector.AttachedConnections.Add(this);
-                    sourceConnector.HotspotUpdated += new EventHandler<EventArgs>(sourceConnector_HotspotUpdated);
+                    sourceConnector.HotspotUpdated += sourceConnector_HotspotUpdated;
                     //sourceConnector.SourceSlot.Activated += new EventHandler(OnSourceSlotActivated);
                     SourceConnectorHotspot = sourceConnector.Hotspot;
                 }
@@ -103,7 +103,7 @@ namespace NetworkModel
                 if (destConnector != null)
                 {
                     destConnector.AttachedConnections.Remove(this);
-                    destConnector.HotspotUpdated -= new EventHandler<EventArgs>(destConnector_HotspotUpdated);
+                    destConnector.HotspotUpdated -= destConnector_HotspotUpdated;
                     //destConnector.SourceSlot.Activated -= new EventHandler(OnSourceSlotActivated); 
                 }
 
@@ -112,7 +112,7 @@ namespace NetworkModel
                 if (destConnector != null)
                 {
                     destConnector.AttachedConnections.Add(this);
-                    destConnector.HotspotUpdated += new EventHandler<EventArgs>(destConnector_HotspotUpdated);
+                    destConnector.HotspotUpdated += destConnector_HotspotUpdated;
                     //destConnector.SourceSlot.Activated += new EventHandler(OnSourceSlotActivated);
                     DestConnectorHotspot = destConnector.Hotspot;
                 }

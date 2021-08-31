@@ -26,14 +26,14 @@ namespace FlowSimulator.Undo
     {
 		#region Fields
 
-        FlowGraphControlViewModel m_FlowGraphVM;
+        FlowGraphControlViewModel _FlowGraphVM;
 
-        ConnectionViewModel m_ConnectionVM;
-        ConnectorViewModel m_DestConnector;
-        Point m_DestConnectorHotspot;
-        PointCollection m_Points;
-        ConnectorViewModel m_SourceConnector;
-        Point m_SourceConnectorHotspot;
+        ConnectionViewModel _ConnectionVM;
+        ConnectorViewModel _DestConnector;
+        Point _DestConnectorHotspot;
+        PointCollection _Points;
+        ConnectorViewModel _SourceConnector;
+        Point _SourceConnectorHotspot;
 
 		#endregion //Fields
 	
@@ -46,15 +46,15 @@ namespace FlowSimulator.Undo
         /// <summary>
         /// 
         /// </summary>
-        public CreateConnectionUndoCommand(FlowGraphControlViewModel fgvm_, ConnectionViewModel connectionVM_)
+        public CreateConnectionUndoCommand(FlowGraphControlViewModel fgvm, ConnectionViewModel connectionVm)
         {
-            m_FlowGraphVM = fgvm_;
-            //m_ConnectionVM = connectionVM_.Copy();
-            m_DestConnector = connectionVM_.DestConnector;
-            m_DestConnectorHotspot = connectionVM_.DestConnectorHotspot;
-            m_Points = connectionVM_.Points;
-            m_SourceConnector = connectionVM_.SourceConnector;
-            m_SourceConnectorHotspot = connectionVM_.SourceConnectorHotspot;
+            _FlowGraphVM = fgvm;
+            //_ConnectionVM = connectionVM_.Copy();
+            _DestConnector = connectionVm.DestConnector;
+            _DestConnectorHotspot = connectionVm.DestConnectorHotspot;
+            _Points = connectionVm.Points;
+            _SourceConnector = connectionVm.SourceConnector;
+            _SourceConnectorHotspot = connectionVm.SourceConnectorHotspot;
         }
 
 		#endregion //Constructors
@@ -66,7 +66,7 @@ namespace FlowSimulator.Undo
         /// </summary>
         public void Redo()
         {
-            m_FlowGraphVM.AddConnection(m_ConnectionVM);
+            _FlowGraphVM.AddConnection(_ConnectionVM);
         }
 
         /// <summary>
@@ -75,16 +75,16 @@ namespace FlowSimulator.Undo
         public void Undo()
         {
             ConnectionViewModel copy = new ConnectionViewModel();
-            copy.DestConnector = m_DestConnector;
-            copy.DestConnectorHotspot = m_DestConnectorHotspot;
-            copy.Points = m_Points;
-            copy.SourceConnector = m_SourceConnector;
-            copy.SourceConnectorHotspot = m_SourceConnectorHotspot;
+            copy.DestConnector = _DestConnector;
+            copy.DestConnectorHotspot = _DestConnectorHotspot;
+            copy.Points = _Points;
+            copy.SourceConnector = _SourceConnector;
+            copy.SourceConnectorHotspot = _SourceConnectorHotspot;
 
-            m_FlowGraphVM.DeleteConnection(copy);
-            m_ConnectionVM = copy;
+            _FlowGraphVM.DeleteConnection(copy);
+            _ConnectionVM = copy;
 
-            //m_FlowGraphVM.DeleteConnection(m_ConnectionVM);
+            //_FlowGraphVM.DeleteConnection(_ConnectionVM);
         }
 
 		#endregion //Methods
@@ -97,14 +97,14 @@ namespace FlowSimulator.Undo
     {
         #region Fields
 
-        FlowGraphControlViewModel m_FlowGraphVM;
+        FlowGraphControlViewModel _FlowGraphVM;
 
-        ConnectionViewModel m_ConnectionVM;
-        ConnectorViewModel m_DestConnector;
-        Point m_DestConnectorHotspot;
-        PointCollection m_Points;
-        ConnectorViewModel m_SourceConnector;
-        Point m_SourceConnectorHotspot;
+        ConnectionViewModel _ConnectionVM;
+        ConnectorViewModel _DestConnector;
+        Point _DestConnectorHotspot;
+        PointCollection _Points;
+        ConnectorViewModel _SourceConnector;
+        Point _SourceConnectorHotspot;
 
 		#endregion //Fields
 	
@@ -117,15 +117,15 @@ namespace FlowSimulator.Undo
         /// <summary>
         /// 
         /// </summary>
-        public DeleteConnectionUndoCommand(FlowGraphControlViewModel fgvm_, ConnectionViewModel connectionVM_)
+        public DeleteConnectionUndoCommand(FlowGraphControlViewModel fgv_, ConnectionViewModel connectionVM_)
         {
-            m_FlowGraphVM = fgvm_;
-            //m_ConnectionVM = connectionVM_.Copy();
-            m_DestConnector = connectionVM_.DestConnector;
-            m_DestConnectorHotspot = connectionVM_.DestConnectorHotspot;
-            m_Points = connectionVM_.Points;
-            m_SourceConnector = connectionVM_.SourceConnector;
-            m_SourceConnectorHotspot = connectionVM_.SourceConnectorHotspot;
+            _FlowGraphVM = fgv_;
+            //_ConnectionVM = connectionVM_.Copy();
+            _DestConnector = connectionVM_.DestConnector;
+            _DestConnectorHotspot = connectionVM_.DestConnectorHotspot;
+            _Points = connectionVM_.Points;
+            _SourceConnector = connectionVM_.SourceConnector;
+            _SourceConnectorHotspot = connectionVM_.SourceConnectorHotspot;
         }
 
 		#endregion //Constructors
@@ -137,7 +137,7 @@ namespace FlowSimulator.Undo
         /// </summary>
         public void Redo()
         {
-            m_FlowGraphVM.DeleteConnection(m_ConnectionVM);
+            _FlowGraphVM.DeleteConnection(_ConnectionVM);
             
         }
 
@@ -147,14 +147,14 @@ namespace FlowSimulator.Undo
         public void Undo()
         {
             ConnectionViewModel copy = new ConnectionViewModel();
-            copy.DestConnector = m_DestConnector;
-            copy.DestConnectorHotspot = m_DestConnectorHotspot;
-            copy.Points = m_Points;
-            copy.SourceConnector = m_SourceConnector;
-            copy.SourceConnectorHotspot = m_SourceConnectorHotspot;
+            copy.DestConnector = _DestConnector;
+            copy.DestConnectorHotspot = _DestConnectorHotspot;
+            copy.Points = _Points;
+            copy.SourceConnector = _SourceConnector;
+            copy.SourceConnectorHotspot = _SourceConnectorHotspot;
 
-            m_FlowGraphVM.AddConnection(copy);
-            m_ConnectionVM = copy;
+            _FlowGraphVM.AddConnection(copy);
+            _ConnectionVM = copy;
         }
 
 		#endregion //Methods
@@ -167,8 +167,8 @@ namespace FlowSimulator.Undo
     {
         #region Fields
 
-        FlowGraphControlViewModel m_FlowGraphVM;
-        IEnumerable<ConnectionViewModel> m_ConnectionsVM;
+        FlowGraphControlViewModel _FlowGraphVM;
+        IEnumerable<ConnectionViewModel> _ConnectionsVM;
 
         #endregion //Fields
 
@@ -181,10 +181,10 @@ namespace FlowSimulator.Undo
         /// <summary>
         /// 
         /// </summary>
-        public CreateConnectionsUndoCommand(FlowGraphControlViewModel fgvm_, IEnumerable<ConnectionViewModel> connectionsVM_)
+        public CreateConnectionsUndoCommand(FlowGraphControlViewModel fgv_, IEnumerable<ConnectionViewModel> connectionsVM_)
         {
-            m_FlowGraphVM = fgvm_;
-            m_ConnectionsVM = connectionsVM_;
+            _FlowGraphVM = fgv_;
+            _ConnectionsVM = connectionsVM_;
         }
 
         #endregion //Constructors
@@ -196,7 +196,7 @@ namespace FlowSimulator.Undo
         /// </summary>
         public void Redo()
         {
-            m_FlowGraphVM.AddConnections(m_ConnectionsVM);
+            _FlowGraphVM.AddConnections(_ConnectionsVM);
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace FlowSimulator.Undo
         /// </summary>
         public void Undo()
         {
-            m_FlowGraphVM.DeleteConnections(m_ConnectionsVM);
+            _FlowGraphVM.DeleteConnections(_ConnectionsVM);
         }
 
         #endregion //Methods
@@ -217,8 +217,8 @@ namespace FlowSimulator.Undo
     {
         #region Fields
 
-        FlowGraphControlViewModel m_FlowGraphVM;
-        List<ConnectionInfo> m_ConnectionInfoList = new List<ConnectionInfo>();
+        FlowGraphControlViewModel _FlowGraphVM;
+        List<ConnectionInfo> _ConnectionInfoList = new List<ConnectionInfo>();
 
 		#endregion //Fields
 	
@@ -231,13 +231,13 @@ namespace FlowSimulator.Undo
         /// <summary>
         /// 
         /// </summary>
-        public DeleteConnectionsUndoCommand(FlowGraphControlViewModel fgvm_, IEnumerable<ConnectionViewModel> connectionsVM_)
+        public DeleteConnectionsUndoCommand(FlowGraphControlViewModel fgv_, IEnumerable<ConnectionViewModel> connectionsVM_)
         {
-            m_FlowGraphVM = fgvm_;
+            _FlowGraphVM = fgv_;
 
             foreach (ConnectionViewModel c in connectionsVM_)
             {
-                m_ConnectionInfoList.Add(new ConnectionInfo
+                _ConnectionInfoList.Add(new ConnectionInfo
                     {
                         ConnectionVM = null,
                         DestConnector = c.DestConnector,
@@ -260,12 +260,12 @@ namespace FlowSimulator.Undo
         {
             List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
 
-            for (int i = 0; i < m_ConnectionInfoList.Count; i++)
+            for (int i = 0; i < _ConnectionInfoList.Count; i++)
             {
-                connList.Add(m_ConnectionInfoList[i].ConnectionVM);
+                connList.Add(_ConnectionInfoList[i].ConnectionVM);
             }
 
-            m_FlowGraphVM.DeleteConnections(connList);
+            _FlowGraphVM.DeleteConnections(connList);
         }
 
         /// <summary>
@@ -275,23 +275,23 @@ namespace FlowSimulator.Undo
         {
             List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
 
-            for (int i = 0; i < m_ConnectionInfoList.Count; i++)
+            for (int i = 0; i < _ConnectionInfoList.Count; i++)
             {
                 ConnectionViewModel copy = new ConnectionViewModel();
-                copy.DestConnector = m_ConnectionInfoList[i].DestConnector;
-                copy.DestConnectorHotspot = m_ConnectionInfoList[i].DestConnectorHotspot;
-                copy.Points = m_ConnectionInfoList[i].Points;
-                copy.SourceConnector = m_ConnectionInfoList[i].SourceConnector;
-                copy.SourceConnectorHotspot = m_ConnectionInfoList[i].SourceConnectorHotspot;
+                copy.DestConnector = _ConnectionInfoList[i].DestConnector;
+                copy.DestConnectorHotspot = _ConnectionInfoList[i].DestConnectorHotspot;
+                copy.Points = _ConnectionInfoList[i].Points;
+                copy.SourceConnector = _ConnectionInfoList[i].SourceConnector;
+                copy.SourceConnectorHotspot = _ConnectionInfoList[i].SourceConnectorHotspot;
 
                 connList.Add(copy);
 
-                ConnectionInfo inf = m_ConnectionInfoList[i];
+                ConnectionInfo inf = _ConnectionInfoList[i];
                 inf.ConnectionVM = copy;
-                m_ConnectionInfoList[i] = inf;
+                _ConnectionInfoList[i] = inf;
             }
 
-            m_FlowGraphVM.AddConnections(connList);
+            _FlowGraphVM.AddConnections(connList);
         }
 
 		#endregion //Methods

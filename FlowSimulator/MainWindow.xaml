@@ -62,7 +62,7 @@
                     <MenuItem></MenuItem>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="?" Click="MenuItem_HelpClick" />
+            <MenuItem Header="?" Click="MenuIte_HelpClick" />
         </Menu>
 
         <ToolBarTray Grid.Row="1">

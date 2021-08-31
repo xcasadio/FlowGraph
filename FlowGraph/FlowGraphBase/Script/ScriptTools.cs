@@ -8,11 +8,11 @@ namespace FlowGraphBase.Script
     /// <summary>
     /// 
     /// </summary>
-    static public class GlobalVar
+    public static class GlobalVar
     {
         #region Fields
 
-        static private Dictionary<string, object> m_Vars = new Dictionary<string, object>();
+        private static Dictionary<string, object> _Vars = new Dictionary<string, object>();
 
         #endregion // Fields
 
@@ -23,15 +23,15 @@ namespace FlowGraphBase.Script
         /// </summary>
         /// <param name="key_"></param>
         /// <param name="val_"></param>
-        static public void Set(string key_, object val_)
+        public static void Set(string key_, object val_)
         {
-            if (m_Vars.ContainsKey(key_))
+            if (_Vars.ContainsKey(key_))
             {
-                m_Vars[key_] = val_;
+                _Vars[key_] = val_;
             }
             else
             {
-                m_Vars.Add(key_, val_);
+                _Vars.Add(key_, val_);
             }
         }
 
@@ -40,15 +40,15 @@ namespace FlowGraphBase.Script
         /// </summary>
         /// <param name="key_"></param>
         /// <returns>the value by the associate key else returns null</returns>
-        static public object Get(string key_)
+        public static object Get(string key_)
         {
-            if (m_Vars.ContainsKey(key_) == false)
+            if (_Vars.ContainsKey(key_) == false)
             {
                 LogManager.Instance.WriteLine(LogVerbosity.Error, "GlobalVar.Get() : can't find the field with the key '{0}'", key_);
                 return null;
             }
 
-            return m_Vars[key_];
+            return _Vars[key_];
         }
 
         /// <summary>
@@ -56,9 +56,9 @@ namespace FlowGraphBase.Script
         /// </summary>
         /// <param name="key_"></param>
         /// <returns>true if the key exist else returns false</returns>
-        static public bool ContainsKey(string key_)
+        public static bool ContainsKey(string key_)
         {
-            return m_Vars.ContainsKey(key_);
+            return _Vars.ContainsKey(key_);
         }
 
         #endregion // Methods
@@ -71,11 +71,11 @@ namespace FlowGraphBase.Script
     /// <summary>
     /// 
     /// </summary>
-    static public class ScriptSequence
+    public static class ScriptSequence
     {
         #region Fields
 
-        static volatile private uint m_Sequence = 0;
+        private static volatile uint _Sequence = 0;
 
 
         #endregion // Fields
@@ -86,9 +86,9 @@ namespace FlowGraphBase.Script
         /// 
         /// </summary>
         /// <returns>an unique uint</returns>
-        static public uint GetNext()
+        public static uint GetNext()
         {
-            return m_Sequence++;
+            return _Sequence++;
         }
 
         #endregion // Methods

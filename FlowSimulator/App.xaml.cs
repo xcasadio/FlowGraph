@@ -11,7 +11,7 @@ namespace FlowSimulator
     {
 #if !DEBUG
 
-        bool m_ShowFatalError = true;
+        bool _ShowFatalError = true;
 
 #endif //!DEBUG
 
@@ -32,14 +32,14 @@ namespace FlowSimulator
                 "Exception Caught", MessageBoxButton.OK, MessageBoxImage.Error);
             e.Handled = true;
 #else
-            if (m_ShowFatalError == true)
+            if (_ShowFatalError == true)
             {
                 MessageBox.Show(
                     "Fatal error! The application is going to close! (see log)", 
                     "Uncaught Exception", 
                     MessageBoxButton.Ok, MessageBoxImage.Error);
                 e.Handled = false;
-                m_ShowFatalError = false;
+                _ShowFatalError = false;
             }            
 #endif
         }
@@ -52,7 +52,7 @@ namespace FlowSimulator
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             AppDomain.CurrentDomain.UnhandledException +=
-                  new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+                  CurrentDomain_UnhandledException;
         }
 
         /// <summary>

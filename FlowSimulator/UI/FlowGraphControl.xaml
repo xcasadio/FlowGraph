@@ -668,8 +668,8 @@
             />
         <CommandBinding 
             Command="{StaticResource Commands.JumpBackToPrevZoom}" 
-            Executed="JumpBackToPrevZoom_Executed" 
-            CanExecute="JumpBackToPrevZoom_CanExecuted"
+            Executed="JumpBackToPrevZoo_Executed" 
+            CanExecute="JumpBackToPrevZoo_CanExecuted"
             />
         <CommandBinding 
             Command="{StaticResource Commands.FitContent}" 

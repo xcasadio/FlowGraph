@@ -18,7 +18,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
     {
 		#region Fields
 
-        private T m_Value;
+        private T _Value;
 
 		#endregion //Fields
 	
@@ -38,22 +38,22 @@ namespace FlowGraphBase.Node.StandardVariableNode
         /// </summary>
         public override object Value
         {
-            get => m_Value;
+            get => _Value;
             set
             {
                 if (value == null)
                 {
-                    m_Value = default(T);
+                    _Value = default(T);
                 }
                 else if (value is T)
                 {
-                    m_Value = (T)value;
+                    _Value = (T)value;
                 }
                 else if (value is string)
                 {
                     if (string.IsNullOrWhiteSpace(value as string) == false)
                     {
-                        m_Value = (T)Convert.ChangeType((string)value, typeof(T));
+                        _Value = (T)Convert.ChangeType((string)value, typeof(T));
                     }
                 }
                 else
@@ -108,7 +108,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
         protected override void Load(XmlNode node_)
         {
             base.Load(node_);
-            m_Value = (T)LoadValue(node_.SelectSingleNode("Value"));
+            _Value = (T)LoadValue(node_.SelectSingleNode("Value"));
         }
 
         /// <summary>

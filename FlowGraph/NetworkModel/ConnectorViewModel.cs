@@ -122,8 +122,8 @@ namespace NetworkModel
                 if (attachedConnections == null)
                 {
                     attachedConnections = new ImpObservableCollection<ConnectionViewModel>();
-                    attachedConnections.ItemsAdded += new EventHandler<CollectionItemsChangedEventArgs>(attachedConnections_ItemsAdded);
-                    attachedConnections.ItemsRemoved += new EventHandler<CollectionItemsChangedEventArgs>(attachedConnections_ItemsRemoved);
+                    attachedConnections.ItemsAdded += attachedConnections_ItemsAdded;
+                    attachedConnections.ItemsRemoved += attachedConnections_ItemsRemoved;
                 }
 
                 return attachedConnections;
@@ -175,7 +175,7 @@ namespace NetworkModel
             }
 
             SourceSlot = slot;
-            SourceSlot.PropertyChanged += new PropertyChangedEventHandler(OnSlotPropertyChanged);
+            SourceSlot.PropertyChanged += OnSlotPropertyChanged;
         }
 
 		#endregion //Constructors
@@ -204,7 +204,7 @@ namespace NetworkModel
         {
             foreach (ConnectionViewModel connection in e.Items)
             {
-                connection.ConnectionChanged += new EventHandler<EventArgs>(connection_ConnectionChanged);
+                connection.ConnectionChanged += connection_ConnectionChanged;
             }
 
             if ((AttachedConnections.Count - e.Items.Count) == 0)
@@ -223,7 +223,7 @@ namespace NetworkModel
         {
             foreach (ConnectionViewModel connection in e.Items)
             {
-                connection.ConnectionChanged -= new EventHandler<EventArgs>(connection_ConnectionChanged);
+                connection.ConnectionChanged -= connection_ConnectionChanged;
             }
 
             if (AttachedConnections.Count == 0)

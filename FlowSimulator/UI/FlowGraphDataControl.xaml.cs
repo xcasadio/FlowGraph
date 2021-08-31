@@ -21,8 +21,8 @@ namespace FlowSimulator.UI
         public const string DragPrefixNamedVar = "NamedVariable#";
         public const string DragPrefixScriptElement = "ScriptElement#";
 
-        private Point m_DragStartPoint;
-        private bool m_IsDragAndDrop;
+        private Point _DragStartPoint;
+        private bool _IsDragAndDrop;
 
         #endregion
 
@@ -55,7 +55,7 @@ namespace FlowSimulator.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="?"></param>
-        private void ListBoxGraphItem_MouseDoubleClick(object sender, MouseButtonEventArgs arg_)
+        private void ListBoxGraphIte_MouseDoubleClick(object sender, MouseButtonEventArgs arg_)
         {
             RoutedUICommand cmd = (RoutedUICommand)Application.Current.Resources["Commands.OpenGraph"];
             cmd.Execute(arg_, this);
@@ -181,7 +181,7 @@ namespace FlowSimulator.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="?"></param>
-        private void ListBoxGraphFunctionItem_MouseDoubleClick(object sender, MouseButtonEventArgs arg_)
+        private void ListBoxGraphFunctionIte_MouseDoubleClick(object sender, MouseButtonEventArgs arg_)
         {
             RoutedUICommand cmd = (RoutedUICommand)Application.Current.Resources["Commands.OpenFunction"];
             cmd.Execute(arg_, this);
@@ -298,12 +298,12 @@ namespace FlowSimulator.UI
 
             if (e.ButtonState == MouseButtonState.Pressed)
             {
-                m_DragStartPoint = e.GetPosition(null);
-                m_IsDragAndDrop = true;
+                _DragStartPoint = e.GetPosition(null);
+                _IsDragAndDrop = true;
             }
             else if (e.ButtonState == MouseButtonState.Released)
             {
-                m_IsDragAndDrop = false;
+                _IsDragAndDrop = false;
             }
         }
 
@@ -314,11 +314,11 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         private void listBoxGraphFunctions_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (m_IsDragAndDrop)
+            if (_IsDragAndDrop)
             {
                 // Get the current mouse position
                 Point mousePos = e.GetPosition(null);
-                Vector diff = m_DragStartPoint - mousePos;
+                Vector diff = _DragStartPoint - mousePos;
 
                 if (e.LeftButton == MouseButtonState.Pressed &&
                     sender is ListBox &&
@@ -433,12 +433,12 @@ namespace FlowSimulator.UI
 
             if (e.ButtonState == MouseButtonState.Pressed)
             {
-                m_DragStartPoint = e.GetPosition(null);
-                m_IsDragAndDrop = true;
+                _DragStartPoint = e.GetPosition(null);
+                _IsDragAndDrop = true;
             }
             else if (e.ButtonState == MouseButtonState.Released)
             {
-                m_IsDragAndDrop = false;
+                _IsDragAndDrop = false;
             }
         }
 
@@ -449,11 +449,11 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         private void listBoxGraphNamedVars_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (m_IsDragAndDrop)
+            if (_IsDragAndDrop)
             {
                 // Get the current mouse position
                 Point mousePos = e.GetPosition(null);
-                Vector diff = m_DragStartPoint - mousePos;
+                Vector diff = _DragStartPoint - mousePos;
 
                 if (e.LeftButton == MouseButtonState.Pressed &&
                     sender is ListBox &&
@@ -491,7 +491,7 @@ namespace FlowSimulator.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="?"></param>
-        private void ListBoxGraphScriptItem_MouseDoubleClick(object sender, MouseButtonEventArgs arg_)
+        private void ListBoxGraphScriptIte_MouseDoubleClick(object sender, MouseButtonEventArgs arg_)
         {
             RoutedUICommand cmd = (RoutedUICommand)Application.Current.Resources["Commands.OpenScript"];
             cmd.Execute(arg_, this);
@@ -586,11 +586,11 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         private void listBoxGraphScripts_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (m_IsDragAndDrop)
+            if (_IsDragAndDrop)
             {
                 // Get the current mouse position
                 Point mousePos = e.GetPosition(null);
-                Vector diff = m_DragStartPoint - mousePos;
+                Vector diff = _DragStartPoint - mousePos;
 
                 if (e.LeftButton == MouseButtonState.Pressed &&
                     sender is ListBox &&

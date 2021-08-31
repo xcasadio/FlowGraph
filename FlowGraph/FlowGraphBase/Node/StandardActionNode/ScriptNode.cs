@@ -27,8 +27,8 @@ namespace FlowGraphBase.Node.StandardActionNode
 
         #region Fields
 
-        private int m_ScriptElementID = -1; // used when the node is loaded, in order to retrieve the ScriptElement
-        private ScriptElement m_ScriptElement;
+        private int _ScriptElementID = -1; // used when the node is loaded, in order to retrieve the ScriptElement
+        private ScriptElement _ScriptElement;
 
         #endregion //Fields
 
@@ -37,7 +37,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <summary>
         /// 
         /// </summary>
-        public override string Title => "Script " + (GetScriptElement() == null ? "<null>" : m_ScriptElement.Name);
+        public override string Title => "Script " + (GetScriptElement() == null ? "<null>" : _ScriptElement.Name);
 
         #endregion //Properties
 
@@ -107,12 +107,12 @@ namespace FlowGraphBase.Node.StandardActionNode
         {
             GetScriptElement();
 
-            foreach (SequenceFunctionSlot slot in m_ScriptElement.Inputs)
+            foreach (SequenceFunctionSlot slot in _ScriptElement.Inputs)
             {
                 AddFunctionSlot((int)NodeSlotId.InputStart + slot.ID, SlotType.VarIn, slot);
             }
 
-            foreach (SequenceFunctionSlot slot in m_ScriptElement.Outputs)
+            foreach (SequenceFunctionSlot slot in _ScriptElement.Outputs)
             {
                 AddFunctionSlot((int)NodeSlotId.OutputStart + slot.ID, SlotType.VarOut, slot);
             }
@@ -134,13 +134,13 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <returns></returns>
         private ScriptElement GetScriptElement()
         {
-            if (m_ScriptElement == null
-                && m_ScriptElementID != -1)
+            if (_ScriptElement == null
+                && _ScriptElementID != -1)
             {
-                SetScriptElement(GraphDataManager.Instance.GetScriptByID(m_ScriptElementID));
+                SetScriptElement(GraphDataManager.Instance.GetScriptByID(_ScriptElementID));
             }
 
-            return m_ScriptElement;
+            return _ScriptElement;
         }
 
         /// <summary>
@@ -149,9 +149,9 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <returns></returns>
         private void SetScriptElement(ScriptElement el_)
         {
-            m_ScriptElement = el_;
-            m_ScriptElement.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(OnFuntionPropertyChanged);
-            m_ScriptElement.FunctionSlotChanged += new EventHandler<FunctionSlotChangedEventArg>(OnFunctionSlotChanged);
+            _ScriptElement = el_;
+            _ScriptElement.PropertyChanged += OnFuntionPropertyChanged;
+            _ScriptElement.FunctionSlotChanged += OnFunctionSlotChanged;
             UpdateNodeSlot();
         }
 
@@ -176,7 +176,7 @@ namespace FlowGraphBase.Node.StandardActionNode
             info.State = LogicState.Ok;
 
             //call script with input nodes
-            List<ScriptSlotData> list = new List<ScriptSlotData>(m_ScriptElement.InputCount);
+            List<ScriptSlotData> list = new List<ScriptSlotData>(_ScriptElement.InputCount);
             foreach (NodeSlot slot in SlotVariableIn)
             {
                 if (slot is NodeSlotVar)
@@ -200,7 +200,7 @@ namespace FlowGraphBase.Node.StandardActionNode
             ScriptSlotDataCollection returnVals = new ScriptSlotDataCollection(list);
             list.Clear();
 
-            if (m_ScriptElement.Run(parameters, returnVals) == false)
+            if (_ScriptElement.Run(parameters, returnVals) == false)
             {
                 info.ErrorMessage = "Some errors in the execution of the script";
                 info.State = LogicState.Error;
@@ -224,7 +224,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <returns></returns>
         protected override SequenceNode CopyImpl()
         {
-            return new ScriptNode(m_ScriptElement);
+            return new ScriptNode(_ScriptElement);
         }
 
         #region Persistence
@@ -236,7 +236,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         protected override void Load(XmlNode node_)
         {
             base.Load(node_);
-            m_ScriptElementID = int.Parse(node_.Attributes["ScriptElementID"].Value);
+            _ScriptElementID = int.Parse(node_.Attributes["ScriptElementID"].Value);
         }
 
         /// <summary>
@@ -312,12 +312,12 @@ namespace FlowGraphBase.Node.StandardActionNode
     /// </summary>
     public class ScriptSlotDataCollection
     {
-        private IList<ScriptSlotData> m_List;
+        private IList<ScriptSlotData> _List;
 
         /// <summary>
         /// 
         /// </summary>
-        internal IEnumerable<ScriptSlotData> List => m_List;
+        internal IEnumerable<ScriptSlotData> List => _List;
 
         /// <summary>
         /// 
@@ -325,7 +325,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <param name="list_"></param>
         public ScriptSlotDataCollection(IEnumerable<ScriptSlotData> list_)
         {
-            m_List = new List<ScriptSlotData>(list_);
+            _List = new List<ScriptSlotData>(list_);
         }
 
         /// <summary>
@@ -335,7 +335,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <returns></returns>
         public ScriptSlotData Get(string name_)
         {
-            foreach (ScriptSlotData data in m_List)
+            foreach (ScriptSlotData data in _List)
             {
                 if (string.Equals(data.Text, name_))
                 {
@@ -353,11 +353,11 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <returns></returns>
         public bool SetValue(string name_, object value_)
         {
-            for (int i = 0; i < m_List.Count; i++)
+            for (int i = 0; i < _List.Count; i++)
             {
-                if (string.Equals(m_List[i].Text, name_))
+                if (string.Equals(_List[i].Text, name_))
                 {
-                    m_List[i].Value = value_;
+                    _List[i].Value = value_;
                     return true;
                 }
             }

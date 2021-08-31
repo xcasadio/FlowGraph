@@ -25,12 +25,12 @@ namespace FlowGraphBase.Process
 
 		#region Fields
 
-        static private int m_FreeCallID = 0;
+        private static int _FreeCallID = 0;
 
         public event EventHandler Finished;
 
-        private List<ProcessingContextStep> m_NextExecutions = new List<ProcessingContextStep>();
-        private List<ProcessingContextStep> m_Executed = new List<ProcessingContextStep>();
+        private List<ProcessingContextStep> _NextExecutions = new List<ProcessingContextStep>();
+        private List<ProcessingContextStep> _Executed = new List<ProcessingContextStep>();
 
 		#endregion //Fields
 	
@@ -39,7 +39,7 @@ namespace FlowGraphBase.Process
         /// <summary>
         /// Gets all step already executed
         /// </summary>
-        public IEnumerable<ProcessingContextStep> Executed => m_Executed;
+        public IEnumerable<ProcessingContextStep> Executed => _Executed;
 
         /// <summary>
         /// Gets the Id of the context
@@ -137,8 +137,8 @@ namespace FlowGraphBase.Process
         {
             State = ProcessingContextState.Stop;
 
-            m_FreeCallID++;
-            CallID = m_FreeCallID;
+            _FreeCallID++;
+            CallID = _FreeCallID;
 
             Parent = parent_;
             SequenceBase = seq_;
@@ -167,11 +167,11 @@ namespace FlowGraphBase.Process
         {
             ProcessingContextStep step = null;
 
-            if (CurrentProcessingContext.m_NextExecutions.Count > 0)
+            if (CurrentProcessingContext._NextExecutions.Count > 0)
             {
-                step = CurrentProcessingContext.m_NextExecutions[0];
-                CurrentProcessingContext.m_NextExecutions.RemoveAt(0);
-                CurrentProcessingContext.m_Executed.Add(step);
+                step = CurrentProcessingContext._NextExecutions[0];
+                CurrentProcessingContext._NextExecutions.RemoveAt(0);
+                CurrentProcessingContext._Executed.Add(step);
             }
             else
             {
@@ -204,7 +204,7 @@ namespace FlowGraphBase.Process
             }
 
             ProcessingContextStep step = new ProcessingContextStep(SequenceBase, CurrentFrame, slot_);
-            CurrentProcessingContext.m_NextExecutions.Add(step);
+            CurrentProcessingContext._NextExecutions.Add(step);
             return step;
         }
 
@@ -215,7 +215,7 @@ namespace FlowGraphBase.Process
         /// <param name="step_"></param>
         public void RemoveExecution(ProcessingContext context_, ProcessingContextStep step_)
         {
-            context_.m_NextExecutions.Remove(step_);
+            context_._NextExecutions.Remove(step_);
         }
 
         /// <summary>
@@ -223,11 +223,11 @@ namespace FlowGraphBase.Process
         /// </summary>
         /// <param name="seq_"></param>
         /// <param name="eventType_"></param>
-        public void RegisterNextSequence(SequenceBase seq_, Type eventType_, object param_)
+        public void RegisterNextSequence(SequenceBase seq_, Type eventType_, object para_)
         {
             CurrentProcessingContext.MemoryStackFrame.AddStackFrame();
             seq_.AllocateAllVariables(CurrentProcessingContext.MemoryStackFrame.CurrentFrame);
-            seq_.OnEvent(this, eventType_, 0, param_);
+            seq_.OnEvent(this, eventType_, 0, para_);
         }
 
         /// <summary>

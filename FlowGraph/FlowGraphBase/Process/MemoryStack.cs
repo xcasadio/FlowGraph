@@ -9,8 +9,8 @@ namespace FlowGraphBase.Process
     {
         #region Fields
 
-        private int m_FreeID = int.MaxValue;
-        private Dictionary<int, MemoryStackItem> m_Variable = new Dictionary<int, MemoryStackItem>();
+        private int _FreeID = int.MaxValue;
+        private Dictionary<int, MemoryStackItem> _Variable = new Dictionary<int, MemoryStackItem>();
 
         #endregion //Fields
 
@@ -33,7 +33,7 @@ namespace FlowGraphBase.Process
         public MemoryStackItem Allocate(int id_, object val_)
         {
             MemoryStackItem item = new MemoryStackItem(id_, val_);
-            m_Variable.Add(id_, item);
+            _Variable.Add(id_, item);
             return item;
         }
 
@@ -48,17 +48,17 @@ namespace FlowGraphBase.Process
             int id = GetUnusedId();
 
             MemoryStackItem item = new MemoryStackItem(id, val_);
-            m_Variable.Add(id, item);
+            _Variable.Add(id, item);
             return item;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="item_"></param>
-        public void Deallocate(MemoryStackItem item_)
+        /// <param name="ite_"></param>
+        public void Deallocate(MemoryStackItem ite_)
         {
-            Deallocate(item_.ID);
+            Deallocate(ite_.ID);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace FlowGraphBase.Process
         /// <param name="id_"></param>
         public void Deallocate(int id_)
         {
-            m_Variable.Remove(id_);
+            _Variable.Remove(id_);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace FlowGraphBase.Process
         {
             MemoryStackItem item;
 
-            if (m_Variable.TryGetValue(id_, out item) == false)
+            if (_Variable.TryGetValue(id_, out item) == false)
             {
 //                 LogManager.Instance.WriteLine(LogVerbosity.Error,
 //                     "MemoryStack.GetValueFromID() can't find the memory with the id {0}", id_);
@@ -94,8 +94,8 @@ namespace FlowGraphBase.Process
         /// <returns></returns>
         private int GetUnusedId()
         {
-            m_FreeID--;
-            return m_FreeID;
+            _FreeID--;
+            return _FreeID;
         }
 
         #endregion //Methods

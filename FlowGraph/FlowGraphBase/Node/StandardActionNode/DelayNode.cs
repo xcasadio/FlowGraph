@@ -26,7 +26,7 @@ namespace FlowGraphBase.Node.StandardActionNode
 
 		#region Fields
 
-        //TimeSpan m_StartTime = TimeSpan.Zero;
+        //TimeSpan _StartTime = TimeSpan.Zero;
 
 		#endregion //Fields
 	

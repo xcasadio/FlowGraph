@@ -13,7 +13,7 @@ namespace FlowGraphBase.Process
     {
         #region Instance
 
-        private static ProcessLauncher m_Singleton = null;
+        private static ProcessLauncher _Singleton = null;
 
         /// <summary>
         /// Gets
@@ -22,12 +22,12 @@ namespace FlowGraphBase.Process
         {
             get
             {
-                if (m_Singleton == null)
+                if (_Singleton == null)
                 {
-                    m_Singleton = new ProcessLauncher();
+                    _Singleton = new ProcessLauncher();
                 }
 
-                return m_Singleton;
+                return _Singleton;
             }
         }
 
@@ -35,18 +35,18 @@ namespace FlowGraphBase.Process
 
 		#region Fields
 
-        private List<ProcessingContext> m_CallStacks = new List<ProcessingContext>();
-        private int m_CurrentCallStackIndex = 0;
+        private List<ProcessingContext> _CallStacks = new List<ProcessingContext>();
+        private int _CurrentCallStackIndex = 0;
 
-        private volatile bool m_UpdateOnlyOneStep = false;
-        private volatile bool m_IsOnPause = false;
-        private volatile bool m_MustStop = false;
+        private volatile bool _UpdateOnlyOneStep = false;
+        private volatile bool _IsOnPause = false;
+        private volatile bool _MustStop = false;
 
-        private ProcessingContextStep m_LastExecution = null;
-        private SequenceState m_State = SequenceState.Stop;
+        private ProcessingContextStep _LastExecution = null;
+        private SequenceState _State = SequenceState.Stop;
 
-        private BackgroundWorker m_BGWorker;
-        private volatile bool m_IsClosing;
+        private BackgroundWorker _BGWorker;
+        private volatile bool _IsClosing;
 
 		#endregion //Fields
 	
@@ -57,12 +57,12 @@ namespace FlowGraphBase.Process
         /// </summary>
         public SequenceState State
         {
-            get => m_State;
+            get => _State;
             private set
             {
-                if (m_State != value)
+                if (_State != value)
                 {
-                    m_State = value;
+                    _State = value;
                     OnPropertyChanged("State");
                 }
             }
@@ -71,7 +71,7 @@ namespace FlowGraphBase.Process
         /// <summary>
         /// Gets
         /// </summary>
-        public IEnumerable<ProcessingContext> CallStack => m_CallStacks;
+        public IEnumerable<ProcessingContext> CallStack => _CallStacks;
 
         #endregion //Properties
 	
@@ -94,14 +94,14 @@ namespace FlowGraphBase.Process
         /// </summary>
         public void StartLoop()
         {
-            if (m_BGWorker == null)
+            if (_BGWorker == null)
             {
-                m_BGWorker = new BackgroundWorker();
-                m_BGWorker.DoWork += (sender1, e1) =>
+                _BGWorker = new BackgroundWorker();
+                _BGWorker.DoWork += (sender1, e1) =>
                 {
                     try
                     {
-                        while (m_IsClosing == false)
+                        while (_IsClosing == false)
                         {
                             ProcessLoop();
                             System.Threading.Thread.Sleep(10);
@@ -113,7 +113,7 @@ namespace FlowGraphBase.Process
                     }
                 };
 
-                m_BGWorker.RunWorkerAsync();
+                _BGWorker.RunWorkerAsync();
             }
         }
 
@@ -122,8 +122,8 @@ namespace FlowGraphBase.Process
         /// </summary>
         public void StopLoop()
         {
-            m_IsClosing = true;
-            m_MustStop = true;
+            _IsClosing = true;
+            _MustStop = true;
         }
 
         /// <summary>
@@ -132,13 +132,13 @@ namespace FlowGraphBase.Process
         public void Resume()
         {
             State = SequenceState.Running;
-            m_UpdateOnlyOneStep = false;
-            m_IsOnPause = false;
-            m_MustStop = false;
+            _UpdateOnlyOneStep = false;
+            _IsOnPause = false;
+            _MustStop = false;
 
-            if (m_LastExecution != null)
+            if (_LastExecution != null)
             {
-                m_LastExecution.Slot.Node.IsProcessing = false;
+                _LastExecution.Slot.Node.IsProcessing = false;
             }
         }
 
@@ -148,8 +148,8 @@ namespace FlowGraphBase.Process
         public void NextStep()
         {
             State = SequenceState.Pause;
-            m_UpdateOnlyOneStep = true;
-            m_IsOnPause = true;
+            _UpdateOnlyOneStep = true;
+            _IsOnPause = true;
         }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace FlowGraphBase.Process
         public void Pause()
         {
             State = SequenceState.Pause;
-            m_IsOnPause = true;
+            _IsOnPause = true;
         }
 
         /// <summary>
@@ -167,9 +167,9 @@ namespace FlowGraphBase.Process
         public void Stop()
         {
             State = SequenceState.Stop;
-            m_MustStop = true;
-            m_IsOnPause = false;
-            m_UpdateOnlyOneStep = false;
+            _MustStop = true;
+            _IsOnPause = false;
+            _UpdateOnlyOneStep = false;
         }
 
         /// <summary>
@@ -177,12 +177,12 @@ namespace FlowGraphBase.Process
         /// </summary>
         /// <param name="eventType_"></param>
         /// <param name="index_"></param>
-        /// <param name="param_"></param>
-        public void OnGlobalEvent(Type eventType_, int index_, object param_)
+        /// <param name="para_"></param>
+        public void OnGlobalEvent(Type eventType_, int index_, object para_)
         {
             List<Sequence> seqList = new List<Sequence>();
 
-            foreach (ProcessingContext c in m_CallStacks)
+            foreach (ProcessingContext c in _CallStacks)
             {
                 if (c.SequenceBase is Sequence)
                 {
@@ -192,7 +192,7 @@ namespace FlowGraphBase.Process
                         && seqList.Contains(seq) == false)
                     {
                         seqList.Add(seq);
-                        seq.OnEvent(c, eventType_, index_, param_);
+                        seq.OnEvent(c, eventType_, index_, para_);
                     }
                 }
             }
@@ -206,16 +206,16 @@ namespace FlowGraphBase.Process
         /// <param name="seq_"></param>
         /// <param name="eventType_"></param>
         /// <param name="index_"></param>
-        /// <param name="param_"></param>
-        public void LaunchSequence(SequenceBase seq_, Type eventType_, int index_, object param_)
+        /// <param name="para_"></param>
+        public void LaunchSequence(SequenceBase seq_, Type eventType_, int index_, object para_)
         {
             MemoryStackFrameManager stackFrames = new MemoryStackFrameManager();
             //stackFrames.Clear();
             stackFrames.AddStackFrame(); // 1st frame
             seq_.AllocateAllVariables(stackFrames.CurrentFrame);
             ProcessingContext processContext = new ProcessingContext(seq_, stackFrames);
-            seq_.OnEvent(processContext, eventType_, index_, param_);
-            m_CallStacks.Add(processContext);
+            seq_.OnEvent(processContext, eventType_, index_, para_);
+            _CallStacks.Add(processContext);
 
             Resume();
         }
@@ -228,9 +228,9 @@ namespace FlowGraphBase.Process
             bool processing = true;
 
             while (processing
-                && m_MustStop == false)
+                && _MustStop == false)
             {
-                if (m_IsOnPause == false)
+                if (_IsOnPause == false)
                 {
                     processing = DoOneStep();
 
@@ -239,9 +239,9 @@ namespace FlowGraphBase.Process
                         State = SequenceState.Running;
                     }
                 }
-                else if (m_UpdateOnlyOneStep)
+                else if (_UpdateOnlyOneStep)
                 {
-                    m_UpdateOnlyOneStep = false;
+                    _UpdateOnlyOneStep = false;
                     processing = DoOneStep();
 
                     if (processing)
@@ -259,9 +259,9 @@ namespace FlowGraphBase.Process
             };
 
             State = SequenceState.Stop;
-            m_LastExecution = null;
+            _LastExecution = null;
 
-            foreach (ProcessingContext c in m_CallStacks)
+            foreach (ProcessingContext c in _CallStacks)
             {
                 c.SequenceBase.ResetNodes();
             }
@@ -277,24 +277,24 @@ namespace FlowGraphBase.Process
             {
                 if (State == SequenceState.Pause)
                 {
-                    if (m_LastExecution != null)
+                    if (_LastExecution != null)
                     {
-                        m_LastExecution.Slot.Node.IsProcessing = false;
+                        _LastExecution.Slot.Node.IsProcessing = false;
                     }
                 }
 
-                ProcessingContext context = m_CallStacks[m_CurrentCallStackIndex];
+                ProcessingContext context = _CallStacks[_CurrentCallStackIndex];
                 ProcessingContextStep contextStep = context.PopStep();
 
                 if (contextStep == null)
                 {
-                    m_CallStacks.Remove(context);
+                    _CallStacks.Remove(context);
                     context.SequenceBase.ResetNodes();
                 }
                 else
                 {
                     ActionNode node = contextStep.Slot.Node as ActionNode;
-                    m_LastExecution = contextStep;
+                    _LastExecution = contextStep;
 
                     ActionNode.ProcessingInfo info = node.Activate(context, contextStep.Slot);
                     node.ErrorMessage = info.ErrorMessage;
@@ -306,7 +306,7 @@ namespace FlowGraphBase.Process
 
                     if (State == SequenceState.Pause)
                     {
-                        m_LastExecution.Slot.Node.IsProcessing = true;
+                        _LastExecution.Slot.Node.IsProcessing = true;
                     }
                 }
             }
@@ -322,7 +322,7 @@ namespace FlowGraphBase.Process
         {
             int count = 0;
 
-            foreach (var c in m_CallStacks)
+            foreach (var c in _CallStacks)
             {
                 if (c.IsOnError == false)
                 {
@@ -339,20 +339,20 @@ namespace FlowGraphBase.Process
         /// <returns></returns>
         private bool SetNextProcess()
         {
-            for (int i = m_CurrentCallStackIndex + 1; i < m_CallStacks.Count; i++)
+            for (int i = _CurrentCallStackIndex + 1; i < _CallStacks.Count; i++)
             {
-                if (m_CallStacks[i].IsOnError == false)
+                if (_CallStacks[i].IsOnError == false)
                 {
-                    m_CurrentCallStackIndex = i;
+                    _CurrentCallStackIndex = i;
                     return true;
                 }
             }
 
-            for (int i = 0; i <= m_CurrentCallStackIndex && i < m_CallStacks.Count; i++)
+            for (int i = 0; i <= _CurrentCallStackIndex && i < _CallStacks.Count; i++)
             {
-                if (m_CallStacks[i].IsOnError == false)
+                if (_CallStacks[i].IsOnError == false)
                 {
-                    m_CurrentCallStackIndex = i;
+                    _CurrentCallStackIndex = i;
                     return true;
                 }
             }

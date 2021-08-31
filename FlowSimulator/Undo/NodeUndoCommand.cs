@@ -12,8 +12,8 @@ namespace FlowSimulator.Undo
     {
 		#region Fields
 
-        FlowGraphControlViewModel m_FlowGraphVM;
-        NodeViewModel m_NodeVM;
+        FlowGraphControlViewModel _FlowGraphVM;
+        NodeViewModel _NodeVM;
 
 		#endregion //Fields
 	
@@ -26,10 +26,10 @@ namespace FlowSimulator.Undo
         /// <summary>
         /// 
         /// </summary>
-        public CreateNodeUndoCommand(FlowGraphControlViewModel fgvm_, NodeViewModel nodeVM_)
+        public CreateNodeUndoCommand(FlowGraphControlViewModel fgvm, NodeViewModel nodeVm)
         {
-            m_FlowGraphVM = fgvm_;
-            m_NodeVM = nodeVM_;
+            _FlowGraphVM = fgvm;
+            _NodeVM = nodeVm;
         }
 
 		#endregion //Constructors
@@ -41,7 +41,7 @@ namespace FlowSimulator.Undo
         /// </summary>
         public void Redo()
         {
-            m_FlowGraphVM.AddNode(m_NodeVM);
+            _FlowGraphVM.AddNode(_NodeVM);
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace FlowSimulator.Undo
         /// </summary>
         public void Undo()
         {
-            m_FlowGraphVM.DeleteNode(m_NodeVM);
+            _FlowGraphVM.DeleteNode(_NodeVM);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace FlowSimulator.Undo
         public override string ToString()
         {
             return string.Format("{0} : Create node {1}",
-                m_FlowGraphVM.Sequence.Name, m_NodeVM.Title);
+                _FlowGraphVM.Sequence.Name, _NodeVM.Title);
         }
 
 		#endregion //Methods
@@ -72,9 +72,9 @@ namespace FlowSimulator.Undo
     {
         #region Fields
 
-        FlowGraphControlViewModel m_FlowGraphVM;
-        IEnumerable<NodeViewModel> m_NodesVM;
-        List<ConnectionInfo> m_ConnectionInfoList = new List<ConnectionInfo>();
+        FlowGraphControlViewModel _FlowGraphVM;
+        IEnumerable<NodeViewModel> _NodesVM;
+        List<ConnectionInfo> _ConnectionInfoList = new List<ConnectionInfo>();
 
         #endregion //Fields
 
@@ -87,9 +87,9 @@ namespace FlowSimulator.Undo
         /// <summary>
         /// 
         /// </summary>
-        public CreateNodesUndoCommand(FlowGraphControlViewModel fgvm_, IEnumerable<NodeViewModel> nodesVM_)
+        public CreateNodesUndoCommand(FlowGraphControlViewModel fgv_, IEnumerable<NodeViewModel> nodesVM_)
         {
-            m_FlowGraphVM = fgvm_;
+            _FlowGraphVM = fgv_;
 
             List<ConnectionViewModel> connections = new List<ConnectionViewModel>();
             foreach (var node in nodesVM_)
@@ -98,7 +98,7 @@ namespace FlowSimulator.Undo
             }
             CopyConnections(connections);
 
-            m_NodesVM = nodesVM_;
+            _NodesVM = nodesVM_;
         }
 
         #endregion //Constructors
@@ -113,7 +113,7 @@ namespace FlowSimulator.Undo
         {
             foreach (ConnectionViewModel c in connections_)
             {
-                m_ConnectionInfoList.Add(new ConnectionInfo
+                _ConnectionInfoList.Add(new ConnectionInfo
                 {
                     ConnectionVM = null,
                     DestConnector = c.DestConnector,
@@ -130,16 +130,16 @@ namespace FlowSimulator.Undo
         /// </summary>
         public void Redo()
         {
-            m_FlowGraphVM.Network.Nodes.AddRange(m_NodesVM);
+            _FlowGraphVM.Network.Nodes.AddRange(_NodesVM);
 
             List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
 
-            for (int i = 0; i < m_ConnectionInfoList.Count; i++)
+            for (int i = 0; i < _ConnectionInfoList.Count; i++)
             {
-                connList.Add(m_ConnectionInfoList[i].ConnectionVM);
+                connList.Add(_ConnectionInfoList[i].ConnectionVM);
             }
 
-            m_FlowGraphVM.AddConnections(connList);
+            _FlowGraphVM.AddConnections(connList);
         }
 
         /// <summary>
@@ -149,24 +149,24 @@ namespace FlowSimulator.Undo
         {
             List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
 
-            for (int i = 0; i < m_ConnectionInfoList.Count; i++)
+            for (int i = 0; i < _ConnectionInfoList.Count; i++)
             {
                 ConnectionViewModel copy = new ConnectionViewModel();
-                copy.DestConnector = m_ConnectionInfoList[i].DestConnector;
-                copy.DestConnectorHotspot = m_ConnectionInfoList[i].DestConnectorHotspot;
-                copy.Points = m_ConnectionInfoList[i].Points;
-                copy.SourceConnector = m_ConnectionInfoList[i].SourceConnector;
-                copy.SourceConnectorHotspot = m_ConnectionInfoList[i].SourceConnectorHotspot;
+                copy.DestConnector = _ConnectionInfoList[i].DestConnector;
+                copy.DestConnectorHotspot = _ConnectionInfoList[i].DestConnectorHotspot;
+                copy.Points = _ConnectionInfoList[i].Points;
+                copy.SourceConnector = _ConnectionInfoList[i].SourceConnector;
+                copy.SourceConnectorHotspot = _ConnectionInfoList[i].SourceConnectorHotspot;
 
                 connList.Add(copy);
 
-                ConnectionInfo inf = m_ConnectionInfoList[i];
+                ConnectionInfo inf = _ConnectionInfoList[i];
                 inf.ConnectionVM = copy;
-                m_ConnectionInfoList[i] = inf;
+                _ConnectionInfoList[i] = inf;
             }
 
-            m_FlowGraphVM.DeleteConnections(connList);
-            m_FlowGraphVM.DeleteNodes(m_NodesVM);
+            _FlowGraphVM.DeleteConnections(connList);
+            _FlowGraphVM.DeleteNodes(_NodesVM);
         }
 
         /// <summary>
@@ -176,7 +176,7 @@ namespace FlowSimulator.Undo
         public override string ToString()
         {
             return string.Format("Graph[{0}] : Create nodes",
-                m_FlowGraphVM.Sequence.Name);
+                _FlowGraphVM.Sequence.Name);
         }
 
         #endregion //Methods
@@ -189,9 +189,9 @@ namespace FlowSimulator.Undo
     {
         #region Fields
 
-        FlowGraphControlViewModel m_FlowGraphVM;
-        NodeViewModel m_NodeVM;
-        List<ConnectionInfo> m_ConnectionInfoList = new List<ConnectionInfo>();
+        FlowGraphControlViewModel _FlowGraphVM;
+        NodeViewModel _NodeVM;
+        List<ConnectionInfo> _ConnectionInfoList = new List<ConnectionInfo>();
 
         #endregion //Fields
 
@@ -204,11 +204,11 @@ namespace FlowSimulator.Undo
         /// <summary>
         /// 
         /// </summary>
-        public DeleteNodeUndoCommand(FlowGraphControlViewModel fgvm_, NodeViewModel nodeVM_)
+        public DeleteNodeUndoCommand(FlowGraphControlViewModel fgv_, NodeViewModel nodeVM_)
         {
-            m_FlowGraphVM = fgvm_;
-            m_NodeVM = nodeVM_;
-            CopyConnections(m_NodeVM.AttachedConnections);
+            _FlowGraphVM = fgv_;
+            _NodeVM = nodeVM_;
+            CopyConnections(_NodeVM.AttachedConnections);
         }
 
         #endregion //Constructors
@@ -223,7 +223,7 @@ namespace FlowSimulator.Undo
         {
             foreach (ConnectionViewModel c in connections_)
             {
-                m_ConnectionInfoList.Add(new ConnectionInfo
+                _ConnectionInfoList.Add(new ConnectionInfo
                 {
                     ConnectionVM = null,
                     DestConnector = c.DestConnector,
@@ -242,13 +242,13 @@ namespace FlowSimulator.Undo
         {
             List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
 
-            for (int i = 0; i < m_ConnectionInfoList.Count; i++)
+            for (int i = 0; i < _ConnectionInfoList.Count; i++)
             {
-                connList.Add(m_ConnectionInfoList[i].ConnectionVM);
+                connList.Add(_ConnectionInfoList[i].ConnectionVM);
             }
 
-            m_FlowGraphVM.DeleteConnections(connList);
-            m_FlowGraphVM.DeleteNode(m_NodeVM);
+            _FlowGraphVM.DeleteConnections(connList);
+            _FlowGraphVM.DeleteNode(_NodeVM);
         }
 
         /// <summary>
@@ -258,24 +258,24 @@ namespace FlowSimulator.Undo
         {
             List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
 
-            for (int i = 0; i < m_ConnectionInfoList.Count; i++)
+            for (int i = 0; i < _ConnectionInfoList.Count; i++)
             {
                 ConnectionViewModel copy = new ConnectionViewModel();
-                copy.DestConnector = m_ConnectionInfoList[i].DestConnector;
-                copy.DestConnectorHotspot = m_ConnectionInfoList[i].DestConnectorHotspot;
-                copy.Points = m_ConnectionInfoList[i].Points;
-                copy.SourceConnector = m_ConnectionInfoList[i].SourceConnector;
-                copy.SourceConnectorHotspot = m_ConnectionInfoList[i].SourceConnectorHotspot;
+                copy.DestConnector = _ConnectionInfoList[i].DestConnector;
+                copy.DestConnectorHotspot = _ConnectionInfoList[i].DestConnectorHotspot;
+                copy.Points = _ConnectionInfoList[i].Points;
+                copy.SourceConnector = _ConnectionInfoList[i].SourceConnector;
+                copy.SourceConnectorHotspot = _ConnectionInfoList[i].SourceConnectorHotspot;
 
                 connList.Add(copy);
 
-                ConnectionInfo inf = m_ConnectionInfoList[i];
+                ConnectionInfo inf = _ConnectionInfoList[i];
                 inf.ConnectionVM = copy;
-                m_ConnectionInfoList[i] = inf;
+                _ConnectionInfoList[i] = inf;
             }
 
-            m_FlowGraphVM.AddNode(m_NodeVM);
-            m_FlowGraphVM.AddConnections(connList);
+            _FlowGraphVM.AddNode(_NodeVM);
+            _FlowGraphVM.AddConnections(connList);
         }
 
         /// <summary>
@@ -285,7 +285,7 @@ namespace FlowSimulator.Undo
         public override string ToString()
         {
             return string.Format("{0} : Delete node {1}",
-                m_FlowGraphVM.Sequence.Name, m_NodeVM.Title);
+                _FlowGraphVM.Sequence.Name, _NodeVM.Title);
         }
 
         #endregion //Methods
@@ -298,9 +298,9 @@ namespace FlowSimulator.Undo
     {
         #region Fields
 
-        FlowGraphControlViewModel m_FlowGraphVM;
-        IEnumerable<NodeViewModel> m_NodesVM;
-        List<ConnectionInfo> m_ConnectionInfoList = new List<ConnectionInfo>();
+        FlowGraphControlViewModel _FlowGraphVM;
+        IEnumerable<NodeViewModel> _NodesVM;
+        List<ConnectionInfo> _ConnectionInfoList = new List<ConnectionInfo>();
 
         #endregion //Fields
 
@@ -313,9 +313,9 @@ namespace FlowSimulator.Undo
         /// <summary>
         /// 
         /// </summary>
-        public DeleteNodesUndoCommand(FlowGraphControlViewModel fgvm_, IEnumerable<NodeViewModel> nodesVM_)
+        public DeleteNodesUndoCommand(FlowGraphControlViewModel fgv_, IEnumerable<NodeViewModel> nodesVM_)
         {
-            m_FlowGraphVM = fgvm_;
+            _FlowGraphVM = fgv_;
 
             List<ConnectionViewModel> connections = new List<ConnectionViewModel>();
             foreach (var node in nodesVM_)
@@ -324,7 +324,7 @@ namespace FlowSimulator.Undo
             }
             CopyConnections(connections);
 
-            m_NodesVM = nodesVM_;
+            _NodesVM = nodesVM_;
         }
 
         #endregion //Constructors
@@ -339,7 +339,7 @@ namespace FlowSimulator.Undo
         {
             foreach (ConnectionViewModel c in connections_)
             {
-                m_ConnectionInfoList.Add(new ConnectionInfo
+                _ConnectionInfoList.Add(new ConnectionInfo
                 {
                     ConnectionVM = null,
                     DestConnector = c.DestConnector,
@@ -358,13 +358,13 @@ namespace FlowSimulator.Undo
         {
             List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
 
-            for (int i = 0; i < m_ConnectionInfoList.Count; i++)
+            for (int i = 0; i < _ConnectionInfoList.Count; i++)
             {
-                connList.Add(m_ConnectionInfoList[i].ConnectionVM);
+                connList.Add(_ConnectionInfoList[i].ConnectionVM);
             }
 
-            m_FlowGraphVM.DeleteConnections(connList);
-            m_FlowGraphVM.Network.Nodes.RemoveRange(m_NodesVM);
+            _FlowGraphVM.DeleteConnections(connList);
+            _FlowGraphVM.Network.Nodes.RemoveRange(_NodesVM);
         }
 
         /// <summary>
@@ -374,24 +374,24 @@ namespace FlowSimulator.Undo
         {
             List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
 
-            for (int i = 0; i < m_ConnectionInfoList.Count; i++)
+            for (int i = 0; i < _ConnectionInfoList.Count; i++)
             {
                 ConnectionViewModel copy = new ConnectionViewModel();
-                copy.DestConnector = m_ConnectionInfoList[i].DestConnector;
-                copy.DestConnectorHotspot = m_ConnectionInfoList[i].DestConnectorHotspot;
-                copy.Points = m_ConnectionInfoList[i].Points;
-                copy.SourceConnector = m_ConnectionInfoList[i].SourceConnector;
-                copy.SourceConnectorHotspot = m_ConnectionInfoList[i].SourceConnectorHotspot;
+                copy.DestConnector = _ConnectionInfoList[i].DestConnector;
+                copy.DestConnectorHotspot = _ConnectionInfoList[i].DestConnectorHotspot;
+                copy.Points = _ConnectionInfoList[i].Points;
+                copy.SourceConnector = _ConnectionInfoList[i].SourceConnector;
+                copy.SourceConnectorHotspot = _ConnectionInfoList[i].SourceConnectorHotspot;
 
                 connList.Add(copy);
 
-                ConnectionInfo inf = m_ConnectionInfoList[i];
+                ConnectionInfo inf = _ConnectionInfoList[i];
                 inf.ConnectionVM = copy;
-                m_ConnectionInfoList[i] = inf;
+                _ConnectionInfoList[i] = inf;
             }
 
-            m_FlowGraphVM.Network.Nodes.AddRange(m_NodesVM);
-            m_FlowGraphVM.AddConnections(connList);
+            _FlowGraphVM.Network.Nodes.AddRange(_NodesVM);
+            _FlowGraphVM.AddConnections(connList);
         }
 
         /// <summary>
@@ -401,7 +401,7 @@ namespace FlowSimulator.Undo
         public override string ToString()
         {
             return string.Format("Graph[{0}] : Delete nodes",
-                m_FlowGraphVM.Sequence.Name);
+                _FlowGraphVM.Sequence.Name);
         }
 
         #endregion //Methods
@@ -425,8 +425,8 @@ namespace FlowSimulator.Undo
 
         #region Fields
 
-        FlowGraphControlViewModel m_FlowGraphVM;
-        IEnumerable<NodeDraggingInfo> m_NodeInfosVM;
+        FlowGraphControlViewModel _FlowGraphVM;
+        IEnumerable<NodeDraggingInfo> _NodeInfosVM;
 
         #endregion //Fields
 
@@ -439,10 +439,10 @@ namespace FlowSimulator.Undo
         /// <summary>
         /// 
         /// </summary>
-        public PositionNodeUndoCommand(FlowGraphControlViewModel fgvm_, IEnumerable<NodeDraggingInfo> nodeInfosVM_)
+        public PositionNodeUndoCommand(FlowGraphControlViewModel fgv_, IEnumerable<NodeDraggingInfo> nodeInfosVM_)
         {
-            m_FlowGraphVM = fgvm_;
-            m_NodeInfosVM = new List<NodeDraggingInfo>(nodeInfosVM_);
+            _FlowGraphVM = fgv_;
+            _NodeInfosVM = new List<NodeDraggingInfo>(nodeInfosVM_);
         }
 
         #endregion //Constructors
@@ -454,7 +454,7 @@ namespace FlowSimulator.Undo
         /// </summary>
         public void Redo()
         {
-            foreach (NodeDraggingInfo info in m_NodeInfosVM)
+            foreach (NodeDraggingInfo info in _NodeInfosVM)
             {
                 info.Node.X = info.EndX;
                 info.Node.Y = info.EndY;
@@ -466,7 +466,7 @@ namespace FlowSimulator.Undo
         /// </summary>
         public void Undo()
         {
-            foreach (NodeDraggingInfo info in m_NodeInfosVM)
+            foreach (NodeDraggingInfo info in _NodeInfosVM)
             {
                 info.Node.X = info.StartX;
                 info.Node.Y = info.StartY;
@@ -480,7 +480,7 @@ namespace FlowSimulator.Undo
         public override string ToString()
         {
             return string.Format("{0} : Node position changed",
-                m_FlowGraphVM.Sequence.Name);
+                _FlowGraphVM.Sequence.Name);
         }
 
         #endregion //Methods
@@ -493,8 +493,8 @@ namespace FlowSimulator.Undo
     {
         #region Fields
 
-        NetworkView m_View;
-        IEnumerable<NodeViewModel> m_NodesVM;
+        NetworkView _View;
+        IEnumerable<NodeViewModel> _NodesVM;
 
         #endregion //Fields
 
@@ -509,8 +509,8 @@ namespace FlowSimulator.Undo
         /// </summary>
         public SelectNodesUndoCommand(NetworkView view_, IEnumerable<NodeViewModel> nodesVM_)
         {
-            m_View = view_;
-            m_NodesVM = new List<NodeViewModel>(nodesVM_);
+            _View = view_;
+            _NodesVM = new List<NodeViewModel>(nodesVM_);
         }
 
         #endregion //Constructors
@@ -522,14 +522,14 @@ namespace FlowSimulator.Undo
         /// </summary>
         public void Redo()
         {
-            m_View.IsUndoRegisterEnabled = false;
+            _View.IsUndoRegisterEnabled = false;
 
-            foreach (var node in m_NodesVM)
+            foreach (var node in _NodesVM)
             {
-                m_View.SelectedNodes.Add(node);
+                _View.SelectedNodes.Add(node);
             }
 
-            m_View.IsUndoRegisterEnabled = true;
+            _View.IsUndoRegisterEnabled = true;
         }
 
         /// <summary>
@@ -537,14 +537,14 @@ namespace FlowSimulator.Undo
         /// </summary>
         public void Undo()
         {
-            m_View.IsUndoRegisterEnabled = false;
+            _View.IsUndoRegisterEnabled = false;
 
-            foreach (var node in m_NodesVM)
+            foreach (var node in _NodesVM)
             {
-                m_View.SelectedNodes.Remove(node);
+                _View.SelectedNodes.Remove(node);
             }
 
-            m_View.IsUndoRegisterEnabled = true;
+            _View.IsUndoRegisterEnabled = true;
         }
 
         /// <summary>
@@ -566,8 +566,8 @@ namespace FlowSimulator.Undo
     {
         #region Fields
 
-        NetworkView m_View;
-        IEnumerable<NodeViewModel> m_NodesVM;
+        NetworkView _View;
+        IEnumerable<NodeViewModel> _NodesVM;
 
         #endregion //Fields
 
@@ -582,8 +582,8 @@ namespace FlowSimulator.Undo
         /// </summary>
         public DeselectNodesUndoCommand(NetworkView view_, IEnumerable<NodeViewModel> nodesVM_)
         {
-            m_View = view_;
-            m_NodesVM = new List<NodeViewModel>(nodesVM_);
+            _View = view_;
+            _NodesVM = new List<NodeViewModel>(nodesVM_);
         }
 
         #endregion //Constructors
@@ -595,14 +595,14 @@ namespace FlowSimulator.Undo
         /// </summary>
         public void Redo()
         {
-            m_View.IsUndoRegisterEnabled = false;
+            _View.IsUndoRegisterEnabled = false;
 
-            foreach (var node in m_NodesVM)
+            foreach (var node in _NodesVM)
             {
-                m_View.SelectedNodes.Remove(node);
+                _View.SelectedNodes.Remove(node);
             }
 
-            m_View.IsUndoRegisterEnabled = true;
+            _View.IsUndoRegisterEnabled = true;
         }
 
         /// <summary>
@@ -610,14 +610,14 @@ namespace FlowSimulator.Undo
         /// </summary>
         public void Undo()
         {
-            m_View.IsUndoRegisterEnabled = false;
+            _View.IsUndoRegisterEnabled = false;
 
-            foreach (var node in m_NodesVM)
+            foreach (var node in _NodesVM)
             {
-                m_View.SelectedNodes.Add(node);
+                _View.SelectedNodes.Add(node);
             }
  
-             m_View.IsUndoRegisterEnabled = true;
+             _View.IsUndoRegisterEnabled = true;
         }
 
         /// <summary>

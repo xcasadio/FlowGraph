@@ -171,7 +171,7 @@ namespace FlowGraphBase
         /// <param name="param"></param>
         public void OnEvent(ProcessingContext context, Type type, int index, object param)
         {
-            //m_MustStop = false;
+            //_MustStop = false;
 
             foreach (var eventNode in SequenceNodes.Select(pair => pair.Value as EventNode)
                 .Where(node => node != null

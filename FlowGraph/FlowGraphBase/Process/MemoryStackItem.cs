@@ -9,8 +9,7 @@ namespace FlowGraphBase.Process
     {
 		#region Fields
 
-        private int m_Id;
-        private object m_Value;
+        private object _Value;
 
 		#endregion //Fields
 	
@@ -19,19 +18,19 @@ namespace FlowGraphBase.Process
         /// <summary>
         /// 
         /// </summary>
-        public int ID => m_Id;
+        public int ID { get; }
 
         /// <summary>
         /// 
         /// </summary>
         public object Value
         {
-            get => m_Value;
+            get => _Value;
             set
             {
-                if (m_Value != value)
+                if (_Value != value)
                 {
-                    m_Value = value;
+                    _Value = value;
                     OnPropertyChanged("Value");
                 }
             }
@@ -48,8 +47,8 @@ namespace FlowGraphBase.Process
         /// <param name="val_"></param>
         public MemoryStackItem(int id_, object val_)
         {
-            m_Id = id_;
-            m_Value = val_;
+            ID = id_;
+            _Value = val_;
         }
 
 		#endregion //Constructors
@@ -91,7 +90,7 @@ namespace FlowGraphBase.Process
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return base.GetHashCode() * m_Id.GetHashCode();
+            return base.GetHashCode() * ID.GetHashCode();
         }
 
         /// <summary>
@@ -100,7 +99,7 @@ namespace FlowGraphBase.Process
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("{0} : {1}", m_Id, (m_Value == null ? "<null>" : m_Value.ToString()));
+            return string.Format("{0} : {1}", ID, (_Value == null ? "<null>" : _Value.ToString()));
         }
 
         #endregion // Object

@@ -12,31 +12,31 @@ namespace FlowGraphBase.Node.StandardVariableNode
     {
 		#region Fields
 
-        NamedVariable m_Value;
+        NamedVariable _Value;
 
 		#endregion //Fields
 	
 		#region Properties
 
-        public override string Title => m_Value.Name;
+        public override string Title => _Value.Name;
 
         /// <summary>
         /// 
         /// </summary>
-        public string VariableName => m_Value.Name;
+        public string VariableName => _Value.Name;
 
         /// <summary>
         /// 
         /// </summary>
-        public Type VariableType => m_Value.VariableType;
+        public Type VariableType => _Value.VariableType;
 
         /// <summary>
         /// 
         /// </summary>
         public override object Value
         {
-            get => m_Value.Value;
-            set => m_Value.InternalValueContainer.Value = value;
+            get => _Value.Value;
+            set => _Value.InternalValueContainer.Value = value;
         }
 
 		#endregion //Properties
@@ -60,9 +60,9 @@ namespace FlowGraphBase.Node.StandardVariableNode
         public NamedVariableNode(string name_)
             : base()
         {
-            m_Value = NamedVariableManager.Instance.GetNamedVariable(name_);
-            m_Value.PropertyChanged += new PropertyChangedEventHandler(OnNamedVariablePropertyChanged);
-            AddSlot(0, string.Empty, SlotType.VarInOut, m_Value.VariableType, true, VariableControlType.ReadOnly);
+            _Value = NamedVariableManager.Instance.GetNamedVariable(name_);
+            _Value.PropertyChanged += OnNamedVariablePropertyChanged;
+            AddSlot(0, string.Empty, SlotType.VarInOut, _Value.VariableType, true, VariableControlType.ReadOnly);
         }
 
 		#endregion //Constructors
@@ -76,9 +76,9 @@ namespace FlowGraphBase.Node.StandardVariableNode
         {
             base.InitializeSlots();
 
-            if (m_Value != null) // call only when loaded with xml
+            if (_Value != null) // call only when loaded with xml
             {
-                AddSlot(0, string.Empty, SlotType.VarInOut, m_Value.VariableType, true, VariableControlType.ReadOnly);
+                AddSlot(0, string.Empty, SlotType.VarInOut, _Value.VariableType, true, VariableControlType.ReadOnly);
             }
         }
 
@@ -88,7 +88,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
         /// <returns></returns>
         protected override SequenceNode CopyImpl()
         {
-            return new NamedVariableNode(m_Value.Name);
+            return new NamedVariableNode(_Value.Name);
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
         /// <param name="node_"></param>
         protected override void SaveValue(XmlNode node_)
         {
-            node_.AddAttribute("varName", m_Value.Name);
+            node_.AddAttribute("varName", _Value.Name);
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
         protected override void Load(XmlNode node_)
         {
             base.Load(node_);
-            m_Value = (NamedVariable)LoadValue(node_.SelectSingleNode("Value"));
+            _Value = (NamedVariable)LoadValue(node_.SelectSingleNode("Value"));
         }
 		#endregion //Methods
     }

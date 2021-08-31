@@ -68,7 +68,7 @@ namespace FlowSimulator.Logger
 
             if (_async)
             {
-                _task = new Task(new Action(() =>
+                _task = new Task(() =>
                 {
                     while (_isAlive)
                     {
@@ -83,7 +83,7 @@ namespace FlowSimulator.Logger
                             Monitor.Exit(_stringBuilder);
                         }
                     }
-                }));
+                });
                 _task.Start();
             }
 

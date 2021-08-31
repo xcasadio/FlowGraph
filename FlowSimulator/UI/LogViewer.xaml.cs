@@ -13,8 +13,8 @@ namespace FlowSimulator.UI
     {
 		#region Fields
 
-        ScrollViewer m_ScrollViewer = null;
-        bool m_IsAutoScroll = true;
+        ScrollViewer _ScrollViewer = null;
+        bool _IsAutoScroll = true;
 
 		#endregion //Fields
 	
@@ -25,17 +25,17 @@ namespace FlowSimulator.UI
         /// </summary>
         public bool IsAutoScroll
         {
-            get => m_IsAutoScroll;
+            get => _IsAutoScroll;
             set 
             {
-                if (m_IsAutoScroll != value)
+                if (_IsAutoScroll != value)
                 {
-                    m_IsAutoScroll = value;
+                    _IsAutoScroll = value;
 
-                    if (m_IsAutoScroll
-                        && m_ScrollViewer != null)
+                    if (_IsAutoScroll
+                        && _ScrollViewer != null)
                     {
-                        m_ScrollViewer.ScrollToBottom();
+                        _ScrollViewer.ScrollToBottom();
                     }
                 }
             }
@@ -53,7 +53,7 @@ namespace FlowSimulator.UI
             LogManager.Instance.AddLogger(new LogEditor());
             InitializeComponent();
 
-            LogEditor.LogEntries.CollectionChanged += new NotifyCollectionChangedEventHandler(OnCollectionChanged);
+            LogEditor.LogEntries.CollectionChanged += OnCollectionChanged;
         }
 
 		#endregion //Constructors
@@ -67,20 +67,20 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (m_ScrollViewer == null)
+            if (_ScrollViewer == null)
             {
                 object o = logContent.Template.FindName("logScrollViewer", logContent);
 
                 if (o != null && o is ScrollViewer)
                 {
-                    m_ScrollViewer = o as ScrollViewer;
+                    _ScrollViewer = o as ScrollViewer;
                 }
             }
 
-            if (m_ScrollViewer != null &&
-                m_IsAutoScroll)
+            if (_ScrollViewer != null &&
+                _IsAutoScroll)
             {
-                m_ScrollViewer.ScrollToBottom();
+                _ScrollViewer.ScrollToBottom();
             }
         }
 

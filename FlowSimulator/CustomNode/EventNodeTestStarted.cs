@@ -63,10 +63,10 @@ namespace FlowSimulator.CustomNode
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="param_"></param>
-        protected override void TriggeredImpl(object param_)
+        /// <param name="para_"></param>
+        protected override void TriggeredImpl(object para_)
         {
-            SetValueInSlot(1, param_);
+            SetValueInSlot(1, para_);
         }
 
         /*protected override void Load(XmlNode node_)

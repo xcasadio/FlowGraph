@@ -9,9 +9,8 @@ namespace Utils
     {
 #if DEBUG
         private static int nextObjectId = 0;
-        private int objectDebugId = nextObjectId++;
 
-        public int ObjectDebugId => objectDebugId;
+        public int ObjectDebugId { get; } = nextObjectId++;
 #endif //  DEBUG
 
         /// <summary>

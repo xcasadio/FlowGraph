@@ -35,16 +35,16 @@ namespace FlowGraphBase.Node
         /// </summary>
         /// <param name="context_"></param>
         /// <param name="index_"></param>
-        public void Triggered(ProcessingContext context_, int index_, object param_)
+        public void Triggered(ProcessingContext context_, int index_, object para_)
         {
-            TriggeredImpl(param_);
+            TriggeredImpl(para_);
             ActivateOutputLink(context_, index_);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="param_"></param>
-        protected abstract void TriggeredImpl(object param_);
+        /// <param name="para_"></param>
+        protected abstract void TriggeredImpl(object para_);
     }
 }

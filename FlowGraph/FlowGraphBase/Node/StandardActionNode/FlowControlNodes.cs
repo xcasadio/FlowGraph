@@ -125,8 +125,8 @@ namespace FlowGraphBase.Node.StandardActionNode
 
         #endregion
 
-        bool m_IsInitial = false;
-        int m_Counter = 0;
+        bool _IsInitial = false;
+        int _Counter = 0;
 
         public override string Title => "Do N";
 
@@ -169,14 +169,14 @@ namespace FlowGraphBase.Node.StandardActionNode
 
             if (slot_.ID == (int)NodeSlotId.InReset)
             {
-                m_Counter = 0;
-                m_IsInitial = false;
+                _Counter = 0;
+                _IsInitial = false;
             }
             else if (slot_.ID == (int)NodeSlotId.InEnter)
             {
                 MemoryStackItem memoryItem = context_.CurrentFrame.GetValueFromID(Id);
 
-                if (m_IsInitial == false)
+                if (_IsInitial == false)
                 {
                     object objN = GetValueFromSlot((int)NodeSlotId.VarInN);
 
@@ -201,12 +201,12 @@ namespace FlowGraphBase.Node.StandardActionNode
                         memoryItem.Value = n;
                     }
 
-                    m_IsInitial = true;
+                    _IsInitial = true;
                 }
 
-                if (m_Counter < (int)memoryItem.Value)
+                if (_Counter < (int)memoryItem.Value)
                 {
-                    m_Counter++;
+                    _Counter++;
                     ActivateOutputLink(context_, (int)NodeSlotId.Out);
                 }
             }
@@ -554,7 +554,7 @@ namespace FlowGraphBase.Node.StandardActionNode
                         // is finished
                         context_.RegisterNextExecution(GetSlotById((int)NodeSlotId.In)); 
                         ProcessingContext newContext = context_.PushNewContext();
-                        newContext.Finished += new EventHandler(OnLoopBodyFinished);
+                        newContext.Finished += OnLoopBodyFinished;
                         ActivateOutputLink(newContext, (int)NodeSlotId.OutLoop);
                     }
                     else
@@ -576,7 +576,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         void OnLoopBodyFinished(object sender, EventArgs e)
         {            
             ProcessingContext context = sender as ProcessingContext;
-            context.Finished -= new EventHandler(OnLoopBodyFinished);
+            context.Finished -= OnLoopBodyFinished;
 
             MemoryStackItem memoryItem = context.Parent.CurrentFrame.GetValueFromID(Id);
             ForLoopNodeInfo memoryInfo = (ForLoopNodeInfo)memoryItem.Value;
@@ -742,7 +742,7 @@ namespace FlowGraphBase.Node.StandardActionNode
                         memoryItem.Value = memoryInfo;
                         
                         ProcessingContext newContext = context_.PushNewContext();
-                        newContext.Finished += new EventHandler(OnLoopBodyFinished);
+                        newContext.Finished += OnLoopBodyFinished;
                         ActivateOutputLink(newContext, (int)NodeSlotId.OutLoop);
                     }
                     else
@@ -772,7 +772,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         void OnLoopBodyFinished(object sender, EventArgs e)
         {
             ProcessingContext context = sender as ProcessingContext;
-            context.Finished -= new EventHandler(OnLoopBodyFinished);
+            context.Finished -= OnLoopBodyFinished;
 
             MemoryStackItem memoryItem = context.Parent.CurrentFrame.GetValueFromID(Id);
             if (memoryItem != null)

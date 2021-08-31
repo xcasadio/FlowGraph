@@ -14,7 +14,7 @@ namespace NetworkUI
         /// <summary>
         /// Event raised when the user starts to drag a node.
         /// </summary>
-        private void NodeItem_DragStarted(object source, NodeDragStartedEventArgs e)
+        private void NodeIte_DragStarted(object source, NodeDragStartedEventArgs e)
         {
             e.Handled = true;
 
@@ -32,7 +32,7 @@ namespace NetworkUI
         /// <summary>
         /// Event raised while the user is dragging a node.
         /// </summary>
-        private void NodeItem_Dragging(object source, NodeDraggingEventArgs e)
+        private void NodeIte_Dragging(object source, NodeDraggingEventArgs e)
         {
             e.Handled = true;
 
@@ -71,7 +71,7 @@ namespace NetworkUI
         /// <summary>
         /// Event raised when the user has finished dragging a node.
         /// </summary>
-        private void NodeItem_DragCompleted(object source, NodeDragCompletedEventArgs e)
+        private void NodeIte_DragCompleted(object source, NodeDragCompletedEventArgs e)
         {
             e.Handled = true;
 

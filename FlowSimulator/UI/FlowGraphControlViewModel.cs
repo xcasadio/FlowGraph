@@ -72,16 +72,14 @@ namespace FlowSimulator.UI
         /// <summary>
         /// 
         /// </summary>
-        private SequenceBase m_Sequence;
+        private SequenceBase _Sequence;
 
         /// <summary>
         /// 
         /// </summary>
-        private XmlNode m_XmlNodeLoaded = null;
+        private XmlNode _XmlNodeLoaded = null;
 
-        private UndoRedoManager m_UndoManager = new UndoRedoManager();
-
-		#endregion //Fields
+        #endregion //Fields
 
         #region Properties
 
@@ -103,25 +101,25 @@ namespace FlowSimulator.UI
         /// <summary>
         /// Gets
         /// </summary>
-        public UndoRedoManager UndoRedoManager => m_UndoManager;
+        public UndoRedoManager UndoRedoManager { get; } = new UndoRedoManager();
 
         /// <summary>
         /// Gets
         /// </summary>
         public SequenceBase Sequence
         {
-            get => m_Sequence;
+            get => _Sequence;
             private set
             {
-                if (m_Sequence != value)
+                if (_Sequence != value)
                 {
-                    if (m_Sequence != null)
+                    if (_Sequence != null)
                     {
-                        m_Sequence.PropertyChanged -= new PropertyChangedEventHandler(OnSequencePropertyChanged);
+                        _Sequence.PropertyChanged -= OnSequencePropertyChanged;
                     }
 
-                    m_Sequence = value;
-                    m_Sequence.PropertyChanged += new PropertyChangedEventHandler(OnSequencePropertyChanged);
+                    _Sequence = value;
+                    _Sequence.PropertyChanged += OnSequencePropertyChanged;
                 }
             }
         }
@@ -388,8 +386,8 @@ namespace FlowSimulator.UI
                 // Maybe the user dragged it out and dropped it in empty space.
                 //
                 Network.Connections.Remove(newConnection);
-//                 m_connectorDraggedOut = connectorDraggedOut;
-//                 m_ConnectorDraggedOver = connectorDraggedOver;
+//                 _connectorDraggedOut = connectorDraggedOut;
+//                 _ConnectorDraggedOver = connectorDraggedOver;
 // 
 //                 //Open contextMenu
 //                 if (ContextMenuOpened != null)
@@ -498,7 +496,7 @@ namespace FlowSimulator.UI
                 newConnection.DestConnector = src;
             }
 
-            m_UndoManager.Add(new CreateConnectionUndoCommand(this, newConnection));
+            UndoRedoManager.Add(new CreateConnectionUndoCommand(this, newConnection));
         }
 
         /// <summary>
@@ -672,7 +670,7 @@ namespace FlowSimulator.UI
         {
             if (saveUndo_)
             {
-                m_UndoManager.Add(new DeleteNodeUndoCommand(this, node));
+                UndoRedoManager.Add(new DeleteNodeUndoCommand(this, node));
             }
 
             Network.Connections.RemoveRange(node.AttachedConnections);
@@ -687,7 +685,7 @@ namespace FlowSimulator.UI
         {
             if (saveUndo_)
             {
-                m_UndoManager.Add(new DeleteNodesUndoCommand(this, nodes_));
+                UndoRedoManager.Add(new DeleteNodesUndoCommand(this, nodes_));
             }
 
             foreach (var node in nodes_)
@@ -705,7 +703,7 @@ namespace FlowSimulator.UI
         {
             if (saveUndo_)
             {
-                m_UndoManager.Add(new CreateNodeUndoCommand(this, node_));
+                UndoRedoManager.Add(new CreateNodeUndoCommand(this, node_));
             }
 
             Network.Nodes.Add(node_);
@@ -782,7 +780,7 @@ namespace FlowSimulator.UI
                 newNodes.Add(newNode);
             }
 
-            m_UndoManager.Add(new CreateNodesUndoCommand(this, newNodes));
+            UndoRedoManager.Add(new CreateNodesUndoCommand(this, newNodes));
             Network.Nodes.AddRange(newNodes);
 
             return newNodes;
@@ -795,7 +793,7 @@ namespace FlowSimulator.UI
         {
             if (saveUndo_)
             {
-                m_UndoManager.Add(new CreateConnectionUndoCommand(this, connection));
+                UndoRedoManager.Add(new CreateConnectionUndoCommand(this, connection));
             }
 
             Network.Connections.Add(connection);
@@ -808,7 +806,7 @@ namespace FlowSimulator.UI
         {
             if (saveUndo_)
             {
-                m_UndoManager.Add(new DeleteConnectionUndoCommand(this, connection));
+                UndoRedoManager.Add(new DeleteConnectionUndoCommand(this, connection));
             }
 
             Network.Connections.Remove(connection);
@@ -821,7 +819,7 @@ namespace FlowSimulator.UI
         {
             if (saveUndo_)
             {
-                m_UndoManager.Add(new CreateConnectionsUndoCommand(this, connections));
+                UndoRedoManager.Add(new CreateConnectionsUndoCommand(this, connections));
             }
 
             Network.Connections.AddRange(connections);
@@ -834,7 +832,7 @@ namespace FlowSimulator.UI
         {
             if (saveUndo_)
             {
-                m_UndoManager.Add(new DeleteConnectionsUndoCommand(this, connections));
+                UndoRedoManager.Add(new DeleteConnectionsUndoCommand(this, connections));
             }
 
             Network.Connections.RemoveRange(connections);
@@ -978,7 +976,7 @@ namespace FlowSimulator.UI
                     Network.Connections.Add(cvm);
                 }
 
-                m_XmlNodeLoaded = node_;
+                _XmlNodeLoaded = node_;
             }
             catch (Exception ex)
             {
@@ -1033,7 +1031,7 @@ namespace FlowSimulator.UI
 
         #region Undo management
 
-        List<PositionNodeUndoCommand.NodeDraggingInfo> m_CachedNodesDraggingList = new List<PositionNodeUndoCommand.NodeDraggingInfo>(5);
+        List<PositionNodeUndoCommand.NodeDraggingInfo> _CachedNodesDraggingList = new List<PositionNodeUndoCommand.NodeDraggingInfo>(5);
 
         /// <summary>
         /// 
@@ -1042,11 +1040,11 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         public void OnNodeDragStarted(NetworkView sender, NodeDragStartedEventArgs e)
         {
-            m_CachedNodesDraggingList.Clear();
+            _CachedNodesDraggingList.Clear();
 
             foreach (NodeViewModel node in e.Nodes)
             {
-                m_CachedNodesDraggingList.Add(new PositionNodeUndoCommand.NodeDraggingInfo { Node = node, StartX = node.X, StartY = node.Y });
+                _CachedNodesDraggingList.Add(new PositionNodeUndoCommand.NodeDraggingInfo { Node = node, StartX = node.X, StartY = node.Y });
             }
         }
 
@@ -1057,13 +1055,13 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         public void OnNodeDragCompleted(NetworkView sender, NodeDragCompletedEventArgs e)
         {
-            foreach (PositionNodeUndoCommand.NodeDraggingInfo info in m_CachedNodesDraggingList)
+            foreach (PositionNodeUndoCommand.NodeDraggingInfo info in _CachedNodesDraggingList)
             {
                 info.EndX = info.Node.X;
                 info.EndY = info.Node.Y;
             }
 
-            UndoRedoManager.Add(new PositionNodeUndoCommand(this, m_CachedNodesDraggingList));
+            UndoRedoManager.Add(new PositionNodeUndoCommand(this, _CachedNodesDraggingList));
         }
 
         /// <summary>

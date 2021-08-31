@@ -1961,7 +1961,7 @@ namespace FlowGraphBase.Node.StandardActionNode
 
         #endregion
 
-        static Random m_Random = new Random();
+        static Random _Random = new Random();
 
         /// <summary>
         /// 
@@ -2040,7 +2040,7 @@ namespace FlowGraphBase.Node.StandardActionNode
                 if (typeVal == typeof(double)
                     || typeVal == typeof(float))
                 {
-                    result = m_Random.NextDouble();
+                    result = _Random.NextDouble();
 
                     dynamic min = objMin;
                     dynamic max = objMax;
@@ -2048,7 +2048,7 @@ namespace FlowGraphBase.Node.StandardActionNode
                 }
                 else
                 {
-                    result = m_Random.Next((int)objMin, (int)objMax);
+                    result = _Random.Next((int)objMin, (int)objMax);
                 }
 
                 SetValueInSlot((int)NodeSlotId.VarResult, result);

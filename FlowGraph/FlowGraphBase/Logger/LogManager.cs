@@ -11,12 +11,10 @@ namespace FlowGraphBase.Logger
 	{
         #region Singleton
 
-        private static readonly LogManager _Instance = new LogManager();
-
         /// <summary>
         /// Gets
         /// </summary>
-        public static LogManager Instance => _Instance;
+        public static LogManager Instance { get; } = new LogManager();
 
         #endregion //Singleton
 
@@ -28,7 +26,6 @@ namespace FlowGraphBase.Logger
 		private readonly List<ILog> _loggers = new List<ILog>();
 
 #if DEBUG
-        private LogVerbosity _verbosity = LogVerbosity.Trace;
 #else
         private LogVerbosity _verbosity = LogVerbosity.Info;
 #endif
@@ -40,11 +37,7 @@ namespace FlowGraphBase.Logger
         /// <summary>
         /// Gets/Sets
         /// </summary>
-        public LogVerbosity Verbosity
-        {
-            get => _verbosity;
-            set => _verbosity = value;
-        }
+        public LogVerbosity Verbosity { get; set; } = LogVerbosity.Trace;
 
         /// <summary>
         /// 
@@ -111,7 +104,7 @@ namespace FlowGraphBase.Logger
                 NbErrors++;
             }
 
-            if (verbose < _verbosity)
+            if (verbose < Verbosity)
             {
                 return;
             }
@@ -133,7 +126,7 @@ namespace FlowGraphBase.Logger
         {
             NbErrors++;
 
-            if (_verbosity == LogVerbosity.None)
+            if (Verbosity == LogVerbosity.None)
             {
                 return;
             }

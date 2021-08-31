@@ -9,42 +9,26 @@ namespace FlowGraphBase.Process
     {
 		#region Fields
 
-        private SequenceBase m_SequenceBase;
-        private MemoryStack m_MemoryStack;
-        private NodeSlot m_Slot;
-
-		#endregion //Fields
+        #endregion //Fields
 	
 		#region Properties
 		
         /// <summary>
         /// Gets
         /// </summary>
-	    public SequenceBase SequenceBase
-	    {
-		    get => m_SequenceBase;
-            private set => m_SequenceBase = value;
-        }
+	    public SequenceBase SequenceBase { get; private set; }
 
         /// <summary>
         /// Gets
         /// </summary>
-	    public MemoryStack MemoryStack
-	    {
-		    get => m_MemoryStack;
-            private set => m_MemoryStack = value;
-        }
-        
+	    public MemoryStack MemoryStack { get; private set; }
+
         /// <summary>
         /// Gets
         /// </summary>
-	    public NodeSlot Slot
-	    {
-            get => m_Slot;
-            private set => m_Slot = value;
-        }
+	    public NodeSlot Slot { get; private set; }
 
-		#endregion //Properties
+        #endregion //Properties
 	
 		#region Constructors
 		

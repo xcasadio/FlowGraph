@@ -14,15 +14,13 @@ namespace FlowGraphBase
         /// <param name="value"></param>
         public EventArgs(T value)
         {
-            m_value = value;
+            Value = value;
         }
-
-        private T m_value;
 
         /// <summary>
         /// 
         /// </summary>
-        public T Value => m_value;
+        public T Value { get; }
     }
 
     /// <summary>
@@ -39,21 +37,18 @@ namespace FlowGraphBase
         /// <param name="value2"></param>
         public EventArgs(T value, U value2)
         {
-            m_value = value;
-            m_value2 = value2;
+            Value = value;
+            Value2 = value2;
         }
 
-        private T m_value;
-        private U m_value2;
+        /// <summary>
+        /// 
+        /// </summary>
+        public T Value { get; }
 
         /// <summary>
         /// 
         /// </summary>
-        public T Value => m_value;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public U Value2 => m_value2;
+        public U Value2 { get; }
     }
 }

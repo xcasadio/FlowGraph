@@ -48,7 +48,7 @@ namespace NetworkModel
                 if (connections == null)
                 {
                     connections = new ImpObservableCollection<ConnectionViewModel>();
-                    connections.ItemsRemoved += new EventHandler<CollectionItemsChangedEventArgs>(connections_ItemsRemoved);
+                    connections.ItemsRemoved += connections_ItemsRemoved;
                 }
 
                 return connections;

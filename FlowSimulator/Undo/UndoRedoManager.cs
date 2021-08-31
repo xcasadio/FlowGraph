@@ -15,13 +15,13 @@ namespace FlowSimulator.Undo
         public event EventHandler UndoRedoCommandListChanged;
         public event EventHandler UndoRedoCommandExecuted;
 
-        Stack<IUndoCommand> m_Undo = new Stack<IUndoCommand>();
-        Stack<IUndoCommand> m_Redo = new Stack<IUndoCommand>();
+        Stack<IUndoCommand> _Undo = new Stack<IUndoCommand>();
+        Stack<IUndoCommand> _Redo = new Stack<IUndoCommand>();
 
         /// <summary>
         /// Used to not add/delete action when undoing or redoing
         /// </summary>
-        bool m_IsProcessing = false;
+        bool _IsProcessing = false;
 
         #endregion //Fields
 
@@ -30,12 +30,12 @@ namespace FlowSimulator.Undo
         /// <summary>
         /// Gets if can undo
         /// </summary>
-        public bool CanUndo => m_Undo.Count == 0 ? false : true;
+        public bool CanUndo => _Undo.Count == 0 ? false : true;
 
         /// <summary>
         /// Gets if can redo
         /// </summary>
-        public bool CanRedo => m_Redo.Count == 0 ? false : true;
+        public bool CanRedo => _Redo.Count == 0 ? false : true;
 
         #endregion //Properties
 
@@ -52,17 +52,17 @@ namespace FlowSimulator.Undo
         /// <param name="arg_"></param>
         public void Add(IUndoCommand command_)
         {
-            if (m_IsProcessing)
+            if (_IsProcessing)
             {
                 LogManager.Instance.WriteLine(LogVerbosity.Trace, "UndoRedo : can't add because processing");
                 return;
             }
 
-            m_Undo.Push(command_);
-            m_Redo.Clear();
+            _Undo.Push(command_);
+            _Redo.Clear();
 
             LogManager.Instance.WriteLine(LogVerbosity.Trace, "UndoRedo Add({0}) : history list: {1} item(s)",
-                command_.ToString(), m_Undo.Count);
+                command_.ToString(), _Undo.Count);
 
             OnPropertyChanged("CanUndo");
             OnPropertyChanged("CanRedo");
@@ -80,8 +80,8 @@ namespace FlowSimulator.Undo
         /// <param name="arg_"></param>
         public void Clear()
         {
-            m_Undo.Clear();
-            m_Redo.Clear();
+            _Undo.Clear();
+            _Redo.Clear();
 
             LogManager.Instance.WriteLine(LogVerbosity.Trace, "UndoRedo Clear()");
 
@@ -101,17 +101,17 @@ namespace FlowSimulator.Undo
         {
             if (CanUndo)
             {
-                m_IsProcessing = true;
+                _IsProcessing = true;
 
                 try
                 {
-                    IUndoCommand command = m_Undo.Pop();
+                    IUndoCommand command = _Undo.Pop();
 
                     LogManager.Instance.WriteLine(LogVerbosity.Trace, "UndoRedo Undo({0}) : history list: {1} item(s)",
-                        command.ToString(), m_Undo.Count);
+                        command.ToString(), _Undo.Count);
 
                     command.Undo();
-                    m_Redo.Push(command);
+                    _Redo.Push(command);
 
                     OnPropertyChanged("CanUndo");
                     OnPropertyChanged("CanRedo");
@@ -127,7 +127,7 @@ namespace FlowSimulator.Undo
                 }
                 finally
                 {
-                    m_IsProcessing = false;
+                    _IsProcessing = false;
                 }
             }
         }
@@ -139,17 +139,17 @@ namespace FlowSimulator.Undo
         {
             if (CanRedo)
             {
-                m_IsProcessing = true;
+                _IsProcessing = true;
 
                 try
                 {
-                    IUndoCommand command = m_Redo.Pop();
+                    IUndoCommand command = _Redo.Pop();
 
                     LogManager.Instance.WriteLine(LogVerbosity.Trace, "UndoRedo Redo({0}) : history list: {1} item(s)",
-                        command.ToString(), m_Undo.Count);
+                        command.ToString(), _Undo.Count);
 
                     command.Redo();
-                    m_Undo.Push(command);
+                    _Undo.Push(command);
 
                     OnPropertyChanged("CanUndo");
                     OnPropertyChanged("CanRedo");
@@ -165,7 +165,7 @@ namespace FlowSimulator.Undo
                 }
                 finally
                 {
-                    m_IsProcessing = false;
+                    _IsProcessing = false;
                 }
             }
         }
@@ -181,14 +181,14 @@ namespace FlowSimulator.Undo
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="num_"></param>
-        public void RemoveLastNCommands(int num_)
+        /// <param name="nu_"></param>
+        public void RemoveLastNCommands(int nu_)
         {
-            for (int i = 0; i < num_; i++)
+            for (int i = 0; i < nu_; i++)
             {
                 if (CanUndo)
                 {
-                    m_Undo.Pop();
+                    _Undo.Pop();
                 }
                 else
                 {
@@ -197,7 +197,7 @@ namespace FlowSimulator.Undo
             }
 
             LogManager.Instance.WriteLine(LogVerbosity.Trace, "UndoRedo RemoveLastNCommands({0}) : history list: {1} item(s)",
-                    num_, m_Undo.Count);
+                    nu_, _Undo.Count);
 
             OnPropertyChanged("CanUndo");
             OnPropertyChanged("CanRedo");
