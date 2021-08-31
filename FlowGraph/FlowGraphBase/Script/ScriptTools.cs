@@ -25,7 +25,7 @@ namespace FlowGraphBase.Script
         /// <param name="val_"></param>
         static public void Set(string key_, object val_)
         {
-            if (m_Vars.ContainsKey(key_) == true)
+            if (m_Vars.ContainsKey(key_))
             {
                 m_Vars[key_] = val_;
             }

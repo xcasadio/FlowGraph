@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using FlowGraphBase.Logger;
+﻿using System.Xml;
 
 namespace FlowGraphBase.Node
 {
@@ -36,28 +31,19 @@ namespace FlowGraphBase.Node
         /// <summary>
         /// 
         /// </summary>
-        public override NodeType NodeType
-        {
-            get { return NodeType.Variable; }
-        }
+        public override NodeType NodeType => NodeType.Variable;
 
         /// <summary>
         /// 
         /// </summary>
-        public NodeSlot VariableSlot
-        {
-            get { return m_Slots[0]; }
-        }
+        public NodeSlot VariableSlot => m_Slots[0];
 
         /// <summary>
         /// 
         /// </summary>
-        public override string Title
-        {
-            get { return ""; }
-        }
+        public override string Title => "";
 
-		#endregion //Properties
+        #endregion //Properties
 	
 		#region Constructors
 

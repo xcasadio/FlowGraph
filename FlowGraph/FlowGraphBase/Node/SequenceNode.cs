@@ -103,18 +103,17 @@ namespace FlowGraphBase.Node
                 {
                     return ((NodeSlotVar)dstSlot).Value;
                 }
-                else if (node is VariableNode)
+
+                if (node is VariableNode)
                 {
                     return ((VariableNode)node).Value;
                 }
-                else
-                {
-                    throw new InvalidOperationException(
-                        string.Format("Node({0}) GetValueFromSlot({1}) : type of link not supported", Id, id_));
-                }
+                throw new InvalidOperationException(
+                    string.Format("Node({0}) GetValueFromSlot({1}) : type of link not supported", Id, id_));
             }
             // if no node is connected, we take the nested value of the slot
-            else if (slot is NodeSlotVar)
+
+            if (slot is NodeSlotVar)
             {
                 return ((NodeSlotVar)slot).Value;
             }
@@ -216,7 +215,7 @@ namespace FlowGraphBase.Node
                 Type type = AppDomain.CurrentDomain.GetAssemblies()
                        .SelectMany(t => t.GetTypes()).Single<Type>(t =>
                        {
-                           return t.IsClass == true
+                           return t.IsClass
                               && t.IsGenericType == false
                               && t.IsInterface == false
                               && t.IsAbstract == false
@@ -230,7 +229,7 @@ namespace FlowGraphBase.Node
 
                 return (SequenceNode)Activator.CreateInstance(type, node_);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 LogManager.Instance.WriteException(ex);
             }

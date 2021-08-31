@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel;
 using System.Xml;
 using FlowGraphBase.Logger;
@@ -28,7 +25,7 @@ namespace FlowGraphBase
         /// </summary>
         public object Value
         {
-            get { return _value; }
+            get => _value;
             set
             {
                 try
@@ -36,7 +33,7 @@ namespace FlowGraphBase
                     _value = value;
                     OnPropertyChanged("Value");
                 }
-                catch (System.Exception)
+                catch (Exception)
                 {
                     return;
                 }
@@ -44,7 +41,7 @@ namespace FlowGraphBase
 
                 if (stringValue != null)
                 {
-                    if (string.IsNullOrWhiteSpace(stringValue) == true)
+                    if (string.IsNullOrWhiteSpace(stringValue))
                     {
                         value = null;
                     }
@@ -54,7 +51,7 @@ namespace FlowGraphBase
                         {
                             value = Convert.ChangeType(stringValue, _variableType);
                         }
-                        catch (System.Exception ex)
+                        catch (Exception ex)
                         {
                             LogManager.Instance.WriteException(ex);
                             return;
@@ -76,7 +73,7 @@ namespace FlowGraphBase
         /// </summary>
         public virtual Type VariableType
         {
-            get { return _variableType; }
+            get => _variableType;
             set
             {
                 if (_variableType != value)

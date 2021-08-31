@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Collections;
 
 namespace Utils
@@ -24,12 +21,6 @@ namespace Utils
         /// <summary>
         /// The collection of items that changed.
         /// </summary>
-        public ICollection Items
-        {
-            get
-            {
-                return items;
-            }
-        }
+        public ICollection Items => items;
     }
 }

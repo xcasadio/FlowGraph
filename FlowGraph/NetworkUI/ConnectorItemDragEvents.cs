@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 
 namespace NetworkUI
 {
@@ -56,24 +52,12 @@ namespace NetworkUI
         /// <summary>
         /// The amount the node has been dragged horizontally.
         /// </summary>
-        public double HorizontalChange
-        {
-            get
-            {
-                return horizontalChange;
-            }
-        }
+        public double HorizontalChange => horizontalChange;
 
         /// <summary>
         /// The amount the node has been dragged vertically.
         /// </summary>
-        public double VerticalChange
-        {
-            get
-            {
-                return verticalChange;
-            }
-        }
+        public double VerticalChange => verticalChange;
     }
 
     /// <summary>

@@ -215,7 +215,7 @@ namespace Utils
         public T2[] ToArray<T2>()
             where T2 : class
         {
-            T2[] array = new T2[this.Count];
+            T2[] array = new T2[Count];
             int i = 0;
             foreach (T obj in this)
             {

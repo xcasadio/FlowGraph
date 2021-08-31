@@ -35,7 +35,7 @@ namespace FlowSimulator
                 xmlDoc.Load(fileName);
                 XmlNode rootNode = xmlDoc.SelectSingleNode("FlowSimulator");
 
-                if (rootNode != null 
+                if (rootNode != null
                     && rootNode.Attributes.GetNamedItem("version") != null)
                 {
                     int version = int.Parse(rootNode.Attributes["version"].Value);

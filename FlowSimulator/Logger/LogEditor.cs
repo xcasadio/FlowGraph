@@ -80,7 +80,7 @@ namespace FlowSimulator.Logger
         /// <param name="msg"></param>
         public void Write(LogVerbosity verbose, string msg)
         {
-            if (Application.Current.Dispatcher.CheckAccess() == true)
+            if (Application.Current.Dispatcher.CheckAccess())
             {
                 LogEntries.Add(new LogEntry()
                 {

@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using FlowSimulator.FlowGraphs;
 using FlowGraphBase;
 using FlowGraphBase.Script;
@@ -322,7 +314,7 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         private void listBoxGraphFunctions_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (m_IsDragAndDrop == true)
+            if (m_IsDragAndDrop)
             {
                 // Get the current mouse position
                 Point mousePos = e.GetPosition(null);
@@ -457,7 +449,7 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         private void listBoxGraphNamedVars_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (m_IsDragAndDrop == true)
+            if (m_IsDragAndDrop)
             {
                 // Get the current mouse position
                 Point mousePos = e.GetPosition(null);
@@ -594,7 +586,7 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         private void listBoxGraphScripts_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (m_IsDragAndDrop == true)
+            if (m_IsDragAndDrop)
             {
                 // Get the current mouse position
                 Point mousePos = e.GetPosition(null);

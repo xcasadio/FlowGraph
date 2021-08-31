@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FlowGraphBase
 {
@@ -25,10 +22,7 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        public T Value
-        {
-            get { return m_value; }
-        }
+        public T Value => m_value;
     }
 
     /// <summary>
@@ -55,17 +49,11 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        public T Value
-        {
-            get { return m_value; }
-        }
+        public T Value => m_value;
 
         /// <summary>
         /// 
         /// </summary>
-        public U Value2
-        {
-            get { return m_value2; }
-        }
+        public U Value2 => m_value2;
     }
 }

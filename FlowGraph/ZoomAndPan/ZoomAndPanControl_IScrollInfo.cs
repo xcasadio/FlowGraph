@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
 
@@ -27,14 +23,8 @@ namespace ZoomAndPan
         /// </summary>
         public bool CanVerticallyScroll
         {
-            get
-            {
-                return canVerticallyScroll;
-            }
-            set
-            {
-                canVerticallyScroll = value;
-            }
+            get => canVerticallyScroll;
+            set => canVerticallyScroll = value;
         }
 
         /// <summary>
@@ -42,59 +32,29 @@ namespace ZoomAndPan
         /// </summary>
         public bool CanHorizontallyScroll
         {
-            get
-            {
-                return canHorizontallyScroll;
-            }
-            set
-            {
-                canHorizontallyScroll = value;
-            }
+            get => canHorizontallyScroll;
+            set => canHorizontallyScroll = value;
         }
 
         /// <summary>
         /// The width of the content (with 'ContentScale' applied).
         /// </summary>
-        public double ExtentWidth
-        {
-            get
-            {
-                return unScaledExtent.Width * ContentScale;
-            }
-        }
+        public double ExtentWidth => unScaledExtent.Width * ContentScale;
 
         /// <summary>
         /// The height of the content (with 'ContentScale' applied).
         /// </summary>
-        public double ExtentHeight
-        {
-            get
-            {
-                return unScaledExtent.Height * ContentScale;
-            }
-        }
+        public double ExtentHeight => unScaledExtent.Height * ContentScale;
 
         /// <summary>
         /// Get the width of the viewport onto the content.
         /// </summary>
-        public double ViewportWidth
-        {
-            get
-            {
-                return viewport.Width;
-            }
-        }
+        public double ViewportWidth => viewport.Width;
 
         /// <summary>
         /// Get the height of the viewport onto the content.
         /// </summary>
-        public double ViewportHeight
-        {
-            get
-            {
-                return viewport.Height;
-            }
-        }
+        public double ViewportHeight => viewport.Height;
 
         /// <summary>
         /// Reference to the ScrollViewer that is wrapped (in XAML) around the ZoomAndPanControl.
@@ -102,37 +62,19 @@ namespace ZoomAndPan
         /// </summary>
         public ScrollViewer ScrollOwner
         {
-            get
-            {
-                return scrollOwner;
-            }
-            set
-            {
-                scrollOwner = value;
-            }
+            get => scrollOwner;
+            set => scrollOwner = value;
         }
 
         /// <summary>
         /// The offset of the horizontal scrollbar.
         /// </summary>
-        public double HorizontalOffset
-        {
-            get
-            {
-                return ContentOffsetX * ContentScale;
-            }
-        }
+        public double HorizontalOffset => ContentOffsetX * ContentScale;
 
         /// <summary>
         /// The offset of the vertical scrollbar.
         /// </summary>
-        public double VerticalOffset
-        {
-            get
-            {
-                return ContentOffsetY * ContentScale;
-            }
-        }
+        public double VerticalOffset => ContentOffsetY * ContentScale;
 
         /// <summary>
         /// Called when the offset of the horizontal scrollbar has been set.

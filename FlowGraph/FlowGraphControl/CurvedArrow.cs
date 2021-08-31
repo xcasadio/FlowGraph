@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Shapes;
 using System.Windows;
 using System.Windows.Media;
@@ -43,8 +40,8 @@ namespace FlowGraphUI
         /// </summary>
         public event RoutedEventHandler Activated
         {
-            add { AddHandler(ActivatedEvent, value); }
-            remove { RemoveHandler(ActivatedEvent, value); }
+            add => AddHandler(ActivatedEvent, value);
+            remove => RemoveHandler(ActivatedEvent, value);
         }
 
         //         RoutedEventArgs newEventArgs = new RoutedEventArgs(MyButtonSimple.TapEvent);
@@ -55,14 +52,8 @@ namespace FlowGraphUI
         /// </summary>
         public double ArrowHeadLength
         {
-            get
-            {
-                return (double)GetValue(ArrowHeadLengthProperty);
-            }
-            set
-            {
-                SetValue(ArrowHeadLengthProperty, value);
-            }
+            get => (double)GetValue(ArrowHeadLengthProperty);
+            set => SetValue(ArrowHeadLengthProperty, value);
         }
 
         /// <summary>
@@ -70,14 +61,8 @@ namespace FlowGraphUI
         /// </summary>
         public double ArrowHeadWidth
         {
-            get
-            {
-                return (double)GetValue(ArrowHeadWidthProperty);
-            }
-            set
-            {
-                SetValue(ArrowHeadWidthProperty, value);
-            }
+            get => (double)GetValue(ArrowHeadWidthProperty);
+            set => SetValue(ArrowHeadWidthProperty, value);
         }
 
         /// <summary>
@@ -85,14 +70,8 @@ namespace FlowGraphUI
         /// </summary>
         public PointCollection Points
         {
-            get
-            {
-                return (PointCollection)GetValue(PointsProperty);
-            }
-            set
-            {
-                SetValue(PointsProperty, value);
-            }
+            get => (PointCollection)GetValue(PointsProperty);
+            set => SetValue(PointsProperty, value);
         }
 
         #endregion // Properties
@@ -104,7 +83,7 @@ namespace FlowGraphUI
         /// </summary>
         public CurvedArrow()
         {
-            this.DataContextChanged += new DependencyPropertyChangedEventHandler(OnDataContextChanged);
+            DataContextChanged += new DependencyPropertyChangedEventHandler(OnDataContextChanged);
         }
 
         /// <summary>
@@ -142,9 +121,9 @@ namespace FlowGraphUI
         /// <param name="e"></param>
         void OnNodeSlotActivated(object sender, EventArgs e)
         {
-            if (Dispatcher.CheckAccess() == true)
+            if (Dispatcher.CheckAccess())
             {
-                RoutedEventArgs newEventArgs = new RoutedEventArgs(CurvedArrow.ActivatedEvent);
+                RoutedEventArgs newEventArgs = new RoutedEventArgs(ActivatedEvent);
                 RaiseEvent(newEventArgs);
             }
             else

@@ -57,14 +57,8 @@ namespace MouseDragScrollViewer
         /// </summary>
         public double DragInterval
         {
-            get
-            {
-                return (double)GetValue(DragIntervalProperty);
-            }
-            set
-            {
-                SetValue(DragIntervalProperty, value);
-            }
+            get => (double)GetValue(DragIntervalProperty);
+            set => SetValue(DragIntervalProperty, value);
         }
 
         /// <summary>
@@ -72,14 +66,8 @@ namespace MouseDragScrollViewer
         /// </summary>
         public double DragAcceleration
         {
-            get
-            {
-                return (double)GetValue(DragAccelerationProperty);
-            }
-            set
-            {
-                SetValue(DragAccelerationProperty, value);
-            }
+            get => (double)GetValue(DragAccelerationProperty);
+            set => SetValue(DragAccelerationProperty, value);
         }
         
         /// <summary>
@@ -87,14 +75,8 @@ namespace MouseDragScrollViewer
         /// </summary>
         public double DragMaxVelocity
         {
-            get
-            {
-                return (double)GetValue(DragMaxVelocityProperty);
-            }
-            set
-            {
-                SetValue(DragMaxVelocityProperty, value);
-            }
+            get => (double)GetValue(DragMaxVelocityProperty);
+            set => SetValue(DragMaxVelocityProperty, value);
         }
 
         /// <summary>
@@ -102,14 +84,8 @@ namespace MouseDragScrollViewer
         /// </summary>
         public double DragInitialVelocity
         {
-            get
-            {
-                return (double)GetValue(DragInitialVelocityProperty);
-            }
-            set
-            {
-                SetValue(DragInitialVelocityProperty, value);
-            }
+            get => (double)GetValue(DragInitialVelocityProperty);
+            set => SetValue(DragInitialVelocityProperty, value);
         }
 
         /// <summary>
@@ -117,14 +93,8 @@ namespace MouseDragScrollViewer
         /// </summary>
         public double DragMargin
         {
-            get
-            {
-                return (double)GetValue(DragMarginProperty);
-            }
-            set
-            {
-                SetValue(DragMarginProperty, value);
-            }
+            get => (double)GetValue(DragMarginProperty);
+            set => SetValue(DragMarginProperty, value);
         }        
 
         #endregion // Dependency Property Definitions
@@ -176,7 +146,7 @@ namespace MouseDragScrollViewer
         {
             bool isDone = true;
 
-            if (this.IsLoaded)
+            if (IsLoaded)
             {
                 Rect bounds = new Rect(RenderSize);
                 Point p = MouseUtilities.GetMousePosition(this);

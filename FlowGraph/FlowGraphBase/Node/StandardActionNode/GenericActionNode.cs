@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Xml;
 using FlowGraphBase.Logger;
@@ -72,14 +70,14 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.Ok;
+            info.State = LogicState.Ok;
 
             object objA = GetValueFromSlot((int)NodeSlotId.VarA);
             object objB = GetValueFromSlot((int)NodeSlotId.VarB);
 
             if (objA == null)
             {
-                info.State = ActionNode.LogicState.Warning;
+                info.State = LogicState.Warning;
                 info.ErrorMessage = "Please connect a variable node into the slot A";
                 LogManager.Instance.WriteLine(LogVerbosity.Warning,
                     "{0} : Addition failed. {1}.",
@@ -87,7 +85,7 @@ namespace FlowGraphBase.Node.StandardActionNode
             }
             else if (objB == null)
             {
-                info.State = ActionNode.LogicState.Warning;
+                info.State = LogicState.Warning;
                 info.ErrorMessage = "Please connect a variable node into the slot B";
 
                 LogManager.Instance.WriteLine(LogVerbosity.Warning,
@@ -139,7 +137,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Byte")]
     public class AdditionNodeByte : AdditionNode<sbyte>
     {
-        public override string Title { get { return "Addition Byte"; } }
+        public override string Title => "Addition Byte";
 
         public AdditionNodeByte() : base() { }
         public AdditionNodeByte(XmlNode node_) : base(node_) { }
@@ -153,7 +151,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Short")]
     public class AdditionNodeShort : AdditionNode<short>
     {
-        public override string Title { get { return "Addition Short"; } }
+        public override string Title => "Addition Short";
 
         public AdditionNodeShort() : base() { }
         public AdditionNodeShort(XmlNode node_) : base(node_) { }
@@ -167,7 +165,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Integer")]
     public class AdditionNodeInt : AdditionNode<int>
     {
-        public override string Title { get { return "Addition Integer"; } }
+        public override string Title => "Addition Integer";
 
         public AdditionNodeInt() : base() { }
         public AdditionNodeInt(XmlNode node_) : base(node_) { }
@@ -181,7 +179,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Long")]
     public class AdditionNodeLong : AdditionNode<long>
     {
-        public override string Title { get { return "Addition Long"; } }
+        public override string Title => "Addition Long";
 
         public AdditionNodeLong() : base() { }
         public AdditionNodeLong(XmlNode node_) : base(node_) { }
@@ -195,7 +193,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Float")]
     public class AdditionNodeFloat : AdditionNode<float>
     {
-        public override string Title { get { return "Addition Float"; } }
+        public override string Title => "Addition Float";
 
         public AdditionNodeFloat() : base() { }
         public AdditionNodeFloat(XmlNode node_) : base(node_) { }
@@ -209,7 +207,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Double")]
     public class AdditionNodeDouble : AdditionNode<double>
     {
-        public override string Title { get { return "Addition Double"; } }
+        public override string Title => "Addition Double";
 
         public AdditionNodeDouble() : base() { }
         public AdditionNodeDouble(XmlNode node_) : base(node_) { }
@@ -251,7 +249,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Byte")]
     public class SubstractionNodeByte : SubstractionNode<sbyte>
     {
-        public override string Title { get { return "Substraction Byte"; } }
+        public override string Title => "Substraction Byte";
 
         public SubstractionNodeByte() : base() { }
         public SubstractionNodeByte(XmlNode node_) : base(node_) { }
@@ -265,7 +263,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Short")]
     public class SubstractionNodeShort : SubstractionNode<short>
     {
-        public override string Title { get { return "Substraction Short"; } }
+        public override string Title => "Substraction Short";
 
         public SubstractionNodeShort() : base() { }
         public SubstractionNodeShort(XmlNode node_) : base(node_) { }
@@ -279,7 +277,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Integer")]
     public class SubstractionNodeInt : SubstractionNode<int>
     {
-        public override string Title { get { return "Substraction Integer"; } }
+        public override string Title => "Substraction Integer";
 
         public SubstractionNodeInt() : base() { }
         public SubstractionNodeInt(XmlNode node_) : base(node_) { }
@@ -293,7 +291,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Long")]
     public class SubstractionNodeLong : SubstractionNode<long>
     {
-        public override string Title { get { return "Substraction Long"; } }
+        public override string Title => "Substraction Long";
 
         public SubstractionNodeLong() : base() { }
         public SubstractionNodeLong(XmlNode node_) : base(node_) { }
@@ -307,7 +305,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Float")]
     public class SubstractionNodeFloat : SubstractionNode<float>
     {
-        public override string Title { get { return "Substraction Float"; } }
+        public override string Title => "Substraction Float";
 
         public SubstractionNodeFloat() : base() { }
         public SubstractionNodeFloat(XmlNode node_) : base(node_) { }
@@ -321,7 +319,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Double")]
     public class SubstractionNodeDouble : SubstractionNode<double>
     {
-        public override string Title { get { return "Substraction Double"; } }
+        public override string Title => "Substraction Double";
 
         public SubstractionNodeDouble() : base() { }
         public SubstractionNodeDouble(XmlNode node_) : base(node_) { }
@@ -363,7 +361,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Byte")]
     public class MultiplicationNodeByte : MultiplicationNode<sbyte>
     {
-        public override string Title { get { return "Multiplication Byte"; } }
+        public override string Title => "Multiplication Byte";
 
         public MultiplicationNodeByte() : base() { }
         public MultiplicationNodeByte(XmlNode node_) : base(node_) { }
@@ -377,7 +375,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Short")]
     public class MultiplicationNodeShort : MultiplicationNode<short>
     {
-        public override string Title { get { return "Multiplication Short"; } }
+        public override string Title => "Multiplication Short";
 
         public MultiplicationNodeShort() : base() { }
         public MultiplicationNodeShort(XmlNode node_) : base(node_) { }
@@ -391,7 +389,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Integer")]
     public class MultiplicationNodeInt : MultiplicationNode<int>
     {
-        public override string Title { get { return "Multiplication Integer"; } }
+        public override string Title => "Multiplication Integer";
 
         public MultiplicationNodeInt() : base() { }
         public MultiplicationNodeInt(XmlNode node_) : base(node_) { }
@@ -405,7 +403,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Long")]
     public class MultiplicationNodeLong : MultiplicationNode<long>
     {
-        public override string Title { get { return "Multiplication Long"; } }
+        public override string Title => "Multiplication Long";
 
         public MultiplicationNodeLong() : base() { }
         public MultiplicationNodeLong(XmlNode node_) : base(node_) { }
@@ -419,7 +417,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Float")]
     public class MultiplicationNodeFloat : MultiplicationNode<float>
     {
-        public override string Title { get { return "Multiplication Float"; } }
+        public override string Title => "Multiplication Float";
 
         public MultiplicationNodeFloat() : base() { }
         public MultiplicationNodeFloat(XmlNode node_) : base(node_) { }
@@ -433,7 +431,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Double")]
     public class MultiplicationNodeDouble : MultiplicationNode<double>
     {
-        public override string Title { get { return "Multiplication Double"; } }
+        public override string Title => "Multiplication Double";
 
         public MultiplicationNodeDouble() : base() { }
         public MultiplicationNodeDouble(XmlNode node_) : base(node_) { }
@@ -475,7 +473,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Byte")]
     public class DivisionNodeByte : DivisionNode<sbyte>
     {
-        public override string Title { get { return "Division Byte"; } }
+        public override string Title => "Division Byte";
 
         public DivisionNodeByte() : base() { }
         public DivisionNodeByte(XmlNode node_) : base(node_) { }
@@ -489,7 +487,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Short")]
     public class DivisionNodeShort : DivisionNode<short>
     {
-        public override string Title { get { return "Division Short"; } }
+        public override string Title => "Division Short";
 
         public DivisionNodeShort() : base() { }
         public DivisionNodeShort(XmlNode node_) : base(node_) { }
@@ -503,7 +501,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Integer")]
     public class DivisionNodeInt : DivisionNode<int>
     {
-        public override string Title { get { return "Division Integer"; } }
+        public override string Title => "Division Integer";
 
         public DivisionNodeInt() : base() { }
         public DivisionNodeInt(XmlNode node_) : base(node_) { }
@@ -517,7 +515,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Long")]
     public class DivisionNodeLong : DivisionNode<long>
     {
-        public override string Title { get { return "Division Long"; } }
+        public override string Title => "Division Long";
 
         public DivisionNodeLong() : base() { }
         public DivisionNodeLong(XmlNode node_) : base(node_) { }
@@ -531,7 +529,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Float")]
     public class DivisionNodeFloat : DivisionNode<float>
     {
-        public override string Title { get { return "Division Float"; } }
+        public override string Title => "Division Float";
 
         public DivisionNodeFloat() : base() { }
         public DivisionNodeFloat(XmlNode node_) : base(node_) { }
@@ -545,7 +543,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Double")]
     public class DivisionNodeDouble : DivisionNode<double>
     {
-        public override string Title { get { return "Division Double"; } }
+        public override string Title => "Division Double";
 
         public DivisionNodeDouble() : base() { }
         public DivisionNodeDouble(XmlNode node_) : base(node_) { }
@@ -621,14 +619,14 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.Ok;
+            info.State = LogicState.Ok;
 
             object objA = GetValueFromSlot((int)NodeSlotId.VarA);
             object objB = GetValueFromSlot((int)NodeSlotId.VarB);
 
             if (objA == null)
             {
-                info.State = ActionNode.LogicState.Error;
+                info.State = LogicState.Error;
                 info.ErrorMessage = "Please connect a variable node into the slot A";
  
                 LogManager.Instance.WriteLine(LogVerbosity.Warning,
@@ -637,7 +635,7 @@ namespace FlowGraphBase.Node.StandardActionNode
             }
             else if (objB == null)
             {
-                info.State = ActionNode.LogicState.Error;
+                info.State = LogicState.Error;
                 info.ErrorMessage = "Please connect a variable node into the slot B";
 
                 LogManager.Instance.WriteLine(LogVerbosity.Warning,
@@ -690,7 +688,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Byte")]
     public class EqualNodeByte : EqualNode<sbyte>
     {
-        public override string Title { get { return "Equal Byte"; } }
+        public override string Title => "Equal Byte";
 
         public EqualNodeByte() : base() { }
         public EqualNodeByte(XmlNode node_) : base(node_) { }
@@ -704,7 +702,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Short")]
     public class EqualNodeShort : EqualNode<short>
     {
-        public override string Title { get { return "Equal Short"; } }
+        public override string Title => "Equal Short";
 
         public EqualNodeShort() : base() { }
         public EqualNodeShort(XmlNode node_) : base(node_) { }
@@ -718,7 +716,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Integer")]
     public class EqualNodeInt : EqualNode<int>
     {
-        public override string Title { get { return "Equal Integer"; } }
+        public override string Title => "Equal Integer";
 
         public EqualNodeInt() : base() { }
         public EqualNodeInt(XmlNode node_) : base(node_) { }
@@ -732,7 +730,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Long")]
     public class EqualNodeLong : EqualNode<long>
     {
-        public override string Title { get { return "Equal Long"; } }
+        public override string Title => "Equal Long";
 
         public EqualNodeLong() : base() { }
         public EqualNodeLong(XmlNode node_) : base(node_) { }
@@ -746,7 +744,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Float")]
     public class EqualNodeFloat : EqualNode<float>
     {
-        public override string Title { get { return "Equal Float"; } }
+        public override string Title => "Equal Float";
 
         public EqualNodeFloat() : base() { }
         public EqualNodeFloat(XmlNode node_) : base(node_) { }
@@ -760,7 +758,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Double")]
     public class EqualNodeDouble : EqualNode<double>
     {
-        public override string Title { get { return "Equal Double"; } }
+        public override string Title => "Equal Double";
 
         public EqualNodeDouble() : base() { }
         public EqualNodeDouble(XmlNode node_) : base(node_) { }
@@ -802,7 +800,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Byte")]
     public class NotEqualNodeByte : NotEqualNode<sbyte>
     {
-        public override string Title { get { return "NotEqual Byte"; } }
+        public override string Title => "NotEqual Byte";
 
         public NotEqualNodeByte() : base() { }
         public NotEqualNodeByte(XmlNode node_) : base(node_) { }
@@ -816,7 +814,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Short")]
     public class NotEqualNodeShort : NotEqualNode<short>
     {
-        public override string Title { get { return "NotEqual Short"; } }
+        public override string Title => "NotEqual Short";
 
         public NotEqualNodeShort() : base() { }
         public NotEqualNodeShort(XmlNode node_) : base(node_) { }
@@ -830,7 +828,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Integer")]
     public class NotEqualNodeInt : NotEqualNode<int>
     {
-        public override string Title { get { return "NotEqual Integer"; } }
+        public override string Title => "NotEqual Integer";
 
         public NotEqualNodeInt() : base() { }
         public NotEqualNodeInt(XmlNode node_) : base(node_) { }
@@ -844,7 +842,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Long")]
     public class NotEqualNodeLong : NotEqualNode<long>
     {
-        public override string Title { get { return "NotEqual Long"; } }
+        public override string Title => "NotEqual Long";
 
         public NotEqualNodeLong() : base() { }
         public NotEqualNodeLong(XmlNode node_) : base(node_) { }
@@ -858,7 +856,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Float")]
     public class NotEqualNodeFloat : NotEqualNode<float>
     {
-        public override string Title { get { return "NotEqual Float"; } }
+        public override string Title => "NotEqual Float";
 
         public NotEqualNodeFloat() : base() { }
         public NotEqualNodeFloat(XmlNode node_) : base(node_) { }
@@ -872,7 +870,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Double")]
     public class NotEqualNodeDouble : NotEqualNode<double>
     {
-        public override string Title { get { return "NotEqual Double"; } }
+        public override string Title => "NotEqual Double";
 
         public NotEqualNodeDouble() : base() { }
         public NotEqualNodeDouble(XmlNode node_) : base(node_) { }
@@ -914,7 +912,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Byte")]
     public class LessThanNodeByte : LessThanNode<sbyte>
     {
-        public override string Title { get { return "LessThan Byte"; } }
+        public override string Title => "LessThan Byte";
 
         public LessThanNodeByte() : base() { }
         public LessThanNodeByte(XmlNode node_) : base(node_) { }
@@ -928,7 +926,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Short")]
     public class LessThanNodeShort : LessThanNode<short>
     {
-        public override string Title { get { return "LessThan Short"; } }
+        public override string Title => "LessThan Short";
 
         public LessThanNodeShort() : base() { }
         public LessThanNodeShort(XmlNode node_) : base(node_) { }
@@ -942,7 +940,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Integer")]
     public class LessThanNodeInt : LessThanNode<int>
     {
-        public override string Title { get { return "LessThan Integer"; } }
+        public override string Title => "LessThan Integer";
 
         public LessThanNodeInt() : base() { }
         public LessThanNodeInt(XmlNode node_) : base(node_) { }
@@ -956,7 +954,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Long")]
     public class LessThanNodeLong : LessThanNode<long>
     {
-        public override string Title { get { return "LessThan Long"; } }
+        public override string Title => "LessThan Long";
 
         public LessThanNodeLong() : base() { }
         public LessThanNodeLong(XmlNode node_) : base(node_) { }
@@ -970,7 +968,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Float")]
     public class LessThanNodeFloat : LessThanNode<float>
     {
-        public override string Title { get { return "LessThan Float"; } }
+        public override string Title => "LessThan Float";
 
         public LessThanNodeFloat() : base() { }
         public LessThanNodeFloat(XmlNode node_) : base(node_) { }
@@ -984,7 +982,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Double")]
     public class LessThanNodeDouble : LessThanNode<double>
     {
-        public override string Title { get { return "LessThan Double"; } }
+        public override string Title => "LessThan Double";
 
         public LessThanNodeDouble() : base() { }
         public LessThanNodeDouble(XmlNode node_) : base(node_) { }
@@ -1026,7 +1024,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Byte")]
     public class LessThanOrEqualNodeByte : LessThanOrEqualNode<sbyte>
     {
-        public override string Title { get { return "LessThanOrEqual Byte"; } }
+        public override string Title => "LessThanOrEqual Byte";
 
         public LessThanOrEqualNodeByte() : base() { }
         public LessThanOrEqualNodeByte(XmlNode node_) : base(node_) { }
@@ -1040,7 +1038,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Short")]
     public class LessThanOrEqualNodeShort : LessThanOrEqualNode<short>
     {
-        public override string Title { get { return "LessThanOrEqual Short"; } }
+        public override string Title => "LessThanOrEqual Short";
 
         public LessThanOrEqualNodeShort() : base() { }
         public LessThanOrEqualNodeShort(XmlNode node_) : base(node_) { }
@@ -1054,7 +1052,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Integer")]
     public class LessThanOrEqualNodeInt : LessThanOrEqualNode<int>
     {
-        public override string Title { get { return "LessThanOrEqual Integer"; } }
+        public override string Title => "LessThanOrEqual Integer";
 
         public LessThanOrEqualNodeInt() : base() { }
         public LessThanOrEqualNodeInt(XmlNode node_) : base(node_) { }
@@ -1068,7 +1066,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Long")]
     public class LessThanOrEqualNodeLong : LessThanOrEqualNode<long>
     {
-        public override string Title { get { return "LessThanOrEqual Long"; } }
+        public override string Title => "LessThanOrEqual Long";
 
         public LessThanOrEqualNodeLong() : base() { }
         public LessThanOrEqualNodeLong(XmlNode node_) : base(node_) { }
@@ -1082,7 +1080,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Float")]
     public class LessThanOrEqualNodeFloat : LessThanOrEqualNode<float>
     {
-        public override string Title { get { return "LessThanOrEqual Float"; } }
+        public override string Title => "LessThanOrEqual Float";
 
         public LessThanOrEqualNodeFloat() : base() { }
         public LessThanOrEqualNodeFloat(XmlNode node_) : base(node_) { }
@@ -1096,7 +1094,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Double")]
     public class LessThanOrEqualNodeDouble : LessThanOrEqualNode<double>
     {
-        public override string Title { get { return "LessThanOrEqual Double"; } }
+        public override string Title => "LessThanOrEqual Double";
 
         public LessThanOrEqualNodeDouble() : base() { }
         public LessThanOrEqualNodeDouble(XmlNode node_) : base(node_) { }
@@ -1138,7 +1136,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Byte")]
     public class GreaterThanNodeByte : GreaterThanNode<sbyte>
     {
-        public override string Title { get { return "GreaterThan Byte"; } }
+        public override string Title => "GreaterThan Byte";
 
         public GreaterThanNodeByte() : base() { }
         public GreaterThanNodeByte(XmlNode node_) : base(node_) { }
@@ -1152,7 +1150,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Short")]
     public class GreaterThanNodeShort : GreaterThanNode<short>
     {
-        public override string Title { get { return "GreaterThan Short"; } }
+        public override string Title => "GreaterThan Short";
 
         public GreaterThanNodeShort() : base() { }
         public GreaterThanNodeShort(XmlNode node_) : base(node_) { }
@@ -1166,7 +1164,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Integer")]
     public class GreaterThanNodeInt : GreaterThanNode<int>
     {
-        public override string Title { get { return "GreaterThan Integer"; } }
+        public override string Title => "GreaterThan Integer";
 
         public GreaterThanNodeInt() : base() { }
         public GreaterThanNodeInt(XmlNode node_) : base(node_) { }
@@ -1180,7 +1178,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Long")]
     public class GreaterThanNodeLong : GreaterThanNode<long>
     {
-        public override string Title { get { return "GreaterThan Long"; } }
+        public override string Title => "GreaterThan Long";
 
         public GreaterThanNodeLong() : base() { }
         public GreaterThanNodeLong(XmlNode node_) : base(node_) { }
@@ -1194,7 +1192,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Float")]
     public class GreaterThanNodeFloat : GreaterThanNode<float>
     {
-        public override string Title { get { return "GreaterThan Float"; } }
+        public override string Title => "GreaterThan Float";
 
         public GreaterThanNodeFloat() : base() { }
         public GreaterThanNodeFloat(XmlNode node_) : base(node_) { }
@@ -1208,7 +1206,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Double")]
     public class GreaterThanNodeDouble : GreaterThanNode<double>
     {
-        public override string Title { get { return "GreaterThan Double"; } }
+        public override string Title => "GreaterThan Double";
 
         public GreaterThanNodeDouble() : base() { }
         public GreaterThanNodeDouble(XmlNode node_) : base(node_) { }
@@ -1250,7 +1248,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Byte")]
     public class GreaterThanOrEqualNodeByte : GreaterThanOrEqualNode<sbyte>
     {
-        public override string Title { get { return "GreaterThanOrEqual Byte"; } }
+        public override string Title => "GreaterThanOrEqual Byte";
 
         public GreaterThanOrEqualNodeByte() : base() { }
         public GreaterThanOrEqualNodeByte(XmlNode node_) : base(node_) { }
@@ -1264,7 +1262,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Short")]
     public class GreaterThanOrEqualNodeShort : GreaterThanOrEqualNode<short>
     {
-        public override string Title { get { return "GreaterThanOrEqual Short"; } }
+        public override string Title => "GreaterThanOrEqual Short";
 
         public GreaterThanOrEqualNodeShort() : base() { }
         public GreaterThanOrEqualNodeShort(XmlNode node_) : base(node_) { }
@@ -1278,7 +1276,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Integer")]
     public class GreaterThanOrEqualNodeInt : GreaterThanOrEqualNode<int>
     {
-        public override string Title { get { return "GreaterThanOrEqual Integer"; } }
+        public override string Title => "GreaterThanOrEqual Integer";
 
         public GreaterThanOrEqualNodeInt() : base() { }
         public GreaterThanOrEqualNodeInt(XmlNode node_) : base(node_) { }
@@ -1292,7 +1290,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Long")]
     public class GreaterThanOrEqualNodeLong : GreaterThanOrEqualNode<long>
     {
-        public override string Title { get { return "GreaterThanOrEqual Long"; } }
+        public override string Title => "GreaterThanOrEqual Long";
 
         public GreaterThanOrEqualNodeLong() : base() { }
         public GreaterThanOrEqualNodeLong(XmlNode node_) : base(node_) { }
@@ -1306,7 +1304,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Float")]
     public class GreaterThanOrEqualNodeFloat : GreaterThanOrEqualNode<float>
     {
-        public override string Title { get { return "GreaterThanOrEqual Float"; } }
+        public override string Title => "GreaterThanOrEqual Float";
 
         public GreaterThanOrEqualNodeFloat() : base() { }
         public GreaterThanOrEqualNodeFloat(XmlNode node_) : base(node_) { }
@@ -1320,7 +1318,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Double")]
     public class GreaterThanOrEqualNodeDouble : GreaterThanOrEqualNode<double>
     {
-        public override string Title { get { return "GreaterThanOrEqual Double"; } }
+        public override string Title => "GreaterThanOrEqual Double";
 
         public GreaterThanOrEqualNodeDouble() : base() { }
         public GreaterThanOrEqualNodeDouble(XmlNode node_) : base(node_) { }
@@ -1400,13 +1398,13 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.Ok;
+            info.State = LogicState.Ok;
 
             object objA = GetValueFromSlot((int)NodeSlotId.VarA);
 
             if (objA == null)
             {
-                info.State = ActionNode.LogicState.Warning;
+                info.State = LogicState.Warning;
                 info.ErrorMessage = "Please connect a variable node into the slot A";
 
                 LogManager.Instance.WriteLine(LogVerbosity.Warning,
@@ -1456,7 +1454,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Byte to String")]
     public class ToStringNodeByte : ToStringNode<sbyte>
     {
-        public override string Title { get { return "Byte to String"; } }
+        public override string Title => "Byte to String";
 
         public ToStringNodeByte() : base() { }
         public ToStringNodeByte(XmlNode node_) : base(node_) { }
@@ -1470,7 +1468,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Char to String")]
     public class ToStringNodeChar : ToStringNode<char>
     {
-        public override string Title { get { return "Char to String"; } }
+        public override string Title => "Char to String";
 
         public ToStringNodeChar() : base() { }
         public ToStringNodeChar(XmlNode node_) : base(node_) { }
@@ -1484,7 +1482,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Short to String")]
     public class ToStringNodeShort : ToStringNode<short>
     {
-        public override string Title { get { return "Short to String"; } }
+        public override string Title => "Short to String";
 
         public ToStringNodeShort() : base() { }
         public ToStringNodeShort(XmlNode node_) : base(node_) { }
@@ -1498,7 +1496,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Integer to String")]
     public class ToStringNodeInteger : ToStringNode<int>
     {
-        public override string Title { get { return "Integer to String"; } }
+        public override string Title => "Integer to String";
 
         public ToStringNodeInteger() : base() { }
         public ToStringNodeInteger(XmlNode node_) : base(node_) { }
@@ -1512,7 +1510,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Long to String")]
     public class ToStringNodeLong : ToStringNode<long>
     {
-        public override string Title { get { return "Long to String"; } }
+        public override string Title => "Long to String";
 
         public ToStringNodeLong() : base() { }
         public ToStringNodeLong(XmlNode node_) : base(node_) { }
@@ -1526,7 +1524,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Float to String")]
     public class ToStringNodeFloat : ToStringNode<float>
     {
-        public override string Title { get { return "Float to String"; } }
+        public override string Title => "Float to String";
 
         public ToStringNodeFloat() : base() { }
         public ToStringNodeFloat(XmlNode node_) : base(node_) { }
@@ -1540,7 +1538,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Double to String")]
     public class ToStringNodeDouble : ToStringNode<double>
     {
-        public override string Title { get { return "Double to String"; } }
+        public override string Title => "Double to String";
 
         public ToStringNodeDouble() : base() { }
         public ToStringNodeDouble(XmlNode node_) : base(node_) { }
@@ -1581,7 +1579,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Byte to Integer")]
     public class ToIntegerNodeByte : ToIntegerNode<sbyte>
     {
-        public override string Title { get { return "Byte to Integer"; } }
+        public override string Title => "Byte to Integer";
 
         public ToIntegerNodeByte() : base() { }
         public ToIntegerNodeByte(XmlNode node_) : base(node_) { }
@@ -1595,7 +1593,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Char to Integer")]
     public class ToIntegerNodeChar : ToIntegerNode<char>
     {
-        public override string Title { get { return "Char to Integer"; } }
+        public override string Title => "Char to Integer";
 
         public ToIntegerNodeChar() : base() { }
         public ToIntegerNodeChar(XmlNode node_) : base(node_) { }
@@ -1609,7 +1607,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Short to Integer")]
     public class ToIntegerNodeShort : ToIntegerNode<short>
     {
-        public override string Title { get { return "Short to Integer"; } }
+        public override string Title => "Short to Integer";
 
         public ToIntegerNodeShort() : base() { }
         public ToIntegerNodeShort(XmlNode node_) : base(node_) { }
@@ -1623,7 +1621,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Long to Integer")]
     public class ToIntegerNodeLong : ToIntegerNode<long>
     {
-        public override string Title { get { return "Long to Integer"; } }
+        public override string Title => "Long to Integer";
 
         public ToIntegerNodeLong() : base() { }
         public ToIntegerNodeLong(XmlNode node_) : base(node_) { }
@@ -1637,7 +1635,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Float to Integer")]
     public class ToIntegerNodeFloat : ToIntegerNode<float>
     {
-        public override string Title { get { return "Float to Integer"; } }
+        public override string Title => "Float to Integer";
 
         public ToIntegerNodeFloat() : base() { }
         public ToIntegerNodeFloat(XmlNode node_) : base(node_) { }
@@ -1651,7 +1649,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Double to Integer")]
     public class ToIntegerNodeDouble : ToIntegerNode<double>
     {
-        public override string Title { get { return "Double to Integer"; } }
+        public override string Title => "Double to Integer";
 
         public ToIntegerNodeDouble() : base() { }
         public ToIntegerNodeDouble(XmlNode node_) : base(node_) { }
@@ -1665,7 +1663,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("String to Integer")]
     public class ToIntegerNodeString : ToIntegerNode<string>
     {
-        public override string Title { get { return "Short to Integer"; } }
+        public override string Title => "Short to Integer";
 
         public ToIntegerNodeString() : base() { }
         public ToIntegerNodeString(XmlNode node_) : base(node_) { }
@@ -1706,7 +1704,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Byte to Double")]
     public class ToDoubleNodeByte : ToDoubleNode<sbyte>
     {
-        public override string Title { get { return "Byte to Double"; } }
+        public override string Title => "Byte to Double";
 
         public ToDoubleNodeByte() : base() { }
         public ToDoubleNodeByte(XmlNode node_) : base(node_) { }
@@ -1720,7 +1718,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Char to Double")]
     public class ToDoubleNodeChar : ToDoubleNode<char>
     {
-        public override string Title { get { return "Char to Double"; } }
+        public override string Title => "Char to Double";
 
         public ToDoubleNodeChar() : base() { }
         public ToDoubleNodeChar(XmlNode node_) : base(node_) { }
@@ -1734,7 +1732,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Short to Double")]
     public class ToDoubleNodeShort : ToDoubleNode<short>
     {
-        public override string Title { get { return "Short to Double"; } }
+        public override string Title => "Short to Double";
 
         public ToDoubleNodeShort() : base() { }
         public ToDoubleNodeShort(XmlNode node_) : base(node_) { }
@@ -1748,7 +1746,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Integer to Double")]
     public class ToDoubleNodeInteger : ToDoubleNode<int>
     {
-        public override string Title { get { return "Integer to Double"; } }
+        public override string Title => "Integer to Double";
 
         public ToDoubleNodeInteger() : base() { }
         public ToDoubleNodeInteger(XmlNode node_) : base(node_) { }
@@ -1762,7 +1760,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Long to Double")]
     public class ToDoubleNodeLong : ToDoubleNode<long>
     {
-        public override string Title { get { return "Long to Double"; } }
+        public override string Title => "Long to Double";
 
         public ToDoubleNodeLong() : base() { }
         public ToDoubleNodeLong(XmlNode node_) : base(node_) { }
@@ -1776,7 +1774,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Float to Double")]
     public class ToDoubleNodeFloat : ToDoubleNode<float>
     {
-        public override string Title { get { return "FLoat to Double"; } }
+        public override string Title => "FLoat to Double";
 
         public ToDoubleNodeFloat() : base() { }
         public ToDoubleNodeFloat(XmlNode node_) : base(node_) { }
@@ -1790,7 +1788,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("String to Double")]
     public class ToDoubleNodeString : ToDoubleNode<string>
     {
-        public override string Title { get { return "String to Double"; } }
+        public override string Title => "String to Double";
 
         public ToDoubleNodeString() : base() { }
         public ToDoubleNodeString(XmlNode node_) : base(node_) { }
@@ -1831,7 +1829,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Byte to Object")]
     public class ToObjectNodeByte : ToObjectNode<sbyte>
     {
-        public override string Title { get { return "Byte to Object"; } }
+        public override string Title => "Byte to Object";
 
         public ToObjectNodeByte() : base() { }
         public ToObjectNodeByte(XmlNode node_) : base(node_) { }
@@ -1845,7 +1843,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Char to Object")]
     public class ToObjectNodeChar : ToObjectNode<char>
     {
-        public override string Title { get { return "Char to Object"; } }
+        public override string Title => "Char to Object";
 
         public ToObjectNodeChar() : base() { }
         public ToObjectNodeChar(XmlNode node_) : base(node_) { }
@@ -1859,7 +1857,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Short to Object")]
     public class ToObjectNodeShort : ToObjectNode<short>
     {
-        public override string Title { get { return "Short to Object"; } }
+        public override string Title => "Short to Object";
 
         public ToObjectNodeShort() : base() { }
         public ToObjectNodeShort(XmlNode node_) : base(node_) { }
@@ -1873,7 +1871,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Integer to Object")]
     public class ToObjectNodeInteger : ToObjectNode<int>
     {
-        public override string Title { get { return "Integer to Object"; } }
+        public override string Title => "Integer to Object";
 
         public ToObjectNodeInteger() : base() { }
         public ToObjectNodeInteger(XmlNode node_) : base(node_) { }
@@ -1887,7 +1885,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Long to Object")]
     public class ToObjectNodeLong : ToObjectNode<long>
     {
-        public override string Title { get { return "Long to Object"; } }
+        public override string Title => "Long to Object";
 
         public ToObjectNodeLong() : base() { }
         public ToObjectNodeLong(XmlNode node_) : base(node_) { }
@@ -1901,7 +1899,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Float to Object")]
     public class ToObjectNodeFloat : ToObjectNode<float>
     {
-        public override string Title { get { return "Float to Object"; } }
+        public override string Title => "Float to Object";
 
         public ToObjectNodeFloat() : base() { }
         public ToObjectNodeFloat(XmlNode node_) : base(node_) { }
@@ -1915,7 +1913,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Double to Object")]
     public class ToObjectNodeDouble : ToObjectNode<double>
     {
-        public override string Title { get { return "Double to Object"; } }
+        public override string Title => "Double to Object";
 
         public ToObjectNodeDouble() : base() { }
         public ToObjectNodeDouble(XmlNode node_) : base(node_) { }
@@ -1929,7 +1927,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("String to Object")]
     public class ToObjectNodeString : ToObjectNode<string>
     {
-        public override string Title { get { return "String to Object"; } }
+        public override string Title => "String to Object";
 
         public ToObjectNodeString() : base() { }
         public ToObjectNodeString(XmlNode node_) : base(node_) { }
@@ -2008,14 +2006,14 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.Ok;
+            info.State = LogicState.Ok;
 
             object objMin = GetValueFromSlot((int)NodeSlotId.VarMin);
 
             if (objMin == null)
             {
                 info.ErrorMessage = "Please connect a variable node into the slot Min";
-                info.State = ActionNode.LogicState.Warning;
+                info.State = LogicState.Warning;
 
                 LogManager.Instance.WriteLine(LogVerbosity.Warning,
                     "{0} : {1}.",
@@ -2027,7 +2025,7 @@ namespace FlowGraphBase.Node.StandardActionNode
             if (objMax == null)
             {
                 info.ErrorMessage = "Please connect a variable node into the slot Max";
-                info.State = ActionNode.LogicState.Warning;
+                info.State = LogicState.Warning;
 
                 LogManager.Instance.WriteLine(LogVerbosity.Warning,
                     "{0} : Random failed. {1}.",
@@ -2068,7 +2066,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Random Byte")]
     public class RandomByteNode : MathRandomNode<sbyte>
     {
-        public override string Title { get { return "Random Byte"; } }
+        public override string Title => "Random Byte";
 
         public RandomByteNode() : base() { }
         public RandomByteNode(XmlNode node_) : base(node_) { }
@@ -2082,7 +2080,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Random Short")]
     public class RandomShortNode : MathRandomNode<short>
     {
-        public override string Title { get { return "Random Short"; } }
+        public override string Title => "Random Short";
 
         public RandomShortNode() : base() { }
         public RandomShortNode(XmlNode node_) : base(node_) { }
@@ -2096,7 +2094,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Random Integer")]
     public class RandomIntegerNode : MathRandomNode<int>
     {
-        public override string Title { get { return "Random Integer"; } }
+        public override string Title => "Random Integer";
 
         public RandomIntegerNode() : base() { }
         public RandomIntegerNode(XmlNode node_) : base(node_) { }
@@ -2110,7 +2108,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Random Long")]
     public class RandomLongNode : MathRandomNode<long>
     {
-        public override string Title { get { return "Random Long"; } }
+        public override string Title => "Random Long";
 
         public RandomLongNode() : base() { }
         public RandomLongNode(XmlNode node_) : base(node_) { }
@@ -2124,7 +2122,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Random Float")]
     public class RandomFloatNode : MathRandomNode<float>
     {
-        public override string Title { get { return "Random Float"; } }
+        public override string Title => "Random Float";
 
         public RandomFloatNode() : base() { }
         public RandomFloatNode(XmlNode node_) : base(node_) { }
@@ -2138,7 +2136,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Random Double")]
     public class RandomDoubleNode : MathRandomNode<double>
     {
-        public override string Title { get { return "Random Double"; } }
+        public override string Title => "Random Double";
 
         public RandomDoubleNode() : base() { }
         public RandomDoubleNode(XmlNode node_) : base(node_) { }
@@ -2176,9 +2174,9 @@ namespace FlowGraphBase.Node.StandardActionNode
 	
 		#region Properties
 
-        public override string Title { get { return "String Concat"; } }
+        public override string Title => "String Concat";
 
-		#endregion //Properties
+        #endregion //Properties
 	
 		#region Constructors
 
@@ -2221,14 +2219,14 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.Ok;
+            info.State = LogicState.Ok;
 
             object objA = GetValueFromSlot((int)NodeSlotId.VarA);
 
             if (objA == null)
             {
                 info.ErrorMessage = "Please connect a variable node into the slot A";
-                info.State = ActionNode.LogicState.Warning;
+                info.State = LogicState.Warning;
 
                 LogManager.Instance.WriteLine(LogVerbosity.Warning,
                     "{0} : {1}.",
@@ -2240,7 +2238,7 @@ namespace FlowGraphBase.Node.StandardActionNode
             if (objB == null)
             {
                 info.ErrorMessage = "Please connect a variable node into the slot B";
-                info.State = ActionNode.LogicState.Warning;
+                info.State = LogicState.Warning;
 
                 LogManager.Instance.WriteLine(LogVerbosity.Warning,
                     "{0} : String Concat failed. {1}.",
@@ -2322,14 +2320,14 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.Ok;
+            info.State = LogicState.Ok;
 
             object objVariable = GetValueFromSlot((int)NodeSlotId.Variable);
             object objValue = GetValueFromSlot((int)NodeSlotId.Value);
 
             if (objVariable == null)
             {
-                info.State = ActionNode.LogicState.Warning;
+                info.State = LogicState.Warning;
                 info.ErrorMessage = "Please connect a variable node into the slot Variable";
                 LogManager.Instance.WriteLine(LogVerbosity.Warning,
                     "{0} : Addition failed. {1}.",
@@ -2337,7 +2335,7 @@ namespace FlowGraphBase.Node.StandardActionNode
             }
             else if (objValue == null)
             {
-                info.State = ActionNode.LogicState.Warning;
+                info.State = LogicState.Warning;
                 info.ErrorMessage = "Please connect a variable node into the slot Value";
 
                 LogManager.Instance.WriteLine(LogVerbosity.Warning,
@@ -2364,7 +2362,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Byte")]
     public class VariableSetNodeByte : VariableSetNode<sbyte>
     {
-        public override string Title { get { return "Set Byte"; } }
+        public override string Title => "Set Byte";
 
         public VariableSetNodeByte() : base() { }
         public VariableSetNodeByte(XmlNode node_) : base(node_) { }
@@ -2378,7 +2376,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Short")]
     public class VariableSetNodeShort : VariableSetNode<short>
     {
-        public override string Title { get { return "Set Short"; } }
+        public override string Title => "Set Short";
 
         public VariableSetNodeShort() : base() { }
         public VariableSetNodeShort(XmlNode node_) : base(node_) { }
@@ -2392,7 +2390,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Integer")]
     public class VariableSetNodeInt : VariableSetNode<int>
     {
-        public override string Title { get { return "Set Integer"; } }
+        public override string Title => "Set Integer";
 
         public VariableSetNodeInt() : base() { }
         public VariableSetNodeInt(XmlNode node_) : base(node_) { }
@@ -2406,7 +2404,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Long")]
     public class VariableSetNodeLong : VariableSetNode<long>
     {
-        public override string Title { get { return "Set Long"; } }
+        public override string Title => "Set Long";
 
         public VariableSetNodeLong() : base() { }
         public VariableSetNodeLong(XmlNode node_) : base(node_) { }
@@ -2420,7 +2418,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Float")]
     public class VariableSetNodeFloat : VariableSetNode<float>
     {
-        public override string Title { get { return "Set Float"; } }
+        public override string Title => "Set Float";
 
         public VariableSetNodeFloat() : base() { }
         public VariableSetNodeFloat(XmlNode node_) : base(node_) { }
@@ -2434,7 +2432,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Double")]
     public class VariableSetNodeDouble : VariableSetNode<double>
     {
-        public override string Title { get { return "Set Double"; } }
+        public override string Title => "Set Double";
 
         public VariableSetNodeDouble() : base() { }
         public VariableSetNodeDouble(XmlNode node_) : base(node_) { }
@@ -2448,7 +2446,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("String")]
     public class VariableSetNodeString : VariableSetNode<double>
     {
-        public override string Title { get { return "Set String"; } }
+        public override string Title => "Set String";
 
         public VariableSetNodeString() : base() { }
         public VariableSetNodeString(XmlNode node_) : base(node_) { }
@@ -2462,7 +2460,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     [Name("Object")]
     public class VariableSetNodeObject : VariableSetNode<object>
     {
-        public override string Title { get { return "Set Object"; } }
+        public override string Title => "Set Object";
 
         public VariableSetNodeObject() : base() { }
         public VariableSetNodeObject(XmlNode node_) : base(node_) { }

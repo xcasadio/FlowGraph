@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -53,20 +52,14 @@ namespace FlowSimulator
         /// <summary>
         /// 
         /// </summary>
-        internal FlowGraphManagerControl FlowGraphManagerControl
-        {
-            get { return flowGraphManagerControl; }
-        }
+        internal FlowGraphManagerControl FlowGraphManagerControl => flowGraphManagerControl;
 
         /// <summary>
         /// 
         /// </summary>
-        internal DetailsControl DetailsControl
-        {
-            get { return detailsControl; }
-        }
+        internal DetailsControl DetailsControl => detailsControl;
 
-		#endregion //Properties
+        #endregion //Properties
 	
 		#region Constructors
 
@@ -80,7 +73,7 @@ namespace FlowSimulator
             Instance = this;
 
             //LogManager.Instance.NbErrorChanged += new EventHandler(OnNbErrorChanged);
-            Version ver = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            Version ver = Assembly.GetExecutingAssembly().GetName().Version;
             statusLabelVersion.Content = "v" + ver.ToString();
             SetTitle();
 
@@ -138,8 +131,11 @@ namespace FlowSimulator
                 m_LastTop = Top;
                 m_LastWidth = Width;
                 m_LastHeight = Height;
+
+
+                ProcessLauncher.Instance.StartLoop();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 LogManager.Instance.WriteException(ex);
             }
@@ -160,7 +156,7 @@ namespace FlowSimulator
                 SaveSettings();
                 //SaveChangesOnDemand();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 LogManager.Instance.WriteException(ex);
             }
@@ -426,7 +422,7 @@ namespace FlowSimulator
         /// </summary>
         private void SaveProject()
         {
-            if (string.IsNullOrWhiteSpace(m_FileOpened) == true)
+            if (string.IsNullOrWhiteSpace(m_FileOpened))
             {
                 SaveAsProject();
             }
@@ -477,23 +473,23 @@ namespace FlowSimulator
         /// <param name="fielName_"></param>
         private void LoadFile(string fileName_, bool addToMRU = true)
         {
-            if (File.Exists(fileName_) == true)
+            if (File.Exists(fileName_))
             {
                 Clear();
 
-                if (ProjectManager.OpenFile(fileName_) == true)
+                if (ProjectManager.OpenFile(fileName_))
                 {
                     m_FileOpened = fileName_;
                     SetTitle();
 
-                    if (addToMRU == true)
+                    if (addToMRU)
                     {
                         m_MruManager.Add(fileName_);
                     }
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show(this, 
+                    MessageBox.Show(this, 
                         "Can't load the file '" + fileName_ + "'. Please check the log.",
                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     m_MruManager.Remove(fileName_);
@@ -501,7 +497,7 @@ namespace FlowSimulator
             }
             else
             {
-                System.Windows.MessageBox.Show(this, 
+                MessageBox.Show(this, 
                     "The file '" + fileName_ + "' doesn't exist.",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 m_MruManager.Remove(fileName_);
@@ -514,7 +510,7 @@ namespace FlowSimulator
         /// <param name="fileName_"></param>
         private void SaveFile(string fileName_)
         {
-            if (ProjectManager.SaveFile(fileName_) == true)
+            if (ProjectManager.SaveFile(fileName_))
             {
                 m_MruManager.Add(fileName_);
                 m_FileOpened = fileName_;
@@ -530,10 +526,10 @@ namespace FlowSimulator
         /// </summary>
         private void SaveChangesOnDemand()
         {
-            if (GraphDataManager.Instance.IsChanges() == true
-                || FlowGraphManager.Instance.IsChanges() == true)
+            if (GraphDataManager.Instance.IsChanges()
+                || FlowGraphManager.Instance.IsChanges())
             {
-                if (System.Windows.MessageBox.Show(this, "Save changes ?", "Save ?",
+                if (MessageBox.Show(this, "Save changes ?", "Save ?",
                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     SaveProject();
@@ -549,7 +545,7 @@ namespace FlowSimulator
             double l = Left, t = Top, w = Width, h = Height;
             WindowState winState = WindowState;
 
-            if (File.Exists(m_UserSettingsFile) == true)
+            if (File.Exists(m_UserSettingsFile))
             {
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(m_UserSettingsFile);
@@ -575,13 +571,13 @@ namespace FlowSimulator
                     //                         //m_ScriptControl.LoadSettings(rootNode);
                     //                         m_LogControl.LoadSettings(rootNode);
                 }
-                catch (System.Exception ex2)
+                catch (Exception ex2)
                 {
                     LogManager.Instance.WriteException(ex2);
                 }
             }
 
-            if (File.Exists(m_DockSettingsFile) == true)
+            if (File.Exists(m_DockSettingsFile))
             {
                 try
                 {

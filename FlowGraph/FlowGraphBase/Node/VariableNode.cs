@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using FlowGraphBase.Logger;
+﻿using System.Xml;
 using FlowGraphBase.Process;
 
 namespace FlowGraphBase.Node

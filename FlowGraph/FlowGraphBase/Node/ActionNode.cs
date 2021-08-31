@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
+﻿using System.Xml;
 using FlowGraphBase.Process;
 
 namespace FlowGraphBase.Node
@@ -54,7 +50,7 @@ namespace FlowGraphBase.Node
         /// </summary>
         public ProcessingInfo State
         {
-            get { return _state; }
+            get => _state;
             private set 
             {
                 _state = value;
@@ -67,7 +63,7 @@ namespace FlowGraphBase.Node
         /// </summary>
         public string ErrorMessage
         {
-            get { return _errorMessage; }
+            get => _errorMessage;
             internal set 
             {
                 _errorMessage = value;

@@ -71,7 +71,7 @@ namespace FlowGraphBase
             {
                 string typeValue = node.Attributes["valueType"].Value;
 
-                if (string.Equals(typeValue, "null") == true)
+                if (string.Equals(typeValue, "null"))
                 {
                     return null;
                 }

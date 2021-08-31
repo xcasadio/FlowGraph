@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Utils;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows.Media;
 using System.Windows;
 using FlowGraphBase.Node;
@@ -55,20 +50,14 @@ namespace NetworkModel
         /// <summary>
         /// 
         /// </summary>
-        public ConnectorViewModel ConnectedConnector
-        {
-            get { return SourceConnector == null ? DestConnector : SourceConnector; }
-        }
+        public ConnectorViewModel ConnectedConnector => SourceConnector == null ? DestConnector : SourceConnector;
 
         /// <summary>
         /// The source connector the connection is attached to.
         /// </summary>
         public ConnectorViewModel SourceConnector
         {
-            get
-            {
-                return sourceConnector;
-            }
+            get => sourceConnector;
             set
             {
                 if (sourceConnector == value)
@@ -90,7 +79,7 @@ namespace NetworkModel
                     sourceConnector.AttachedConnections.Add(this);
                     sourceConnector.HotspotUpdated += new EventHandler<EventArgs>(sourceConnector_HotspotUpdated);
                     //sourceConnector.SourceSlot.Activated += new EventHandler(OnSourceSlotActivated);
-                    this.SourceConnectorHotspot = sourceConnector.Hotspot;
+                    SourceConnectorHotspot = sourceConnector.Hotspot;
                 }
 
                 OnPropertyChanged("SourceConnector");
@@ -103,10 +92,7 @@ namespace NetworkModel
         /// </summary>
         public ConnectorViewModel DestConnector
         {
-            get
-            {
-                return destConnector;
-            }
+            get => destConnector;
             set
             {
                 if (destConnector == value)
@@ -128,7 +114,7 @@ namespace NetworkModel
                     destConnector.AttachedConnections.Add(this);
                     destConnector.HotspotUpdated += new EventHandler<EventArgs>(destConnector_HotspotUpdated);
                     //destConnector.SourceSlot.Activated += new EventHandler(OnSourceSlotActivated);
-                    this.DestConnectorHotspot = destConnector.Hotspot;
+                    DestConnectorHotspot = destConnector.Hotspot;
                 }
 
                 OnPropertyChanged("DestConnector");
@@ -141,7 +127,7 @@ namespace NetworkModel
         /// </summary>
         public Point SourceConnectorHotspot
         {
-            get  { return sourceConnectorHotspot; }
+            get => sourceConnectorHotspot;
             set
             {
                 if (sourceConnectorHotspot != value)
@@ -158,7 +144,7 @@ namespace NetworkModel
         /// </summary>
         public Point DestConnectorHotspot
         {
-            get { return destConnectorHotspot; }
+            get => destConnectorHotspot;
             set
             {
                 if (destConnectorHotspot != value)
@@ -175,7 +161,7 @@ namespace NetworkModel
         /// </summary>
         public PointCollection Points
         {
-            get { return points; }
+            get => points;
             set
             {
                 points = value;
@@ -222,7 +208,7 @@ namespace NetworkModel
         /// </summary>
         private void sourceConnector_HotspotUpdated(object sender, EventArgs e)
         {
-            this.SourceConnectorHotspot = this.SourceConnector.Hotspot;
+            SourceConnectorHotspot = SourceConnector.Hotspot;
         }
 
         /// <summary>
@@ -230,7 +216,7 @@ namespace NetworkModel
         /// </summary>
         private void destConnector_HotspotUpdated(object sender, EventArgs e)
         {
-            this.DestConnectorHotspot = this.DestConnector.Hotspot;
+            DestConnectorHotspot = DestConnector.Hotspot;
         }
 
         /// <summary>
@@ -270,11 +256,11 @@ namespace NetworkModel
             PointCollection computedPoints = new PointCollection();
             computedPoints.Add(SourceConnectorHotspot);
             computedPoints.Add(new Point(SourceConnectorHotspot.X + srcDeltaX, SourceConnectorHotspot.Y));
-            computedPoints.Add(new Point(DestConnectorHotspot.X + destDeltaX, this.DestConnectorHotspot.Y));
+            computedPoints.Add(new Point(DestConnectorHotspot.X + destDeltaX, DestConnectorHotspot.Y));
             computedPoints.Add(DestConnectorHotspot);
             computedPoints.Freeze();
 
-            this.Points = computedPoints;
+            Points = computedPoints;
         }
 
         #endregion // Private Methods

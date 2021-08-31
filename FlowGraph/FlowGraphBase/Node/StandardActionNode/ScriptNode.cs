@@ -37,13 +37,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <summary>
         /// 
         /// </summary>
-        public override string Title
-        {
-            get
-            {
-                return "Script " + (GetScriptElement() == null ? "<null>" : m_ScriptElement.Name);
-            }
-        }
+        public override string Title => "Script " + (GetScriptElement() == null ? "<null>" : m_ScriptElement.Name);
 
         #endregion //Properties
 
@@ -179,11 +173,11 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.Ok;
+            info.State = LogicState.Ok;
 
             //call script with input nodes
             List<ScriptSlotData> list = new List<ScriptSlotData>(m_ScriptElement.InputCount);
-            foreach (NodeSlot slot in this.SlotVariableIn)
+            foreach (NodeSlot slot in SlotVariableIn)
             {
                 if (slot is NodeSlotVar)
                 {
@@ -195,7 +189,7 @@ namespace FlowGraphBase.Node.StandardActionNode
             list.Clear();
 
             //            
-            foreach (NodeSlot slot in this.SlotVariableOut)
+            foreach (NodeSlot slot in SlotVariableOut)
             {
                 if (slot is NodeSlotVar)
                 {
@@ -209,7 +203,7 @@ namespace FlowGraphBase.Node.StandardActionNode
             if (m_ScriptElement.Run(parameters, returnVals) == false)
             {
                 info.ErrorMessage = "Some errors in the execution of the script";
-                info.State = ActionNode.LogicState.Error;
+                info.State = LogicState.Error;
                 return info;
             }
 
@@ -323,10 +317,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <summary>
         /// 
         /// </summary>
-        internal IEnumerable<ScriptSlotData> List
-        {
-            get { return m_List; }
-        }
+        internal IEnumerable<ScriptSlotData> List => m_List;
 
         /// <summary>
         /// 
@@ -346,7 +337,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         {
             foreach (ScriptSlotData data in m_List)
             {
-                if (string.Equals(data.Text, name_) == true)
+                if (string.Equals(data.Text, name_))
                 {
                     return data;
                 }
@@ -364,7 +355,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         {
             for (int i = 0; i < m_List.Count; i++)
             {
-                if (string.Equals(m_List[i].Text, name_) == true)
+                if (string.Equals(m_List[i].Text, name_))
                 {
                     m_List[i].Value = value_;
                     return true;

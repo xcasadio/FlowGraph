@@ -1,18 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Controls.Primitives;
-using System.Windows.Controls;
-using System.Windows;
-using System.Collections.ObjectModel;
-using System.Collections;
-using System.Collections.Specialized;
-using Utils;
-using System.Diagnostics;
-using System.Windows.Media;
-using System.Windows.Documents;
-using System.Windows.Input;
 
 namespace NetworkUI
 {
@@ -31,12 +18,12 @@ namespace NetworkUI
         {
             e.Handled = true;
 
-            this.IsDragging = true;
-            this.IsNotDragging = false;
-            this.IsDraggingNode = true;
-            this.IsNotDraggingNode = false;
+            IsDragging = true;
+            IsNotDragging = false;
+            IsDraggingNode = true;
+            IsNotDraggingNode = false;
 
-            var eventArgs = new NodeDragStartedEventArgs(NodeDragStartedEvent, this, this.SelectedNodes);            
+            var eventArgs = new NodeDragStartedEventArgs(NodeDragStartedEvent, this, SelectedNodes);            
             RaiseEvent(eventArgs);
 
             e.Cancel = eventArgs.Cancel;
@@ -52,11 +39,11 @@ namespace NetworkUI
             //
             // Cache the NodeItem for each selected node whilst dragging is in progress.
             //
-            if (this.cachedSelectedNodeItems == null)
+            if (cachedSelectedNodeItems == null)
             {
-                this.cachedSelectedNodeItems = new List<NodeItem>();
+                cachedSelectedNodeItems = new List<NodeItem>();
 
-                foreach (var selectedNode in this.SelectedNodes)
+                foreach (var selectedNode in SelectedNodes)
                 {
                     NodeItem nodeItem = FindAssociatedNodeItem(selectedNode);
                     if (nodeItem == null)
@@ -64,20 +51,20 @@ namespace NetworkUI
                         throw new ApplicationException("Unexpected code path!");
                     }
 
-                    this.cachedSelectedNodeItems.Add(nodeItem);
+                    cachedSelectedNodeItems.Add(nodeItem);
                 }
             }
 
             // 
             // Update the position of the node within the Canvas.
             //
-            foreach (var nodeItem in this.cachedSelectedNodeItems)
+            foreach (var nodeItem in cachedSelectedNodeItems)
             {
                 nodeItem.X += e.HorizontalChange;
                 nodeItem.Y += e.VerticalChange;
             }
 
-            var eventArgs = new NodeDraggingEventArgs(NodeDraggingEvent, this, this.SelectedNodes, e.HorizontalChange, e.VerticalChange);
+            var eventArgs = new NodeDraggingEventArgs(NodeDraggingEvent, this, SelectedNodes, e.HorizontalChange, e.VerticalChange);
             RaiseEvent(eventArgs);
         }
 
@@ -88,7 +75,7 @@ namespace NetworkUI
         {
             e.Handled = true;
 
-            var eventArgs = new NodeDragCompletedEventArgs(NodeDragCompletedEvent, this, this.SelectedNodes);
+            var eventArgs = new NodeDragCompletedEventArgs(NodeDragCompletedEvent, this, SelectedNodes);
             RaiseEvent(eventArgs);
 
             if (cachedSelectedNodeItems != null)
@@ -96,10 +83,10 @@ namespace NetworkUI
                 cachedSelectedNodeItems = null;
             }
 
-            this.IsDragging = false;
-            this.IsNotDragging = true;
-            this.IsDraggingNode = false;
-            this.IsNotDraggingNode = true;
+            IsDragging = false;
+            IsNotDragging = true;
+            IsDraggingNode = false;
+            IsNotDraggingNode = true;
         }
 
         #endregion Private Methods

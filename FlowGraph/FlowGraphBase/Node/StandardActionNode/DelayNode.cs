@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FlowGraphBase;
-using FlowGraphBase.Node;
 using System.Xml;
 using FlowGraphBase.Logger;
 using FlowGraphBase.Process;
@@ -37,9 +32,9 @@ namespace FlowGraphBase.Node.StandardActionNode
 	
 		#region Properties
 
-        public override string Title { get { return "Delay"; } }
+        public override string Title => "Delay";
 
-		#endregion //Properties
+        #endregion //Properties
 	
 		#region Constructors
 
@@ -87,13 +82,13 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.Ok;
+            info.State = LogicState.Ok;
 
             object intVal = GetValueFromSlot((int)NodeSlotId.Delay);
 
             if (intVal == null)
             {
-                info.State = ActionNode.LogicState.Ok;
+                info.State = LogicState.Ok;
                 info.ErrorMessage = "Please connect a integer variable node";
 
                 LogManager.Instance.WriteLine(LogVerbosity.Error,

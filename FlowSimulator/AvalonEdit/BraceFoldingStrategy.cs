@@ -16,7 +16,6 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System;
 using System.Collections.Generic;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
@@ -53,10 +52,10 @@ namespace FlowSimulator.AvalonEdit
 		/// </summary>
 		public BraceFoldingStrategy()
 		{
-			this.OpeningBrace = '{';
-			this.ClosingBrace = '}';
-            this.BeginRegion = "#region";
-            this.EndRegion = "#endregion";
+			OpeningBrace = '{';
+			ClosingBrace = '}';
+            BeginRegion = "#region";
+            EndRegion = "#endregion";
 		}
 		
 		/// <summary>
@@ -79,15 +78,15 @@ namespace FlowSimulator.AvalonEdit
             Stack<int> startRegionOffsets = new Stack<int>();
 
 			int lastNewLineOffset = 0;
-			char openingBrace = this.OpeningBrace;
-			char closingBrace = this.ClosingBrace;
+			char openingBrace = OpeningBrace;
+			char closingBrace = ClosingBrace;
 
 			for (int i = 0; i < document.TextLength; i++) 
             {
                 char c = document.GetCharAt(i);
 
                 if (i + BeginRegion.Length < document.TextLength
-                    && BeginRegion.Equals(document.GetText(i, BeginRegion.Length)) == true)
+                    && BeginRegion.Equals(document.GetText(i, BeginRegion.Length)))
                 {
                     startRegionOffsets.Push(i);
                 }

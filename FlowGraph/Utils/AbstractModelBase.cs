@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace Utils
 {
@@ -15,13 +11,7 @@ namespace Utils
         private static int nextObjectId = 0;
         private int objectDebugId = nextObjectId++;
 
-        public int ObjectDebugId
-        {
-            get
-            {
-                return objectDebugId;
-            }
-        }
+        public int ObjectDebugId => objectDebugId;
 #endif //  DEBUG
 
         /// <summary>

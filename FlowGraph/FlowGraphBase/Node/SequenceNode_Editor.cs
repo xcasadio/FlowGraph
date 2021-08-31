@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 using System.ComponentModel;
 
@@ -70,7 +68,7 @@ namespace FlowGraphBase.Node
         /// </summary>
         public string CustomText
         {
-            get { return m_CustomText; }
+            get => m_CustomText;
             set 
             { 
                 m_CustomText = value;
@@ -82,17 +80,14 @@ namespace FlowGraphBase.Node
         /// 
         /// </summary>
         [Browsable(false)]
-        public NodeSlot[] Slots
-        {
-            get { return m_Slots.ToArray(); }
-        }
+        public NodeSlot[] Slots => m_Slots.ToArray();
 
         /// <summary>
         /// 
         /// </summary>
         public bool IsProcessing
         {
-            get { return m_IsProcessing; }
+            get => m_IsProcessing;
             set 
             {
                 m_IsProcessing = value;
@@ -286,37 +281,25 @@ namespace FlowGraphBase.Node
         /// 
         /// </summary>
         [Browsable(false)]
-        public bool HasSlotConnectorIn
-        {
-            get { return (SlotFlag & SlotAvailableFlag.NodeIn) == SlotAvailableFlag.NodeIn; }
-        }
+        public bool HasSlotConnectorIn => (SlotFlag & SlotAvailableFlag.NodeIn) == SlotAvailableFlag.NodeIn;
 
         /// <summary>
         /// 
         /// </summary>
         [Browsable(false)]
-        public bool HasSlotConnectorOut
-        {
-            get { return (SlotFlag & SlotAvailableFlag.NodeOut) == SlotAvailableFlag.NodeOut; }
-        }
+        public bool HasSlotConnectorOut => (SlotFlag & SlotAvailableFlag.NodeOut) == SlotAvailableFlag.NodeOut;
 
         /// <summary>
         /// 
         /// </summary>
         [Browsable(false)]
-        public bool HasSlotVariableIn
-        {
-            get { return (SlotFlag & SlotAvailableFlag.VarIn) == SlotAvailableFlag.VarIn; }
-        }
+        public bool HasSlotVariableIn => (SlotFlag & SlotAvailableFlag.VarIn) == SlotAvailableFlag.VarIn;
 
         /// <summary>
         /// 
         /// </summary>
         [Browsable(false)]
-        public bool HasSlotVariableOut
-        {
-            get { return (SlotFlag & SlotAvailableFlag.VarOut) == SlotAvailableFlag.VarOut; }
-        }
+        public bool HasSlotVariableOut => (SlotFlag & SlotAvailableFlag.VarOut) == SlotAvailableFlag.VarOut;
 
         #endregion
 

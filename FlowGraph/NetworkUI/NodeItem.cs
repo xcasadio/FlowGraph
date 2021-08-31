@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Controls;
 using System.Windows;
-using System.Collections.ObjectModel;
-using System.Collections;
-using System.Collections.Specialized;
-using System.Windows.Media;
 using System.Windows.Input;
-using Utils;
-using System.Diagnostics;
 
 namespace NetworkUI
 {
@@ -60,14 +51,8 @@ namespace NetworkUI
         /// </summary>
         public double X
         {
-            get
-            {
-                return (double)GetValue(XProperty);
-            }
-            set
-            {
-                SetValue(XProperty, value);
-            }
+            get => (double)GetValue(XProperty);
+            set => SetValue(XProperty, value);
         }
 
         /// <summary>
@@ -75,14 +60,8 @@ namespace NetworkUI
         /// </summary>
         public double Y
         {
-            get
-            {
-                return (double)GetValue(YProperty);
-            }
-            set
-            {
-                SetValue(YProperty, value);
-            }
+            get => (double)GetValue(YProperty);
+            set => SetValue(YProperty, value);
         }
 
         /// <summary>
@@ -90,15 +69,9 @@ namespace NetworkUI
         /// </summary>
         public int ZIndex
         {
-            get
-            {
-                return (int)GetValue(ZIndexProperty);
-            }
-            set
-            {
-                SetValue(ZIndexProperty, value);
-            }
-       }            
+            get => (int)GetValue(ZIndexProperty);
+            set => SetValue(ZIndexProperty, value);
+        }            
 
         #region Private Data Members\Properties
 
@@ -107,14 +80,8 @@ namespace NetworkUI
         /// </summary>
         internal NetworkView ParentNetworkView
         {
-            get
-            {
-                return (NetworkView)GetValue(ParentNetworkViewProperty);
-            }
-            set
-            {
-                SetValue(ParentNetworkViewProperty, value);
-            }
+            get => (NetworkView)GetValue(ParentNetworkViewProperty);
+            set => SetValue(ParentNetworkViewProperty, value);
         }
 
         /// <summary>
@@ -159,13 +126,13 @@ namespace NetworkUI
         /// </summary>
         internal void BringToFront()
         {
-            if (this.ParentNetworkView == null)
+            if (ParentNetworkView == null)
             {
                 return;
             }
 
-            int maxZ = this.ParentNetworkView.FindMaxZIndex();
-            this.ZIndex = maxZ + 1;
+            int maxZ = ParentNetworkView.FindMaxZIndex();
+            ZIndex = maxZ + 1;
         }
 
         /// <summary>
@@ -177,21 +144,21 @@ namespace NetworkUI
 
             BringToFront();
 
-            if (this.ParentNetworkView != null)
+            if (ParentNetworkView != null)
             {
-                this.ParentNetworkView.Focus();
+                ParentNetworkView.Focus();
             }
 
-            if (e.ChangedButton == MouseButton.Left && this.ParentNetworkView != null)
+            if (e.ChangedButton == MouseButton.Left && ParentNetworkView != null)
             {
-                lastMousePoint = e.GetPosition(this.ParentNetworkView);
+                lastMousePoint = e.GetPosition(ParentNetworkView);
                 isLeftMouseDown = true;
 
                 LeftMouseDownSelectionLogic();
 
                 e.Handled = true;
             }
-            else if (e.ChangedButton == MouseButton.Right && this.ParentNetworkView != null)
+            else if (e.ChangedButton == MouseButton.Right && ParentNetworkView != null)
             {
                 RightMouseDownSelectionLogic();
            }
@@ -220,15 +187,15 @@ namespace NetworkUI
                 //
                 isLeftMouseAndControlDown = false;
 
-                if (this.ParentNetworkView.SelectedNodes.Count == 0)
+                if (ParentNetworkView.SelectedNodes.Count == 0)
                 {
                     //
                     // Nothing already selected, select the item.
                     //
-                    this.IsSelected = true;
+                    IsSelected = true;
                 }
-                else if (this.ParentNetworkView.SelectedNodes.Contains(this) ||
-                         this.ParentNetworkView.SelectedNodes.Contains(this.DataContext))
+                else if (ParentNetworkView.SelectedNodes.Contains(this) ||
+                         ParentNetworkView.SelectedNodes.Contains(DataContext))
                 {
                     // 
                     // Item is already selected, do nothing.
@@ -241,8 +208,8 @@ namespace NetworkUI
                     // Item is not selected.
                     // Deselect all, and select the item.
                     //
-                    this.ParentNetworkView.SelectedNodes.Clear();
-                    this.IsSelected = true;
+                    ParentNetworkView.SelectedNodes.Clear();
+                    IsSelected = true;
                 }
             }
         }
@@ -254,15 +221,15 @@ namespace NetworkUI
         /// </summary>
         internal void RightMouseDownSelectionLogic()
         {
-            if (this.ParentNetworkView.SelectedNodes.Count == 0)
+            if (ParentNetworkView.SelectedNodes.Count == 0)
             {
                 //
                 // Nothing already selected, select the item.
                 //
-                this.IsSelected = true;
+                IsSelected = true;
             }
-            else if (this.ParentNetworkView.SelectedNodes.Contains(this) ||
-                     this.ParentNetworkView.SelectedNodes.Contains(this.DataContext))
+            else if (ParentNetworkView.SelectedNodes.Contains(this) ||
+                     ParentNetworkView.SelectedNodes.Contains(DataContext))
             {
                 // 
                 // Item is already selected, do nothing.
@@ -274,8 +241,8 @@ namespace NetworkUI
                 // Item is not selected.
                 // Deselect all, and select the item.
                 //
-                this.ParentNetworkView.SelectedNodes.Clear();
-                this.IsSelected = true;
+                ParentNetworkView.SelectedNodes.Clear();
+                IsSelected = true;
             }
         }
 
@@ -292,7 +259,7 @@ namespace NetworkUI
                 // Raise the event to notify that dragging is in progress.
                 //
 
-                Point curMousePoint = e.GetPosition(this.ParentNetworkView);
+                Point curMousePoint = e.GetPosition(ParentNetworkView);
 
                 object item = this;
                 if (DataContext != null)
@@ -309,14 +276,14 @@ namespace NetworkUI
                     RaiseEvent(new NodeDraggingEventArgs(NodeDraggingEvent, this, new object[] { item }, offset.X, offset.Y));
                 }
             }
-            else if (isLeftMouseDown && this.ParentNetworkView.EnableNodeDragging)
+            else if (isLeftMouseDown && ParentNetworkView.EnableNodeDragging)
             {
                 //
                 // The user is left-dragging the node,
                 // but don't initiate the drag operation until 
                 // the mouse cursor has moved more than the threshold distance.
                 //
-                Point curMousePoint = e.GetPosition(this.ParentNetworkView);
+                Point curMousePoint = e.GetPosition(ParentNetworkView);
                 var dragDelta = curMousePoint - lastMousePoint;
                 double dragDistance = Math.Abs(dragDelta.Length);
                 if (dragDistance > DragThreshold)
@@ -342,7 +309,7 @@ namespace NetworkUI
                     }
 
                     isDragging = true;
-                    this.CaptureMouse();
+                    CaptureMouse();
                     e.Handled = true;
                 }
             }
@@ -365,7 +332,7 @@ namespace NetworkUI
 
                     RaiseEvent(new NodeDragCompletedEventArgs(NodeDragCompletedEvent, this, new NodeItem[] { this }));
 
-					this.ReleaseMouseCapture();
+					ReleaseMouseCapture();
 
                     isDragging = false;
                 }
@@ -398,16 +365,16 @@ namespace NetworkUI
                 // Control key was held down.
                 // Toggle the selection.
                 //
-                this.IsSelected = !this.IsSelected;
+                IsSelected = !IsSelected;
             }
             else
             {
                 //
                 // Control key was not held down.
                 //
-                if (this.ParentNetworkView.SelectedNodes.Count == 1 &&
-                    (this.ParentNetworkView.SelectedNode == this ||
-                     this.ParentNetworkView.SelectedNode == this.DataContext))
+                if (ParentNetworkView.SelectedNodes.Count == 1 &&
+                    (ParentNetworkView.SelectedNode == this ||
+                     ParentNetworkView.SelectedNode == DataContext))
                 {
                     //
                     // The item that was clicked is already the only selected item.
@@ -419,8 +386,8 @@ namespace NetworkUI
                     //
                     // Clear the selection and select the clicked item as the only selected item.
                     //
-                    this.ParentNetworkView.SelectedNodes.Clear();
-                    this.IsSelected = true;
+                    ParentNetworkView.SelectedNodes.Clear();
+                    IsSelected = true;
                 }
             }
 

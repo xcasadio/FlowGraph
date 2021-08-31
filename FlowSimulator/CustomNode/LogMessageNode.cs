@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
+﻿using System.Xml;
 using FlowGraphBase.Logger;
 using FlowGraphBase.Node;
 using FlowGraphBase;
@@ -30,10 +26,7 @@ namespace FlowSimulator.CustomNode
         /// <summary>
         /// 
         /// </summary>
-        public override string Title
-        {
-            get { return "Log Message"; }
-        }
+        public override string Title => "Log Message";
 
         /// <summary>
         /// 
@@ -75,12 +68,12 @@ namespace FlowSimulator.CustomNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.Ok;
+            info.State = LogicState.Ok;
             object val = GetValueFromSlot((int)NodeSlotId.Message);
 
             if (val == null)
             {
-                info.State = ActionNode.LogicState.Warning;
+                info.State = LogicState.Warning;
                 info.ErrorMessage = "Please connect a string variable node";
 
                 LogManager.Instance.WriteLine(LogVerbosity.Warning, 

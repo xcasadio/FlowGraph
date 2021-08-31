@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace FlowGraphBase.Process
 {
@@ -21,10 +18,7 @@ namespace FlowGraphBase.Process
         /// <summary>
         /// 
         /// </summary>
-        public MemoryStack CurrentFrame
-        {
-            get { return m_StackFrames.Count == 0 ? null : m_StackFrames.Peek(); }
-        }
+        public MemoryStack CurrentFrame => m_StackFrames.Count == 0 ? null : m_StackFrames.Peek();
 
         #endregion //Properties
 

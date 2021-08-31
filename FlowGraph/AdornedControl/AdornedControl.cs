@@ -118,7 +118,7 @@ namespace AdornedControl
         /// </summary>
         public void HideAdorner()
         {
-            if (IsAlwaysVisible == true)
+            if (IsAlwaysVisible)
             {
                 return;
             }
@@ -141,7 +141,7 @@ namespace AdornedControl
                 return;
             }
 
-            this.ShowAdorner();
+            ShowAdorner();
 
             if (_adornerShowState != AdornerShowState.FadingOut)
             {
@@ -152,7 +152,7 @@ namespace AdornedControl
             doubleAnimation.Completed += new EventHandler(fadeInAnimation_Completed);
             doubleAnimation.Freeze();
                 
-            _adorner.BeginAnimation(FrameworkElement.OpacityProperty, doubleAnimation);
+            _adorner.BeginAnimation(OpacityProperty, doubleAnimation);
 
             _adornerShowState = AdornerShowState.FadingIn;
         }
@@ -182,7 +182,7 @@ namespace AdornedControl
             fadeOutAnimation.Completed += new EventHandler(fadeOutAnimation_Completed);
             fadeOutAnimation.Freeze();
 
-            _adorner.BeginAnimation(FrameworkElement.OpacityProperty, fadeOutAnimation);
+            _adorner.BeginAnimation(OpacityProperty, fadeOutAnimation);
 
             _adornerShowState = AdornerShowState.FadingOut;
         }
@@ -193,14 +193,8 @@ namespace AdornedControl
         /// </summary>
         public bool IsAdornerVisible
         {
-            get
-            {
-                return (bool)GetValue(IsAdornerVisibleProperty);
-            }
-            set
-            {
-                SetValue(IsAdornerVisibleProperty, value);
-            }
+            get => (bool)GetValue(IsAdornerVisibleProperty);
+            set => SetValue(IsAdornerVisibleProperty, value);
         }
 
         /// <summary>
@@ -208,14 +202,8 @@ namespace AdornedControl
         /// </summary>
         public FrameworkElement AdornerContent
         {
-            get
-            {
-                return (FrameworkElement)GetValue(AdornerContentProperty);
-            }
-            set
-            {
-                SetValue(AdornerContentProperty, value);
-            }
+            get => (FrameworkElement)GetValue(AdornerContentProperty);
+            set => SetValue(AdornerContentProperty, value);
         }
 
         /// <summary>
@@ -223,14 +211,8 @@ namespace AdornedControl
         /// </summary>
         public AdornerPlacement HorizontalAdornerPlacement
         {
-            get
-            {
-                return (AdornerPlacement)GetValue(HorizontalAdornerPlacementProperty);
-            }
-            set
-            {
-                SetValue(HorizontalAdornerPlacementProperty, value);
-            }
+            get => (AdornerPlacement)GetValue(HorizontalAdornerPlacementProperty);
+            set => SetValue(HorizontalAdornerPlacementProperty, value);
         }
 
         /// <summary>
@@ -238,14 +220,8 @@ namespace AdornedControl
         /// </summary>
         public AdornerPlacement VerticalAdornerPlacement
         {
-            get
-            {
-                return (AdornerPlacement)GetValue(VerticalAdornerPlacementProperty);
-            }
-            set
-            {
-                SetValue(VerticalAdornerPlacementProperty, value);
-            }
+            get => (AdornerPlacement)GetValue(VerticalAdornerPlacementProperty);
+            set => SetValue(VerticalAdornerPlacementProperty, value);
         }
 
         /// <summary>
@@ -253,14 +229,8 @@ namespace AdornedControl
         /// </summary>
         public double AdornerOffsetX
         {
-            get
-            {
-                return (double)GetValue(AdornerOffsetXProperty);
-            }
-            set
-            {
-                SetValue(AdornerOffsetXProperty, value);
-            }
+            get => (double)GetValue(AdornerOffsetXProperty);
+            set => SetValue(AdornerOffsetXProperty, value);
         }
 
         /// <summary>
@@ -268,14 +238,8 @@ namespace AdornedControl
         /// </summary>
         public double AdornerOffsetY
         {
-            get
-            {
-                return (double)GetValue(AdornerOffsetYProperty);
-            }
-            set
-            {
-                SetValue(AdornerOffsetYProperty, value);
-            }
+            get => (double)GetValue(AdornerOffsetYProperty);
+            set => SetValue(AdornerOffsetYProperty, value);
         }
 
         /// <summary>
@@ -285,14 +249,8 @@ namespace AdornedControl
         /// </summary>
         public bool IsMouseOverShowEnabled
         {
-            get
-            {
-                return (bool)GetValue(IsMouseOverShowEnabledProperty);
-            }
-            set
-            {
-                SetValue(IsMouseOverShowEnabledProperty, value);
-            }
+            get => (bool)GetValue(IsMouseOverShowEnabledProperty);
+            set => SetValue(IsMouseOverShowEnabledProperty, value);
         }
 
         /// <summary>
@@ -301,14 +259,8 @@ namespace AdornedControl
         /// </summary>
         public bool IsAlwaysVisible
         {
-            get
-            {
-                return (bool)GetValue(IsAlwaysVisibleProperty);
-            }
-            set
-            {
-                SetValue(IsAlwaysVisibleProperty, value);
-            }
+            get => (bool)GetValue(IsAlwaysVisibleProperty);
+            set => SetValue(IsAlwaysVisibleProperty, value);
         }
 
         /// <summary>
@@ -316,14 +268,8 @@ namespace AdornedControl
         /// </summary>
         public double FadeInTime
         {
-            get
-            {
-                return (double)GetValue(FadeInTimeProperty);
-            }
-            set
-            {
-                SetValue(FadeInTimeProperty, value);
-            }
+            get => (double)GetValue(FadeInTimeProperty);
+            set => SetValue(FadeInTimeProperty, value);
         }
 
         /// <summary>
@@ -331,14 +277,8 @@ namespace AdornedControl
         /// </summary>
         public double FadeOutTime
         {
-            get
-            {
-                return (double) GetValue(FadeOutTimeProperty);
-            }
-            set
-            {
-                SetValue(FadeOutTimeProperty, value);
-            }
+            get => (double) GetValue(FadeOutTimeProperty);
+            set => SetValue(FadeOutTimeProperty, value);
         }
 
         /// <summary>
@@ -347,14 +287,8 @@ namespace AdornedControl
         /// </summary>
         public double CloseAdornerTimeOut
         {
-            get
-            {
-                return (double)GetValue(CloseAdornerTimeOutProperty);
-            }
-            set
-            {
-                SetValue(CloseAdornerTimeOutProperty, value);
-            }
+            get => (double)GetValue(CloseAdornerTimeOutProperty);
+            set => SetValue(CloseAdornerTimeOutProperty, value);
         }
 
         /// <summary>
@@ -368,14 +302,8 @@ namespace AdornedControl
         /// </summary>
         public string AdornedTemplatePartName
         {
-            get
-            {
-                return (string)GetValue(AdornedTemplatePartNameProperty);
-            }
-            set
-            {
-                SetValue(AdornedTemplatePartNameProperty, value);
-            }
+            get => (string)GetValue(AdornedTemplatePartNameProperty);
+            set => SetValue(AdornedTemplatePartNameProperty, value);
         }
 
         /// <summary>
@@ -383,8 +311,8 @@ namespace AdornedControl
         /// </summary>
         public event AdornerEventHandler AdornerShown
         {
-            add { AddHandler(AdornerShownEvent, value); }
-            remove { RemoveHandler(AdornerShownEvent, value); }
+            add => AddHandler(AdornerShownEvent, value);
+            remove => RemoveHandler(AdornerShownEvent, value);
         }
 
         /// <summary>
@@ -392,8 +320,8 @@ namespace AdornedControl
         /// </summary>
         public event AdornerEventHandler AdornerHidden
         {
-            add { AddHandler(AdornerHiddenEvent, value); }
-            remove { RemoveHandler(AdornerHiddenEvent, value); }
+            add => AddHandler(AdornerHiddenEvent, value);
+            remove => RemoveHandler(AdornerHiddenEvent, value);
         }
 
         #region Private Data Members
@@ -638,7 +566,7 @@ namespace AdornedControl
         /// </summary>
         private void ShowAdornerInternal()
         {
-            if (this._adorner != null)
+            if (_adorner != null)
             {
                 // Already adorned.
                 return;
@@ -646,9 +574,9 @@ namespace AdornedControl
 
             AddAdorner();
 
-            if (this._adorner != null)
+            if (_adorner != null)
             {
-                RaiseEvent(new AdornerEventArgs(AdornerShownEvent, this, this._adorner.Child));
+                RaiseEvent(new AdornerEventArgs(AdornerShownEvent, this, _adorner.Child));
             }
         }
 
@@ -657,13 +585,13 @@ namespace AdornedControl
         /// </summary>
         private void HideAdornerInternal()
         {
-            if (this._adornerLayer == null || this._adorner == null)
+            if (_adornerLayer == null || _adorner == null)
             {
                 // Not already adorned.
                 return;
             }
 
-            RaiseEvent(new AdornerEventArgs(AdornerHiddenEvent, this, this._adorner.Child));
+            RaiseEvent(new AdornerEventArgs(AdornerHiddenEvent, this, _adorner.Child));
 
             RemoveAdorner();
         }
@@ -704,7 +632,7 @@ namespace AdornedControl
         private void MouseEnterLogic()
         {
             if (!IsMouseOverShowEnabled
-                || IsAlwaysVisible == true)
+                || IsAlwaysVisible)
             {
                 return;
             }
@@ -720,7 +648,7 @@ namespace AdornedControl
         private void MouseLeaveLogic()
         {
             if (!IsMouseOverShowEnabled
-                || IsAlwaysVisible == true)
+                || IsAlwaysVisible)
             {
                 return;
             }
@@ -759,7 +687,7 @@ namespace AdornedControl
             if (_adornerShowState == AdornerShowState.FadingOut)
             {
                 // Still fading out, eg it wasn't aborted.
-                this.HideAdorner();
+                HideAdorner();
             }
         }
 
@@ -768,35 +696,35 @@ namespace AdornedControl
         /// </summary>
         private void AddAdorner()
         {
-            if (this.AdornerContent != null)
+            if (AdornerContent != null)
             {
-                if (this._adornerLayer == null)
+                if (_adornerLayer == null)
                 {
-                    this._adornerLayer = AdornerLayer.GetAdornerLayer(this);
+                    _adornerLayer = AdornerLayer.GetAdornerLayer(this);
                 }
 
-                if (this._adornerLayer != null)
+                if (_adornerLayer != null)
                 {
                     FrameworkElement adornedControl = this; // The control to be adorned defaults to 'this'.
 
-                    if (!string.IsNullOrEmpty(this.AdornedTemplatePartName))
+                    if (!string.IsNullOrEmpty(AdornedTemplatePartName))
                     {
                         //
                         // If 'AdornedTemplatePartName' is set to a valid string then search the visual-tree
                         // for a UI element that has the specified part name.  If we find it then use it as the
                         // adorned control, otherwise throw an exception.
                         //
-                        adornedControl = FindNamedChild(this, this.AdornedTemplatePartName);
+                        adornedControl = FindNamedChild(this, AdornedTemplatePartName);
                         if (adornedControl == null)
                         {
-                            throw new ApplicationException("Failed to find a FrameworkElement in the visual-tree with the part name '" + this.AdornedTemplatePartName + "'.");
+                            throw new ApplicationException("Failed to find a FrameworkElement in the visual-tree with the part name '" + AdornedTemplatePartName + "'.");
                         }
                     }
 
-                    this._adorner = new FrameworkElementAdorner(this.AdornerContent, adornedControl, 
-                                                               this.HorizontalAdornerPlacement, this.VerticalAdornerPlacement,
-                                                               this.AdornerOffsetX, this.AdornerOffsetY);
-                    _adornerLayer.Add(this._adorner);
+                    _adorner = new FrameworkElementAdorner(AdornerContent, adornedControl, 
+                                                               HorizontalAdornerPlacement, VerticalAdornerPlacement,
+                                                               AdornerOffsetX, AdornerOffsetY);
+                    _adornerLayer.Add(_adorner);
 
 					//
 					// Update the layout of the _adorner layout so that clients that depend
@@ -819,21 +747,21 @@ namespace AdornedControl
             //
             closeAdornerTimer.Stop();
 
-            if (this._adornerLayer != null && this._adorner != null)
+            if (_adornerLayer != null && _adorner != null)
             {
-                this._adornerLayer.Remove(this._adorner);
-                this._adorner.DisconnectChild();
+                _adornerLayer.Remove(_adorner);
+                _adorner.DisconnectChild();
             }
 
-            this._adorner = null;
-            this._adornerLayer = null;
+            _adorner = null;
+            _adornerLayer = null;
 
             //
             // Ensure that the state of the adorned control reflects that
             // the the _adorner is no longer.
             //
-            this.IsAdornerVisible = false;
-            this._adornerShowState = AdornerShowState.Hidden;
+            IsAdornerVisible = false;
+            _adornerShowState = AdornerShowState.Hidden;
 		}
 
         #endregion

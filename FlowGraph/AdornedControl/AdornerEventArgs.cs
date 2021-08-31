@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 
 namespace AdornedControl
 {
@@ -16,13 +12,7 @@ namespace AdornedControl
             this.adorner = adorner;
         }
 
-        public FrameworkElement Adorner
-        {
-            get
-            {
-                return adorner;
-            }
-        }
+        public FrameworkElement Adorner => adorner;
     }
 
     public delegate void AdornerEventHandler(object sender, AdornerEventArgs e);

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using FlowGraphBase;
 using FlowSimulator.CustomNode;
@@ -40,7 +38,7 @@ namespace FlowGraphConsole
                 ProcessLauncher.Instance.LaunchSequence(seq, typeof(EventNodeTestStarted), 0, "test");
                 ProcessLauncher.Instance.StopLoop();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
-
-namespace FlowGraphBase.Node
+﻿namespace FlowGraphBase.Node
 {
     /// <summary>
     /// 
@@ -15,10 +9,7 @@ namespace FlowGraphBase.Node
         /// <summary>
         /// 
         /// </summary>
-        public override NodeType NodeType
-        {
-            get { return NodeType.Event; }
-        }
+        public override NodeType NodeType => NodeType.Event;
 
         /// <summary>
         /// 

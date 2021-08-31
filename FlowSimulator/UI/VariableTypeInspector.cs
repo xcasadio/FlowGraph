@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Media;
 
 namespace FlowSimulator.UI
@@ -22,10 +20,7 @@ namespace FlowSimulator.UI
         /// <summary>
         /// 
         /// </summary>
-        static public IEnumerable<Type> Types
-        {
-            get { return m_Types; }
-        }
+        static public IEnumerable<Type> Types => m_Types;
 
         /// <summary>
         /// 
@@ -133,7 +128,8 @@ namespace FlowSimulator.UI
             {
                 return BooleanColor;
             }
-            else if (type_ == typeof(sbyte)
+
+            if (type_ == typeof(sbyte)
                 || type_ == typeof(char)
                 || type_ == typeof(short)
                 || type_ == typeof(int)
@@ -145,16 +141,16 @@ namespace FlowSimulator.UI
             {
                 return IntegerColor;
             }
-            else if (type_ == typeof(float)
+            if (type_ == typeof(float)
                 || type_ == typeof(double))
             {
                 return IntegerColor;
             }
-            else if (type_ == typeof(string))
+            if (type_ == typeof(string))
             {
                 return StringColor;
             }
-            else if (type_ == typeof(object))
+            if (type_ == typeof(object))
             {
                 return ObjectColor;
             }

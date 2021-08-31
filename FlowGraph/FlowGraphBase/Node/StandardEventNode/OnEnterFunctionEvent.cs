@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 
 namespace FlowGraphBase.Node.StandardEventNode
@@ -34,15 +31,9 @@ namespace FlowGraphBase.Node.StandardEventNode
         /// <summary>
         /// 
         /// </summary>
-        public override string Title
-        {
-            get
-            {
-                return (GetFunction() == null ? "<null>" : m_Function.Name) + " function"; 
-            }
-        }
+        public override string Title => (GetFunction() == null ? "<null>" : m_Function.Name) + " function";
 
-		#endregion //Properties
+        #endregion //Properties
 	
 		#region Constructors
 

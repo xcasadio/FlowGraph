@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 
 namespace FlowGraphBase.Node.StandardVariableNode
@@ -41,7 +38,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
         /// </summary>
         public override object Value
         {
-            get { return m_Value; }
+            get => m_Value;
             set
             {
                 if (value == null)
@@ -144,7 +141,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
     [Name("Object")]
     public class VariableNodeObject : GenericVariableNode<object>
     {
-        public override string Title { get { return "Object"; } }
+        public override string Title => "Object";
 
         public VariableNodeObject() : base() { }
         public VariableNodeObject(XmlNode node_) : base(node_) { }
@@ -169,7 +166,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
     [Name("String")]
     public class VariableNodeString : GenericVariableNode<string>
     {
-        public override string Title { get { return "String"; } }
+        public override string Title => "String";
 
         public VariableNodeString() : base() 
         {
@@ -198,7 +195,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
     [Name("Boolean")]
     public class VariableNodeBool : GenericVariableNode<bool>
     {
-        public override string Title { get { return "Boolean"; } }
+        public override string Title => "Boolean";
 
         public VariableNodeBool() : base() { }
         public VariableNodeBool(XmlNode node_) : base(node_) { }
@@ -225,7 +222,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
     [Name("Byte")]
     public class VariableNodeByte : GenericVariableNode<sbyte>
     {
-        public override string Title { get { return "Byte"; } }
+        public override string Title => "Byte";
 
         public VariableNodeByte() : base() { }
         public VariableNodeByte(XmlNode node_) : base(node_) { }
@@ -250,7 +247,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
     [Name("Char")]
     public class VariableNodeChar : GenericVariableNode<char>
     {
-        public override string Title { get { return "Char"; } }
+        public override string Title => "Char";
 
         public VariableNodeChar() : base() { }
         public VariableNodeChar(XmlNode node_) : base(node_) { }
@@ -275,7 +272,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
     [Name("Short")]
     public class VariableNodeShort : GenericVariableNode<short>
     {
-        public override string Title { get { return "Short"; } }
+        public override string Title => "Short";
 
         public VariableNodeShort() : base() { }
         public VariableNodeShort(XmlNode node_) : base(node_) { }
@@ -300,7 +297,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
     [Name("Integer")]
     public class VariableNodeInt : GenericVariableNode<int>
     {
-        public override string Title { get { return "Integer"; } }
+        public override string Title => "Integer";
 
         public VariableNodeInt() : base() { }
         public VariableNodeInt(XmlNode node_) : base(node_) { }
@@ -325,7 +322,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
     [Name("Long")]
     public class VariableNodeLong : GenericVariableNode<long>
     {
-        public override string Title { get { return "Long"; } }
+        public override string Title => "Long";
 
         public VariableNodeLong() : base() { }
         public VariableNodeLong(XmlNode node_) : base(node_) { }
@@ -350,7 +347,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
     [Name("Float")]
     public class VariableNodeFloat : GenericVariableNode<float>
     {
-        public override string Title { get { return "Float"; } }
+        public override string Title => "Float";
 
         public VariableNodeFloat() : base() { }
         public VariableNodeFloat(XmlNode node_) : base(node_) { }
@@ -375,7 +372,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
     [Name("Double")]
     public class VariableNodeDouble : GenericVariableNode<double>
     {
-        public override string Title { get { return "Double"; } }
+        public override string Title => "Double";
 
         public VariableNodeDouble() : base() { }
         public VariableNodeDouble(XmlNode node_) : base(node_) { }
@@ -404,7 +401,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
     [Name("Unsigned Byte")]
     public class VariableNodeUByte : GenericVariableNode<byte>
     {
-        public override string Title { get { return "Unsigned Byte"; } }
+        public override string Title => "Unsigned Byte";
 
         public VariableNodeUByte() : base() { }
         public VariableNodeUByte(XmlNode node_) : base(node_) { }
@@ -429,7 +426,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
     [Name("Unsigned Short")]
     public class VariableNodeUShort : GenericVariableNode<ushort>
     {
-        public override string Title { get { return "Unsigned Short"; } }
+        public override string Title => "Unsigned Short";
 
         public VariableNodeUShort() : base() { }
         public VariableNodeUShort(XmlNode node_) : base(node_) { }
@@ -454,7 +451,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
     [Name("Unsigned Integer")]
     public class VariableNodeUInt : GenericVariableNode<uint>
     {
-        public override string Title { get { return "Unsigned Integer"; } }
+        public override string Title => "Unsigned Integer";
 
         public VariableNodeUInt() : base() { }
         public VariableNodeUInt(XmlNode node_) : base(node_) { }
@@ -479,7 +476,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
     [Name("Unsigned Long")]
     public class VariableNodeULong : GenericVariableNode<ulong>
     {
-        public override string Title { get { return "Unsigned Long"; } }
+        public override string Title => "Unsigned Long";
 
         public VariableNodeULong() : base() { }
         public VariableNodeULong(XmlNode node_) : base(node_) { }

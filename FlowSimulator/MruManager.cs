@@ -74,12 +74,9 @@ namespace FlowSimulator
 		/// <summary>
 		/// Gets the first file name in the list, otherwise return null
 		/// </summary>
-		public string GetFirstFileName
-		{
-			get { return _mruList.Count == 0 ? null : _mruList[0]; }
-		}
+		public string GetFirstFileName => _mruList.Count == 0 ? null : _mruList[0];
 
-		/// <summary>
+        /// <summary>
         /// Maximum length of displayed file name in menu (default is 40).
         /// 
         /// Set this property to change default value (optional).
@@ -94,10 +91,7 @@ namespace FlowSimulator
                     _maxDisplayLength = 10;
             }
 
-            get
-            {
-                return _maxDisplayLength;
-            }
+            get => _maxDisplayLength;
         }
 
         /// <summary>
@@ -118,10 +112,7 @@ namespace FlowSimulator
                     _mruList.RemoveRange(_maxNumberOfFiles - 1, _mruList.Count - _maxNumberOfFiles);
             }
 
-            get
-            {
-                return _maxNumberOfFiles;
-            }
+            get => _maxNumberOfFiles;
         }
 
         /// <summary>
@@ -135,15 +126,9 @@ namespace FlowSimulator
         /// </summary>
         public string CurrentDir
         {
-            set
-            {
-                _currentDirectory = value;
-            }
+            set => _currentDirectory = value;
 
-            get
-            {
-                return _currentDirectory;
-            }
+            get => _currentDirectory;
         }
 
         #endregion
@@ -435,10 +420,8 @@ namespace FlowSimulator
             {
                 return pszOut.ToString();
             }
-            else
-            {
-                return longName;
-            }
+
+            return longName;
         }
 
         #endregion

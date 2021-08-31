@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 using FlowGraphBase.Process;
 using FlowGraphBase.Logger;
@@ -30,10 +27,7 @@ namespace FlowGraphBase.Node.StandardActionNode
 
         #endregion
 
-        public override string Title
-        {
-            get { return "Branch"; }
-        }
+        public override string Title => "Branch";
 
         /// <summary>
         /// 
@@ -69,13 +63,13 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.Ok;
+            info.State = LogicState.Ok;
 
             object objCond = GetValueFromSlot((int)NodeSlotId.VarCond);
 
             if (objCond == null)
             {
-                info.State = ActionNode.LogicState.Warning;
+                info.State = LogicState.Warning;
                 info.ErrorMessage = "Please connect a variable node into the slot Condition";
                 LogManager.Instance.WriteLine(LogVerbosity.Warning,
                     "{0} : Branch failed. {1}.",
@@ -86,7 +80,7 @@ namespace FlowGraphBase.Node.StandardActionNode
             {
                 bool cond = (bool)objCond;
 
-                if (cond == true)
+                if (cond)
                 {
                     ActivateOutputLink(context_, (int)NodeSlotId.OutTrue);
                 }
@@ -134,10 +128,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         bool m_IsInitial = false;
         int m_Counter = 0;
 
-        public override string Title
-        {
-            get { return "Do N"; }
-        }
+        public override string Title => "Do N";
 
         /// <summary>
         /// 
@@ -174,7 +165,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.Ok;
+            info.State = LogicState.Ok;
 
             if (slot_.ID == (int)NodeSlotId.InReset)
             {
@@ -191,7 +182,7 @@ namespace FlowGraphBase.Node.StandardActionNode
 
                     if (objN == null)
                     {
-                        info.State = ActionNode.LogicState.Warning;
+                        info.State = LogicState.Warning;
                         info.ErrorMessage = "Please connect a variable node into the slot N";
                         LogManager.Instance.WriteLine(LogVerbosity.Warning,
                             "{0} : DoN failed. {1}.",
@@ -253,10 +244,7 @@ namespace FlowGraphBase.Node.StandardActionNode
 
         #endregion
 
-        public override string Title
-        {
-            get { return "Do Once"; }
-        }
+        public override string Title => "Do Once";
 
         /// <summary>
         /// 
@@ -290,7 +278,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.Ok;
+            info.State = LogicState.Ok;
 
             MemoryStackItem memoryItem = context_.CurrentFrame.GetValueFromID(Id);
 
@@ -347,10 +335,7 @@ namespace FlowGraphBase.Node.StandardActionNode
 
         #endregion
 
-        public override string Title
-        {
-            get { return "Flip Flop"; }
-        }
+        public override string Title => "Flip Flop";
 
         /// <summary>
         /// 
@@ -385,7 +370,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.Ok;
+            info.State = LogicState.Ok;
 
             MemoryStackItem memoryItem = context_.CurrentFrame.GetValueFromID(Id);
 
@@ -401,7 +386,7 @@ namespace FlowGraphBase.Node.StandardActionNode
 
                 SetValueInSlot((int)NodeSlotId.VarOutIsA, val);
 
-                if (val == true)
+                if (val)
                 {
                     ActivateOutputLink(context_, (int)NodeSlotId.OutA);
                 }
@@ -459,10 +444,7 @@ namespace FlowGraphBase.Node.StandardActionNode
 
         #endregion
 
-        public override string Title
-        {
-            get { return "For Loop"; }
-        }
+        public override string Title => "For Loop";
 
         /// <summary>
         /// 
@@ -500,7 +482,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.Ok;
+            info.State = LogicState.Ok;
 
             if (slot_.ID == (int)NodeSlotId.In)
             {
@@ -512,7 +494,7 @@ namespace FlowGraphBase.Node.StandardActionNode
 
                 if (objFirstIndex == null)
                 {
-                    info.State = ActionNode.LogicState.Warning;
+                    info.State = LogicState.Warning;
                     info.ErrorMessage = "Please connect a variable node into the slot First Index";
                     LogManager.Instance.WriteLine(LogVerbosity.Warning,
                         "{0} : For Loop failed. {1}.",
@@ -533,7 +515,7 @@ namespace FlowGraphBase.Node.StandardActionNode
 
                 if (objLastIndex == null)
                 {
-                    info.State = ActionNode.LogicState.Warning;
+                    info.State = LogicState.Warning;
                     info.ErrorMessage = "Please connect a variable node into the slot Last Index";
                     LogManager.Instance.WriteLine(LogVerbosity.Warning,
                         "{0} : For Loop failed. {1}.",
@@ -649,10 +631,7 @@ namespace FlowGraphBase.Node.StandardActionNode
 
         #endregion
 
-        public override string Title
-        {
-            get { return "For Loop With Break"; }
-        }
+        public override string Title => "For Loop With Break";
 
         /// <summary>
         /// 
@@ -691,7 +670,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.Ok;
+            info.State = LogicState.Ok;
 
             if (slot_.ID == (int)NodeSlotId.In)
             {
@@ -703,7 +682,7 @@ namespace FlowGraphBase.Node.StandardActionNode
 
                 if (objFirstIndex == null)
                 {
-                    info.State = ActionNode.LogicState.Warning;
+                    info.State = LogicState.Warning;
                     info.ErrorMessage = "Please connect a variable node into the slot First Index";
                     LogManager.Instance.WriteLine(LogVerbosity.Warning,
                         "{0} : For Loop failed. {1}.",
@@ -724,7 +703,7 @@ namespace FlowGraphBase.Node.StandardActionNode
 
                 if (objLastIndex == null)
                 {
-                    info.State = ActionNode.LogicState.Warning;
+                    info.State = LogicState.Warning;
                     info.ErrorMessage = "Please connect a variable node into the slot Last Index";
                     LogManager.Instance.WriteLine(LogVerbosity.Warning,
                         "{0} : For Loop failed. {1}.",
@@ -838,10 +817,7 @@ namespace FlowGraphBase.Node.StandardActionNode
 
         #endregion
 
-        public override string Title
-        {
-            get { return "Gate"; }
-        }
+        public override string Title => "Gate";
 
         /// <summary>
         /// 
@@ -879,7 +855,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.Ok;
+            info.State = LogicState.Ok;
 
             MemoryStackItem memoryItem = context_.CurrentFrame.GetValueFromID(Id);
 
@@ -894,7 +870,7 @@ namespace FlowGraphBase.Node.StandardActionNode
 
             if (slot_.ID == (int)NodeSlotId.InEnter)
             {
-                if (val == true)
+                if (val)
                 {
                     ActivateOutputLink(context_, (int)NodeSlotId.Out);
                 }

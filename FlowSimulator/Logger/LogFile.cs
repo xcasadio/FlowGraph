@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -68,7 +66,7 @@ namespace FlowSimulator.Logger
             _isAlive = true;
             _writer = File.CreateText(file);
 
-            if (_async == true)
+            if (_async)
             {
                 _task = new Task(new Action(() =>
                 {
@@ -91,8 +89,8 @@ namespace FlowSimulator.Logger
 
             _stringBuilder.AppendLine("-------------------------------------------------------------------------------------------");
             _stringBuilder.AppendFormat("Events Log -  Date : {0}\n", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
-            _stringBuilder.AppendFormat("Hostmane : {0}  -  UserName : {1}\n", System.Environment.MachineName, System.Environment.UserName);
-            _stringBuilder.AppendFormat("OS Version : {0}  -  CLR Version : {1}\n", System.Environment.OSVersion, System.Environment.Version);
+            _stringBuilder.AppendFormat("Hostmane : {0}  -  UserName : {1}\n", Environment.MachineName, Environment.UserName);
+            _stringBuilder.AppendFormat("OS Version : {0}  -  CLR Version : {1}\n", Environment.OSVersion, Environment.Version);
             _stringBuilder.AppendLine("-------------------------------------------------------------------------------------------");
             WriteInFile();
         }
@@ -139,7 +137,7 @@ namespace FlowSimulator.Logger
         /// <param name="args"></param>
         void Write(string pre, string log, params object[] args)
         {
-            if (_streamClose == true)
+            if (_streamClose)
             {
                 return;
             }
@@ -180,7 +178,7 @@ namespace FlowSimulator.Logger
         /// </summary>
         private void WriteInFile()
         {
-            if (_streamClose == true)
+            if (_streamClose)
             {
                 return;
             }

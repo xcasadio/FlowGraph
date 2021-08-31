@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FlowGraphBase.Node;
 
 namespace FlowGraphBase.Process
@@ -41,10 +39,7 @@ namespace FlowGraphBase.Process
         /// <summary>
         /// Gets all step already executed
         /// </summary>
-        public IEnumerable<ProcessingContextStep> Executed
-        {
-            get { return m_Executed; }
-        }
+        public IEnumerable<ProcessingContextStep> Executed => m_Executed;
 
         /// <summary>
         /// Gets the Id of the context
@@ -85,11 +80,8 @@ namespace FlowGraphBase.Process
         /// <summary>
         /// Gets
         /// </summary>
-        public MemoryStack CurrentFrame
-        {
-            get { return MemoryStackFrame.CurrentFrame; }
-        }
-        
+        public MemoryStack CurrentFrame => MemoryStackFrame.CurrentFrame;
+
         /// <summary>
         /// Gets/Sets
         /// </summary>
@@ -111,13 +103,7 @@ namespace FlowGraphBase.Process
         /// <summary>
         /// Gets
         /// </summary>
-        public ProcessingContext CurrentProcessingContext
-        {
-            get
-            {
-                return Child == null ? this : Child.CurrentProcessingContext;
-            }
-        }
+        public ProcessingContext CurrentProcessingContext => Child == null ? this : Child.CurrentProcessingContext;
 
         /// <summary>
         /// Gets

@@ -102,8 +102,8 @@ namespace FlowGraphBaseTest
             throw new NotImplementedException();
         }
 
-        public override NodeType NodeType { get { return NodeType.Action;} }
+        public override NodeType NodeType => NodeType.Action;
 
-        public override string Title { get { return "SequenceNodeDummy"; } }
+        public override string Title => "SequenceNodeDummy";
     }
 }

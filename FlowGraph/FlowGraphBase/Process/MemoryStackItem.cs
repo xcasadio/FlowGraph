@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace FlowGraphBase.Process
 {
@@ -23,17 +19,14 @@ namespace FlowGraphBase.Process
         /// <summary>
         /// 
         /// </summary>
-        public int ID
-        {
-            get { return m_Id; }
-        }
+        public int ID => m_Id;
 
         /// <summary>
         /// 
         /// </summary>
         public object Value
         {
-            get { return m_Value; }
+            get => m_Value;
             set
             {
                 if (m_Value != value)

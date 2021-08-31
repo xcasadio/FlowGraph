@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel;
 using FlowGraphBase.Process;
 using System.Xml;
@@ -65,7 +63,7 @@ namespace FlowGraphBase.Node
         /// </summary>
         public virtual string Text
         {
-            get { return m_Text; }
+            get => m_Text;
             set 
             {
                 if (string.Equals(m_Text, value) == false)
@@ -81,7 +79,7 @@ namespace FlowGraphBase.Node
         /// </summary>
         public virtual Type VariableType
         {
-            get { return m_VariableType; }
+            get => m_VariableType;
             set
             {
                 if (m_VariableType != value)
@@ -97,7 +95,7 @@ namespace FlowGraphBase.Node
         /// </summary>
         public virtual VariableControlType ControlType
         {
-            get { return m_ControlType; }
+            get => m_ControlType;
             set
             {
                 if (m_ControlType != value)
@@ -181,7 +179,7 @@ namespace FlowGraphBase.Node
             {
                 case SlotType.NodeIn:
                 case SlotType.NodeOut:
-                    if ((dst_.Node is VariableNode) == true)
+                    if ((dst_.Node is VariableNode))
                     {
                         return false;
                     }
@@ -299,7 +297,7 @@ namespace FlowGraphBase.Node
         /// </summary>
         public object Value
         {
-            get { return m_Value.Value; }
+            get => m_Value.Value;
             set { m_Value.Value = value; OnPropertyChanged("Value"); }
         }
 
@@ -369,7 +367,7 @@ namespace FlowGraphBase.Node
 
             node_.AddAttribute("saveValue", m_SaveValue.ToString());
 
-            if (m_SaveValue == true)
+            if (m_SaveValue)
             {
                 m_Value.Save(node_);
             }
@@ -383,7 +381,7 @@ namespace FlowGraphBase.Node
         {
             base.Load(node_);
 
-            if (m_SaveValue == true)
+            if (m_SaveValue)
             {
                 m_Value.Load(node_);
             }
@@ -413,7 +411,7 @@ namespace FlowGraphBase.Node
         /// </summary>
         public override string Text
         {
-            get { return m_FuncSlot == null ? string.Empty : m_FuncSlot.Name; }
+            get => m_FuncSlot == null ? string.Empty : m_FuncSlot.Name;
             set 
             {
                 if (m_FuncSlot != null)
@@ -428,7 +426,7 @@ namespace FlowGraphBase.Node
         /// </summary>
         public override Type VariableType
         {
-            get { return m_FuncSlot == null ? null : m_FuncSlot.VariableType; }
+            get => m_FuncSlot == null ? null : m_FuncSlot.VariableType;
             set
             {
                 if (m_FuncSlot != null)

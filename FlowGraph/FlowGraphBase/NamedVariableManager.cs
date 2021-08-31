@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FlowGraphBase.Logger;
 using System.Xml;
 using System.Collections.ObjectModel;
-using FlowGraphBase.Node;
 
 namespace FlowGraphBase
 {
@@ -21,13 +16,7 @@ namespace FlowGraphBase
         /// <summary>
         /// Gets
         /// </summary>
-        static public NamedVariableManager Instance
-        {
-            get
-            {
-                return m_Instance;
-            }
-        }
+        static public NamedVariableManager Instance => m_Instance;
 
         #endregion //Singleton
 
@@ -45,12 +34,9 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        public ObservableCollection<NamedVariable> Vars
-        {
-            get { return m_Vars; }
-        }
+        public ObservableCollection<NamedVariable> Vars => m_Vars;
 
-		#endregion //Properties
+        #endregion //Properties
 	
 		#region Constructors
 
@@ -73,7 +59,7 @@ namespace FlowGraphBase
         {
             foreach (var v in m_Vars)
             {
-                if (string.Equals(v.Name, name_) == true)
+                if (string.Equals(v.Name, name_))
                 {
                     return v;
                 }
@@ -93,7 +79,7 @@ namespace FlowGraphBase
 
             foreach (var v in m_Vars)
             {
-                if (string.Equals(v.Name, name_) == true)
+                if (string.Equals(v.Name, name_))
                 {
                     container = v.InternalValueContainer;
                     break;
@@ -116,7 +102,7 @@ namespace FlowGraphBase
 
             foreach (var v in m_Vars)
             {
-                if (string.Equals(v.Name, name_) == true)
+                if (string.Equals(v.Name, name_))
                 {
                     var_ = v.Value;
                     res = true;
@@ -183,7 +169,7 @@ namespace FlowGraphBase
         {
             foreach (var v in m_Vars)
             {
-                if (string.Equals(v.Name, name_) == true)
+                if (string.Equals(v.Name, name_))
                 {
                     v.Name = newName_;
 
@@ -206,7 +192,7 @@ namespace FlowGraphBase
         {
             foreach (var v in m_Vars)
             {
-                if (string.Equals(v.Name, name_) == true)
+                if (string.Equals(v.Name, name_))
                 {
                     v.InternalValueContainer.Value = var_;
                     break;
@@ -223,7 +209,7 @@ namespace FlowGraphBase
         {
             foreach (var v in m_Vars)
             {
-                if (string.Equals(v.Name, name_) == true)
+                if (string.Equals(v.Name, name_))
                 {
                     return true;
                 }
@@ -247,7 +233,7 @@ namespace FlowGraphBase
         /// <returns></returns>
         public bool IsValidName(string name_)
         {
-            if (string.IsNullOrWhiteSpace(name_) == true)
+            if (string.IsNullOrWhiteSpace(name_))
             {
                 return false;
             }

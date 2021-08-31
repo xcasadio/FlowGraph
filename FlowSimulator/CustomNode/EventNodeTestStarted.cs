@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FlowGraphBase.Node;
+﻿using FlowGraphBase.Node;
 using System.Xml;
 using FlowGraphBase;
-using FlowGraphBase.Process;
 
 namespace FlowSimulator.CustomNode
 {
@@ -24,12 +19,9 @@ namespace FlowSimulator.CustomNode
         /// <summary>
         /// 
         /// </summary>
-        public override string Title
-        {
-            get { return "Test Started Event"; }
-        }
+        public override string Title => "Test Started Event";
 
-		#endregion //Properties
+        #endregion //Properties
 	
 		#region Constructors
 

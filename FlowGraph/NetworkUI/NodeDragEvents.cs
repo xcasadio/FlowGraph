@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Collections;
 
 namespace NetworkUI
@@ -26,13 +22,7 @@ namespace NetworkUI
         /// <summary>
         /// The NodeItem's or their DataContext (when non-NULL).
         /// </summary>
-        public ICollection Nodes
-        {
-            get
-            {
-                return nodes;
-            }
-        }
+        public ICollection Nodes => nodes;
     }
 
     /// <summary>
@@ -60,14 +50,8 @@ namespace NetworkUI
         /// </summary>
         public bool Cancel
         {
-            get
-            {
-                return cancel;
-            }
-            set
-            {
-                cancel = value;
-            }
+            get => cancel;
+            set => cancel = value;
         }
     }
 
@@ -101,24 +85,12 @@ namespace NetworkUI
         /// <summary>
         /// The amount the node has been dragged horizontally.
         /// </summary>
-        public double HorizontalChange
-        {
-            get
-            {
-                return horizontalChange;
-            }
-        }
+        public double HorizontalChange => horizontalChange;
 
         /// <summary>
         /// The amount the node has been dragged vertically.
         /// </summary>
-        public double VerticalChange
-        {
-            get
-            {
-                return verticalChange;
-            }
-        }
+        public double VerticalChange => verticalChange;
     }
 
     /// <summary>

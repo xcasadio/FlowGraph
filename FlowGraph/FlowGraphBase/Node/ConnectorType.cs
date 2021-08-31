@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace FlowGraphBase.Node
+﻿namespace FlowGraphBase.Node
 {
     /// <summary>
     /// Defines the type of a connector (aka connection point).

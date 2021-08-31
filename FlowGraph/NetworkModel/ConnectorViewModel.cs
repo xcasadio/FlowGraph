@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Utils;
-using System.Diagnostics;
 using System.Windows;
 using FlowGraphBase.Node;
-using System.Windows.Media;
 using System.ComponentModel;
 
 namespace NetworkModel
@@ -43,8 +38,8 @@ namespace NetworkModel
         /// </summary>
         public string Name
         {
-            get { return SourceSlot.Text; }
-            set { SourceSlot.Text = value; }
+            get => SourceSlot.Text;
+            set => SourceSlot.Text = value;
         }
 
         /// <summary>
@@ -115,13 +110,7 @@ namespace NetworkModel
         /// Returns 'true' if a connection is attached to the connector.
         /// The other end of the connection may or may not be attached to a node.
         /// </summary>
-        public bool IsConnectionAttached
-        {
-            get
-            {
-                return AttachedConnections.Count > 0;
-            }
-        }
+        public bool IsConnectionAttached => AttachedConnections.Count > 0;
 
         /// <summary>
         /// The connections that are attached to this connector, or null if no connections are attached.
@@ -156,10 +145,7 @@ namespace NetworkModel
         /// </summary>
         public Point Hotspot
         {
-            get
-            {
-                return hotspot;
-            }
+            get => hotspot;
             set
             {
                 if (hotspot == value)

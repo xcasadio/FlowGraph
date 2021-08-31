@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using FlowSimulator.Logger;
 using FlowGraphBase.Logger;
 using System.Collections.Specialized;
@@ -36,14 +25,14 @@ namespace FlowSimulator.UI
         /// </summary>
         public bool IsAutoScroll
         {
-            get { return m_IsAutoScroll; }
+            get => m_IsAutoScroll;
             set 
             {
                 if (m_IsAutoScroll != value)
                 {
                     m_IsAutoScroll = value;
 
-                    if (m_IsAutoScroll == true
+                    if (m_IsAutoScroll
                         && m_ScrollViewer != null)
                     {
                         m_ScrollViewer.ScrollToBottom();
@@ -76,7 +65,7 @@ namespace FlowSimulator.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void OnCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (m_ScrollViewer == null)
             {
@@ -89,7 +78,7 @@ namespace FlowSimulator.UI
             }
 
             if (m_ScrollViewer != null &&
-                m_IsAutoScroll == true)
+                m_IsAutoScroll)
             {
                 m_ScrollViewer.ScrollToBottom();
             }

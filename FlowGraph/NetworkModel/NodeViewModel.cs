@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections.ObjectModel;
 using Utils;
 using System.Windows;
 using FlowGraphBase.Node;
-using System.Xml;
-using FlowGraphBase;
 
 namespace NetworkModel
 {
@@ -30,10 +25,8 @@ namespace NetworkModel
         /// <summary>
         /// 
         /// </summary>
-        public NodeType SequenceNodeType
-        {
-            get { return SeqNode.NodeType; }
-        }
+        public NodeType SequenceNodeType => SeqNode.NodeType;
+
         /// <summary>
         /// The name of the node.
         /// </summary>
@@ -95,13 +88,7 @@ namespace NetworkModel
         /// <summary>
         /// The name of the node.
         /// </summary>
-        public string Title
-        {
-            get
-            {
-                return SeqNode.Title;
-            }
-        }
+        public string Title => SeqNode.Title;
 
         /// <summary>
         /// 
@@ -141,14 +128,10 @@ namespace NetworkModel
                     {
                         (SeqNode as VariableNode).Value = value;
                     }
-                    catch (System.Exception /*ex*/)
+                    catch (Exception /*ex*/)
                     {
                         //set error to false
                     }
-                }
-                else
-                {
-                    //set error to false
                 }
             }
         }
@@ -158,10 +141,7 @@ namespace NetworkModel
         /// </summary>
         public string Comment
         {
-            get
-            {
-                return SeqNode.Comment;
-            }
+            get => SeqNode.Comment;
             set
             {
                 if (SeqNode.Comment == value)
@@ -179,10 +159,7 @@ namespace NetworkModel
         /// </summary>
         public string CustomText
         {
-            get
-            {
-                return SeqNode.CustomText;
-            }
+            get => SeqNode.CustomText;
             set
             {
                 if (SeqNode.CustomText == value)
@@ -216,10 +193,7 @@ namespace NetworkModel
         /// </summary>
         public double X
         {
-            get
-            {
-                return x;
-            }
+            get => x;
             set
             {
                 if (x == value)
@@ -238,10 +212,7 @@ namespace NetworkModel
         /// </summary>
         public double Y
         {
-            get
-            {
-                return y;
-            }
+            get => y;
             set
             {
                 if (y == value)
@@ -260,10 +231,7 @@ namespace NetworkModel
         /// </summary>
         public int ZIndex
         {
-            get
-            {
-                return zIndex;
-            }
+            get => zIndex;
             set
             {
                 if (zIndex == value)
@@ -288,10 +256,7 @@ namespace NetworkModel
         /// </summary>
         public Size Size
         {
-            get
-            {
-                return size;
-            }
+            get => size;
             set
             {
                 if (size == value)
@@ -319,10 +284,7 @@ namespace NetworkModel
         /// <summary>
         /// List of all connectors (connections points) attached to the node.
         /// </summary>
-        public ImpObservableCollection<ConnectorViewModel> Connectors
-        {
-            get { return allConnectors; }
-        }
+        public ImpObservableCollection<ConnectorViewModel> Connectors => allConnectors;
 
         /// <summary>
         /// List of all input connectors (connections points) attached to the node.
@@ -454,27 +416,27 @@ namespace NetworkModel
             {
                 List<ConnectionViewModel> attachedConnections = new List<ConnectionViewModel>();
 
-                foreach (var connector in this.InputConnectors)
+                foreach (var connector in InputConnectors)
                 {
                     attachedConnections.AddRange(connector.AttachedConnections);
                 }
 
-                foreach (var connector in this.OutputConnectors)
+                foreach (var connector in OutputConnectors)
                 {
                     attachedConnections.AddRange(connector.AttachedConnections);
                 }
 
-                foreach (var connector in this.InputVariableConnectors)
+                foreach (var connector in InputVariableConnectors)
                 {
                     attachedConnections.AddRange(connector.AttachedConnections);
                 }
 
-                foreach (var connector in this.OutputVariableConnectors)
+                foreach (var connector in OutputVariableConnectors)
                 {
                     attachedConnections.AddRange(connector.AttachedConnections);
                 }
 
-                foreach (var connector in this.InOutVariableConnectors)
+                foreach (var connector in InOutVariableConnectors)
                 {
                     attachedConnections.AddRange(connector.AttachedConnections);
                 }
@@ -488,10 +450,7 @@ namespace NetworkModel
         /// </summary>
         public bool IsSelected
         {
-            get
-            {
-                return isSelected;
-            }
+            get => isSelected;
             set
             {
                 if (isSelected == value)
@@ -644,9 +603,9 @@ namespace NetworkModel
             node.y = y;
             node.zIndex = zIndex;
             node.size = size;
-            node.isSelected = this.isSelected;
+            node.isSelected = isSelected;
 
-            if (copyConnections_ == true)
+            if (copyConnections_)
             {
                 throw new NotImplementedException("NodeViewModel.Copy()");
             }

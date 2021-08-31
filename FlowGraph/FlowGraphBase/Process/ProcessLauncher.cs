@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FlowGraphBase.Node;
 using System.ComponentModel;
 using FlowGraphBase.Logger;
@@ -59,7 +57,7 @@ namespace FlowGraphBase.Process
         /// </summary>
         public SequenceState State
         {
-            get { return m_State; }
+            get => m_State;
             private set
             {
                 if (m_State != value)
@@ -73,12 +71,9 @@ namespace FlowGraphBase.Process
         /// <summary>
         /// Gets
         /// </summary>
-        public IEnumerable<ProcessingContext> CallStack
-        {
-            get { return m_CallStacks; }
-        }
+        public IEnumerable<ProcessingContext> CallStack => m_CallStacks;
 
-		#endregion //Properties
+        #endregion //Properties
 	
 		#region Constructors
 		
@@ -112,7 +107,7 @@ namespace FlowGraphBase.Process
                             System.Threading.Thread.Sleep(10);
                         }
                     }
-                    catch (System.Exception ex)
+                    catch (Exception ex)
                     {
                         LogManager.Instance.WriteException(ex);
                     }
@@ -193,7 +188,7 @@ namespace FlowGraphBase.Process
                 {
                     Sequence seq = c.SequenceBase as Sequence;
 
-                    if (seq.ContainsEventNodeWithType(eventType_) == true
+                    if (seq.ContainsEventNodeWithType(eventType_)
                         && seqList.Contains(seq) == false)
                     {
                         seqList.Add(seq);
@@ -232,30 +227,30 @@ namespace FlowGraphBase.Process
         {
             bool processing = true;
 
-            while (processing == true
+            while (processing
                 && m_MustStop == false)
             {
                 if (m_IsOnPause == false)
                 {
                     processing = DoOneStep();
 
-                    if (processing == true)
+                    if (processing)
                     {
                         State = SequenceState.Running;
                     }
                 }
-                else if (m_UpdateOnlyOneStep == true)
+                else if (m_UpdateOnlyOneStep)
                 {
                     m_UpdateOnlyOneStep = false;
                     processing = DoOneStep();
 
-                    if (processing == true)
+                    if (processing)
                     {
                         State = SequenceState.Pause;
                     }
                 }
 
-                if (sleep_ == true)
+                if (sleep_)
                 {
                     // Do sleep else all WPF bindings will block the UI thread
                     // 5ms else the UI is not enough responsive

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel;
 using FlowGraphBase.Logger;
 
@@ -32,18 +30,12 @@ namespace FlowSimulator.Undo
         /// <summary>
         /// Gets if can undo
         /// </summary>
-        public bool CanUndo
-        {
-            get { return m_Undo.Count == 0 ? false : true; }
-        }
+        public bool CanUndo => m_Undo.Count == 0 ? false : true;
 
         /// <summary>
         /// Gets if can redo
         /// </summary>
-        public bool CanRedo
-        {
-            get { return m_Redo.Count == 0 ? false : true; }
-        }
+        public bool CanRedo => m_Redo.Count == 0 ? false : true;
 
         #endregion //Properties
 
@@ -60,7 +52,7 @@ namespace FlowSimulator.Undo
         /// <param name="arg_"></param>
         public void Add(IUndoCommand command_)
         {
-            if (m_IsProcessing == true)
+            if (m_IsProcessing)
             {
                 LogManager.Instance.WriteLine(LogVerbosity.Trace, "UndoRedo : can't add because processing");
                 return;
@@ -129,7 +121,7 @@ namespace FlowSimulator.Undo
                         UndoRedoCommandExecuted(null, EventArgs.Empty);
                     }
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
                     throw ex;
                 }
@@ -167,7 +159,7 @@ namespace FlowSimulator.Undo
                         UndoRedoCommandExecuted(null, EventArgs.Empty);
                     }
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
                     throw ex;
                 }

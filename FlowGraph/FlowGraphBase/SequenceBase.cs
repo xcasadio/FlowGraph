@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Xml;
 using FlowGraphBase.Node;
 using System.ComponentModel;
 using FlowGraphBase.Process;
-using FlowGraphBase.Logger;
 
 namespace FlowGraphBase
 {
@@ -32,7 +30,7 @@ namespace FlowGraphBase
         /// </summary>
         public string Name
         {
-            get { return _name; }
+            get => _name;
             set 
             {
                 if (string.Equals(_name, value) == false)
@@ -48,7 +46,7 @@ namespace FlowGraphBase
         /// </summary>
         public string Description
         {
-            get { return _description; }
+            get => _description;
             set 
             {
                 if (string.Equals(_description, value) == false)
@@ -71,18 +69,12 @@ namespace FlowGraphBase
         /// <summary>
         /// Gets
         /// </summary>
-        public IEnumerable<SequenceNode> Nodes
-        {
-            get { return SequenceNodes.Values.ToArray(); }
-        }
+        public IEnumerable<SequenceNode> Nodes => SequenceNodes.Values.ToArray();
 
         /// <summary>
         /// Gets
         /// </summary>
-        public int NodeCount
-        {
-            get { return SequenceNodes.Values.Count; }
-        }
+        public int NodeCount => SequenceNodes.Values.Count;
 
         #endregion // Properties
 

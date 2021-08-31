@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 
 namespace FlowSimulator.UI
@@ -95,7 +93,7 @@ namespace FlowSimulator.UI
                 return null;
             }
 
-            if (m_TemplatesByTypes.ContainsKey(type_) == true)
+            if (m_TemplatesByTypes.ContainsKey(type_))
             {
                 return m_TemplatesByTypes[type_];
             }

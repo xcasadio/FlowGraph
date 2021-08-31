@@ -16,10 +16,7 @@ namespace FlowGraphBase.Logger
         /// <summary>
         /// Gets
         /// </summary>
-        public static LogManager Instance
-        {
-            get { return _Instance; }
-        }
+        public static LogManager Instance => _Instance;
 
         #endregion //Singleton
 
@@ -45,8 +42,8 @@ namespace FlowGraphBase.Logger
         /// </summary>
         public LogVerbosity Verbosity
         {
-            get { return _verbosity; }
-            set { _verbosity = value; }
+            get => _verbosity;
+            set => _verbosity = value;
         }
 
         /// <summary>
@@ -54,7 +51,7 @@ namespace FlowGraphBase.Logger
         /// </summary>
         public int NbErrors
         {
-            get { return _nbErrors; }
+            get => _nbErrors;
             set
             {
                 if (_nbErrors != value)
@@ -151,7 +148,7 @@ namespace FlowGraphBase.Logger
 
             strBldr.AppendLine(ex.Message);
 
-            if (writeStackTrace == true)
+            if (writeStackTrace)
             {
                 strBldr.AppendLine(e.StackTrace);
             }

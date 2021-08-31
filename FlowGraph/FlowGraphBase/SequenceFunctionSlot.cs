@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel;
 
 namespace FlowGraphBase
@@ -53,7 +50,7 @@ namespace FlowGraphBase
         /// </summary>
         public string Name
         {
-            get { return m_Name; }
+            get => m_Name;
             set
             {
                 if (m_Name != value)
@@ -69,7 +66,7 @@ namespace FlowGraphBase
         /// </summary>
         public Type VariableType
         {
-            get { return m_VarType; }
+            get => m_VarType;
             set
             {
                 if (m_VarType != value)
@@ -85,7 +82,7 @@ namespace FlowGraphBase
         /// </summary>
         public bool IsArray
         {
-            get { return m_IsArray; }
+            get => m_IsArray;
             set
             {
                 if (m_IsArray != value)

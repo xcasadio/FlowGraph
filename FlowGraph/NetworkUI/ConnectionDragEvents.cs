@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 
 namespace NetworkUI
 {
@@ -33,24 +29,12 @@ namespace NetworkUI
         /// <summary>
         /// The NodeItem or it's DataContext (when non-NULL).
         /// </summary>
-        public object Node
-        {
-            get
-            {
-                return node;
-            }
-        }
+        public object Node => node;
 
         /// <summary>
         /// The ConnectorItem or it's DataContext (when non-NULL).
         /// </summary>
-        public object ConnectorDraggedOut
-        {
-            get
-            {
-                return draggedOutConnector;
-            }
-        }
+        public object ConnectorDraggedOut => draggedOutConnector;
 
         #region Private Methods
 
@@ -58,7 +42,7 @@ namespace NetworkUI
             base(routedEvent, source)
         {
             this.node = node;
-            this.draggedOutConnector = connector;
+            draggedOutConnector = connector;
             this.connection = connection;
         }
 
@@ -75,14 +59,8 @@ namespace NetworkUI
         /// </summary>
         public object Connection
         {
-            get
-            {
-                return connection;
-            }
-            set
-            {
-                connection = value;
-            }
+            get => connection;
+            set => connection = value;
         }
 
         #region Private Methods
@@ -127,38 +105,20 @@ namespace NetworkUI
         /// <summary>
         /// The ConnectorItem or it's DataContext (when non-NULL).
         /// </summary>
-        public object DraggedOverConnector
-        {
-            get
-            {
-                return draggedOverConnector;
-            }
-        }
+        public object DraggedOverConnector => draggedOverConnector;
 
         /// <summary>
         /// The connection that will be dragged out.
         /// </summary>
-        public object Connection
-        {
-            get
-            {
-                return connection;
-            }
-        }
+        public object Connection => connection;
 
         /// <summary>
         /// Set to 'true' / 'false' to indicate that the connection from the dragged out connection to the dragged over connector is valid.
         /// </summary>
         public bool ConnectionOk
         {
-            get
-            {
-                return connectionOk;
-            }
-            set
-            {
-                connectionOk = value;
-            }
+            get => connectionOk;
+            set => connectionOk = value;
         }
 
         /// <summary>
@@ -166,14 +126,8 @@ namespace NetworkUI
         /// </summary>
         public object FeedbackIndicator
         {
-            get
-            {
-                return feedbackIndicator;
-            }
-            set
-            {
-                feedbackIndicator = value;
-            }
+            get => feedbackIndicator;
+            set => feedbackIndicator = value;
         }
 
         #region Private Methods
@@ -201,13 +155,7 @@ namespace NetworkUI
         /// <summary>
         /// The connection being dragged out.
         /// </summary>
-        public object Connection
-        {
-            get
-            {
-                return connection;
-            }
-        }
+        public object Connection => connection;
 
         #region Private Methods
 
@@ -242,24 +190,12 @@ namespace NetworkUI
         /// <summary>
         /// The ConnectorItem or it's DataContext (when non-NULL).
         /// </summary>
-        public object ConnectorDraggedOver
-        {
-            get
-            {
-                return connectorDraggedOver;
-            }
-        }
+        public object ConnectorDraggedOver => connectorDraggedOver;
 
         /// <summary>
         /// The connection that will be dragged out.
         /// </summary>
-        public object Connection
-        {
-            get
-            {
-                return connection;
-            }
-        }
+        public object Connection => connection;
 
         #region Private Methods
 

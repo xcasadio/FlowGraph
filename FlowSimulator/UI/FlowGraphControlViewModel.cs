@@ -6,13 +6,9 @@ using System.Xml;
 using FlowGraphBase;
 using FlowGraphBase.Logger;
 using FlowGraphBase.Node;
-using FlowGraphBase.Node.StandardActionNode;
-using FlowGraphBase.Node.StandardVariableNode;
 using FlowGraphUI;
-using FlowSimulator.CustomNode;
 using NetworkModel;
 using Utils;
-using System.Text;
 using FlowSimulator.Undo;
 using System.Collections.Generic;
 using NetworkUI;
@@ -92,41 +88,29 @@ namespace FlowSimulator.UI
         /// <summary>
         /// Gets
         /// </summary>
-        public string Name
-        {
-            get { return Sequence.Name; }
-        }
+        public string Name => Sequence.Name;
 
         /// <summary>
         /// Gets
         /// </summary>
-        public string Description
-        {
-            get { return Sequence.Description; }
-        }
+        public string Description => Sequence.Description;
 
         /// <summary>
         /// Gets
         /// </summary>
-        public int ID
-        {
-            get { return Sequence.Id; }
-        }
+        public int ID => Sequence.Id;
 
         /// <summary>
         /// Gets
         /// </summary>
-        public UndoRedoManager UndoRedoManager
-        {
-            get { return m_UndoManager; }
-        }
+        public UndoRedoManager UndoRedoManager => m_UndoManager;
 
         /// <summary>
         /// Gets
         /// </summary>
         public SequenceBase Sequence
         {
-            get { return m_Sequence; }
+            get => m_Sequence;
             private set
             {
                 if (m_Sequence != value)
@@ -148,10 +132,7 @@ namespace FlowSimulator.UI
         /// </summary>
         public NetworkViewModel Network
         {
-            get
-            {
-                return network;
-            }
+            get => network;
             set
             {
                 network = value;
@@ -165,10 +146,7 @@ namespace FlowSimulator.UI
         /// 
         public double ContentScale
         {
-            get
-            {
-                return contentScale;
-            }
+            get => contentScale;
             set
             {
                 contentScale = value;
@@ -182,10 +160,7 @@ namespace FlowSimulator.UI
         /// 
         public double ContentOffsetX
         {
-            get
-            {
-                return contentOffsetX;
-            }
+            get => contentOffsetX;
             set
             {
                 contentOffsetX = value;
@@ -199,10 +174,7 @@ namespace FlowSimulator.UI
         /// 
         public double ContentOffsetY
         {
-            get
-            {
-                return contentOffsetY;
-            }
+            get => contentOffsetY;
             set
             {
                 contentOffsetY = value;
@@ -216,10 +188,7 @@ namespace FlowSimulator.UI
         /// 
         public double ContentWidth
         {
-            get
-            {
-                return contentWidth;
-            }
+            get => contentWidth;
             set
             {
                 contentWidth = value;
@@ -233,10 +202,7 @@ namespace FlowSimulator.UI
         /// 
         public double ContentHeight
         {
-            get
-            {
-                return contentHeight;
-            }
+            get => contentHeight;
             set
             {
                 contentHeight = value;
@@ -252,10 +218,7 @@ namespace FlowSimulator.UI
         /// 
         public double ContentViewportWidth
         {
-            get
-            {
-                return contentViewportWidth;
-            }
+            get => contentViewportWidth;
             set
             {
                 contentViewportWidth = value;
@@ -271,10 +234,7 @@ namespace FlowSimulator.UI
         /// 
         public double ContentViewportHeight
         {
-            get
-            {
-                return contentViewportHeight;
-            }
+            get => contentViewportHeight;
             set
             {
                 contentViewportHeight = value;
@@ -349,7 +309,7 @@ namespace FlowSimulator.UI
             //
             // Add the new connection to the view-model.
             //
-            this.Network.Connections.Add(connection);
+            Network.Connections.Add(connection);
 
             return connection;
         }
@@ -427,7 +387,7 @@ namespace FlowSimulator.UI
                 // The connection was unsuccessful.
                 // Maybe the user dragged it out and dropped it in empty space.
                 //
-                this.Network.Connections.Remove(newConnection);
+                Network.Connections.Remove(newConnection);
 //                 m_connectorDraggedOut = connectorDraggedOut;
 //                 m_ConnectorDraggedOver = connectorDraggedOver;
 // 
@@ -455,7 +415,7 @@ namespace FlowSimulator.UI
                 // eg input -> input or output -> output, are not allowed,
                 // Remove the connection.
                 //
-                this.Network.Connections.Remove(newConnection);
+                Network.Connections.Remove(newConnection);
                 return;
             }
 
@@ -469,7 +429,7 @@ namespace FlowSimulator.UI
             var existingConnection = FindConnection(connectorDraggedOut, connectorDraggedOver);
             if (existingConnection != null)
             {
-                this.Network.Connections.Remove(existingConnection);
+                Network.Connections.Remove(existingConnection);
             }
 
             // Finalize the connection by reordering the source & destination
@@ -553,7 +513,7 @@ namespace FlowSimulator.UI
             bool connectionOk = a.ParentNode != b.ParentNode &&
                                 a.Type != b.Type;
 
-            if (connectionOk == true)
+            if (connectionOk)
             {
                 //case Variable Input Output
                 if (a.Type == ConnectorType.VariableInputOutput)
@@ -581,7 +541,8 @@ namespace FlowSimulator.UI
                 {
                     return b.Type == ConnectorType.VariableInputOutput || b.Type == ConnectorType.VariableInput;
                 }
-                else if (b.Type == ConnectorType.VariableOutput)
+
+                if (b.Type == ConnectorType.VariableOutput)
                 {
                     return a.Type == ConnectorType.VariableInputOutput || a.Type == ConnectorType.VariableInput;
                 }
@@ -609,7 +570,7 @@ namespace FlowSimulator.UI
 
             // TODO : check if obsolete with direct connection ??
             // check for variable node connection
-            if (connectionOk == true
+            if (connectionOk
                 && (
                     (a.Type == ConnectorType.VariableInput
                       || a.Type == ConnectorType.VariableOutput
@@ -684,7 +645,7 @@ namespace FlowSimulator.UI
         public void DeleteSelectedNodes()
         {
             // Take a copy of the selected nodes list so we can delete nodes while iterating.
-            var nodesCopy = this.Network.Nodes.ToArray();
+            var nodesCopy = Network.Nodes.ToArray();
 
             List<NodeViewModel> selectedNodes = new List<NodeViewModel>();
             foreach (var node in nodesCopy)
@@ -709,13 +670,13 @@ namespace FlowSimulator.UI
         /// </summary>
         public void DeleteNode(NodeViewModel node, bool saveUndo_ = false)
         {
-            if (saveUndo_ == true)
+            if (saveUndo_)
             {
                 m_UndoManager.Add(new DeleteNodeUndoCommand(this, node));
             }
 
-            this.Network.Connections.RemoveRange(node.AttachedConnections);
-            this.Network.Nodes.Remove(node);
+            Network.Connections.RemoveRange(node.AttachedConnections);
+            Network.Nodes.Remove(node);
         }
 
         /// <summary>
@@ -724,17 +685,17 @@ namespace FlowSimulator.UI
         /// </summary>
         public void DeleteNodes(IEnumerable<NodeViewModel> nodes_, bool saveUndo_ = false)
         {
-            if (saveUndo_ == true)
+            if (saveUndo_)
             {
                 m_UndoManager.Add(new DeleteNodesUndoCommand(this, nodes_));
             }
 
             foreach (var node in nodes_)
             {
-                this.Network.Connections.RemoveRange(node.AttachedConnections);
+                Network.Connections.RemoveRange(node.AttachedConnections);
             }
             
-            this.Network.Nodes.RemoveRange(nodes_);
+            Network.Nodes.RemoveRange(nodes_);
         }
 
         /// <summary>
@@ -742,12 +703,12 @@ namespace FlowSimulator.UI
         /// </summary>
         public void AddNode(NodeViewModel node_, bool saveUndo_ = false)
         {
-            if (saveUndo_ == true)
+            if (saveUndo_)
             {
                 m_UndoManager.Add(new CreateNodeUndoCommand(this, node_));
             }
 
-            this.Network.Nodes.Add(node_);
+            Network.Nodes.Add(node_);
         }
 
         /// <summary>
@@ -822,7 +783,7 @@ namespace FlowSimulator.UI
             }
 
             m_UndoManager.Add(new CreateNodesUndoCommand(this, newNodes));
-            this.Network.Nodes.AddRange(newNodes);
+            Network.Nodes.AddRange(newNodes);
 
             return newNodes;
         }
@@ -832,12 +793,12 @@ namespace FlowSimulator.UI
         /// </summary>
         public void AddConnection(ConnectionViewModel connection, bool saveUndo_ = false)
         {
-            if (saveUndo_ == true)
+            if (saveUndo_)
             {
                 m_UndoManager.Add(new CreateConnectionUndoCommand(this, connection));
             }
 
-            this.Network.Connections.Add(connection);
+            Network.Connections.Add(connection);
         }
 
         /// <summary>
@@ -845,12 +806,12 @@ namespace FlowSimulator.UI
         /// </summary>
         public void DeleteConnection(ConnectionViewModel connection, bool saveUndo_ = false)
         {
-            if (saveUndo_ == true)
+            if (saveUndo_)
             {
                 m_UndoManager.Add(new DeleteConnectionUndoCommand(this, connection));
             }
 
-            this.Network.Connections.Remove(connection);
+            Network.Connections.Remove(connection);
         }
 
         /// <summary>
@@ -858,12 +819,12 @@ namespace FlowSimulator.UI
         /// </summary>
         public void AddConnections(IEnumerable<ConnectionViewModel> connections, bool saveUndo_ = false)
         {
-            if (saveUndo_ == true)
+            if (saveUndo_)
             {
                 m_UndoManager.Add(new CreateConnectionsUndoCommand(this, connections));
             }
 
-            this.Network.Connections.AddRange(connections);
+            Network.Connections.AddRange(connections);
         }
 
         /// <summary>
@@ -871,12 +832,12 @@ namespace FlowSimulator.UI
         /// </summary>
         public void DeleteConnections(IEnumerable<ConnectionViewModel> connections, bool saveUndo_ = false)
         {
-            if (saveUndo_ == true)
+            if (saveUndo_)
             {
                 m_UndoManager.Add(new DeleteConnectionsUndoCommand(this, connections));
             }
 
-            this.Network.Connections.RemoveRange(connections);
+            Network.Connections.RemoveRange(connections);
         }
 
         #region Function Specific processing
@@ -894,7 +855,7 @@ namespace FlowSimulator.UI
                 IEnumerator<SequenceNode> it = Sequence.Nodes.GetEnumerator();
                 int i = 0;
 
-                while (it.MoveNext() == true)
+                while (it.MoveNext())
                 {
                     NodeViewModel nodeVM = new NodeViewModel(it.Current);
                     nodeVM.X = 50 + i * 150;
@@ -1019,7 +980,7 @@ namespace FlowSimulator.UI
 
                 m_XmlNodeLoaded = node_;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 LogManager.Instance.WriteException(ex);
             }

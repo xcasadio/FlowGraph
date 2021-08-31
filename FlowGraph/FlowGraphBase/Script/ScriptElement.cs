@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.CodeDom.Compiler;
 using System.ComponentModel;
@@ -45,7 +44,7 @@ namespace FlowGraphBase.Script
         /// </summary>
         public string ScriptSourceCode
         {
-            get { return m_SourceCode; }
+            get => m_SourceCode;
             set
             { 
                 m_SourceCode = value;
@@ -58,7 +57,7 @@ namespace FlowGraphBase.Script
         /// </summary>
         private string ScriptSourceCodeBackup
         {
-            get { return m_SourceCode; }
+            get => m_SourceCode;
             set
             {
                 m_SourceCode = value;
@@ -78,13 +77,7 @@ namespace FlowGraphBase.Script
         /// <summary>
         /// Gets/Sets
         /// </summary>
-        public bool IsBuildUpToDate
-        {
-            get
-            {
-                return string.Equals(LastScriptSourceCodeCompiled, ScriptSourceCode);
-            }
-        }
+        public bool IsBuildUpToDate => string.Equals(LastScriptSourceCodeCompiled, ScriptSourceCode);
 
         /// <summary>
         /// Gets
@@ -100,7 +93,7 @@ namespace FlowGraphBase.Script
         /// </summary>
         public string Name
         {
-            get { return m_Name; }
+            get => m_Name;
             set 
             { 
                 m_Name = value;
@@ -111,10 +104,7 @@ namespace FlowGraphBase.Script
         /// <summary>
         /// 
         /// </summary>
-        public int ID
-        {
-            get { return m_ID; }
-        }
+        public int ID => m_ID;
 
         /// <summary>
         /// 
@@ -362,7 +352,7 @@ namespace FlowGraphBase.Script
                 CompilerParams.GenerateExecutable = false;
                 CompilerParams.CompilerOptions = "/optimize";
 
-                string currentPocessName = System.AppDomain.CurrentDomain.FriendlyName;
+                string currentPocessName = AppDomain.CurrentDomain.FriendlyName;
                 //if launch by visual studio
                 currentPocessName = currentPocessName.Replace(".vshost", "");
 
@@ -400,7 +390,7 @@ namespace FlowGraphBase.Script
                 //ExploreAssembly(compile.CompiledAssembly);
                 FindDelegates(compile.CompiledAssembly.GetModules()[0]);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 LogManager.Instance.WriteException(ex);
                 return false;
@@ -436,7 +426,7 @@ namespace FlowGraphBase.Script
         /// 
         /// </summary>
         /// <param name="module_"></param>
-        private void FindDelegates(System.Reflection.Module module_)
+        private void FindDelegates(Module module_)
         {
             if (module_ == null)
             {
@@ -457,18 +447,18 @@ namespace FlowGraphBase.Script
 
                 foreach (MethodInfo methInfo in mt.GetMethods())
                 {
-                    if (methInfo.ReturnParameter.ParameterType.Equals(boolType) == true
+                    if (methInfo.ReturnParameter.ParameterType.Equals(boolType)
                         && methInfo.GetParameters().Length == 2)
                     {
-                        if (methInfo.GetParameters()[0].ParameterType.Equals(scriptDataColl) == true
-                            && methInfo.GetParameters()[1].ParameterType.FullName.Equals(scriptDataColl.FullName) == true)
+                        if (methInfo.GetParameters()[0].ParameterType.Equals(scriptDataColl)
+                            && methInfo.GetParameters()[1].ParameterType.FullName.Equals(scriptDataColl.FullName))
                         {
                             try
                             {
                                 m_ScriptDelegate = (ScriptEntryDelegate)Delegate.CreateDelegate(
                                         typeof(ScriptEntryDelegate), methInfo);
                             }
-                            catch (System.Exception ex)
+                            catch (Exception ex)
                             {
                                 Exception newEx = new Exception("Try to create a OnMessageCreateDelegate with function " + methInfo.Name, ex);
                                 LogManager.Instance.WriteException(newEx);
@@ -477,7 +467,7 @@ namespace FlowGraphBase.Script
                     }
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 LogManager.Instance.WriteException(ex);
             }
@@ -587,7 +577,7 @@ namespace FlowGraphBase.Script
 
                 CompilScript();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 LogManager.Instance.WriteException(ex);
             }

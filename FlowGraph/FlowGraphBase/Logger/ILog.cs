@@ -15,6 +15,6 @@
 	    /// </summary>
 	    /// <param name="verbose"></param>
 	    /// <param name="msg"></param>
-	    void Write(FlowGraphBase.Logger.LogVerbosity verbose, string msg);
+	    void Write(LogVerbosity verbose, string msg);
 	}
 }

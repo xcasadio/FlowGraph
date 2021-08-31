@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using FlowSimulator.UI;
 using NetworkModel;
 using NetworkUI;
-using System.Windows;
-using System.Windows.Media;
 
 namespace FlowSimulator.Undo
 {

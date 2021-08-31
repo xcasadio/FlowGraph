@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel;
 
 namespace FlowGraphBase
@@ -25,7 +22,7 @@ namespace FlowGraphBase
         /// </summary>
         public string Name
         {
-            get { return m_Name; }
+            get => m_Name;
             set
             {
                 m_Name = value;
@@ -38,28 +35,22 @@ namespace FlowGraphBase
         /// </summary>
         public object Value
         {
-            get { return m_Value.Value; }
-            set
-            {
-                m_Value.Value = value;
-                //OnPropertyChanged("Value");
-            }
+            get => m_Value.Value;
+            set => m_Value.Value = value;
+            //OnPropertyChanged("Value");
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public Type VariableType
-        {
-            get { return m_Value.VariableType; }
-        }
+        public Type VariableType => m_Value.VariableType;
 
         /// <summary>
         /// 
         /// </summary>
         internal ValueContainer InternalValueContainer
         {
-            get { return m_Value; }
+            get => m_Value;
             set 
             {
                 if (m_Value != null)

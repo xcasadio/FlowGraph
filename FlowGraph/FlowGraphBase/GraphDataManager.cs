@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Xml;
 using FlowGraphBase.Logger;
@@ -21,13 +18,7 @@ namespace FlowGraphBase
         /// <summary>
         /// Gets
         /// </summary>
-        static public GraphDataManager Instance
-        {
-            get
-            {
-                return m_Instance;
-            }
-        }
+        static public GraphDataManager Instance => m_Instance;
 
         #endregion //Singleton
 
@@ -44,10 +35,7 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        public ObservableCollection<Sequence> GraphList
-        {
-            get { return m_GraphList; }
-        }
+        public ObservableCollection<Sequence> GraphList => m_GraphList;
 
         /// <summary>
         /// Gets/Sets
@@ -61,10 +49,7 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        public ObservableCollection<SequenceFunction> GraphFunctionList
-        {
-            get { return m_GraphFunctionList; }
-        }
+        public ObservableCollection<SequenceFunction> GraphFunctionList => m_GraphFunctionList;
 
         /// <summary>
         /// Gets/Sets
@@ -78,10 +63,7 @@ namespace FlowGraphBase
         /// <summary>
         /// 
         /// </summary>
-        public ObservableCollection<ScriptElement> ScriptElementList
-        {
-            get { return m_ScriptElementList; }
-        }
+        public ObservableCollection<ScriptElement> ScriptElementList => m_ScriptElementList;
 
         /// <summary>
         /// Gets/Sets
@@ -185,14 +167,14 @@ namespace FlowGraphBase
         /// <returns></returns>
         public bool IsValidSequenceName(string name_)
         {
-            if (string.IsNullOrWhiteSpace(name_) == true)
+            if (string.IsNullOrWhiteSpace(name_))
             {
                 return false;
             }
 
             foreach (Sequence seq in m_GraphList)
             {
-                if (string.Equals(seq.Name, name_) == true)
+                if (string.Equals(seq.Name, name_))
                 {
                     return false;
                 }
@@ -254,14 +236,14 @@ namespace FlowGraphBase
         /// <returns></returns>
         public bool IsValidFunctionName(string name_)
         {
-            if (string.IsNullOrWhiteSpace(name_) == true)
+            if (string.IsNullOrWhiteSpace(name_))
             {
                 return false;
             }
 
             foreach (SequenceFunction seq in m_GraphFunctionList)
             {
-                if (string.Equals(seq.Name, name_) == true)
+                if (string.Equals(seq.Name, name_))
                 {
                     return false;
                 }

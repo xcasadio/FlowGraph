@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Controls;
 using System.Windows;
 using NetworkModel;
-using System.Windows.Media;
 using FlowGraphBase.Node;
 using FlowGraphBase;
-using FlowGraphBase.Node.StandardVariableNode;
 using FlowGraphBase.Script;
 
 namespace FlowSimulator.UI
@@ -82,7 +77,7 @@ namespace FlowSimulator.UI
                         varType = ((parentObject as FrameworkElement).DataContext as NamedVariable).VariableType;
                     }
 
-                    if (NamedVarEditTemplateManager.ContainsType(varType) == true)
+                    if (NamedVarEditTemplateManager.ContainsType(varType))
                     {
                         return NamedVarEditTemplateManager.GetTemplateByType(varType);
                     }
@@ -120,15 +115,16 @@ namespace FlowSimulator.UI
                 {
                     return SequenceTemplate;
                 }
-                else if ((parentObject as FrameworkElement).DataContext is SequenceFunction)
+
+                if ((parentObject as FrameworkElement).DataContext is SequenceFunction)
                 {
                     return SequenceFunctionTemplate;
                 }
-                else if ((parentObject as FrameworkElement).DataContext is NamedVariable)
+                if ((parentObject as FrameworkElement).DataContext is NamedVariable)
                 {
                     return VariableTemplate;
                 }
-                else if ((parentObject as FrameworkElement).DataContext is ScriptElement)
+                if ((parentObject as FrameworkElement).DataContext is ScriptElement)
                 {
                     return ScriptTemplate;
                 }

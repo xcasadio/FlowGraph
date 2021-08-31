@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace FlowGraphUI
+﻿namespace FlowGraphUI
 {
     /// <summary>
     /// This class is just a place holder for showing a 'bad connection' indicator in the graph.

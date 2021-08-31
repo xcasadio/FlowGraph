@@ -1,12 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Runtime.InteropServices;
-using System.Reflection;
-using System.Collections;
-using FlowSimulator.Logger;
-using FlowGraphBase.Logger;
 using System.Windows;
 using System.Windows.Media;
 
@@ -64,11 +56,9 @@ namespace FlowSimulator
             {
                 return parent;
             }
-            else
-            {
-                //use recursion to proceed with next level
-                return TryFindParent<T>(parentObject);
-            }
+
+            //use recursion to proceed with next level
+            return TryFindParent<T>(parentObject);
         }
 
         /// <summary>

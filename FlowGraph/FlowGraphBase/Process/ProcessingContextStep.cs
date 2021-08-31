@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FlowGraphBase.Node;
+﻿using FlowGraphBase.Node;
 
 namespace FlowGraphBase.Process
 {
@@ -26,27 +22,27 @@ namespace FlowGraphBase.Process
         /// </summary>
 	    public SequenceBase SequenceBase
 	    {
-		    get { return m_SequenceBase; }
-		    private set { m_SequenceBase = value; }
-	    }
+		    get => m_SequenceBase;
+            private set => m_SequenceBase = value;
+        }
 
         /// <summary>
         /// Gets
         /// </summary>
 	    public MemoryStack MemoryStack
 	    {
-		    get { return m_MemoryStack; }
-		    private set { m_MemoryStack = value; }
-	    }
+		    get => m_MemoryStack;
+            private set => m_MemoryStack = value;
+        }
         
         /// <summary>
         /// Gets
         /// </summary>
 	    public NodeSlot Slot
 	    {
-            get { return m_Slot; }
-            private set { m_Slot = value; }
-	    }
+            get => m_Slot;
+            private set => m_Slot = value;
+        }
 
 		#endregion //Properties
 	

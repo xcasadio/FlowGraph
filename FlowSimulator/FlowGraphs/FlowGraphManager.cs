@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Xml;
 using FlowGraphBase.Logger;
 using FlowSimulator.UI;
@@ -19,13 +18,7 @@ namespace FlowSimulator.FlowGraphs
         /// <summary>
         /// Gets
         /// </summary>
-        static public FlowGraphManager Instance
-        {
-            get
-            {
-                return m_Instance;
-            }
-        }
+        static public FlowGraphManager Instance => m_Instance;
 
         #endregion //Singleton
 
@@ -40,12 +33,9 @@ namespace FlowSimulator.FlowGraphs
         /// <summary>
         /// 
         /// </summary>
-        public ObservableCollection<FlowGraphControlViewModel> FlowGraphList
-        {
-            get { return m_FlowGraphList; }
-        }
+        public ObservableCollection<FlowGraphControlViewModel> FlowGraphList => m_FlowGraphList;
 
-		#endregion //Properties
+        #endregion //Properties
 	
 		#region Constructors
 		

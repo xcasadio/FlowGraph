@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 using System.ComponentModel;
 
@@ -21,34 +18,25 @@ namespace FlowGraphBase.Node.StandardVariableNode
 	
 		#region Properties
 
-        public override string Title { get { return m_Value.Name; } }
+        public override string Title => m_Value.Name;
 
         /// <summary>
         /// 
         /// </summary>
-        public string VariableName
-        {
-            get { return m_Value.Name; }
-        }
+        public string VariableName => m_Value.Name;
 
         /// <summary>
         /// 
         /// </summary>
-        public Type VariableType
-        {
-            get { return m_Value.VariableType; }
-        }
+        public Type VariableType => m_Value.VariableType;
 
         /// <summary>
         /// 
         /// </summary>
         public override object Value
         {
-            get { return m_Value.Value; }
-            set
-            {
-                m_Value.InternalValueContainer.Value = value;
-            }
+            get => m_Value.Value;
+            set => m_Value.InternalValueContainer.Value = value;
         }
 
 		#endregion //Properties

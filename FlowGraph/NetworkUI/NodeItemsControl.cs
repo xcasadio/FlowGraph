@@ -1,15 +1,5 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows;
-using System.Collections;
-using System.Collections.Specialized;
-using System.Windows.Data;
-using System.Windows.Input;
-using Utils;
-using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace NetworkUI
 {
@@ -34,7 +24,7 @@ namespace NetworkUI
         /// </summary>
         internal NodeItem FindAssociatedNodeItem(object nodeDataContext)
         {
-            return (NodeItem) this.ItemContainerGenerator.ContainerFromItem(nodeDataContext);
+            return (NodeItem) ItemContainerGenerator.ContainerFromItem(nodeDataContext);
         }
 
         /// <summary>

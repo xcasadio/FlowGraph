@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 using FlowGraphBase.Process;
-using FlowGraphBase.Logger;
-using FlowGraphBase.Node.StandardEventNode;
 
 namespace FlowGraphBase.Node.StandardActionNode
 {
@@ -164,7 +160,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
         {
             ProcessingInfo info = new ProcessingInfo();
-            info.State = ActionNode.LogicState.Ok;
+            info.State = LogicState.Ok;
 
             //TODO
             //Set output variable

@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Controls.Primitives;
 using System.Windows.Controls;
 using System.Windows;
-using System.Collections.ObjectModel;
 using System.Collections;
 using System.Collections.Specialized;
+using System.Windows.Controls.Primitives;
 using Utils;
-using System.Diagnostics;
-using System.Windows.Media;
-using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace NetworkUI
@@ -153,14 +147,14 @@ namespace NetworkUI
             //
             // Create a collection to contain nodes.
             //
-            this.Nodes = new ImpObservableCollection<object>();
+            Nodes = new ImpObservableCollection<object>();
 
             //
             // Create a collection to contain connections.
             //
-            this.Connections = new ImpObservableCollection<object>();
+            Connections = new ImpObservableCollection<object>();
 
-            this.IsUndoRegisterEnabled = true;
+            IsUndoRegisterEnabled = true;
 
             //
             // Default background is white.
@@ -183,8 +177,8 @@ namespace NetworkUI
         /// </summary>
         public event NodeDragStartedEventHandler NodeDragStarted
         {
-            add { AddHandler(NodeDragStartedEvent, value); }
-            remove { RemoveHandler(NodeDragStartedEvent, value); }
+            add => AddHandler(NodeDragStartedEvent, value);
+            remove => RemoveHandler(NodeDragStartedEvent, value);
         }
 
         /// <summary>
@@ -192,8 +186,8 @@ namespace NetworkUI
         /// </summary>
         public event NodeDraggingEventHandler NodeDragging
         {
-            add { AddHandler(NodeDraggingEvent, value); }
-            remove { RemoveHandler(NodeDraggingEvent, value); }
+            add => AddHandler(NodeDraggingEvent, value);
+            remove => RemoveHandler(NodeDraggingEvent, value);
         }
 
         /// <summary>
@@ -201,8 +195,8 @@ namespace NetworkUI
         /// </summary>
         public event NodeDragCompletedEventHandler NodeDragCompleted
         {
-            add { AddHandler(NodeDragCompletedEvent, value); }
-            remove { RemoveHandler(NodeDragCompletedEvent, value); }
+            add => AddHandler(NodeDragCompletedEvent, value);
+            remove => RemoveHandler(NodeDragCompletedEvent, value);
         }
 
         /// <summary>
@@ -210,8 +204,8 @@ namespace NetworkUI
         /// </summary>
         public event ConnectionDragStartedEventHandler ConnectionDragStarted
         {
-            add { AddHandler(ConnectionDragStartedEvent, value); }
-            remove { RemoveHandler(ConnectionDragStartedEvent, value); }
+            add => AddHandler(ConnectionDragStartedEvent, value);
+            remove => RemoveHandler(ConnectionDragStartedEvent, value);
         }
 
         /// <summary>
@@ -221,8 +215,8 @@ namespace NetworkUI
         /// </summary>
         public event QueryConnectionFeedbackEventHandler QueryConnectionFeedback
         {
-            add { AddHandler(QueryConnectionFeedbackEvent, value); }
-            remove { RemoveHandler(QueryConnectionFeedbackEvent, value); }
+            add => AddHandler(QueryConnectionFeedbackEvent, value);
+            remove => RemoveHandler(QueryConnectionFeedbackEvent, value);
         }
 
         /// <summary>
@@ -230,8 +224,8 @@ namespace NetworkUI
         /// </summary>
         public event ConnectionDraggingEventHandler ConnectionDragging
         {
-            add { AddHandler(ConnectionDraggingEvent, value); }
-            remove { RemoveHandler(ConnectionDraggingEvent, value); }
+            add => AddHandler(ConnectionDraggingEvent, value);
+            remove => RemoveHandler(ConnectionDraggingEvent, value);
         }
 
         /// <summary>
@@ -239,8 +233,8 @@ namespace NetworkUI
         /// </summary>
         public event ConnectionDragCompletedEventHandler ConnectionDragCompleted
         {
-            add { AddHandler(ConnectionDragCompletedEvent, value); }
-            remove { RemoveHandler(ConnectionDragCompletedEvent, value); }
+            add => AddHandler(ConnectionDragCompletedEvent, value);
+            remove => RemoveHandler(ConnectionDragCompletedEvent, value);
         }
 
         /// <summary>
@@ -248,14 +242,8 @@ namespace NetworkUI
         /// </summary>
         public ImpObservableCollection<object> Nodes
         {
-            get
-            {
-                return (ImpObservableCollection<object>)GetValue(NodesProperty);
-            }
-            private set
-            {
-                SetValue(NodesPropertyKey, value);
-            }
+            get => (ImpObservableCollection<object>)GetValue(NodesProperty);
+            private set => SetValue(NodesPropertyKey, value);
         }
 
         /// <summary>
@@ -263,14 +251,8 @@ namespace NetworkUI
         /// </summary>
         public ImpObservableCollection<object> Connections
         {
-            get
-            {
-                return (ImpObservableCollection<object>)GetValue(ConnectionsProperty);
-            }
-            private set
-            {
-                SetValue(ConnectionsPropertyKey, value);
-            }
+            get => (ImpObservableCollection<object>)GetValue(ConnectionsProperty);
+            private set => SetValue(ConnectionsPropertyKey, value);
         }
 
         /// <summary>
@@ -279,14 +261,8 @@ namespace NetworkUI
         /// </summary>
         public IEnumerable ConnectionsSource
         {
-            get
-            {
-                return (IEnumerable)GetValue(ConnectionsSourceProperty);
-            }
-            set
-            {
-                SetValue(ConnectionsSourceProperty, value);
-            }
+            get => (IEnumerable)GetValue(ConnectionsSourceProperty);
+            set => SetValue(ConnectionsSourceProperty, value);
         }
 
         /// <summary>
@@ -295,14 +271,8 @@ namespace NetworkUI
         /// </summary>
         public IEnumerable NodesSource
         {
-            get
-            {
-                return (IEnumerable)GetValue(NodesSourceProperty);
-            }
-            set
-            {
-                SetValue(NodesSourceProperty, value);
-            }
+            get => (IEnumerable)GetValue(NodesSourceProperty);
+            set => SetValue(NodesSourceProperty, value);
         }
 
         /// <summary>
@@ -311,14 +281,8 @@ namespace NetworkUI
         /// </summary>
         public bool IsClearSelectionOnEmptySpaceClickEnabled
         {
-            get
-            {
-                return (bool) GetValue(IsClearSelectionOnEmptySpaceClickEnabledProperty);
-            }
-            set
-            {
-                SetValue(IsClearSelectionOnEmptySpaceClickEnabledProperty, value);
-            }
+            get => (bool) GetValue(IsClearSelectionOnEmptySpaceClickEnabledProperty);
+            set => SetValue(IsClearSelectionOnEmptySpaceClickEnabledProperty, value);
         }
 
         /// <summary>
@@ -326,14 +290,8 @@ namespace NetworkUI
         /// </summary>
         public bool EnableConnectionDragging
         {
-            get
-            {
-                return (bool)GetValue(EnableConnectionDraggingProperty);
-            }
-            set
-            {
-                SetValue(EnableConnectionDraggingProperty, value);
-            }
+            get => (bool)GetValue(EnableConnectionDraggingProperty);
+            set => SetValue(EnableConnectionDraggingProperty, value);
         }
 
         /// <summary>
@@ -342,14 +300,8 @@ namespace NetworkUI
         /// </summary>
         public bool IsDraggingConnection
         {
-            get
-            {
-                return (bool)GetValue(IsDraggingConnectionProperty);
-            }
-            private set
-            {
-                SetValue(IsDraggingConnectionPropertyKey, value);
-            }
+            get => (bool)GetValue(IsDraggingConnectionProperty);
+            private set => SetValue(IsDraggingConnectionPropertyKey, value);
         }
 
         /// <summary>
@@ -358,14 +310,8 @@ namespace NetworkUI
         /// </summary>
         public bool IsNotDraggingConnection
         {
-            get
-            {
-                return (bool)GetValue(IsNotDraggingConnectionProperty);
-            }
-            private set
-            {
-                SetValue(IsNotDraggingConnectionPropertyKey, value);
-            }
+            get => (bool)GetValue(IsNotDraggingConnectionProperty);
+            private set => SetValue(IsNotDraggingConnectionPropertyKey, value);
         }
 
         /// <summary>
@@ -373,14 +319,8 @@ namespace NetworkUI
         /// </summary>
         public bool EnableNodeDragging
         {
-            get
-            {
-                return (bool)GetValue(EnableNodeDraggingProperty);
-            }
-            set
-            {
-                SetValue(EnableNodeDraggingProperty, value);
-            }
+            get => (bool)GetValue(EnableNodeDraggingProperty);
+            set => SetValue(EnableNodeDraggingProperty, value);
         }
 
         /// <summary>
@@ -389,14 +329,8 @@ namespace NetworkUI
         /// </summary>
         public bool IsDraggingNode
         {
-            get
-            {
-                return (bool)GetValue(IsDraggingNodeProperty);
-            }
-            private set
-            {
-                SetValue(IsDraggingNodePropertyKey, value);
-            }
+            get => (bool)GetValue(IsDraggingNodeProperty);
+            private set => SetValue(IsDraggingNodePropertyKey, value);
         }
 
         /// <summary>
@@ -405,14 +339,8 @@ namespace NetworkUI
         /// </summary>
         public bool IsNotDraggingNode
         {
-            get
-            {
-                return (bool)GetValue(IsNotDraggingNodeProperty);
-            }
-            private set
-            {
-                SetValue(IsNotDraggingNodePropertyKey, value);
-            }
+            get => (bool)GetValue(IsNotDraggingNodeProperty);
+            private set => SetValue(IsNotDraggingNodePropertyKey, value);
         }
 
         /// <summary>
@@ -420,14 +348,8 @@ namespace NetworkUI
         /// </summary>
         public bool IsDragging
         {
-            get
-            {
-                return (bool)GetValue(IsDraggingProperty);
-            }
-            private set
-            {
-                SetValue(IsDraggingPropertyKey, value);
-            }
+            get => (bool)GetValue(IsDraggingProperty);
+            private set => SetValue(IsDraggingPropertyKey, value);
         }
 
         /// <summary>
@@ -435,14 +357,8 @@ namespace NetworkUI
         /// </summary>
         public bool IsNotDragging
         {
-            get
-            {
-                return (bool)GetValue(IsNotDraggingProperty);
-            }
-            private set
-            {
-                SetValue(IsNotDraggingPropertyKey, value);
-            }
+            get => (bool)GetValue(IsNotDraggingProperty);
+            private set => SetValue(IsNotDraggingPropertyKey, value);
         }
 
         /// <summary>
@@ -451,14 +367,8 @@ namespace NetworkUI
         /// </summary>
         public DataTemplate NodeItemTemplate
         {
-            get
-            {
-                return (DataTemplate)GetValue(NodeItemTemplateProperty);
-            }
-            set
-            {
-                SetValue(NodeItemTemplateProperty, value);
-            }
+            get => (DataTemplate)GetValue(NodeItemTemplateProperty);
+            set => SetValue(NodeItemTemplateProperty, value);
         }
 
         /// <summary>
@@ -467,14 +377,8 @@ namespace NetworkUI
         /// </summary>
         public DataTemplateSelector NodeItemTemplateSelector
         {
-            get
-            {
-                return (DataTemplateSelector)GetValue(NodeItemTemplateSelectorProperty);
-            }
-            set
-            {
-                SetValue(NodeItemTemplateSelectorProperty, value);
-            }
+            get => (DataTemplateSelector)GetValue(NodeItemTemplateSelectorProperty);
+            set => SetValue(NodeItemTemplateSelectorProperty, value);
         }
 
         /// <summary>
@@ -483,14 +387,8 @@ namespace NetworkUI
         /// </summary>
         public Style NodeItemContainerStyle
         {
-            get
-            {
-                return (Style)GetValue(NodeItemContainerStyleProperty);
-            }
-            set
-            {
-                SetValue(NodeItemContainerStyleProperty, value);
-            }
+            get => (Style)GetValue(NodeItemContainerStyleProperty);
+            set => SetValue(NodeItemContainerStyleProperty, value);
         }
 
         /// <summary>
@@ -499,14 +397,8 @@ namespace NetworkUI
         /// </summary>
         public DataTemplate ConnectionItemTemplate
         {
-            get
-            {
-                return (DataTemplate)GetValue(ConnectionItemTemplateProperty);
-            }
-            set
-            {
-                SetValue(ConnectionItemTemplateProperty, value);
-            }
+            get => (DataTemplate)GetValue(ConnectionItemTemplateProperty);
+            set => SetValue(ConnectionItemTemplateProperty, value);
         }
 
         /// <summary>
@@ -515,14 +407,8 @@ namespace NetworkUI
         /// </summary>
         public DataTemplateSelector ConnectionItemTemplateSelector
         {
-            get
-            {
-                return (DataTemplateSelector)GetValue(ConnectionItemTemplateSelectorProperty);
-            }
-            set
-            {
-                SetValue(ConnectionItemTemplateSelectorProperty, value);
-            }
+            get => (DataTemplateSelector)GetValue(ConnectionItemTemplateSelectorProperty);
+            set => SetValue(ConnectionItemTemplateSelectorProperty, value);
         }
 
         /// <summary>
@@ -531,14 +417,8 @@ namespace NetworkUI
         /// </summary>
         public Style ConnectionItemContainerStyle
         {
-            get
-            {
-                return (Style)GetValue(ConnectionItemContainerStyleProperty);
-            }
-            set
-            {
-                SetValue(ConnectionItemContainerStyleProperty, value);
-            }
+            get => (Style)GetValue(ConnectionItemContainerStyleProperty);
+            set => SetValue(ConnectionItemContainerStyleProperty, value);
         }
 
         /// <summary>
@@ -552,20 +432,18 @@ namespace NetworkUI
                 {
                     return nodeItemsControl.SelectedItem;
                 }
-                else
+
+                if (initialSelectedNodes == null)
                 {
-                    if (initialSelectedNodes == null)
-                    {
-                        return null;
-                    }
-
-                    if (initialSelectedNodes.Count != 1)
-                    {
-                        return null;
-                    }
-
-                    return initialSelectedNodes[0];
+                    return null;
                 }
+
+                if (initialSelectedNodes.Count != 1)
+                {
+                    return null;
+                }
+
+                return initialSelectedNodes[0];
             }
             set
             {
@@ -597,15 +475,13 @@ namespace NetworkUI
                 {
                     return nodeItemsControl.SelectedItems;
                 }
-                else
-                {
-                    if (initialSelectedNodes == null)
-                    {
-                        initialSelectedNodes = new List<object>();
-                    }
 
-                    return initialSelectedNodes;
+                if (initialSelectedNodes == null)
+                {
+                    initialSelectedNodes = new List<object>();
                 }
+
+                return initialSelectedNodes;
             }
         }
 
@@ -665,7 +541,7 @@ namespace NetworkUI
                 }
             }
 
-            this.BringIntoView(rect);
+            BringIntoView(rect);
         }
 
         /// <summary>
@@ -673,7 +549,7 @@ namespace NetworkUI
         /// </summary>
         public void SelectNone()
         {
-            this.SelectedNodes.Clear();
+            SelectedNodes.Clear();
         }
 
         /// <summary>
@@ -681,12 +557,12 @@ namespace NetworkUI
         /// </summary>
         public void SelectAll()
         {
-            if (this.SelectedNodes.Count != this.Nodes.Count)
+            if (SelectedNodes.Count != Nodes.Count)
             {
-                this.SelectedNodes.Clear();
-                foreach (var node in this.Nodes)
+                SelectedNodes.Clear();
+                foreach (var node in Nodes)
                 {
-                    this.SelectedNodes.Add(node);
+                    SelectedNodes.Add(node);
                 }
             }
         }
@@ -696,14 +572,14 @@ namespace NetworkUI
         /// </summary>
         public void InvertSelection()
         {
-            var selectedNodesCopy = new ArrayList(this.SelectedNodes);
-            this.SelectedNodes.Clear();
+            var selectedNodesCopy = new ArrayList(SelectedNodes);
+            SelectedNodes.Clear();
 
-            foreach (var node in this.Nodes)
+            foreach (var node in Nodes)
             {
                 if (!selectedNodesCopy.Contains(node))
                 {
-                    this.SelectedNodes.Add(node);
+                    SelectedNodes.Add(node);
                 }
             }
         }
@@ -713,7 +589,7 @@ namespace NetworkUI
         /// </summary>
         public void CancelConnectionDragging()
         {
-            if (!this.IsDraggingConnection)
+            if (!IsDraggingConnection)
             {
                 return;
             }
@@ -725,14 +601,14 @@ namespace NetworkUI
 
             draggedOutConnectorItem.CancelConnectionDragging();
 
-            this.IsDragging = false;
-            this.IsNotDragging = true;
-            this.IsDraggingConnection = false;
-            this.IsNotDraggingConnection = true;
-            this.draggedOutConnectorItem = null;
-            this.draggedOutNodeDataContext = null;
-            this.draggedOutConnectorDataContext = null;
-            this.draggingConnectionDataContext = null;
+            IsDragging = false;
+            IsNotDragging = true;
+            IsDraggingConnection = false;
+            IsNotDraggingConnection = true;
+            draggedOutConnectorItem = null;
+            draggedOutNodeDataContext = null;
+            draggedOutConnectorDataContext = null;
+            draggingConnectionDataContext = null;
         }
 
         #region Private Methods
@@ -1001,8 +877,8 @@ namespace NetworkUI
             // Cache the parts of the visual tree that we need access to later.
             //
 
-            this.nodeItemsControl = (NodeItemsControl)this.Template.FindName("PART_NodeItemsControl", this);
-            if (this.nodeItemsControl == null)
+            nodeItemsControl = (NodeItemsControl)Template.FindName("PART_NodeItemsControl", this);
+            if (nodeItemsControl == null)
             {
                 throw new ApplicationException("Failed to find 'PART_NodeItemsControl' in the visual tree for 'NetworkView'.");
             }
@@ -1010,32 +886,32 @@ namespace NetworkUI
             //
             // Synchronize initial selected nodes to the NodeItemsControl.
             //
-            if (this.initialSelectedNodes != null && this.initialSelectedNodes.Count > 0)
+            if (initialSelectedNodes != null && initialSelectedNodes.Count > 0)
             {
-                foreach (var node in this.initialSelectedNodes)
+                foreach (var node in initialSelectedNodes)
                 {
-                    this.nodeItemsControl.SelectedItems.Add(node);
+                    nodeItemsControl.SelectedItems.Add(node);
                 }
             }
 
-            this.initialSelectedNodes = null; // Don't need this any more.
+            initialSelectedNodes = null; // Don't need this any more.
 
-            this.nodeItemsControl.SelectionChanged += new SelectionChangedEventHandler(nodeItemsControl_SelectionChanged);
+            nodeItemsControl.SelectionChanged += new SelectionChangedEventHandler(nodeItemsControl_SelectionChanged);
 
-            this.connectionItemsControl = (ItemsControl)this.Template.FindName("PART_ConnectionItemsControl", this);
-            if (this.connectionItemsControl == null)
+            connectionItemsControl = (ItemsControl)Template.FindName("PART_ConnectionItemsControl", this);
+            if (connectionItemsControl == null)
             {
                 throw new ApplicationException("Failed to find 'PART_ConnectionItemsControl' in the visual tree for 'NetworkView'.");
             }
 
-            this.dragSelectionCanvas = (FrameworkElement)this.Template.FindName("PART_DragSelectionCanvas", this);
-            if (this.dragSelectionCanvas == null)
+            dragSelectionCanvas = (FrameworkElement)Template.FindName("PART_DragSelectionCanvas", this);
+            if (dragSelectionCanvas == null)
             {
                 throw new ApplicationException("Failed to find 'PART_DragSelectionCanvas' in the visual tree for 'NetworkView'.");
             }
 
-            this.dragSelectionBorder = (FrameworkElement)this.Template.FindName("PART_DragSelectionBorder", this);
-            if (this.dragSelectionBorder == null)
+            dragSelectionBorder = (FrameworkElement)Template.FindName("PART_DragSelectionBorder", this);
+            if (dragSelectionBorder == null)
             {
                 throw new ApplicationException("Failed to find 'PART_dragSelectionBorder' in the visual tree for 'NetworkView'.");
             }
@@ -1046,9 +922,9 @@ namespace NetworkUI
         /// </summary>
         private void nodeItemsControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (this.SelectionChanged != null)
+            if (SelectionChanged != null)
             {
-                this.SelectionChanged(this, new SelectionChangedEventArgs(ListBox.SelectionChangedEvent, e.RemovedItems, e.AddedItems));
+                SelectionChanged(this, new SelectionChangedEventArgs(Selector.SelectionChangedEvent, e.RemovedItems, e.AddedItems));
             }
         }
 
@@ -1057,7 +933,7 @@ namespace NetworkUI
         /// </summary>
         internal int FindMaxZIndex()
         {
-            if (this.nodeItemsControl == null)
+            if (nodeItemsControl == null)
             {
                 return 0;
             }
@@ -1066,7 +942,7 @@ namespace NetworkUI
 
             for (int nodeIndex = 0; ; ++nodeIndex)
             {
-                NodeItem nodeItem = (NodeItem)this.nodeItemsControl.ItemContainerGenerator.ContainerFromIndex(nodeIndex);
+                NodeItem nodeItem = (NodeItem)nodeItemsControl.ItemContainerGenerator.ContainerFromIndex(nodeIndex);
                 if (nodeItem == null)
                 {
                     break;

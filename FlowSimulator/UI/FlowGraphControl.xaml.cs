@@ -1,33 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
 using FlowGraphBase.Node;
 using NetworkModel;
 using NetworkUI;
 using FlowGraphBase;
 using System.Collections;
+using System.Windows.Controls.Primitives;
 using ZoomAndPan;
 using FlowGraphBase.Node.StandardVariableNode;
-using System.Reflection;
 using FlowSimulator.CustomNode;
 using FlowGraphBase.Node.StandardActionNode;
 using FlowGraphBase.Logger;
-using System.Threading.Tasks;
-using System.Threading;
-using System.ComponentModel;
-using System.Windows.Media.Animation;
-using FlowGraphUI;
 using FlowGraphBase.Process;
 using FlowGraphBase.Script;
 
@@ -60,15 +47,9 @@ namespace FlowSimulator.UI
         /// <summary>
         /// Convenient accessor for the view-model.
         /// </summary>
-        public FlowGraphControlViewModel ViewModel
-        {
-            get
-            {
-                return (FlowGraphControlViewModel)DataContext;
-            }
-        }
+        public FlowGraphControlViewModel ViewModel => (FlowGraphControlViewModel)DataContext;
 
-		#endregion //Properties
+        #endregion //Properties
 	
 		#region Constructors
 
@@ -122,7 +103,7 @@ namespace FlowSimulator.UI
 
                 IEnumerable<Type> classes = AppDomain.CurrentDomain.GetAssemblies()
                            .SelectMany(t => t.GetTypes())
-                           .Where(t => t.IsClass == true
+                           .Where(t => t.IsClass
                                && t.IsGenericType == false
                                && t.IsInterface == false
                                && t.IsAbstract == false
@@ -141,7 +122,7 @@ namespace FlowSimulator.UI
                     Attribute nameAtt = Attribute.GetCustomAttribute(type, typeof(Name), true);
 
                     if (nameAtt == null
-                        || string.IsNullOrWhiteSpace(((Name)nameAtt).DisplayName) == true)
+                        || string.IsNullOrWhiteSpace(((Name)nameAtt).DisplayName))
                     {
                         LogManager.Instance.WriteLine(
                             LogVerbosity.Error,
@@ -171,7 +152,7 @@ namespace FlowSimulator.UI
         /// <param name="name_"></param>
         MenuItem CreateParentMenuItemNode(string categPath_, MenuItem parent_)
         {
-            if (string.IsNullOrWhiteSpace(categPath_) == true)
+            if (string.IsNullOrWhiteSpace(categPath_))
             {
                 return parent_;
             }
@@ -182,7 +163,7 @@ namespace FlowSimulator.UI
 
             foreach (MenuItem item in parent_.Items)
             {
-                if (folders[0].Equals(item.Header) == true)
+                if (folders[0].Equals(item.Header))
                 {
                     return CreateParentMenuItemNode(categPath_, item);
                 }
@@ -218,7 +199,7 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         void OnContextMenuOpened(object sender, EventArgs e)
         {
-            this.ContextMenu.IsOpen = true;
+            ContextMenu.IsOpen = true;
         }
 
         #endregion // FlowGraph Events
@@ -234,7 +215,7 @@ namespace FlowSimulator.UI
             //
             // Delegate the real work to the view model.
             //
-            var connection = this.ViewModel.ConnectionDragStarted(draggedOutConnector, curDragPoint);
+            var connection = ViewModel.ConnectionDragStarted(draggedOutConnector, curDragPoint);
 
             //
             // Must return the view-model object that represents the connection via the event args.
@@ -253,7 +234,7 @@ namespace FlowSimulator.UI
             object feedbackIndicator = null;
             bool connectionOk = true;
 
-            this.ViewModel.QueryConnnectionFeedback(draggedOutConnector, draggedOverConnector, out feedbackIndicator, out connectionOk);
+            ViewModel.QueryConnnectionFeedback(draggedOutConnector, draggedOverConnector, out feedbackIndicator, out connectionOk);
 
             //
             // Return the feedback object to NetworkView.
@@ -275,7 +256,7 @@ namespace FlowSimulator.UI
         {
             Point curDragPoint = Mouse.GetPosition(networkControl);
             var connection = (ConnectionViewModel)e.Connection;
-            this.ViewModel.ConnectionDragging(curDragPoint, connection);
+            ViewModel.ConnectionDragging(curDragPoint, connection);
         }
 
         /// <summary>
@@ -286,7 +267,7 @@ namespace FlowSimulator.UI
             var connectorDraggedOut = (ConnectorViewModel)e.ConnectorDraggedOut;
             var connectorDraggedOver = (ConnectorViewModel)e.ConnectorDraggedOver;
             var newConnection = (ConnectionViewModel)e.Connection;
-            this.ViewModel.ConnectionDragCompleted(newConnection, connectorDraggedOut, connectorDraggedOver);
+            ViewModel.ConnectionDragCompleted(newConnection, connectorDraggedOut, connectorDraggedOver);
         }
 
         /// <summary>
@@ -295,7 +276,7 @@ namespace FlowSimulator.UI
         private void DeleteSelectedNodes_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             networkControl.IsUndoRegisterEnabled = false;
-            this.ViewModel.DeleteSelectedNodes();
+            ViewModel.DeleteSelectedNodes();
             networkControl.IsUndoRegisterEnabled = true;
         }
 
@@ -305,7 +286,7 @@ namespace FlowSimulator.UI
         private void DeleteNode_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var node = (NodeViewModel)e.Parameter;
-            this.ViewModel.DeleteNode(node, true);
+            ViewModel.DeleteNode(node, true);
         }
 
         /// <summary>
@@ -314,7 +295,7 @@ namespace FlowSimulator.UI
         private void DeleteConnection_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var connection = (ConnectionViewModel)e.Parameter;
-            this.ViewModel.DeleteConnection(connection, true);
+            ViewModel.DeleteConnection(connection, true);
         }
 
         /// <summary>
@@ -323,7 +304,7 @@ namespace FlowSimulator.UI
         private void CreateNode(SequenceNode node_)
         {
             //var newNodePosition = Mouse.GetPosition(networkControl);
-            this.ViewModel.CreateNode(node_, origContentMouseDownPoint, true);
+            ViewModel.CreateNode(node_, origContentMouseDownPoint, true);
         }
 
         /// <summary>
@@ -393,7 +374,7 @@ namespace FlowSimulator.UI
 
         protected override void OnPreviewMouseMove(MouseEventArgs e)
         {
-            if (networkControl.IsDragging == true)
+            if (networkControl.IsDragging)
             {
                 scrollViewer.DoMouseDown();
             }
@@ -670,7 +651,7 @@ namespace FlowSimulator.UI
             }
             else
             {
-                nodes = this.ViewModel.Network.Nodes;
+                nodes = ViewModel.Network.Nodes;
                 if (nodes.Count == 0)
                 {
                     return;
@@ -834,7 +815,7 @@ namespace FlowSimulator.UI
         //
         private void FadeOutDragZoomRect()
         {
-            AnimationHelper.StartAnimation(dragZoomBorder, Border.OpacityProperty, 0.0, 0.1,
+            AnimationHelper.StartAnimation(dragZoomBorder, OpacityProperty, 0.0, 0.1,
                 delegate(object sender, EventArgs e)
                 {
                     dragZoomCanvas.Visibility = Visibility.Collapsed;
@@ -869,7 +850,7 @@ namespace FlowSimulator.UI
         private void networkControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (sender is NetworkView
-                && (sender as NetworkView).IsUndoRegisterEnabled == true)
+                && (sender as NetworkView).IsUndoRegisterEnabled)
             {
                 if (e.RemovedItems.Count > 0)
                 {
@@ -908,9 +889,9 @@ namespace FlowSimulator.UI
                 }
             }
 
-            if (this.SelectionChanged != null)
+            if (SelectionChanged != null)
             {
-                this.SelectionChanged(this, new SelectionChangedEventArgs(ListBox.SelectionChangedEvent, e.RemovedItems, e.AddedItems));
+                SelectionChanged(this, new SelectionChangedEventArgs(Selector.SelectionChangedEvent, e.RemovedItems, e.AddedItems));
             }
         }
 
@@ -965,20 +946,20 @@ namespace FlowSimulator.UI
                 {
                     string data = e.Data.GetData(DataFormats.StringFormat) as string;
 
-                    if (data.StartsWith(FlowGraphDataControl.DragPrefixFunction) == true)
+                    if (data.StartsWith(FlowGraphDataControl.DragPrefixFunction))
                     {
                         string id = data.Split('#')[1];
                         SequenceFunction func = GraphDataManager.Instance.GetFunctionByID(int.Parse(id));
                         CallFunctionNode seqNode = new CallFunctionNode(func);
                         ViewModel.CreateNode(seqNode, e.GetPosition(networkControl), false);
                     }
-                    else if (data.StartsWith(FlowGraphDataControl.DragPrefixNamedVar) == true)
+                    else if (data.StartsWith(FlowGraphDataControl.DragPrefixNamedVar))
                     {
                         string name = data.Split('#')[1];
                         NamedVariableNode seqNode = new NamedVariableNode(name);
                         ViewModel.CreateNode(seqNode, e.GetPosition(networkControl), false);
                     }
-                    else if (data.StartsWith(FlowGraphDataControl.DragPrefixScriptElement) == true)
+                    else if (data.StartsWith(FlowGraphDataControl.DragPrefixScriptElement))
                     {
                         string idStr = data.Split('#')[1];
                         int id = int.Parse(idStr);
@@ -987,7 +968,7 @@ namespace FlowSimulator.UI
                         ViewModel.CreateNode(seqNode, e.GetPosition(networkControl), false);
                     }
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
                     LogManager.Instance.WriteException(ex);
                 }
@@ -1017,7 +998,7 @@ namespace FlowSimulator.UI
                     }
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 LogManager.Instance.WriteException(ex);
             }
@@ -1046,7 +1027,7 @@ namespace FlowSimulator.UI
                     networkControl.IsUndoRegisterEnabled = true;
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 LogManager.Instance.WriteException(ex);
             }

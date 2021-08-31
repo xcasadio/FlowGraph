@@ -1,18 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using FlowSimulator.FlowGraphs;
+﻿using System.Windows;
 using System.ComponentModel;
-using FlowGraphBase;
 using FlowGraphBase.Script;
 
 namespace FlowSimulator.UI
@@ -37,8 +24,8 @@ namespace FlowSimulator.UI
         /// </summary>
         public string InputName
         {
-            get { return textBoxName.Text; }
-            set { textBoxName.Text = value; }
+            get => textBoxName.Text;
+            set => textBoxName.Text = value;
         }
 
         /// <summary>
@@ -97,7 +84,7 @@ namespace FlowSimulator.UI
         {
             if (IsValidInputNameCallback == null
                 || (IsValidInputNameCallback != null
-                    && IsValidInputNameCallback.Invoke(InputName) == true))
+                    && IsValidInputNameCallback.Invoke(InputName)))
             {
                 m_DialogResult = true;
                 Close();
