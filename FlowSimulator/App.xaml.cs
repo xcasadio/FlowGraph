@@ -33,12 +33,12 @@ namespace FlowSimulator
                 "Exception Caught", MessageBoxButton.OK, MessageBoxImage.Error);
             e.Handled = true;
 #else
-            if (_ShowFatalError == true)
+            if (_ShowFatalError)
             {
                 MessageBox.Show(
                     "Fatal error! The application is going to close! (see log)", 
                     "Uncaught Exception", 
-                    MessageBoxButton.Ok, MessageBoxImage.Error);
+                    MessageBoxButton.OK, MessageBoxImage.Error);
                 e.Handled = false;
                 _ShowFatalError = false;
             }            
