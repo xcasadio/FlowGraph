@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<FlowSimulator version="1">
+  <GraphList version="1" designerVersion="1">
+    <Graph version="1" id="0" name="Concat string sample" description="description of the graph" type="Sequence" designerVersion="1">
+      <NodeList>
+        <Node version="1" comment="First node activated when we click the button Launch" id="1" type="FlowSimulator.CustomNode.EventNodeTestStarted, FlowSimulator" designerVersion="1" x="186,59" y="39,577766818884" z="40">
+          <Slot version="1" index="0" />
+          <Slot version="1" index="1" saveValue="True">
+            <ValueContainer version="1" type="System.String, mscorlib">test</ValueContainer>
+          </Slot>
+        </Node>
+        <Node version="1" comment="" id="2" type="FlowSimulator.CustomNode.LogMessageNode, FlowSimulator" designerVersion="1" x="728,638333333333" y="39,577766818884" z="35">
+          <Slot version="1" index="0" />
+          <Slot version="1" index="1" />
+          <Slot version="1" index="2" saveValue="True">
+            <ValueContainer version="1" type="System.String, mscorlib">&lt;null&gt;</ValueContainer>
+          </Slot>
+        </Node>
+        <Node version="1" comment="" id="3" type="FlowGraphBase.Node.StandardActionNode.StringConcatNode, FlowGraphBase" designerVersion="1" x="461,878333333333" y="133,597766818884" z="39">
+          <Slot version="1" index="0" />
+          <Slot version="1" index="1" />
+          <Slot version="1" index="2" saveValue="True">
+            <ValueContainer version="1" type="System.String, mscorlib">&lt;null&gt;</ValueContainer>
+          </Slot>
+          <Slot version="1" index="3" saveValue="True">
+            <ValueContainer version="1" type="System.String, mscorlib">&lt;null&gt;</ValueContainer>
+          </Slot>
+          <Slot version="1" index="4" saveValue="True">
+            <ValueContainer version="1" type="System.String, mscorlib">&lt;null&gt;</ValueContainer>
+          </Slot>
+        </Node>
+        <Node version="1" comment="" id="4" type="FlowGraphBase.Node.StandardVariableNode.VariableNodeString, FlowGraphBase" designerVersion="1" x="176,5" y="241,077766818884" z="37">
+          <Slot version="1" index="0" />
+          <Value>The name of the sequence is </Value>
+        </Node>
+      </NodeList>
+      <ConnectionList>
+        <Connection version="1" srcNodeID="1" srcNodeSlotID="0" destNodeID="2" destNodeSlotID="0" />
+        <Connection version="1" srcNodeID="2" srcNodeSlotID="2" destNodeID="3" destNodeSlotID="4" />
+        <Connection version="1" srcNodeID="3" srcNodeSlotID="2" destNodeID="4" destNodeSlotID="0" />
+        <Connection version="1" srcNodeID="3" srcNodeSlotID="3" destNodeID="1" destNodeSlotID="1" />
+      </ConnectionList>
+    </Graph>
+  </GraphList>
+  <ScriptList />
+  <NamedVariableList version="1">
+    <NamedVariable version="1" key="name of the variable">
+      <ValueContainer version="1" type="System.Boolean, mscorlib">False</ValueContainer>
+    </NamedVariable>
+  </NamedVariableList>
+</FlowSimulator>
