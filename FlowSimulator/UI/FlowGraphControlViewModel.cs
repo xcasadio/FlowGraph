@@ -23,10 +23,10 @@ namespace FlowSimulator.UI
         public event EventHandler ContextMenuOpened;
 
         /// <summary>
-        /// This is the network that is displayed in the window.
+        /// This is the NetworkViewModel that is displayed in the window.
         /// It is the main part of the view-model.
         /// </summary>
-        public NetworkViewModel network;
+        public NetworkViewModel NetworkViewModel;
 
         ///
         /// The current scale at which the content is being viewed.
@@ -119,15 +119,15 @@ namespace FlowSimulator.UI
         }
 
         /// <summary>
-        /// This is the network that is displayed in the window.
+        /// This is the NetworkViewModel that is displayed in the window.
         /// It is the main part of the view-model.
         /// </summary>
         public NetworkViewModel Network
         {
-            get => network;
+            get => NetworkViewModel;
             set
             {
-                network = value;
+                NetworkViewModel = value;
 
                 OnPropertyChanged("Network");
             }
@@ -255,7 +255,7 @@ namespace FlowSimulator.UI
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
+        /// <param name="sequenceNode_"></param>
         public FlowGraphControlViewModel(XmlNode node_) : 
             this()
         {
@@ -698,9 +698,9 @@ namespace FlowSimulator.UI
         /// <summary>
         /// Create a node and add it to the view-model.
         /// </summary>
-        public NodeViewModel CreateNode(SequenceNode node_, Point nodeLocation, bool centerNode)
+        public NodeViewModel CreateNode(SequenceNode sequenceNode, Point nodeLocation, bool centerNode)
         {
-            NodeViewModel node = new NodeViewModel(node_)
+            NodeViewModel node = new NodeViewModel(sequenceNode)
             {
                 X = nodeLocation.X,
                 Y = nodeLocation.Y
@@ -719,29 +719,27 @@ namespace FlowSimulator.UI
                 // Note: If you don't declare sizeChangedEventHandler before initializing it you will get
                 //       an error when you try and unsubscribe the event from within the event handler.
                 //
-                EventHandler<EventArgs> sizeChangedEventHandler = null;
-                sizeChangedEventHandler =
-                    delegate
-                    {
-                        //
-                        // This event handler will be called after the size of the node has been determined.
-                        // So we can now use the size of the node to modify its position.
-                        //
-                        node.X -= node.Size.Width / 2;
-                        node.Y -= node.Size.Height / 2;
+                void SizeChangedEventHandler(object sender, EventArgs e)
+                {
+                    //
+                    // This event handler will be called after the size of the node has been determined.
+                    // So we can now use the size of the node to modify its position.
+                    //
+                    node.X -= node.Size.Width / 2;
+                    node.Y -= node.Size.Height / 2;
 
-                        //
-                        // Don't forget to unhook the event, after the initial centering of the node
-                        // we don't need to be notified again of any size changes.
-                        //
-                        node.SizeChanged -= sizeChangedEventHandler;
-                    };
+                    //
+                    // Don't forget to unhook the event, after the initial centering of the node
+                    // we don't need to be notified again of any size changes.
+                    //
+                    node.SizeChanged -= SizeChangedEventHandler;
+                }
 
                 //
                 // Now we hook the SizeChanged event so the anonymous method is called later
                 // when the size of the node has actually been determined.
                 //
-                node.SizeChanged += sizeChangedEventHandler;
+                node.SizeChanged += SizeChangedEventHandler;
             }
 
             AddNode(node, true);
@@ -913,25 +911,25 @@ namespace FlowSimulator.UI
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
-        public void Load(XmlNode node_)
+        /// <param name="sequenceNode_"></param>
+        public void Load(XmlNode xmlNode)
         {
             try
             {
-                int version = int.Parse(node_.Attributes["version"].Value);
+                int version = int.Parse(xmlNode.Attributes["version"].Value);
 
-                int graphId = int.Parse(node_.Attributes["id"].Value);
+                int graphId = int.Parse(xmlNode.Attributes["id"].Value);
                 Sequence = GraphDataManager.Instance.GetById(graphId);
 
-                foreach (SequenceNode node in Sequence.Nodes)
+                foreach (SequenceNode sequenceNode in Sequence.Nodes)
                 {
-                    XmlNode nodeNode = node_.SelectSingleNode("NodeList/Node[@id='" + node.Id + "']");
-
-                    int versionNode = int.Parse(nodeNode.Attributes["version"].Value);
+                    XmlNode nodeNode = xmlNode.SelectSingleNode("NodeList/Node[@id='" + sequenceNode.Id + "']");
 
                     if (nodeNode != null)
                     {
-                        NodeViewModel nodeVm = new NodeViewModel(node)
+                        int versionNode = int.Parse(nodeNode.Attributes["version"].Value);
+
+                        NodeViewModel nodeVm = new NodeViewModel(sequenceNode)
                         {
                             X = double.Parse(nodeNode.Attributes["x"].Value),
                             Y = double.Parse(nodeNode.Attributes["y"].Value),
@@ -946,7 +944,7 @@ namespace FlowSimulator.UI
                     } 
                 }
 
-                foreach (XmlNode linkNode in node_.SelectNodes("ConnectionList/Connection"))
+                foreach (XmlNode linkNode in xmlNode.SelectNodes("ConnectionList/Connection"))
                 {
                     int versionLink = int.Parse(linkNode.Attributes["version"].Value);
 
@@ -958,7 +956,7 @@ namespace FlowSimulator.UI
                     Network.Connections.Add(cvm);
                 }
 
-                _XmlNodeLoaded = node_;
+                _XmlNodeLoaded = xmlNode;
             }
             catch (Exception ex)
             {
@@ -987,7 +985,7 @@ namespace FlowSimulator.UI
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node_"></param>
+        /// <param name="sequenceNode_"></param>
         public void Save(XmlNode node_)
         {
             const int version = 1;

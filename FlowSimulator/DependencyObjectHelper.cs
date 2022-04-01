@@ -7,25 +7,8 @@ namespace FlowSimulator
     /// <summary>
     /// 
     /// </summary>
-    static class Helper
+    static class DependencyObjectHelper
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ex"></param>
-        public static Exception GetFirstException(Exception ex)
-        {
-            Exception e = ex;
-
-            //only the first exception is useful
-            while (e.InnerException != null)
-            {
-                e = e.InnerException;
-            }
-
-            return e;
-        }
-
         /// <summary>
         /// Finds a parent of a given item on the visual tree.
         /// </summary>
@@ -103,7 +86,7 @@ namespace FlowSimulator
         }
 
         /// <summary>
-        /// Helper to search up the VisualTree
+        /// DependencyObjectHelper to search up the VisualTree
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="current"></param>

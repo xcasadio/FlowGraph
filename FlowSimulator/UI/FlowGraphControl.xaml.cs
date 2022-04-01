@@ -280,7 +280,7 @@ namespace FlowSimulator.UI
         }
 
         /// <summary>
-        /// Creates a new node in the network at the current mouse location.
+        /// Creates a new node in the NetworkViewModel at the current mouse location.
         /// </summary>
         private void CreateNode(SequenceNode node_)
         {

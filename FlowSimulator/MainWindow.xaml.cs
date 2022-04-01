@@ -94,10 +94,10 @@ namespace FlowSimulator
                     menuItemFile,		        // parent
                     _RegistryPath);			// Registry path to keep MRU list
 
-                _MruManager.MruOpenEvent += delegate(object sender_, MruFileOpenEventArgs e_)
+                _MruManager.MruOpenEvent += delegate(object s, MruFileOpenEventArgs openEvent_)
                 {
                     SaveChangesOnDemand();
-                    LoadFile(e_.FileName);
+                    LoadFile(openEvent_.FileName);
                 };
 
                 LoadSettings();

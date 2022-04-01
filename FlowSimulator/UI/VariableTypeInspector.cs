@@ -9,12 +9,13 @@ namespace FlowSimulator.UI
     /// </summary>
     public static class VariableTypeInspector
     {
-        private static readonly List<Type> _Types = new List<Type>();
-
         /// <summary>
         /// 
         /// </summary>
-        public static IEnumerable<Type> Types => _Types;
+        public static IEnumerable<Type> Types
+        {
+            get;
+        } = new List<Type>();
 
         /// <summary>
         /// 
@@ -75,20 +76,21 @@ namespace FlowSimulator.UI
         /// </summary>
         static VariableTypeInspector()
         {
-            _Types.Add(typeof(bool));
-            _Types.Add(typeof(sbyte));
-            _Types.Add(typeof(char)); 
-            _Types.Add(typeof(short));
-            _Types.Add(typeof(int));
-            _Types.Add(typeof(long));
-            _Types.Add(typeof(byte));
-            _Types.Add(typeof(ushort));
-            _Types.Add(typeof(uint));
-            _Types.Add(typeof(ulong));
-            _Types.Add(typeof(float));
-            _Types.Add(typeof(double));
-            _Types.Add(typeof(string));
-            _Types.Add(typeof(object));
+            var types = (List<Type>)Types;
+            types.Add(typeof(bool));
+            types.Add(typeof(sbyte));
+            types.Add(typeof(char)); 
+            types.Add(typeof(short));
+            types.Add(typeof(int));
+            types.Add(typeof(long));
+            types.Add(typeof(byte));
+            types.Add(typeof(ushort));
+            types.Add(typeof(uint));
+            types.Add(typeof(ulong));
+            types.Add(typeof(float));
+            types.Add(typeof(double));
+            types.Add(typeof(string));
+            types.Add(typeof(object));
         }
 
         /// <summary>
@@ -166,11 +168,9 @@ namespace FlowSimulator.UI
         /// <returns></returns>
         public static bool CheckCompatibilityType(Type a_, Type b_)
         {
-            if (a_ == typeof(float)
-                || a_ == typeof(double))
+            if (a_ == typeof(float) || a_ == typeof(double))
             {
-                return b_ == typeof(float)
-                        || b_ == typeof(double);
+                return b_ == typeof(float) || b_ == typeof(double);
             }
 
             return a_ == b_;

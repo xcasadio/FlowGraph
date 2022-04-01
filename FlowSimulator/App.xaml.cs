@@ -24,7 +24,7 @@ namespace FlowSimulator
         private void Application_DispatcherUnhandledException(object sender,
                        DispatcherUnhandledExceptionEventArgs e)
         {
-            Exception ex = Helper.GetFirstException(e.Exception);
+            Exception ex = ExeptionHelper.GetFirstException(e.Exception);
 
             LogManager.Instance.WriteException(ex);
 
@@ -65,7 +65,7 @@ namespace FlowSimulator
         {
             if (e.ExceptionObject is Exception exception)
             {
-                Exception ex = Helper.GetFirstException(exception);
+                Exception ex = ExeptionHelper.GetFirstException(exception);
 #if DEBUG
                 MessageBox.Show(ex.Message, "Uncaught Thread Exception." + ex.Message + "\n" + ex.StackTrace,
                                 MessageBoxButton.OK, MessageBoxImage.Error);

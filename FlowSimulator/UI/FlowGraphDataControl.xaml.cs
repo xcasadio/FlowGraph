@@ -310,7 +310,7 @@ namespace FlowSimulator.UI
                     Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
                 {
                     ListBoxItem listBoxItem =
-                        Helper.FindAnchestor<ListBoxItem>(source);
+                        DependencyObjectHelper.FindAnchestor<ListBoxItem>(source);
 
                     if (listBoxItem != null)
                     {
@@ -437,7 +437,7 @@ namespace FlowSimulator.UI
                     Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
                 {
                     ListBoxItem listBoxItem =
-                        Helper.FindAnchestor<ListBoxItem>(source);
+                        DependencyObjectHelper.FindAnchestor<ListBoxItem>(source);
 
                     if (listBoxItem != null)
                     {
@@ -566,7 +566,7 @@ namespace FlowSimulator.UI
                     Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
                 {
                     ListBoxItem listBoxItem =
-                        Helper.FindAnchestor<ListBoxItem>(source);
+                        DependencyObjectHelper.FindAnchestor<ListBoxItem>(source);
 
                     if (listBoxItem != null)
                     {
