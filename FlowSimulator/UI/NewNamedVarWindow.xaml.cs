@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows;
-using FlowGraphBase;
+using FlowGraph;
 
 namespace FlowSimulator.UI
 {

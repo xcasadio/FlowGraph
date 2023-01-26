@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Xml;
-using FlowGraphBase;
-using FlowGraphBase.Logger;
+using FlowGraph;
+using FlowGraph.Logger;
 using FlowSimulator.UI;
 
 namespace FlowSimulator.FlowGraphs

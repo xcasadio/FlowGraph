@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:avalondock="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:extToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:process="clr-namespace:FlowGraphBase.Process;assembly=FlowGraphBase"
+        xmlns:process="clr-namespace:FlowGraph.Process;assembly=FlowGraph"
         xmlns:ui="clr-namespace:FlowSimulator.UI"
         
         Title="Flow Simulator" Height="681" Width="851">

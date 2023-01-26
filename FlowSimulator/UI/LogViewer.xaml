@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:log="clr-namespace:FlowSimulator.Logger"
-             xmlns:logBase="clr-namespace:FlowGraphBase.Logger;assembly=FlowGraphBase"
+             xmlns:logBase="clr-namespace:FlowGraph.Logger;assembly=FlowGraph"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="124" d:DesignWidth="525">

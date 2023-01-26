@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
-using FlowGraphBase.Logger;
+using FlowGraph.Logger;
 
 namespace FlowSimulator.Logger
 {

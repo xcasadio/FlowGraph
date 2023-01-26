@@ -6,7 +6,7 @@
 			xmlns:ZoomAndPan="clr-namespace:ZoomAndPan;assembly=ZoomAndPan"
             xmlns:scroll="clr-namespace:MouseDragScrollViewer;assembly=MouseDragScrollViewer"
 			xmlns:ac="clr-namespace:AdornedControl;assembly=AdornedControl"
-            xmlns:node="clr-namespace:FlowGraphBase.Node;assembly=FlowGraphBase"
+            xmlns:node="clr-namespace:FlowGraph.Node;assembly=FlowGraph"
 			xmlns:local="clr-namespace:FlowSimulator.UI"
             xmlns:sys="clr-namespace:System;assembly=mscorlib"
             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"

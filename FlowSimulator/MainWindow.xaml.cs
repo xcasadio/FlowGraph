@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,10 +6,10 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Xml;
-using FlowGraphBase;
-using FlowGraphBase.Logger;
-using FlowGraphBase.Process;
-using FlowGraphBase.Script;
+using FlowGraph;
+using FlowGraph.Logger;
+using FlowGraph.Process;
+using FlowGraph.Script;
 using FlowSimulator.FlowGraphs;
 using FlowSimulator.UI;
 using Xceed.Wpf.AvalonDock.Layout;
@@ -22,9 +19,6 @@ using MessageBox = Xceed.Wpf.Toolkit.MessageBox;
 
 namespace FlowSimulator
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private readonly string _userSettingsFile = "userSettings.xml";
@@ -37,28 +31,16 @@ namespace FlowSimulator
 
         private double _lastLeft, _lastTop, _lastWidth, _lastHeight;
 
-        /// <summary>
-        /// 
-        /// </summary>
         internal static MainWindow Instance
         {
             get;
             private set;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         internal FlowGraphManagerControl FlowGraphManagerControl => flowGraphManagerControl;
 
-        /// <summary>
-        /// 
-        /// </summary>
         internal DetailsControl DetailsControl => detailsControl;
 
-        /// <summary>
-        /// 
-        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -78,11 +60,6 @@ namespace FlowSimulator
             Closed += OnClosed;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         void OnLoaded(object sender, RoutedEventArgs e)
         {
             try
@@ -128,11 +105,6 @@ namespace FlowSimulator
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OnClosed(object sender, EventArgs e)
         {
             ProcessLauncher.Instance.StopLoop();
@@ -149,101 +121,51 @@ namespace FlowSimulator
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void Resume_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             ProcessLauncher.Instance.Resume();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void NextStep_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             ProcessLauncher.Instance.NextStep();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void Pause_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             ProcessLauncher.Instance.Pause();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void Stop_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             ProcessLauncher.Instance.Stop();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void NewCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             NewProject();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OpenCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             OpenProject();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void SaveCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             SaveProject();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void SaveAsCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             SaveAsProject();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ExitCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Exit();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void menuItemWindows_SubmenuOpened(object sender, RoutedEventArgs e)
         {
             menuItemWindows.Items.Clear();
@@ -269,11 +191,6 @@ namespace FlowSimulator
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void MenuItemLayout_Click(object sender, RoutedEventArgs e)
         {
             MenuItem item = sender as MenuItem;
@@ -282,21 +199,11 @@ namespace FlowSimulator
             item.IsChecked = l.IsVisible;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void MenuItemWorkspaceSave_Click(object sender, RoutedEventArgs e)
         {
             SaveSettings();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void MenuIte_OpenDocumentationClick(object sender, EventArgs e)
         {
             //             const string fileName = @"FlowSimulator - Manuel utilisateur.pdf";
@@ -314,11 +221,6 @@ namespace FlowSimulator
             //             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void MenuIte_HelpClick(object sender, RoutedEventArgs e)
         {
             MessageBox msgBox = new MessageBox();
@@ -338,9 +240,6 @@ namespace FlowSimulator
                 MessageBoxButton.OK);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private void Clear()
         {
             ProjectManager.Clear();
@@ -353,9 +252,6 @@ namespace FlowSimulator
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private void NewProject()
         {
             SaveChangesOnDemand();
@@ -369,9 +265,6 @@ namespace FlowSimulator
             SetTitle();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private void OpenProject()
         {
             SaveChangesOnDemand();
@@ -388,9 +281,6 @@ namespace FlowSimulator
             form.Dispose();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private void SaveProject()
         {
             if (string.IsNullOrWhiteSpace(_fileOpened))
@@ -403,9 +293,6 @@ namespace FlowSimulator
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private void SaveAsProject()
         {
             SaveFileDialog form = new SaveFileDialog();
@@ -419,29 +306,17 @@ namespace FlowSimulator
             form.Dispose();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private void Exit()
         {
             Close();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void workSpaceSaveToolStripMenuIte_Click(object sender, EventArgs e)
         {
             SaveSettings();
             LogManager.Instance.WriteLine(LogVerbosity.Debug, "Workspace saved");
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="fielName_"></param>
         private void LoadFile(string fileName, bool addToMru = true)
         {
             if (File.Exists(fileName))
@@ -475,10 +350,6 @@ namespace FlowSimulator
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="fileName_"></param>
         private void SaveFile(string fileName)
         {
             if (ProjectManager.SaveFile(fileName))
@@ -488,9 +359,6 @@ namespace FlowSimulator
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private void SaveChangesOnDemand()
         {
             if (GraphDataManager.Instance.IsChanges()
@@ -504,9 +372,6 @@ namespace FlowSimulator
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private void LoadSettings()
         {
             double l = Left, t = Top, w = Width, h = Height;
@@ -579,9 +444,6 @@ namespace FlowSimulator
             WindowState = winState;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private void SaveSettings()
         {
             var serializer = new XmlLayoutSerializer(dockingManager1);
@@ -624,9 +486,6 @@ namespace FlowSimulator
             xmlDoc.Save(_userSettingsFile);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private void SetTitle()
         {
             Title = "Flow Simulator";
@@ -640,10 +499,6 @@ namespace FlowSimulator
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id_"></param>
         public void OpenScriptElement(ScriptElement el)
         {
             var list = dockingManager1.Layout.Descendents().OfType<LayoutDocument>();
@@ -663,10 +518,12 @@ namespace FlowSimulator
             var firstDocumentPane = dockingManager1.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
             if (firstDocumentPane != null)
             {
+                var script = new ScriptElementControl { DataContext = el };
+
                 LayoutDocument doc = new LayoutDocument
                 {
                     Title = el.Name,
-                    Content = new ScriptElementControl(el)
+                    Content = script
                 };
                 firstDocumentPane.Children.Add(doc);
                 doc.IsSelected = true;

@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using FlowGraphBase;
-using FlowGraphBase.Logger;
-using FlowGraphBase.Node;
-using FlowGraphBase.Node.StandardActionNode;
-using FlowGraphBase.Node.StandardVariableNode;
-using FlowGraphBase.Process;
-using FlowGraphBase.Script;
-using FlowSimulator.CustomNode;
+using CustomNode;
+using FlowGraph;
+using FlowGraph.Logger;
+using FlowGraph.Node;
+using FlowGraph.Node.StandardActionNode;
+using FlowGraph.Node.StandardVariableNode;
+using FlowGraph.Process;
+using FlowGraph.Script;
 using NetworkModel;
 using NetworkUI;
 using ZoomAndPan;
@@ -361,29 +358,17 @@ namespace FlowSimulator.UI
             base.OnPreviewMouseMove(e);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
         protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
         {
             scrollViewer.DoMouseUp();
             base.OnPreviewMouseUp(e);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="offset_"></param>
         private void MouseDragScrollViewerDragHorizontal(double offset)
         {
             zoomAndPanControl.ContentOffsetX += offset;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="offset_"></param>
         private void MouseDragScrollViewerDragVertical(double offset)
         {
             zoomAndPanControl.ContentOffsetY += offset;
