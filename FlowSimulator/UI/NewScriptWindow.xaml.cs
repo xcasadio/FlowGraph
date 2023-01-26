@@ -9,9 +9,9 @@ namespace FlowSimulator.UI
     /// </summary>
     public partial class NewScriptWindow : Window
     {
-        public delegate bool IsValidInputNameDelegate(string name_);
+        public delegate bool IsValidInputNameDelegate(string name);
 
-        private bool _DialogResult;
+        private bool _dialogResult;
 
         /// <summary>
         /// 
@@ -47,7 +47,7 @@ namespace FlowSimulator.UI
             {
                 InputName = scriptElement.Name;
             }
-            
+
             Closing += OnClosing;
         }
 
@@ -58,7 +58,7 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         void OnClosing(object sender, CancelEventArgs e)
         {
-            DialogResult = _DialogResult;
+            DialogResult = _dialogResult;
         }
 
         /// <summary>
@@ -72,12 +72,12 @@ namespace FlowSimulator.UI
                 || (IsValidInputNameCallback != null
                     && IsValidInputNameCallback.Invoke(InputName)))
             {
-                _DialogResult = true;
+                _dialogResult = true;
                 Close();
             }
             else
             {
-                _DialogResult = false;
+                _dialogResult = false;
                 labelError.Content = "'" + InputName + "' is not a valid name. Please enter a valid name.";
             }
         }
@@ -89,7 +89,7 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
-            _DialogResult = false;
+            _dialogResult = false;
             Close();
         }
     }

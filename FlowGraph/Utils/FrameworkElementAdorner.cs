@@ -42,12 +42,12 @@ namespace Utils
         {
             if (adornedElement == null)
             {
-                throw new ArgumentNullException("adornedElement");
+                throw new ArgumentNullException(nameof(adornedElement));
             }
 
             if (adornerChildElement == null)
             {
-                throw new ArgumentNullException("adornerChildElement");
+                throw new ArgumentNullException(nameof(adornerChildElement));
             }
 
             Child = adornerChildElement;
@@ -63,12 +63,12 @@ namespace Utils
         {
             if (adornedElement == null)
             {
-                throw new ArgumentNullException("adornedElement");
+                throw new ArgumentNullException(nameof(adornedElement));
             }
 
             if (adornerChildElement == null)
             {
-                throw new ArgumentNullException("adornerChildElement");
+                throw new ArgumentNullException(nameof(adornerChildElement));
             }
 
             Child = adornerChildElement;
@@ -117,59 +117,59 @@ namespace Utils
             switch (Child.HorizontalAlignment)
             {
                 case HorizontalAlignment.Left:
-                {
-                    if (_horizontalAdornerPlacement == AdornerPlacement.Mouse)
                     {
-                        double adornerWidth = Child.DesiredSize.Width;
-                        Point position = Mouse.GetPosition(AdornerLayer.GetAdornerLayer(AdornedElement));
-                        return (position.X - adornerWidth) + _offsetX;
-                    }
+                        if (_horizontalAdornerPlacement == AdornerPlacement.Mouse)
+                        {
+                            double adornerWidth = Child.DesiredSize.Width;
+                            Point position = Mouse.GetPosition(AdornerLayer.GetAdornerLayer(AdornedElement));
+                            return (position.X - adornerWidth) + _offsetX;
+                        }
 
-                    if (_horizontalAdornerPlacement == AdornerPlacement.Outside)
-                    {
-                        return -Child.DesiredSize.Width + _offsetX;
+                        if (_horizontalAdornerPlacement == AdornerPlacement.Outside)
+                        {
+                            return -Child.DesiredSize.Width + _offsetX;
+                        }
+                        return _offsetX;
                     }
-                    return _offsetX;
-                }
                 case HorizontalAlignment.Right:
-                {
-                    if (_horizontalAdornerPlacement == AdornerPlacement.Mouse)
                     {
-                        Point position = Mouse.GetPosition(AdornerLayer.GetAdornerLayer(AdornedElement));
-                        return position.X + _offsetX;
-                    }
+                        if (_horizontalAdornerPlacement == AdornerPlacement.Mouse)
+                        {
+                            Point position = Mouse.GetPosition(AdornerLayer.GetAdornerLayer(AdornedElement));
+                            return position.X + _offsetX;
+                        }
 
-                    if (_horizontalAdornerPlacement == AdornerPlacement.Outside)
-                    {
-                        double adornedWidth = AdornedElement.ActualWidth;
-                        return adornedWidth + _offsetX;
+                        if (_horizontalAdornerPlacement == AdornerPlacement.Outside)
+                        {
+                            double adornedWidth = AdornedElement.ActualWidth;
+                            return adornedWidth + _offsetX;
+                        }
+                        else
+                        {
+                            double adornerWidth = Child.DesiredSize.Width;
+                            double adornedWidth = AdornedElement.ActualWidth;
+                            double x = adornedWidth - adornerWidth;
+                            return x + _offsetX;
+                        }
                     }
-                    else
+                case HorizontalAlignment.Center:
                     {
                         double adornerWidth = Child.DesiredSize.Width;
+
+                        if (_horizontalAdornerPlacement == AdornerPlacement.Mouse)
+                        {
+                            Point position = Mouse.GetPosition(AdornerLayer.GetAdornerLayer(AdornedElement));
+                            return (position.X - (adornerWidth / 2)) + _offsetX;
+                        }
+
                         double adornedWidth = AdornedElement.ActualWidth;
-                        double x = adornedWidth - adornerWidth;
+                        double x = (adornedWidth / 2) - (adornerWidth / 2);
                         return x + _offsetX;
                     }
-                }
-                case HorizontalAlignment.Center:
-                {
-                    double adornerWidth = Child.DesiredSize.Width;
-
-                    if (_horizontalAdornerPlacement == AdornerPlacement.Mouse)
-                    {
-                        Point position = Mouse.GetPosition(AdornerLayer.GetAdornerLayer(AdornedElement));
-                        return (position.X - (adornerWidth / 2)) + _offsetX;
-                    }
-
-                    double adornedWidth = AdornedElement.ActualWidth;
-                    double x = (adornedWidth / 2) - (adornerWidth / 2);
-                    return x + _offsetX;
-                }
                 case HorizontalAlignment.Stretch:
-                {
-                    return 0.0;
-                }
+                    {
+                        return 0.0;
+                    }
             }
 
             return 0.0;
@@ -183,59 +183,59 @@ namespace Utils
             switch (Child.VerticalAlignment)
             {
                 case VerticalAlignment.Top:
-                {
-                    if (_verticalAdornerPlacement == AdornerPlacement.Mouse)
                     {
-                        double adornerWidth = Child.DesiredSize.Width;
-                        Point position = Mouse.GetPosition(AdornerLayer.GetAdornerLayer(AdornedElement));
-                        return (position.Y - adornerWidth) + _offsetY;
-                    }
+                        if (_verticalAdornerPlacement == AdornerPlacement.Mouse)
+                        {
+                            double adornerWidth = Child.DesiredSize.Width;
+                            Point position = Mouse.GetPosition(AdornerLayer.GetAdornerLayer(AdornedElement));
+                            return (position.Y - adornerWidth) + _offsetY;
+                        }
 
-                    if (_verticalAdornerPlacement == AdornerPlacement.Outside)
-                    {
-                        return -Child.DesiredSize.Height + _offsetY;
+                        if (_verticalAdornerPlacement == AdornerPlacement.Outside)
+                        {
+                            return -Child.DesiredSize.Height + _offsetY;
+                        }
+                        return _offsetY;
                     }
-                    return _offsetY;
-                }
                 case VerticalAlignment.Bottom:
-                {
-                    if (_verticalAdornerPlacement == AdornerPlacement.Mouse)
                     {
-                        Point position = Mouse.GetPosition(AdornerLayer.GetAdornerLayer(AdornedElement));
-                        return position.Y + _offsetY;
-                    }
+                        if (_verticalAdornerPlacement == AdornerPlacement.Mouse)
+                        {
+                            Point position = Mouse.GetPosition(AdornerLayer.GetAdornerLayer(AdornedElement));
+                            return position.Y + _offsetY;
+                        }
 
-                    if (_verticalAdornerPlacement == AdornerPlacement.Outside)
-                    {
-                        double adornedHeight = AdornedElement.ActualHeight;
-                        return adornedHeight + _offsetY;
+                        if (_verticalAdornerPlacement == AdornerPlacement.Outside)
+                        {
+                            double adornedHeight = AdornedElement.ActualHeight;
+                            return adornedHeight + _offsetY;
+                        }
+                        else
+                        {
+                            double adornerHeight = Child.DesiredSize.Height;
+                            double adornedHeight = AdornedElement.ActualHeight;
+                            double x = adornedHeight - adornerHeight;
+                            return x + _offsetY;
+                        }
                     }
-                    else
+                case VerticalAlignment.Center:
                     {
                         double adornerHeight = Child.DesiredSize.Height;
+
+                        if (_verticalAdornerPlacement == AdornerPlacement.Mouse)
+                        {
+                            Point position = Mouse.GetPosition(AdornerLayer.GetAdornerLayer(AdornedElement));
+                            return (position.Y - (adornerHeight / 2)) + _offsetY;
+                        }
+
                         double adornedHeight = AdornedElement.ActualHeight;
-                        double x = adornedHeight - adornerHeight;
-                        return x + _offsetY;
+                        double y = (adornedHeight / 2) - (adornerHeight / 2);
+                        return y + _offsetY;
                     }
-                }
-                case VerticalAlignment.Center:
-                {
-                    double adornerHeight = Child.DesiredSize.Height;
-
-                    if (_verticalAdornerPlacement == AdornerPlacement.Mouse)
-                    {
-                        Point position = Mouse.GetPosition(AdornerLayer.GetAdornerLayer(AdornedElement));
-                        return (position.Y - (adornerHeight/2)) + _offsetY;
-                    }
-
-                    double adornedHeight = AdornedElement.ActualHeight;
-                    double y = (adornedHeight / 2) - (adornerHeight / 2);
-                    return y + _offsetY;
-                }
                 case VerticalAlignment.Stretch:
-                {
-                    return 0.0;
-                }
+                    {
+                        return 0.0;
+                    }
             }
 
             return 0.0;
@@ -254,21 +254,21 @@ namespace Utils
             switch (Child.HorizontalAlignment)
             {
                 case HorizontalAlignment.Left:
-                {
-                    return Child.DesiredSize.Width;
-                }
+                    {
+                        return Child.DesiredSize.Width;
+                    }
                 case HorizontalAlignment.Right:
-                {
-                    return Child.DesiredSize.Width;
-                }
+                    {
+                        return Child.DesiredSize.Width;
+                    }
                 case HorizontalAlignment.Center:
-                {
-                    return Child.DesiredSize.Width;
-                }
+                    {
+                        return Child.DesiredSize.Width;
+                    }
                 case HorizontalAlignment.Stretch:
-                {
-                    return AdornedElement.ActualWidth;
-                }
+                    {
+                        return AdornedElement.ActualWidth;
+                    }
             }
 
             return 0.0;
@@ -287,21 +287,21 @@ namespace Utils
             switch (Child.VerticalAlignment)
             {
                 case VerticalAlignment.Top:
-                {
-                    return Child.DesiredSize.Height;
-                }
+                    {
+                        return Child.DesiredSize.Height;
+                    }
                 case VerticalAlignment.Bottom:
-                {
-                    return Child.DesiredSize.Height;
-                }
+                    {
+                        return Child.DesiredSize.Height;
+                    }
                 case VerticalAlignment.Center:
-                {
-                    return Child.DesiredSize.Height; 
-                }
+                    {
+                        return Child.DesiredSize.Height;
+                    }
                 case VerticalAlignment.Stretch:
-                {
-                    return AdornedElement.ActualHeight;
-                }
+                    {
+                        return AdornedElement.ActualHeight;
+                    }
             }
 
             return 0.0;

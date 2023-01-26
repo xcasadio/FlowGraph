@@ -114,7 +114,7 @@ namespace NetworkUI
             set => _feedbackIndicator = value;
         }
 
-        internal QueryConnectionFeedbackEventArgs(RoutedEvent routedEvent, object source, 
+        internal QueryConnectionFeedbackEventArgs(RoutedEvent routedEvent, object source,
             object node, object connection, object connector, object draggedOverConnector) :
             base(routedEvent, source, node, connection, connector)
         {

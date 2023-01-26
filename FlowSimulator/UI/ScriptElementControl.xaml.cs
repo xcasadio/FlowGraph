@@ -29,11 +29,11 @@ namespace FlowSimulator.UI
         /// <summary>
         /// 
         /// </summary>
-        public ScriptElementControl(ScriptElement el_)
+        public ScriptElementControl(ScriptElement el)
         {
-            DataContext = el_;
+            DataContext = el;
             InitializeComponent();
-            Script = el_;
+            Script = el;
 
             textEditor.Text = Script.ScriptSourceCode;
 
@@ -52,8 +52,8 @@ namespace FlowSimulator.UI
                 new SearchInputHandler(textEditor.TextArea));
         }
 
-        FoldingManager foldingManager;
-        AbstractFoldingStrategy foldingStrategy;
+        FoldingManager _foldingManager;
+        AbstractFoldingStrategy _foldingStrategy;
 
         /// <summary>
         /// 
@@ -62,41 +62,41 @@ namespace FlowSimulator.UI
         {
             if (textEditor.SyntaxHighlighting == null)
             {
-                foldingStrategy = null;
+                _foldingStrategy = null;
             }
             else
             {
-//                 switch (textEditor.SyntaxHighlighting.Name)
-//                 {
-//                     case "XML":
-//                         foldingStrategy = new XmlFoldingStrategy();
-//                         textEditor.TextArea.IndentationStrategy = new ICSharpCode.AvalonEdit.Indentation.DefaultIndentationStrategy();
-//                         break;
-//                     case "C#":
-//                     case "C++":
-//                     case "PHP":
-//                     case "Java":
+                //                 switch (textEditor.SyntaxHighlighting.Name)
+                //                 {
+                //                     case "XML":
+                //                         foldingStrategy = new XmlFoldingStrategy();
+                //                         textEditor.TextArea.IndentationStrategy = new ICSharpCode.AvalonEdit.Indentation.DefaultIndentationStrategy();
+                //                         break;
+                //                     case "C#":
+                //                     case "C++":
+                //                     case "PHP":
+                //                     case "Java":
                 textEditor.TextArea.IndentationStrategy = new CSharpIndentationStrategy(textEditor.Options);
-                foldingStrategy = new BraceFoldingStrategy();
-//                         break;
-//                     default:
-//                         textEditor.TextArea.IndentationStrategy = new ICSharpCode.AvalonEdit.Indentation.DefaultIndentationStrategy();
-//                         foldingStrategy = null;
-//                          break;
-//                 }
+                _foldingStrategy = new BraceFoldingStrategy();
+                //                         break;
+                //                     default:
+                //                         textEditor.TextArea.IndentationStrategy = new ICSharpCode.AvalonEdit.Indentation.DefaultIndentationStrategy();
+                //                         foldingStrategy = null;
+                //                          break;
+                //                 }
             }
-            if (foldingStrategy != null)
+            if (_foldingStrategy != null)
             {
-                if (foldingManager == null)
-                    foldingManager = FoldingManager.Install(textEditor.TextArea);
-                foldingStrategy.UpdateFoldings(foldingManager, textEditor.Document);
+                if (_foldingManager == null)
+                    _foldingManager = FoldingManager.Install(textEditor.TextArea);
+                _foldingStrategy.UpdateFoldings(_foldingManager, textEditor.Document);
             }
             else
             {
-                if (foldingManager != null)
+                if (_foldingManager != null)
                 {
-                    FoldingManager.Uninstall(foldingManager);
-                    foldingManager = null;
+                    FoldingManager.Uninstall(_foldingManager);
+                    _foldingManager = null;
                 }
             }
         }
@@ -108,10 +108,10 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         void foldingUpdateTimer_Tick(object sender, EventArgs e)
         {
-            foldingStrategy?.UpdateFoldings(foldingManager, textEditor.Document);
+            _foldingStrategy?.UpdateFoldings(_foldingManager, textEditor.Document);
         }
 
-        CompletionWindow completionWindow;
+        CompletionWindow _completionWindow;
 
         /// <summary>
         /// 
@@ -123,17 +123,17 @@ namespace FlowSimulator.UI
             if (e.Text == ".")
             {
                 // open code completion after the user has pressed dot:
-                completionWindow = new CompletionWindow(textEditor.TextArea);
+                _completionWindow = new CompletionWindow(textEditor.TextArea);
                 // provide AvalonEdit with the data:
-                IList<ICompletionData> data = completionWindow.CompletionList.CompletionData;
+                IList<ICompletionData> data = _completionWindow.CompletionList.CompletionData;
                 //                 data.Add(new MyCompletionData("Item1"));
                 //                 data.Add(new MyCompletionData("Item2"));
                 //                 data.Add(new MyCompletionData("Item3"));
                 //                 data.Add(new MyCompletionData("Another item"));
-                completionWindow.Show();
-                completionWindow.Closed += delegate
+                _completionWindow.Show();
+                _completionWindow.Closed += delegate
                 {
-                    completionWindow = null;
+                    _completionWindow = null;
                 };
             }
         }
@@ -145,13 +145,13 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         void textEditor_TextArea_TextEntering(object sender, TextCompositionEventArgs e)
         {
-            if (e.Text.Length > 0 && completionWindow != null)
+            if (e.Text.Length > 0 && _completionWindow != null)
             {
                 if (!char.IsLetterOrDigit(e.Text[0]))
                 {
                     // Whenever a non-letter is typed while the completion window is open,
                     // insert the currently selected element.
-                    completionWindow.CompletionList.RequestInsertion(e);
+                    _completionWindow.CompletionList.RequestInsertion(e);
                 }
             }
             // do not set e.Handled=true - we still want to insert the character that was typed

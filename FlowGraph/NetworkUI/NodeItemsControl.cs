@@ -22,7 +22,7 @@ namespace NetworkUI
         /// </summary>
         internal NodeItem FindAssociatedNodeItem(object nodeDataContext)
         {
-            return (NodeItem) ItemContainerGenerator.ContainerFromItem(nodeDataContext);
+            return (NodeItem)ItemContainerGenerator.ContainerFromItem(nodeDataContext);
         }
 
         /// <summary>

@@ -111,7 +111,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         public AdditionNode(XmlNode node) : base(node) { }
         public AdditionNode()
         { }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -235,7 +235,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <returns></returns>
         public override T DoActivateLogic(T a, T b)
         {
-            dynamic x= a;
+            dynamic x = a;
             dynamic y = b;
             return x - y;
         }
@@ -355,7 +355,7 @@ namespace FlowGraphBase.Node.StandardActionNode
             return x * y;
         }
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -630,7 +630,7 @@ namespace FlowGraphBase.Node.StandardActionNode
             {
                 info.State = LogicState.Error;
                 info.ErrorMessage = "Please connect a variable node into the slot A";
- 
+
                 LogManager.Instance.WriteLine(LogVerbosity.Warning,
                     "{0} : {1}.",
                     Title, info.ErrorMessage);
@@ -1585,7 +1585,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         public override int DoActivateLogic(TIn a)
         {
             dynamic x = a;
-            return (int) Convert.ChangeType(x, typeof(int));
+            return (int)Convert.ChangeType(x, typeof(int));
         }
     }
 

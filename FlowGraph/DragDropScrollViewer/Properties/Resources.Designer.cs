@@ -16,7 +16,8 @@ using System.Globalization;
 using System.Resources;
 using System.Runtime.CompilerServices;
 
-namespace MouseDragScrollViewer.Properties {
+namespace MouseDragScrollViewer.Properties
+{
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -27,40 +28,48 @@ namespace MouseDragScrollViewer.Properties {
     [GeneratedCode("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [DebuggerNonUserCode()]
     [CompilerGenerated()]
-    internal class Resources {
-        
+    internal class Resources
+    {
+
         private static ResourceManager resourceMan;
-        
+
         private static CultureInfo resourceCulture;
-        
+
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Resources()
+        {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        internal static ResourceManager ResourceManager {
-            get {
-                if (ReferenceEquals(resourceMan, null)) {
+        internal static ResourceManager ResourceManager
+        {
+            get
+            {
+                if (ReferenceEquals(resourceMan, null))
+                {
                     ResourceManager temp = new ResourceManager("MouseDragScrollViewer.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        internal static CultureInfo Culture {
-            get {
+        internal static CultureInfo Culture
+        {
+            get
+            {
                 return resourceCulture;
             }
-            set {
+            set
+            {
                 resourceCulture = value;
             }
         }

@@ -102,11 +102,11 @@ namespace FlowGraphBase.Node.StandardActionNode
             //OnPropertyChanged("SlotVariableIn");
             //OnPropertyChanged("SlotVariableOut");
 
-//             SlotConnectorIn
-//             SlotConnectorOut
-//             SlotVariableIn
-//             SlotVariableOut
-//             SlotVariableInOut
+            //             SlotConnectorIn
+            //             SlotConnectorOut
+            //             SlotVariableIn
+            //             SlotVariableOut
+            //             SlotVariableInOut
         }
 
         /// <summary>

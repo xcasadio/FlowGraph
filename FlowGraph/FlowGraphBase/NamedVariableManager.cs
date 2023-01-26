@@ -4,36 +4,18 @@ using System.Xml;
 
 namespace FlowGraphBase
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class NamedVariableManager
     {
-        /// <summary>
-        /// Gets
-        /// </summary>
         public static NamedVariableManager Instance { get; } = new NamedVariableManager();
-
         public event EventHandler<EventArgs<string, string>> OnRenamed;
 
         private const string NullToken = "<null>";
 
-        /// <summary>
-        /// 
-        /// </summary>
         public ObservableCollection<NamedVariable> Vars { get; } = new ObservableCollection<NamedVariable>();
 
-        /// <summary>
-        /// 
-        /// </summary>
         private NamedVariableManager()
         { }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
         internal NamedVariable GetNamedVariable(string name)
         {
             foreach (var v in Vars)
@@ -47,11 +29,6 @@ namespace FlowGraphBase
             return null;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
         internal ValueContainer GetValueContainer(string name)
         {
             ValueContainer container = null;
@@ -68,12 +45,6 @@ namespace FlowGraphBase
             return container;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="var"></param>
-        /// <returns></returns>
         public bool TryGet(string name, out object var)
         {
             bool res = false;
@@ -92,32 +63,18 @@ namespace FlowGraphBase
             return res;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="var"></param>
         public void Add(string name, object var)
         {
             NamedVariable namedVar = new NamedVariable(name, new ValueContainer(var?.GetType(), var));
             Vars.Add(namedVar);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="var"></param>
         private void Add(string name, ValueContainer var)
         {
             NamedVariable namedVar = new NamedVariable(name, var);
             Vars.Add(namedVar);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name_"></param>
         public void Remove(NamedVariable var)
         {
             Vars.Remove(var);
@@ -139,11 +96,6 @@ namespace FlowGraphBase
         //             }
         //         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="newName"></param>
         public void Rename(string name, string newName)
         {
             foreach (var v in Vars)
@@ -159,11 +111,6 @@ namespace FlowGraphBase
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="var"></param>
         public void Update(string name, object var)
         {
             foreach (var v in Vars)
@@ -176,11 +123,6 @@ namespace FlowGraphBase
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
         public bool Contains(string name)
         {
             foreach (var v in Vars)
@@ -194,19 +136,11 @@ namespace FlowGraphBase
             return false;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public void Clear()
         {
             Vars.Clear();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
         public bool IsValidName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
@@ -217,10 +151,6 @@ namespace FlowGraphBase
             return !Contains(name);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="node"></param>
         public void Load(XmlNode node)
         {
             XmlNode varListNode = node.SelectSingleNode("NamedVariableList");
@@ -237,10 +167,6 @@ namespace FlowGraphBase
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="node"></param>
         public void Save(XmlNode node)
         {
             const int version = 1;

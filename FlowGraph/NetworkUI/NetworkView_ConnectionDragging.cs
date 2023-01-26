@@ -94,8 +94,8 @@ namespace NetworkUI
             // Raise an event so that application code can compute intermediate connection points.
             //
             var connectionDraggingEventArgs =
-                new ConnectionDraggingEventArgs(ConnectionDraggingEvent, this, 
-                        _draggedOutNodeDataContext, _draggingConnectionDataContext, 
+                new ConnectionDraggingEventArgs(ConnectionDraggingEvent, this,
+                        _draggedOutNodeDataContext, _draggingConnectionDataContext,
                         _draggedOutConnectorDataContext);
 
             RaiseEvent(connectionDraggingEventArgs);
@@ -113,8 +113,8 @@ namespace NetworkUI
                 // Raise an event so that application code can specify if the connector
                 // that was dragged over is valid or not.
                 //
-                var queryFeedbackEventArgs = 
-                    new QueryConnectionFeedbackEventArgs(QueryConnectionFeedbackEvent, this, _draggedOutNodeDataContext, _draggingConnectionDataContext, 
+                var queryFeedbackEventArgs =
+                    new QueryConnectionFeedbackEventArgs(QueryConnectionFeedbackEvent, this, _draggedOutNodeDataContext, _draggingConnectionDataContext,
                             _draggedOutConnectorDataContext, connectorDataContextDraggedOver);
 
                 RaiseEvent(queryFeedbackEventArgs);
@@ -198,12 +198,12 @@ namespace NetworkUI
             // Run a hit test 
             //
             HitTestResult result = null;
-            VisualTreeHelper.HitTest(_nodeItemsControl, null, 
+            VisualTreeHelper.HitTest(_nodeItemsControl, null,
                 //
                 // Result callback delegate.
                 // This method is called when we have a result.
                 //
-                delegate(HitTestResult hitTestResult)
+                delegate (HitTestResult hitTestResult)
                 {
                     result = hitTestResult;
 
@@ -227,7 +227,7 @@ namespace NetworkUI
                 return false;
             }
             var connectorItem = WpfUtils.FindVisualParentWithType<ConnectorItem>(hitItem);
-			if (connectorItem == null)
+            if (connectorItem == null)
             {
                 return false;
             }
@@ -258,7 +258,7 @@ namespace NetworkUI
 
             return true;
         }
-         
+
         /// <summary>
         /// Add a feedback adorner to a UI element.
         /// This is used to show when a connection can or can't be attached to a particular connector.

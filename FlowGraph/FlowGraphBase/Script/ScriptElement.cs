@@ -39,7 +39,7 @@ namespace FlowGraphBase.Script
         {
             get => _sourceCode;
             set
-            { 
+            {
                 _sourceCode = value;
                 OnPropertyChanged("ScriptSourceCode");
             }
@@ -87,8 +87,8 @@ namespace FlowGraphBase.Script
         public string Name
         {
             get => _name;
-            set 
-            { 
+            set
+            {
                 _name = value;
                 OnPropertyChanged("Name");
             }

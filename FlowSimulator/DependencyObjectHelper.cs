@@ -1,12 +1,8 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 
 namespace FlowSimulator
 {
-    /// <summary>
-    /// 
-    /// </summary>
     static class DependencyObjectHelper
     {
         /// <summary>
@@ -21,22 +17,18 @@ namespace FlowSimulator
         public static T TryFindParent<T>(this DependencyObject child)
             where T : DependencyObject
         {
-            //get parent item
             DependencyObject parentObject = GetParentObject(child);
 
-            //we've reached the end of the tree
             if (parentObject == null)
             {
                 return null;
             }
 
-            //check if the parent matches the type we're looking for
             if (parentObject is T parent)
             {
                 return parent;
             }
 
-            //use recursion to proceed with next level
             return TryFindParent<T>(parentObject);
         }
 
@@ -56,7 +48,6 @@ namespace FlowSimulator
                 return null;
             }
 
-            //handle content elements separately
             if (child is ContentElement contentElement)
             {
                 DependencyObject parent = ContentOperations.GetParent(contentElement);
@@ -71,7 +62,6 @@ namespace FlowSimulator
                 }
             }
 
-            //also try searching for parent in framework elements (such as DockPanel, etc)
             if (child is FrameworkElement frameworkElement)
             {
                 DependencyObject parent = frameworkElement.Parent;
@@ -81,7 +71,6 @@ namespace FlowSimulator
                 }
             }
 
-            //if it's not a ContentElement/FrameworkElement, rely on VisualTreeHelper
             return VisualTreeHelper.GetParent(child);
         }
 

@@ -28,9 +28,9 @@ namespace FlowSimulator.UI
         /// <summary>
         /// Use to copy/paste nodes (shared with all graphs)
         /// </summary>
-        private static readonly List<NodeViewModel> _ClipboardNodes = new List<NodeViewModel>(10);
+        private static readonly List<NodeViewModel> ClipboardNodes = new List<NodeViewModel>(10);
 
-        private bool _IsContextMenuCreated;
+        private bool _isContextMenuCreated;
 
 
         /// <summary>
@@ -83,9 +83,9 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         void OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (_IsContextMenuCreated == false)
+            if (_isContextMenuCreated == false)
             {
-                _IsContextMenuCreated = true;
+                _isContextMenuCreated = true;
 
                 IEnumerable<Type> classes = AppDomain.CurrentDomain.GetAssemblies()
                            .SelectMany(t => t.GetTypes())
@@ -136,29 +136,29 @@ namespace FlowSimulator.UI
         /// </summary>
         /// <param name="categPath_"></param>
         /// <param name="name_"></param>
-        MenuItem CreateParentMenuItemNode(string categPath_, MenuItem parent_)
+        MenuItem CreateParentMenuItemNode(string categPath, MenuItem parent)
         {
-            if (string.IsNullOrWhiteSpace(categPath_))
+            if (string.IsNullOrWhiteSpace(categPath))
             {
-                return parent_;
+                return parent;
             }
 
-            string[] folders = categPath_.Split('/');
-            categPath_ = categPath_.Remove(0, folders[0].Length);
-            if (categPath_.Length > 1) categPath_ = categPath_.Remove(0, 1);
+            string[] folders = categPath.Split('/');
+            categPath = categPath.Remove(0, folders[0].Length);
+            if (categPath.Length > 1) categPath = categPath.Remove(0, 1);
 
-            foreach (MenuItem item in parent_.Items)
+            foreach (MenuItem item in parent.Items)
             {
                 if (folders[0].Equals(item.Header))
                 {
-                    return CreateParentMenuItemNode(categPath_, item);
+                    return CreateParentMenuItemNode(categPath, item);
                 }
             }
 
             MenuItem child = new MenuItem { Header = folders[0] };
-            parent_.Items.Add(child);
+            parent.Items.Add(child);
 
-            return CreateParentMenuItemNode(categPath_, child);
+            return CreateParentMenuItemNode(categPath, child);
         }
 
         /// <summary>
@@ -282,10 +282,10 @@ namespace FlowSimulator.UI
         /// <summary>
         /// Creates a new node in the NetworkViewModel at the current mouse location.
         /// </summary>
-        private void CreateNode(SequenceNode node_)
+        private void CreateNode(SequenceNode node)
         {
             //var newNodePosition = Mouse.GetPosition(networkControl);
-            ViewModel.CreateNode(node_, origContentMouseDownPoint, true);
+            ViewModel.CreateNode(node, _origContentMouseDownPoint, true);
         }
 
         /// <summary>
@@ -305,51 +305,51 @@ namespace FlowSimulator.UI
         /// <summary>
         /// Specifies the current state of the mouse handling logic.
         /// </summary>
-        private MouseHandlingMode mouseHandlingMode = MouseHandlingMode.None;
+        private MouseHandlingMode _mouseHandlingMode = MouseHandlingMode.None;
 
         /// <summary>
         /// The point that was clicked relative to the ZoomAndPanControl.
         /// </summary>
-        private Point origZoomAndPanControlMouseDownPoint;
+        private Point _origZoomAndPanControlMouseDownPoint;
 
         /// <summary>
         /// The point that was clicked relative to the content that is contained within the ZoomAndPanControl.
         /// </summary>
-        private Point origContentMouseDownPoint;
+        private Point _origContentMouseDownPoint;
 
         /// <summary>
         /// Records which mouse button clicked during mouse dragging.
         /// </summary>
-        private MouseButton mouseButtonDown;
+        private MouseButton _mouseButtonDown;
 
         /// <summary>
         /// Saves the previous zoom rectangle, pressing the backspace key jumps back to this zoom rectangle.
         /// </summary>
-        private Rect prevZoomRect;
+        private Rect _prevZoomRect;
 
         /// <summary>
         /// Save the previous content scale, pressing the backspace key jumps back to this scale.
         /// </summary>
-        private double prevZoomScale;
+        private double _prevZoomScale;
 
         /// <summary>
         /// Set to 'true' when the previous zoom rect is saved.
         /// </summary>
-        private bool prevZoomRectSet;
+        private bool _prevZoomRectSet;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="e"></param>
-//         protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
-//         {
-//             if (networkControl.IsDragging == true)
-//             {
-//                 scrollViewer.DoMouseDown(e);
-//             }
-// 
-//             base.OnPreviewMouseDown(e);
-//         }
+        //         protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
+        //         {
+        //             if (networkControl.IsDragging == true)
+        //             {
+        //                 scrollViewer.DoMouseDown(e);
+        //             }
+        // 
+        //             base.OnPreviewMouseDown(e);
+        //         }
 
         protected override void OnPreviewMouseMove(MouseEventArgs e)
         {
@@ -375,19 +375,19 @@ namespace FlowSimulator.UI
         /// 
         /// </summary>
         /// <param name="offset_"></param>
-        private void MouseDragScrollViewerDragHorizontal(double offset_)
+        private void MouseDragScrollViewerDragHorizontal(double offset)
         {
-            zoomAndPanControl.ContentOffsetX += offset_;
+            zoomAndPanControl.ContentOffsetX += offset;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="offset_"></param>
-        private void MouseDragScrollViewerDragVertical(double offset_)
+        private void MouseDragScrollViewerDragVertical(double offset)
         {
-            zoomAndPanControl.ContentOffsetY += offset_;
-        }   
+            zoomAndPanControl.ContentOffsetY += offset;
+        }
 
         /// <summary>
         /// Event raised on mouse down in the NetworkView.
@@ -397,18 +397,18 @@ namespace FlowSimulator.UI
             networkControl.Focus();
             Keyboard.Focus(networkControl);
 
-            mouseButtonDown = e.ChangedButton;
-            origZoomAndPanControlMouseDownPoint = e.GetPosition(zoomAndPanControl);
-            origContentMouseDownPoint = e.GetPosition(networkControl);
+            _mouseButtonDown = e.ChangedButton;
+            _origZoomAndPanControlMouseDownPoint = e.GetPosition(zoomAndPanControl);
+            _origContentMouseDownPoint = e.GetPosition(networkControl);
 
             if ((Keyboard.Modifiers & ModifierKeys.Shift) != 0 &&
                 (e.ChangedButton == MouseButton.Left ||
                  e.ChangedButton == MouseButton.Right))
             {
                 // Shift + left- or right-down initiates zooming mode.
-                mouseHandlingMode = MouseHandlingMode.Zooming;
+                _mouseHandlingMode = MouseHandlingMode.Zooming;
             }
-            else if (mouseButtonDown == MouseButton.Left &&
+            else if (_mouseButtonDown == MouseButton.Left &&
                      (Keyboard.Modifiers & ModifierKeys.Control) == 0)
             {
                 //
@@ -416,10 +416,10 @@ namespace FlowSimulator.UI
                 // When control is held down left dragging is used for drag selection.
                 // After panning has been initiated the user must drag further than the threshold value to actually start drag panning.
                 //
-                mouseHandlingMode = MouseHandlingMode.Panning;
+                _mouseHandlingMode = MouseHandlingMode.Panning;
             }
 
-            if (mouseHandlingMode != MouseHandlingMode.None)
+            if (_mouseHandlingMode != MouseHandlingMode.None)
             {
                 // Capture the mouse so that we eventually receive the mouse up event.
                 networkControl.CaptureMouse();
@@ -432,9 +432,9 @@ namespace FlowSimulator.UI
         /// </summary>
         private void networkControl_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (mouseHandlingMode != MouseHandlingMode.None)
+            if (_mouseHandlingMode != MouseHandlingMode.None)
             {
-                if (mouseHandlingMode == MouseHandlingMode.Panning)
+                if (_mouseHandlingMode == MouseHandlingMode.Panning)
                 {
                     //
                     // Panning was initiated but dragging was abandoned before the mouse
@@ -443,20 +443,20 @@ namespace FlowSimulator.UI
                     // Because it was a mouse click in empty space we need to clear the current selection.
                     //
                 }
-                else if (mouseHandlingMode == MouseHandlingMode.Zooming)
+                else if (_mouseHandlingMode == MouseHandlingMode.Zooming)
                 {
-                    if (mouseButtonDown == MouseButton.Left)
+                    if (_mouseButtonDown == MouseButton.Left)
                     {
                         // Shift + left-click zooms in on the content.
-                        ZoomIn(origContentMouseDownPoint);
+                        ZoomIn(_origContentMouseDownPoint);
                     }
-                    else if (mouseButtonDown == MouseButton.Right)
+                    else if (_mouseButtonDown == MouseButton.Right)
                     {
                         // Shift + left-click zooms out from the content.
-                        ZoomOut(origContentMouseDownPoint);
+                        ZoomOut(_origContentMouseDownPoint);
                     }
                 }
-                else if (mouseHandlingMode == MouseHandlingMode.DragZooming)
+                else if (_mouseHandlingMode == MouseHandlingMode.DragZooming)
                 {
                     // When drag-zooming has finished we zoom in on the rectangle that was highlighted by the user.
                     ApplyDragZoomRect();
@@ -475,7 +475,7 @@ namespace FlowSimulator.UI
                 Mouse.OverrideCursor = null;
 
                 networkControl.ReleaseMouseCapture();
-                mouseHandlingMode = MouseHandlingMode.None;
+                _mouseHandlingMode = MouseHandlingMode.None;
                 e.Handled = true;
             }
         }
@@ -485,10 +485,10 @@ namespace FlowSimulator.UI
         /// </summary>
         private void networkControl_MouseMove(object sender, MouseEventArgs e)
         {
-            if (mouseHandlingMode == MouseHandlingMode.Panning)
+            if (_mouseHandlingMode == MouseHandlingMode.Panning)
             {
                 Point curZoomAndPanControlMousePoint = e.GetPosition(zoomAndPanControl);
-                Vector dragOffset = curZoomAndPanControlMousePoint - origZoomAndPanControlMouseDownPoint;
+                Vector dragOffset = curZoomAndPanControlMousePoint - _origZoomAndPanControlMouseDownPoint;
                 double dragThreshold = 10;
                 if (Math.Abs(dragOffset.X) > dragThreshold ||
                     Math.Abs(dragOffset.Y) > dragThreshold)
@@ -497,33 +497,33 @@ namespace FlowSimulator.UI
                     // The user has dragged the cursor further than the threshold distance, initiate
                     // drag panning.
                     //
-                    mouseHandlingMode = MouseHandlingMode.DragPanning;
+                    _mouseHandlingMode = MouseHandlingMode.DragPanning;
                     networkControl.IsClearSelectionOnEmptySpaceClickEnabled = false;
                     Mouse.OverrideCursor = Cursors.ScrollAll;
                 }
 
                 e.Handled = true;
             }
-            else if (mouseHandlingMode == MouseHandlingMode.DragPanning)
+            else if (_mouseHandlingMode == MouseHandlingMode.DragPanning)
             {
                 //
                 // The user is left-dragging the mouse.
                 // Pan the viewport by the appropriate amount.
                 //
                 Point curContentMousePoint = e.GetPosition(networkControl);
-                Vector dragOffset = curContentMousePoint - origContentMouseDownPoint;
+                Vector dragOffset = curContentMousePoint - _origContentMouseDownPoint;
 
                 zoomAndPanControl.ContentOffsetX -= dragOffset.X;
                 zoomAndPanControl.ContentOffsetY -= dragOffset.Y;
 
                 e.Handled = true;
             }
-            else if (mouseHandlingMode == MouseHandlingMode.Zooming)
+            else if (_mouseHandlingMode == MouseHandlingMode.Zooming)
             {
                 Point curZoomAndPanControlMousePoint = e.GetPosition(zoomAndPanControl);
-                Vector dragOffset = curZoomAndPanControlMousePoint - origZoomAndPanControlMouseDownPoint;
+                Vector dragOffset = curZoomAndPanControlMousePoint - _origZoomAndPanControlMouseDownPoint;
                 double dragThreshold = 10;
-                if (mouseButtonDown == MouseButton.Left &&
+                if (_mouseButtonDown == MouseButton.Left &&
                     (Math.Abs(dragOffset.X) > dragThreshold ||
                     Math.Abs(dragOffset.Y) > dragThreshold))
                 {
@@ -532,21 +532,21 @@ namespace FlowSimulator.UI
                     // initiate drag zooming mode where the user can drag out a rectangle to select the area
                     // to zoom in on.
                     //
-                    mouseHandlingMode = MouseHandlingMode.DragZooming;
+                    _mouseHandlingMode = MouseHandlingMode.DragZooming;
                     Point curContentMousePoint = e.GetPosition(networkControl);
-                    InitDragZoomRect(origContentMouseDownPoint, curContentMousePoint);
+                    InitDragZoomRect(_origContentMouseDownPoint, curContentMousePoint);
                 }
 
                 e.Handled = true;
             }
-            else if (mouseHandlingMode == MouseHandlingMode.DragZooming)
+            else if (_mouseHandlingMode == MouseHandlingMode.DragZooming)
             {
                 //
                 // When in drag zooming mode continously update the position of the rectangle
                 // that the user is dragging out.
                 //
                 Point curContentMousePoint = e.GetPosition(networkControl);
-                SetDragZoomRect(origContentMouseDownPoint, curContentMousePoint);
+                SetDragZoomRect(_origContentMouseDownPoint, curContentMousePoint);
 
                 e.Handled = true;
             }
@@ -614,7 +614,7 @@ namespace FlowSimulator.UI
         /// </summary>
         private void JumpBackToPrevZoo_CanExecuted(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = prevZoomRectSet;
+            e.CanExecute = _prevZoomRectSet;
         }
 
         /// <summary>
@@ -692,7 +692,7 @@ namespace FlowSimulator.UI
         /// </summary>
         private void JumpBackToPrevZoom()
         {
-            zoomAndPanControl.AnimatedZoomTo(prevZoomScale, prevZoomRect);
+            zoomAndPanControl.AnimatedZoomTo(_prevZoomScale, _prevZoomRect);
 
             ClearPrevZoomRect();
         }
@@ -806,9 +806,9 @@ namespace FlowSimulator.UI
         //
         private void SavePrevZoomRect()
         {
-            prevZoomRect = new Rect(zoomAndPanControl.ContentOffsetX, zoomAndPanControl.ContentOffsetY, zoomAndPanControl.ContentViewportWidth, zoomAndPanControl.ContentViewportHeight);
-            prevZoomScale = zoomAndPanControl.ContentScale;
-            prevZoomRectSet = true;
+            _prevZoomRect = new Rect(zoomAndPanControl.ContentOffsetX, zoomAndPanControl.ContentOffsetY, zoomAndPanControl.ContentViewportWidth, zoomAndPanControl.ContentViewportHeight);
+            _prevZoomScale = zoomAndPanControl.ContentScale;
+            _prevZoomRectSet = true;
         }
 
         /// <summary>
@@ -816,7 +816,7 @@ namespace FlowSimulator.UI
         /// </summary>
         private void ClearPrevZoomRect()
         {
-            prevZoomRectSet = false;
+            _prevZoomRectSet = false;
         }
 
         /// <summary>
@@ -936,7 +936,7 @@ namespace FlowSimulator.UI
                         ViewModel.CreateNode(seqNode, e.GetPosition(networkControl), false);
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex)
                 {
                     LogManager.Instance.WriteException(ex);
                 }
@@ -954,15 +954,15 @@ namespace FlowSimulator.UI
             {
                 if (networkControl.SelectedNodes.Count > 0)
                 {
-                    _ClipboardNodes.Clear();
+                    ClipboardNodes.Clear();
 
                     foreach (var node in networkControl.SelectedNodes)
                     {
-                        _ClipboardNodes.Add(node as NodeViewModel);
+                        ClipboardNodes.Add(node as NodeViewModel);
                     }
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 LogManager.Instance.WriteException(ex);
             }
@@ -977,11 +977,11 @@ namespace FlowSimulator.UI
         {
             try
             {
-                if (_ClipboardNodes.Count > 0)
+                if (ClipboardNodes.Count > 0)
                 {
                     networkControl.SelectedNodes.Clear();
                     networkControl.IsUndoRegisterEnabled = false;
-                    IEnumerable<NodeViewModel> nodes = ViewModel.CopyNodes(_ClipboardNodes);
+                    IEnumerable<NodeViewModel> nodes = ViewModel.CopyNodes(ClipboardNodes);
 
                     foreach (NodeViewModel node in nodes)
                     {
@@ -991,7 +991,7 @@ namespace FlowSimulator.UI
                     networkControl.IsUndoRegisterEnabled = true;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 LogManager.Instance.WriteException(ex);
             }

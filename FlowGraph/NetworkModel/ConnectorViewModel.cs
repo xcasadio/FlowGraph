@@ -19,13 +19,13 @@ namespace NetworkModel
         /// <summary>
         /// The connections that are attached to this connector, or null if no connections are attached.
         /// </summary>
-        private ImpObservableCollection<ConnectionViewModel> attachedConnections;
+        private ImpObservableCollection<ConnectionViewModel> _attachedConnections;
 
         /// <summary>
         /// The hotspot (or center) of the connector.
         /// This is pushed through from ConnectorItem in the UI.
         /// </summary>
-        private Point hotspot;
+        private Point _hotspot;
 
         /// <summary>
         /// The name of the connector.
@@ -112,14 +112,14 @@ namespace NetworkModel
         {
             get
             {
-                if (attachedConnections == null)
+                if (_attachedConnections == null)
                 {
-                    attachedConnections = new ImpObservableCollection<ConnectionViewModel>();
-                    attachedConnections.ItemsAdded += attachedConnections_ItemsAdded;
-                    attachedConnections.ItemsRemoved += attachedConnections_ItemsRemoved;
+                    _attachedConnections = new ImpObservableCollection<ConnectionViewModel>();
+                    _attachedConnections.ItemsAdded += attachedConnections_ItemsAdded;
+                    _attachedConnections.ItemsRemoved += attachedConnections_ItemsRemoved;
                 }
 
-                return attachedConnections;
+                return _attachedConnections;
             }
         }
 
@@ -138,15 +138,15 @@ namespace NetworkModel
         /// </summary>
         public Point Hotspot
         {
-            get => hotspot;
+            get => _hotspot;
             set
             {
-                if (hotspot == value)
+                if (_hotspot == value)
                 {
                     return;
                 }
 
-                hotspot = value;
+                _hotspot = value;
 
                 OnHotspotUpdated();
             }

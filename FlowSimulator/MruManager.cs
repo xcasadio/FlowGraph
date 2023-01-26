@@ -25,7 +25,7 @@ namespace FlowSimulator
         // Event raised when user selects file from MRU list
         public event MruFileOpenEventHandler MruOpenEvent;
 
-        private Window _ownerForm;                 // owner form
+        private Window _ownerForm;               // owner form
 
         private MenuItem _menuItemMru;           // Recent Files menu item
         private MenuItem _menuItemParent;        // Recent Files menu item parent
@@ -36,7 +36,7 @@ namespace FlowSimulator
 
         private int _maxDisplayLength = 40;      // maximum length of file name for display
 
-        private readonly StringList _mruList;              // MRU list (file names)
+        private readonly StringList _mruList;    // MRU list (file names)
 
         private const string RegEntryName = "file";  // entry name to keep MRU (file0, file1...)
 
@@ -144,7 +144,7 @@ namespace FlowSimulator
             _ownerForm.Closing += OnOwnerClosing;
 
             // load MRU list from Registry
-            LoadMRU();
+            LoadMru();
         }
 
         /// <summary>
@@ -300,7 +300,7 @@ namespace FlowSimulator
         /// Load MRU list from Registry.
         /// Called from Initialize.
         /// </summary>
-        private void LoadMRU()
+        private void LoadMru()
         {
             try
             {
@@ -333,7 +333,7 @@ namespace FlowSimulator
         /// Handle error from OnOwnerClosing function
         /// </summary>
         /// <param name="ex"></param>
-        private void HandleReadError(Exception ex)
+        private void HandleReadError(System.Exception ex)
         {
             Trace.WriteLine("Loading MRU from Registry failed: " + ex.Message);
         }
@@ -342,7 +342,7 @@ namespace FlowSimulator
         /// Handle error from OnOwnerClosing function
         /// </summary>
         /// <param name="ex"></param>
-        private void HandleWriteError(Exception ex)
+        private void HandleWriteError(System.Exception ex)
         {
             Trace.WriteLine("Saving MRU to Registry failed: " + ex.Message);
         }

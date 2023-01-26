@@ -32,7 +32,7 @@ namespace ZoomAndPan
                 Duration = TimeSpan.FromSeconds(animationDurationSeconds)
             };
 
-            animation.Completed += delegate(object sender, EventArgs e)
+            animation.Completed += delegate (object sender, EventArgs e)
             {
                 //
                 // When the animation has completed bake final value of the animation

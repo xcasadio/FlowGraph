@@ -40,7 +40,7 @@ namespace FlowSimulator.UI
             };
             linearBrush.GradientStops.Add(new GradientStop(varColor, 0));
             linearBrush.GradientStops.Add(new GradientStop(Color.FromArgb(153, 0, 0, 0), 0.4));
-            
+
             return linearBrush;
         }
 

@@ -4,9 +4,6 @@ using System.Windows;
 
 namespace FlowSimulator
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class PropertyChangedBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

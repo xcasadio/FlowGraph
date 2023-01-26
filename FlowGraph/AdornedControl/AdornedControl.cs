@@ -97,7 +97,7 @@ namespace AdornedControl
 
             _adornerShowState = AdornerShowState.Visible;
 
-            if (IsMouseOverShowEnabled 
+            if (IsMouseOverShowEnabled
                 && !IsMouseOver
                 && IsAlwaysVisible == false)
             {
@@ -143,7 +143,7 @@ namespace AdornedControl
             DoubleAnimation doubleAnimation = new DoubleAnimation(1.0, new Duration(TimeSpan.FromSeconds(FadeInTime)));
             doubleAnimation.Completed += fadeInAnimation_Completed;
             doubleAnimation.Freeze();
-                
+
             _adorner.BeginAnimation(OpacityProperty, doubleAnimation);
 
             _adornerShowState = AdornerShowState.FadingIn;
@@ -269,7 +269,7 @@ namespace AdornedControl
         /// </summary>
         public double FadeOutTime
         {
-            get => (double) GetValue(FadeOutTimeProperty);
+            get => (double)GetValue(FadeOutTimeProperty);
             set => SetValue(FadeOutTimeProperty, value);
         }
 
@@ -707,16 +707,16 @@ namespace AdornedControl
                         }
                     }
 
-                    _adorner = new FrameworkElementAdorner(AdornerContent, adornedControl, 
+                    _adorner = new FrameworkElementAdorner(AdornerContent, adornedControl,
                                                                HorizontalAdornerPlacement, VerticalAdornerPlacement,
                                                                AdornerOffsetX, AdornerOffsetY);
                     _adornerLayer.Add(_adorner);
 
-					//
-					// Update the layout of the _adorner layout so that clients that depend
-					// on the 'AdornerShown' event can use the visual tree of the _adorner.
-					//
-					_adornerLayer.UpdateLayout();
+                    //
+                    // Update the layout of the _adorner layout so that clients that depend
+                    // on the 'AdornerShown' event can use the visual tree of the _adorner.
+                    //
+                    _adornerLayer.UpdateLayout();
 
                     UpdateAdornerDataContext();
                 }
@@ -748,6 +748,6 @@ namespace AdornedControl
             //
             IsAdornerVisible = false;
             _adornerShowState = AdornerShowState.Hidden;
-		}
+        }
     }
 }

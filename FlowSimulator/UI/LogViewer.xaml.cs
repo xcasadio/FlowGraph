@@ -11,25 +11,25 @@ namespace FlowSimulator.UI
     /// </summary>
     public partial class LogViewer : UserControl
     {
-        ScrollViewer _ScrollViewer;
-        bool _IsAutoScroll = true;
+        ScrollViewer _scrollViewer;
+        bool _isAutoScroll = true;
 
         /// <summary>
         /// 
         /// </summary>
         public bool IsAutoScroll
         {
-            get => _IsAutoScroll;
-            set 
+            get => _isAutoScroll;
+            set
             {
-                if (_IsAutoScroll != value)
+                if (_isAutoScroll != value)
                 {
-                    _IsAutoScroll = value;
+                    _isAutoScroll = value;
 
-                    if (_IsAutoScroll
-                        && _ScrollViewer != null)
+                    if (_isAutoScroll
+                        && _scrollViewer != null)
                     {
-                        _ScrollViewer.ScrollToBottom();
+                        _scrollViewer.ScrollToBottom();
                     }
                 }
             }
@@ -53,20 +53,20 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (_ScrollViewer == null)
+            if (_scrollViewer == null)
             {
                 object o = logContent.Template.FindName("logScrollViewer", logContent);
 
                 if (o != null && o is ScrollViewer viewer)
                 {
-                    _ScrollViewer = viewer;
+                    _scrollViewer = viewer;
                 }
             }
 
-            if (_ScrollViewer != null &&
-                _IsAutoScroll)
+            if (_scrollViewer != null &&
+                _isAutoScroll)
             {
-                _ScrollViewer.ScrollToBottom();
+                _scrollViewer.ScrollToBottom();
             }
         }
 

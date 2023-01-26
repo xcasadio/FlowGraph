@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Xml;
 using FlowGraphBase;
 using FlowGraphBase.Logger;
@@ -7,39 +6,22 @@ using FlowSimulator.UI;
 
 namespace FlowSimulator.FlowGraphs
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class FlowGraphManager
     {
-        /// <summary>
-        /// Gets
-        /// </summary>
         public static FlowGraphManager Instance { get; } = new FlowGraphManager();
 
-        /// <summary>
-        /// 
-        /// </summary>
         public ObservableCollection<FlowGraphControlViewModel> FlowGraphList { get; } = new ObservableCollection<FlowGraphControlViewModel>();
 
-        /// <summary>
-        /// 
-        /// </summary>
         private FlowGraphManager()
         {
 
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public FlowGraphControlViewModel GetViewModelById(int id)
         {
             foreach (FlowGraphControlViewModel vm in FlowGraphList)
             {
-                if (vm.ID == id)
+                if (vm.Id == id)
                 {
                     return vm;
                 }
@@ -48,43 +30,26 @@ namespace FlowSimulator.FlowGraphs
             return null;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         internal void Clear()
         {
             FlowGraphList.Clear();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         internal void Add(FlowGraphControlViewModel viewModel)
         {
             FlowGraphList.Add(viewModel);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         internal void Remove(FlowGraphControlViewModel viewModel)
         {
             FlowGraphList.Remove(viewModel);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public bool IsChanges()
         {
             return false;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="node"></param>
         public void Load(XmlNode node)
         {
             try
@@ -98,16 +63,12 @@ namespace FlowSimulator.FlowGraphs
                     FlowGraphList.Add(new FlowGraphControlViewModel(graphNode));
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 LogManager.Instance.WriteException(ex);
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="node"></param>
         public void Save(XmlNode node)
         {
             // Create all sequence to reflect all changes make (because it is not done in real time)

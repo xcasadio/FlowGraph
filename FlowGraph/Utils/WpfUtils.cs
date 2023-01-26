@@ -35,13 +35,13 @@ namespace Utils
             return null;
         }
 
-        public static FrameworkElement FindParentWithDataContextAndName<DataContextT>(FrameworkElement childElement, string name)
-            where DataContextT : class
+        public static FrameworkElement FindParentWithDataContextAndName<TDataContextT>(FrameworkElement childElement, string name)
+            where TDataContextT : class
         {
             FrameworkElement parent = (FrameworkElement)childElement.Parent;
             if (parent != null)
             {
-                if (parent.DataContext is DataContextT data)
+                if (parent.DataContext is TDataContextT data)
                 {
                     if (parent.Name == name)
                     {
@@ -49,7 +49,7 @@ namespace Utils
                     }
                 }
 
-                parent = FindParentWithDataContextAndName<DataContextT>(parent, name);
+                parent = FindParentWithDataContextAndName<TDataContextT>(parent, name);
                 if (parent != null)
                 {
                     return parent;
@@ -59,7 +59,7 @@ namespace Utils
             parent = (FrameworkElement)childElement.TemplatedParent;
             if (parent != null)
             {
-                if (parent.DataContext is DataContextT data)
+                if (parent.DataContext is TDataContextT data)
                 {
                     if (parent.Name == name)
                     {
@@ -67,7 +67,7 @@ namespace Utils
                     }
                 }
 
-                parent = FindParentWithDataContextAndName<DataContextT>(parent, name);
+                parent = FindParentWithDataContextAndName<TDataContextT>(parent, name);
                 if (parent != null)
                 {
                     return parent;
@@ -77,17 +77,17 @@ namespace Utils
             return null;
         }
 
-        public static FrameworkElement FindParentWithDataContext<DataContextT>(FrameworkElement childElement)
-            where DataContextT : class
+        public static FrameworkElement FindParentWithDataContext<TDataContextT>(FrameworkElement childElement)
+            where TDataContextT : class
         {
             if (childElement.Parent != null)
             {
-                if (((FrameworkElement)childElement.Parent).DataContext is DataContextT data)
+                if (((FrameworkElement)childElement.Parent).DataContext is TDataContextT data)
                 {
                     return (FrameworkElement)childElement.Parent;
                 }
 
-                FrameworkElement parent = FindParentWithDataContext<DataContextT>((FrameworkElement)childElement.Parent);
+                FrameworkElement parent = FindParentWithDataContext<TDataContextT>((FrameworkElement)childElement.Parent);
                 if (parent != null)
                 {
                     return parent;
@@ -96,12 +96,12 @@ namespace Utils
 
             if (childElement.TemplatedParent != null)
             {
-                if (((FrameworkElement)childElement.TemplatedParent).DataContext is DataContextT data)
+                if (((FrameworkElement)childElement.TemplatedParent).DataContext is TDataContextT data)
                 {
                     return (FrameworkElement)childElement.TemplatedParent;
                 }
 
-                FrameworkElement parent = FindParentWithDataContext<DataContextT>((FrameworkElement)childElement.TemplatedParent);
+                FrameworkElement parent = FindParentWithDataContext<TDataContextT>((FrameworkElement)childElement.TemplatedParent);
                 if (parent != null)
                 {
                     return parent;
@@ -111,82 +111,34 @@ namespace Utils
             return null;
         }
 
-        public static ParentT FindVisualParentWithType<ParentT>(FrameworkElement childElement)
-            where ParentT : class
+        public static TParentT FindVisualParentWithType<TParentT>(FrameworkElement childElement)
+            where TParentT : class
         {
             FrameworkElement parentElement = (FrameworkElement)VisualTreeHelper.GetParent(childElement);
             if (parentElement != null)
             {
-                if (parentElement is ParentT parent)
+                if (parentElement is TParentT parent)
                 {
                     return parent;
                 }
 
-                return FindVisualParentWithType<ParentT>(parentElement);
+                return FindVisualParentWithType<TParentT>(parentElement);
             }
 
             return null;
         }
 
-        public static ParentT FindParentWithType<ParentT>(FrameworkElement childElement)
-            where ParentT : class
+        public static TParentT FindParentWithType<TParentT>(FrameworkElement childElement)
+            where TParentT : class
         {
             if (childElement.Parent != null)
             {
-                if (childElement.Parent is ParentT parent)
+                if (childElement.Parent is TParentT parent)
                 {
                     return parent;
                 }
 
-                parent = FindParentWithType<ParentT>((FrameworkElement)childElement.Parent);
-                if (parent != null)
-        {
-                    return parent;
-                }
-            }
-
-            if (childElement.TemplatedParent != null)
-            {
-                if (childElement.TemplatedParent is ParentT parent)
-                {
-                    return parent;
-                }
-
-                parent = FindParentWithType<ParentT>((FrameworkElement)childElement.TemplatedParent);
-                if (parent != null)
-                {
-                    return parent;
-                }
-            }
-
-            FrameworkElement parentElement = (FrameworkElement)VisualTreeHelper.GetParent(childElement);
-            if (parentElement != null)
-            {
-                if (parentElement is ParentT parent)
-                {
-                    return parent;
-                }
-
-                return FindParentWithType<ParentT>(parentElement);
-            }
-
-            return null;
-        }
-
-        public static ParentT FindParentWithTypeAndDataContext<ParentT>(FrameworkElement childElement, object dataContext)
-            where ParentT : FrameworkElement
-        {
-            if (childElement.Parent != null)
-            {
-                if (childElement.Parent is ParentT parent)
-                {
-                    if (parent.DataContext == dataContext)
-                    {
-                        return parent;
-                    }
-                }
-
-                parent = FindParentWithTypeAndDataContext<ParentT>((FrameworkElement)childElement.Parent, dataContext);
+                parent = FindParentWithType<TParentT>((FrameworkElement)childElement.Parent);
                 if (parent != null)
                 {
                     return parent;
@@ -195,15 +147,12 @@ namespace Utils
 
             if (childElement.TemplatedParent != null)
             {
-                if (childElement.TemplatedParent is ParentT parent)
+                if (childElement.TemplatedParent is TParentT parent)
                 {
-                    if (parent.DataContext == dataContext)
-                    {
-                        return parent;
-                    }
+                    return parent;
                 }
 
-                parent = FindParentWithTypeAndDataContext<ParentT>((FrameworkElement)childElement.TemplatedParent, dataContext);
+                parent = FindParentWithType<TParentT>((FrameworkElement)childElement.TemplatedParent);
                 if (parent != null)
                 {
                     return parent;
@@ -213,12 +162,63 @@ namespace Utils
             FrameworkElement parentElement = (FrameworkElement)VisualTreeHelper.GetParent(childElement);
             if (parentElement != null)
             {
-                if (parentElement is ParentT parent)
+                if (parentElement is TParentT parent)
                 {
                     return parent;
                 }
 
-                return FindParentWithType<ParentT>(parentElement);
+                return FindParentWithType<TParentT>(parentElement);
+            }
+
+            return null;
+        }
+
+        public static TParentT FindParentWithTypeAndDataContext<TParentT>(FrameworkElement childElement, object dataContext)
+            where TParentT : FrameworkElement
+        {
+            if (childElement.Parent != null)
+            {
+                if (childElement.Parent is TParentT parent)
+                {
+                    if (parent.DataContext == dataContext)
+                    {
+                        return parent;
+                    }
+                }
+
+                parent = FindParentWithTypeAndDataContext<TParentT>((FrameworkElement)childElement.Parent, dataContext);
+                if (parent != null)
+                {
+                    return parent;
+                }
+            }
+
+            if (childElement.TemplatedParent != null)
+            {
+                if (childElement.TemplatedParent is TParentT parent)
+                {
+                    if (parent.DataContext == dataContext)
+                    {
+                        return parent;
+                    }
+                }
+
+                parent = FindParentWithTypeAndDataContext<TParentT>((FrameworkElement)childElement.TemplatedParent, dataContext);
+                if (parent != null)
+                {
+                    return parent;
+                }
+            }
+
+            FrameworkElement parentElement = (FrameworkElement)VisualTreeHelper.GetParent(childElement);
+            if (parentElement != null)
+            {
+                if (parentElement is TParentT parent)
+                {
+                    return parent;
+                }
+
+                return FindParentWithType<TParentT>(parentElement);
             }
 
             return null;
@@ -275,10 +275,10 @@ namespace Utils
                 {
                     hitElement = hitElement.TemplatedParent as FrameworkElement;
                     continue;
-            }
+                }
 
                 break;
-        }
+            }
 
             return hitData;
         }
@@ -287,30 +287,30 @@ namespace Utils
         /// <summary>
         /// Hit test for a specific data context and name.
         /// </summary>
-        public static DataContextT HitTestForDataContextAndName<DataContextT, ElementT>(FrameworkElement rootElement, 
-                                          Point point, string name, out ElementT hitFrameworkElement)
-            where DataContextT : class
-            where ElementT : FrameworkElement
+        public static TDataContextT HitTestForDataContextAndName<TDataContextT, TElementT>(FrameworkElement rootElement,
+                                          Point point, string name, out TElementT hitFrameworkElement)
+            where TDataContextT : class
+            where TElementT : FrameworkElement
         {
-            DataContextT data = null;
+            TDataContextT data = null;
             hitFrameworkElement = null;
-            ElementT frameworkElement = null;
+            TElementT frameworkElement = null;
 
             VisualTreeHelper.HitTest(
                     rootElement,
                     // Hit test filter.
                     null,
                     // Hit test result.
-                    delegate(HitTestResult result)
+                    delegate (HitTestResult result)
                     {
-                        frameworkElement = result.VisualHit as ElementT;
+                        frameworkElement = result.VisualHit as TElementT;
                         if (frameworkElement != null)
                         {
-                            data = frameworkElement.DataContext as DataContextT;
+                            data = frameworkElement.DataContext as TDataContextT;
                             if (data != null)
-        {
+                            {
                                 if (frameworkElement.Name == name)
-            {
+                                {
                                     return HitTestResultBehavior.Stop;
                                 }
                             }
@@ -323,7 +323,7 @@ namespace Utils
 
             hitFrameworkElement = frameworkElement;
             return data;
-            }
+        }
 
 
         /// <summary>
@@ -331,28 +331,28 @@ namespace Utils
         /// of the specified type.
         /// Returns 'null' if nothing was 'hit'.
         /// </summary>
-        public static DataContextT HitTestForDataContext<DataContextT, ElementT>(FrameworkElement rootElement, 
-                                          Point point, out ElementT hitFrameworkElement)
-            where DataContextT : class
-            where ElementT : FrameworkElement
+        public static TDataContextT HitTestForDataContext<TDataContextT, TElementT>(FrameworkElement rootElement,
+                                          Point point, out TElementT hitFrameworkElement)
+            where TDataContextT : class
+            where TElementT : FrameworkElement
         {
-            DataContextT data = null;
+            TDataContextT data = null;
             hitFrameworkElement = null;
-            ElementT frameworkElement = null;
+            TElementT frameworkElement = null;
 
             VisualTreeHelper.HitTest(
                     rootElement,
                     // Hit test filter.
                     null,
                     // Hit test result.
-                    delegate(HitTestResult result)
+                    delegate (HitTestResult result)
                     {
-                        frameworkElement = result.VisualHit as ElementT;
+                        frameworkElement = result.VisualHit as TElementT;
                         if (frameworkElement != null)
-            {
-                            data = frameworkElement.DataContext as DataContextT;
+                        {
+                            data = frameworkElement.DataContext as TDataContextT;
                             return data != null ? HitTestResultBehavior.Stop : HitTestResultBehavior.Continue;
-            }
+                        }
 
                         return HitTestResultBehavior.Continue;
                     },
@@ -389,10 +389,10 @@ namespace Utils
                 }
 
                 if (element.TemplatedParent is FrameworkElement parent)
-                    {
+                {
                     return FindAncestor<T>(parent);
-                    }
                 }
+            }
 
             DependencyObject visualParent = VisualTreeHelper.GetParent(element);
             if (visualParent != null)
@@ -400,16 +400,16 @@ namespace Utils
                 if (visualParent is T visualAncestor)
                 {
                     return visualAncestor;
-            }
+                }
 
                 if (visualParent is FrameworkElement visualElement)
-            {
+                {
                     return FindAncestor<T>(visualElement);
                 }
             }
 
-                return null;
-            }
+            return null;
+        }
 
         /// <summary>
         /// Transform a point to an ancestors coordinate system.
@@ -436,8 +436,8 @@ namespace Utils
         /// <summary>
         /// Find the framework element with the specified name.
         /// </summary>
-        public static ElementT FindElementWithName<ElementT>(Visual rootElement, string name)
-            where ElementT : FrameworkElement
+        public static TElementT FindElementWithName<TElementT>(Visual rootElement, string name)
+            where TElementT : FrameworkElement
         {
             if (rootElement is FrameworkElement rootFrameworkElement)
             {
@@ -449,15 +449,15 @@ namespace Utils
             {
                 Visual childElement = (Visual)VisualTreeHelper.GetChild(rootElement, i);
 
-                if (childElement is ElementT typedChildElement)
+                if (childElement is TElementT typedChildElement)
                 {
                     if (typedChildElement.Name == name)
-                {
+                    {
                         return typedChildElement;
                     }
                 }
 
-                ElementT foundElement = FindElementWithName<ElementT>(childElement, name);
+                TElementT foundElement = FindElementWithName<TElementT>(childElement, name);
                 if (foundElement != null)
                 {
                     return foundElement;
@@ -470,32 +470,32 @@ namespace Utils
         /// <summary>
         /// Find the framework element for the specified connector.
         /// </summary>
-        public static ElementT FindElementWithDataContextAndName<DataContextT, ElementT>(Visual rootElement, DataContextT data, string name)
-            where DataContextT : class
-            where ElementT : FrameworkElement
+        public static TElementT FindElementWithDataContextAndName<TDataContextT, TElementT>(Visual rootElement, TDataContextT data, string name)
+            where TDataContextT : class
+            where TElementT : FrameworkElement
         {
             Trace.Assert(rootElement != null);
 
             if (rootElement is FrameworkElement rootFrameworkElement)
-        {
+            {
                 rootFrameworkElement.UpdateLayout();
-        }
+            }
 
             int numChildren = VisualTreeHelper.GetChildrenCount(rootElement);
             for (int i = 0; i < numChildren; ++i)
             {
                 Visual childElement = (Visual)VisualTreeHelper.GetChild(rootElement, i);
 
-                if (childElement is ElementT typedChildElement &&
+                if (childElement is TElementT typedChildElement &&
                     typedChildElement.DataContext == data)
                 {
                     if (typedChildElement.Name == name)
-                {
+                    {
                         return typedChildElement;
                     }
                 }
 
-                ElementT foundElement = FindElementWithDataContextAndName<DataContextT, ElementT>(childElement, data, name);
+                TElementT foundElement = FindElementWithDataContextAndName<TDataContextT, TElementT>(childElement, data, name);
                 if (foundElement != null)
                 {
                     return foundElement;
@@ -508,16 +508,16 @@ namespace Utils
         /// <summary>
         /// Find the framework element for the specified connector.
         /// </summary>
-        public static ElementT FindElementWithType<ElementT>(Visual rootElement)
-            where ElementT : FrameworkElement
+        public static TElementT FindElementWithType<TElementT>(Visual rootElement)
+            where TElementT : FrameworkElement
         {
             if (rootElement == null)
             {
-                throw new ArgumentNullException("rootElement");
+                throw new ArgumentNullException(nameof(rootElement));
             }
 
             if (rootElement is FrameworkElement rootFrameworkElement)
-        {
+            {
                 rootFrameworkElement.UpdateLayout();
             }
 
@@ -529,11 +529,11 @@ namespace Utils
             {
                 Visual childElement = (Visual)VisualTreeHelper.GetChild(rootElement, i);
 
-                if (childElement is ElementT typedChildElement)
-                    {
+                if (childElement is TElementT typedChildElement)
+                {
                     return typedChildElement;
-                    }
                 }
+            }
 
             //
             // Check sub-trees.
@@ -542,7 +542,7 @@ namespace Utils
             {
                 Visual childElement = (Visual)VisualTreeHelper.GetChild(rootElement, i);
 
-                ElementT foundElement = FindElementWithType<ElementT>(childElement);
+                TElementT foundElement = FindElementWithType<TElementT>(childElement);
                 if (foundElement != null)
                 {
                     return foundElement;
@@ -555,13 +555,13 @@ namespace Utils
         /// <summary>
         /// Find the framework element for the specified connector.
         /// </summary>
-        public static ElementT FindElementWithDataContext<DataContextT, ElementT>(Visual rootElement, DataContextT data) 
-            where DataContextT : class
-            where ElementT : FrameworkElement
+        public static TElementT FindElementWithDataContext<TDataContextT, TElementT>(Visual rootElement, TDataContextT data)
+            where TDataContextT : class
+            where TElementT : FrameworkElement
         {
             if (rootElement == null)
             {
-                throw new ArgumentNullException("rootElement");
+                throw new ArgumentNullException(nameof(rootElement));
             }
 
             if (rootElement is FrameworkElement rootFrameworkElement)
@@ -574,13 +574,13 @@ namespace Utils
             {
                 Visual childElement = (Visual)VisualTreeHelper.GetChild(rootElement, i);
 
-                if (childElement is ElementT typedChildElement &&
+                if (childElement is TElementT typedChildElement &&
                     typedChildElement.DataContext == data)
                 {
                     return typedChildElement;
                 }
 
-                ElementT foundElement = FindElementWithDataContext<DataContextT, ElementT>(childElement, data);
+                TElementT foundElement = FindElementWithDataContext<TDataContextT, TElementT>(childElement, data);
                 if (foundElement != null)
                 {
                     return foundElement;
@@ -594,28 +594,28 @@ namespace Utils
         /// Walk up the visual tree and find a template for the specified type.
         /// Returns null if none was found.
         /// </summary>
-        public static DataTemplateT FindTemplateForType<DataTemplateT>(Type type, FrameworkElement element)
-            where DataTemplateT : class
-                    {
+        public static TDataTemplateT FindTemplateForType<TDataTemplateT>(Type type, FrameworkElement element)
+            where TDataTemplateT : class
+        {
             object resource = element.TryFindResource(new DataTemplateKey(type));
-            if (resource is DataTemplateT dataTemplate)
-                        {
+            if (resource is TDataTemplateT dataTemplate)
+            {
                 return dataTemplate;
-                        }
+            }
 
             if (type.BaseType != null &&
                 type.BaseType != typeof(object))
             {
-                dataTemplate = FindTemplateForType<DataTemplateT>(type.BaseType, element);
+                dataTemplate = FindTemplateForType<TDataTemplateT>(type.BaseType, element);
                 if (dataTemplate != null)
                 {
                     return dataTemplate;
-                    }
                 }
+            }
 
             foreach (Type interfaceType in type.GetInterfaces())
             {
-                dataTemplate = FindTemplateForType<DataTemplateT>(interfaceType, element);
+                dataTemplate = FindTemplateForType<TDataTemplateT>(interfaceType, element);
                 if (dataTemplate != null)
                 {
                     return dataTemplate;
@@ -679,8 +679,8 @@ namespace Utils
                 }
 
                 FindTypedElements(childElement, foundElements);
-                }
             }
+        }
 
         /// <summary>
         /// Recursively dump out all elements in the visual tree.
@@ -700,13 +700,13 @@ namespace Utils
             Trace.Write(root.GetType().Name);
 
             if (root is FrameworkElement rootElement)
-        {
-                if (rootElement.DataContext != null)
             {
+                if (rootElement.DataContext != null)
+                {
                     Trace.Write(" [");
                     Trace.Write(rootElement.DataContext.GetType().Name);
                     Trace.Write("]");
-            }
+                }
             }
 
             Trace.WriteLine("");
@@ -721,7 +721,7 @@ namespace Utils
                 {
                     Visual child = (Visual)VisualTreeHelper.GetChild(root, i);
                     DumpVisualTree(child, indentLevel + 1);
-            }
+                }
 
                 Trace.Write(indentStr);
                 Trace.WriteLine("}");

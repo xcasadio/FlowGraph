@@ -4,7 +4,6 @@
         xmlns:avalondock="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:extToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:process="clr-namespace:FlowGraphBase.Process;assembly=FlowGraphBase"
-        xmlns:local="clr-namespace:FlowSimulator"
         xmlns:ui="clr-namespace:FlowSimulator.UI"
         
         Title="Flow Simulator" Height="681" Width="851">
@@ -26,10 +25,10 @@
     </Window.CommandBindings>
 
     <Window.InputBindings>
-        <KeyBinding Key="N" Modifiers="Control" Command="New"></KeyBinding>
-        <KeyBinding Key="O" Modifiers="Control" Command="Open"></KeyBinding>
-        <KeyBinding Key="S" Modifiers="Control+Shift" Command="SaveAs"></KeyBinding>
-        <KeyBinding Key="S" Modifiers="Control" Command="Save"></KeyBinding>
+        <KeyBinding Key="N" Modifiers="Control" Command="New" />
+        <KeyBinding Key="O" Modifiers="Control" Command="Open" />
+        <KeyBinding Key="S" Modifiers="Control+Shift" Command="SaveAs" />
+        <KeyBinding Key="S" Modifiers="Control" Command="Save" />
         <!--KeyBinding Key="F4" Modifiers="Alt" Command="Exit"></KeyBinding-->
 
         <KeyBinding Gesture="Ctrl+F5" Command="{StaticResource Commands.FlowGraph.Stop}"/>
@@ -59,7 +58,7 @@
             <MenuItem Header="Workspace">
                 <MenuItem Header="Save" Click="MenuItemWorkspaceSave_Click" />
                 <MenuItem Header="Windows" Name="menuItemWindows" SubmenuOpened="menuItemWindows_SubmenuOpened" >
-                    <MenuItem></MenuItem>
+                    <MenuItem />
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="?" Click="MenuIte_HelpClick" />
@@ -258,8 +257,7 @@
                      </avalondock:LayoutAnchorablePaneGroup>
 
                     <avalondock:LayoutDocumentPaneGroup>
-                        <avalondock:LayoutDocumentPane>
-                        </avalondock:LayoutDocumentPane>
+                        <avalondock:LayoutDocumentPane />
                     </avalondock:LayoutDocumentPaneGroup>
 
                 </avalondock:LayoutPanel>
@@ -267,9 +265,8 @@
         </avalondock:DockingManager>
 
         <extToolkit:WindowContainer x:Name="windowContainer" Grid.Row="2"
-                                     ModalBackgroundBrush="#80000000">
-        </extToolkit:WindowContainer>
-        
+                                     ModalBackgroundBrush="#80000000" />
+
         <StatusBar x:Name="statusBar" Grid.Row="3">
             <StatusBar.Resources>
                 <Style TargetType="Label">

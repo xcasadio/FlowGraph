@@ -97,7 +97,7 @@ namespace FlowGraphBaseTest
     public class SequenceNodeDummy : SequenceNode
     {
         protected override void InitializeSlots()
-        {}
+        { }
 
         protected override SequenceNode CopyImpl()
         {

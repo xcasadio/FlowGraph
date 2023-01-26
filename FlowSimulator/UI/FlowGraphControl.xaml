@@ -6,8 +6,7 @@
 			xmlns:ZoomAndPan="clr-namespace:ZoomAndPan;assembly=ZoomAndPan"
             xmlns:scroll="clr-namespace:MouseDragScrollViewer;assembly=MouseDragScrollViewer"
 			xmlns:ac="clr-namespace:AdornedControl;assembly=AdornedControl"
-			xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
-			xmlns:node="clr-namespace:FlowGraphBase.Node;assembly=FlowGraphBase"
+            xmlns:node="clr-namespace:FlowGraphBase.Node;assembly=FlowGraphBase"
 			xmlns:local="clr-namespace:FlowSimulator.UI"
             xmlns:sys="clr-namespace:System;assembly=mscorlib"
             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
@@ -825,7 +824,7 @@
                     </Button.Style>
                 </Button>
                 
-                <Separator></Separator>
+                <Separator />
 
                 <Button Command="{StaticResource Commands.FlowGraph.Copy}" ToolTip="Copy" >
                     <Image x:Name="imgCopy" Width="16" Height="16" Source="/Resources/Copy-icon.png"

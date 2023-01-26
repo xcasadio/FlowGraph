@@ -33,17 +33,17 @@ namespace NetworkUI
         /// <summary>
         /// The point the mouse was last at when dragging.
         /// </summary>
-        private Point lastMousePoint;
+        private Point _lastMousePoint;
 
         /// <summary>
         /// Set to 'true' when left mouse button is held down.
         /// </summary>
-        private bool isLeftMouseDown;
+        private bool _isLeftMouseDown;
 
         /// <summary>
         /// Set to 'true' when the user is dragging the connector.
         /// </summary>
-        private bool isDragging;
+        private bool _isDragging;
 
         /// <summary>
         /// The threshold distance the mouse-cursor must move before dragging begins.
@@ -82,7 +82,7 @@ namespace NetworkUI
             set => SetValue(ParentNetworkViewProperty, value);
         }
 
-       
+
         /// <summary>
         /// Reference to the data-bound parent NodeItem.
         /// </summary>
@@ -118,8 +118,8 @@ namespace NetworkUI
                 //
                 ParentNodeItem?.LeftMouseDownSelectionLogic();
 
-                lastMousePoint = e.GetPosition(ParentNetworkView);
-                isLeftMouseDown = true;
+                _lastMousePoint = e.GetPosition(ParentNetworkView);
+                _isLeftMouseDown = true;
                 e.Handled = true;
             }
             else if (e.ChangedButton == MouseButton.Right)
@@ -138,25 +138,25 @@ namespace NetworkUI
         {
             base.OnMouseMove(e);
 
-            if (isDragging)
+            if (_isDragging)
             {
                 //
                 // Raise the event to notify that dragging is in progress.
                 //
 
                 Point curMousePoint = e.GetPosition(ParentNetworkView);
-                Vector offset = curMousePoint - lastMousePoint;
+                Vector offset = curMousePoint - _lastMousePoint;
                 if (offset.X != 0.0 &&
                     offset.Y != 0.0)
                 {
-                    lastMousePoint = curMousePoint;
+                    _lastMousePoint = curMousePoint;
 
                     RaiseEvent(new ConnectorItemDraggingEventArgs(ConnectorDraggingEvent, this, offset.X, offset.Y));
                 }
 
                 e.Handled = true;
             }
-            else if (isLeftMouseDown)
+            else if (_isLeftMouseDown)
             {
                 if (ParentNetworkView != null &&
                     ParentNetworkView.EnableConnectionDragging)
@@ -167,7 +167,7 @@ namespace NetworkUI
                     // the mouse cursor has moved more than the threshold distance.
                     //
                     Point curMousePoint = e.GetPosition(ParentNetworkView);
-                    var dragDelta = curMousePoint - lastMousePoint;
+                    var dragDelta = curMousePoint - _lastMousePoint;
                     double dragDistance = Math.Abs(dragDelta.Length);
                     if (dragDistance > DragThreshold)
                     {
@@ -186,11 +186,11 @@ namespace NetworkUI
                             //
                             // Handler of the event disallowed dragging of the node.
                             //
-                            isLeftMouseDown = false;
+                            _isLeftMouseDown = false;
                             return;
                         }
 
-                        isDragging = true;
+                        _isDragging = true;
                         CaptureMouse();
                         e.Handled = true;
                     }
@@ -207,15 +207,15 @@ namespace NetworkUI
 
             if (e.ChangedButton == MouseButton.Left)
             {
-                if (isLeftMouseDown)
+                if (_isLeftMouseDown)
                 {
-                    if (isDragging)
+                    if (_isDragging)
                     {
                         RaiseEvent(new ConnectorItemDragCompletedEventArgs(ConnectorDragCompletedEvent, this));
-                        
+
                         ReleaseMouseCapture();
 
-                        isDragging = false;
+                        _isDragging = false;
                     }
                     else
                     {
@@ -228,7 +228,7 @@ namespace NetworkUI
                         ParentNodeItem?.LeftMouseUpSelectionLogic();
                     }
 
-                    isLeftMouseDown = false;
+                    _isLeftMouseDown = false;
 
                     e.Handled = true;
                 }
@@ -240,14 +240,14 @@ namespace NetworkUI
         /// </summary>
         internal void CancelConnectionDragging()
         {
-            if (isLeftMouseDown)
+            if (_isLeftMouseDown)
             {
                 //
                 // Raise ConnectorDragCompleted, with a null connector.
                 //
                 RaiseEvent(new ConnectorItemDragCompletedEventArgs(ConnectorDragCompletedEvent, null));
 
-                isLeftMouseDown = false;
+                _isLeftMouseDown = false;
                 ReleaseMouseCapture();
             }
         }
@@ -304,6 +304,6 @@ namespace NetworkUI
             // to the view-model.
             //
             Hotspot = TransformToAncestor(ParentNetworkView).Transform(centerPoint);
-       }
+        }
     }
 }

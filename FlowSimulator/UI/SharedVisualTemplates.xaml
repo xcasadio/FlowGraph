@@ -2,12 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:NetworkUI="clr-namespace:NetworkUI;assembly=NetworkUI"
-    xmlns:NetworkModel="clr-namespace:NetworkModel;assembly=NetworkModel"
-    xmlns:ac="clr-namespace:AdornedControl;assembly=AdornedControl"
-    xmlns:ui="clr-namespace:FlowSimulator.UI"
-    xmlns:root="clr-namespace:FlowSimulator"
-    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-    >
+    xmlns:ui="clr-namespace:FlowSimulator.UI">
 
     <ui:TypeToColorConverter x:Key="typeToColorConverter" />
 
@@ -21,7 +16,7 @@
     <!-- The border brush for nodes. -->
     <SolidColorBrush x:Key="nodeBorderBrush" Color="Gray" />
     <SolidColorBrush x:Key="nodeProcesingBorder" Color="Yellow" />
-    
+
 
     <!-- The fill brush for nodes. -->
     <LinearGradientBrush
@@ -44,7 +39,7 @@
         x:Key="connectionBrush"
         Color="White"
         />
-    
+
     <!-- The brush for connectors. -->
     <SolidColorBrush
         x:Key="connectorBackgroundBrush"
@@ -111,7 +106,7 @@
 
             <Label Grid.Row="0" Grid.Column="0" Content="Subject" Foreground="White" />
             <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding Subject, Mode=TwoWay}" Margin="2"/>
-            
+
             <Label Grid.Row="1" Grid.Column="0" Content="Service" Foreground="White" />
             <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Service, Mode=TwoWay}" Margin="2"/>
 
@@ -120,7 +115,7 @@
 
             <Label Grid.Row="1" Grid.Column="2" Content="Daemon" Foreground="White" />
             <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Daemon, Mode=TwoWay}" Margin="2"/>
-            
+
             <CheckBox Content="Is Prod ?" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
                     HorizontalAlignment="Right" VerticalAlignment="Center"
                     IsChecked="{Binding IsProdSession}" Margin="10,0,0,0" Foreground="White" />
@@ -153,7 +148,7 @@
             Value="{Binding IsSelected}"
             />
     </Style>
-    
+
     <!-- 
     A data-template that defines the UI for input connectors.
     -->
@@ -183,7 +178,7 @@
     -->
     <DataTemplate x:Key="inputVariableConnectorTemplate" >
         <Grid Margin="0,2,0,0" >
-            
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
@@ -225,7 +220,7 @@
                 </ContentControl.Style>
 
             </ContentControl>
-            
+
             <!-- The value of the connector. -->
             <!--TextBox Grid.Column="2" Margin="5,0,0,0" Padding="0"
                 TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -270,7 +265,7 @@
 
             <!-- The 'ConnectorItem' or anchor point for the connector. -->
             <NetworkUI:ConnectorItem Grid.Column="1" />
-            
+
         </Grid>
     </DataTemplate>
 
@@ -281,7 +276,7 @@
         <Grid
             HorizontalAlignment="Right"
             Margin="0,2,0,0" >
-            
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -307,7 +302,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            
+
             <!-- The control for the value -->
             <ContentControl Grid.Column="0" DataContext="{Binding SourceSlot.Node}" Margin="0,0,5,0">
                 <ContentControl.ContentTemplateSelector>
@@ -376,9 +371,9 @@
                     <Image Grid.Column="3" Stretch="None" Visibility="Hidden"
                         Source="/FlowSimulator;component/Resources/Aqua-Ball-Red-icon.png" 
                         HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    
+
                 </Grid>
-                
+
             </Border>
 
             <!-- Displays the all node's input connectors. -->
@@ -395,7 +390,7 @@
                         VarOutTemplate="{StaticResource outputVariableConnectorTemplate}" />
                 </ItemsControl.ItemTemplateSelector>
             </ItemsControl>
-                
+
             <!-- Displays the all node's output connectors. -->
             <ItemsControl
                     Grid.Column="2"
@@ -420,7 +415,7 @@
                 <Label.Style>
                     <Style TargetType="Label">
                         <Setter Property="Visibility" Value="Collapsed" />
-                        
+
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding State}" Value="Error" >
                                 <Setter Property="Visibility" Value="Visible" />
@@ -452,13 +447,13 @@
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                     Foreground="{StaticResource nodeTextBrush}" />
 
-            <Grid Grid.Row="2">                
+            <Grid Grid.Row="2">
                 <ItemsControl 
                     ItemsSource="{Binding InOutVariableConnectors}"
                     ItemTemplate="{StaticResource InOutVariableConnectorTemplate}"
                     Focusable="False" />
             </Grid>
-            
+
         </Grid>
     </DataTemplate>
 

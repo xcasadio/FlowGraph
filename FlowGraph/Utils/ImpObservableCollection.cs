@@ -41,12 +41,12 @@ namespace Utils
         /// <summary>
         /// Inner list.
         /// </summary>
-        private readonly List<T> inner = new List<T>();
+        private readonly List<T> _inner = new List<T>();
 
         /// <summary>
         /// Set to 'true' when in a collection changed event.
         /// </summary>
-        private bool inCollectionChangedEvent;
+        private bool _inCollectionChangedEvent;
 
         public ImpObservableCollection()
         {
@@ -60,7 +60,7 @@ namespace Utils
         public ImpObservableCollection(IList<T> list) :
             base(list)
         {
-            inner.AddRange(list);
+            _inner.AddRange(list);
         }
 
         public void AddRange(T[] range)
@@ -137,29 +137,29 @@ namespace Utils
 
         protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
-            Trace.Assert(!inCollectionChangedEvent);
+            Trace.Assert(!_inCollectionChangedEvent);
 
             base.OnCollectionChanged(e);
 
-            inCollectionChangedEvent = true;
+            _inCollectionChangedEvent = true;
 
             try
             {
                 if (e.Action == NotifyCollectionChangedAction.Reset)
                 {
-                    if (inner.Count > 0)
+                    if (_inner.Count > 0)
                     {
-                        OnItemsRemoved(inner);
+                        OnItemsRemoved(_inner);
                     }
 
-                    inner.Clear();
+                    _inner.Clear();
                 }
-                
+
                 if (e.OldItems != null)
                 {
                     foreach (T item in e.OldItems)
                     {
-                        inner.Remove(item);
+                        _inner.Remove(item);
                     }
 
                     OnItemsRemoved(e.OldItems);
@@ -169,7 +169,7 @@ namespace Utils
                 {
                     foreach (T item in e.NewItems)
                     {
-                        inner.Add(item);
+                        _inner.Add(item);
                     }
 
                     OnItemsAdded(e.NewItems);
@@ -177,7 +177,7 @@ namespace Utils
             }
             finally
             {
-                inCollectionChangedEvent = false;
+                _inCollectionChangedEvent = false;
             }
         }
 
@@ -203,7 +203,7 @@ namespace Utils
 
         public T[] ToArray()
         {
-            return inner.ToArray();
+            return _inner.ToArray();
         }
 
         public T2[] ToArray<T2>()

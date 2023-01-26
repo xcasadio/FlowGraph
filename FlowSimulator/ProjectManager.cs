@@ -1,19 +1,12 @@
-﻿using System;
-using System.Xml;
+﻿using System.Xml;
 using FlowGraphBase;
 using FlowGraphBase.Logger;
 using FlowSimulator.FlowGraphs;
 
 namespace FlowSimulator
 {
-    /// <summary>
-    /// 
-    /// </summary>
     internal static class ProjectManager
     {
-        /// <summary>
-        /// 
-        /// </summary>
         public static void Clear()
         {
             NamedVariableManager.Instance.Clear();
@@ -22,10 +15,6 @@ namespace FlowSimulator
             MainWindow.Instance.DetailsControl.DataContext = null;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="fileName"></param>
         public static bool OpenFile(string fileName)
         {
             Clear();
@@ -47,7 +36,7 @@ namespace FlowSimulator
 
                 LogManager.Instance.WriteLine(LogVerbosity.Info, "'{0}' successfully loaded", fileName);
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 LogManager.Instance.WriteException(ex);
                 return false;
@@ -56,10 +45,6 @@ namespace FlowSimulator
             return true;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="fileName"></param>
         public static bool SaveFile(string fileName)
         {
             const int version = 1;
@@ -77,7 +62,7 @@ namespace FlowSimulator
 
                 LogManager.Instance.WriteLine(LogVerbosity.Info, "'{0}' successfully saved", fileName);
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 LogManager.Instance.WriteException(ex);
                 return false;

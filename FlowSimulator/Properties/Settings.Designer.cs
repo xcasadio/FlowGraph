@@ -12,17 +12,21 @@ using System.CodeDom.Compiler;
 using System.Configuration;
 using System.Runtime.CompilerServices;
 
-namespace FlowSimulator.Properties {
-    
-    
+namespace FlowSimulator.Properties
+{
+
+
     [CompilerGenerated()]
     [GeneratedCode("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
-    internal sealed partial class Settings : ApplicationSettingsBase {
-        
+    internal sealed partial class Settings : ApplicationSettingsBase
+    {
+
         private static Settings defaultInstance = ((Settings)(Synchronized(new Settings())));
-        
-        public static Settings Default {
-            get {
+
+        public static Settings Default
+        {
+            get
+            {
                 return defaultInstance;
             }
         }

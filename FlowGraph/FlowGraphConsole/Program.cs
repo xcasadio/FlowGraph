@@ -57,7 +57,7 @@ namespace FlowGraphConsole
         /// <summary>
         /// 
         /// </summary>
-        public void Close() {}
+        public void Close() { }
 
         /// <summary>
         /// 
@@ -69,20 +69,20 @@ namespace FlowGraphConsole
             ConsoleColor color = Console.ForegroundColor;
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendFormat("{0} [{1}] {2}", 
+            sb.AppendFormat("{0} [{1}] {2}",
                 DateTime.Now.ToString("HH:mm:ss.fff"),
                 Enum.GetName(typeof(LogVerbosity), verbose),
                 msg);
 
             switch (verbose)
             {
-                case LogVerbosity.Trace:    Console.ForegroundColor = ConsoleColor.DarkGray; break;
-                case LogVerbosity.Debug:    Console.ForegroundColor = ConsoleColor.Green; break;
-                case LogVerbosity.Info:     Console.ForegroundColor = ConsoleColor.White; break;
-                case LogVerbosity.Warning:  Console.ForegroundColor = ConsoleColor.DarkYellow; break;
-                case LogVerbosity.Error:    Console.ForegroundColor = ConsoleColor.Red; break;
+                case LogVerbosity.Trace: Console.ForegroundColor = ConsoleColor.DarkGray; break;
+                case LogVerbosity.Debug: Console.ForegroundColor = ConsoleColor.Green; break;
+                case LogVerbosity.Info: Console.ForegroundColor = ConsoleColor.White; break;
+                case LogVerbosity.Warning: Console.ForegroundColor = ConsoleColor.DarkYellow; break;
+                case LogVerbosity.Error: Console.ForegroundColor = ConsoleColor.Red; break;
             }
-            
+
             Console.WriteLine(sb.ToString());
             Console.ForegroundColor = color;
         }

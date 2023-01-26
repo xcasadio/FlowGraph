@@ -15,9 +15,6 @@ using Utils;
 
 namespace FlowSimulator.UI
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class FlowGraphControlViewModel : AbstractModelBase
     {
         public event EventHandler ContextMenuOpened;
@@ -28,92 +25,57 @@ namespace FlowSimulator.UI
         /// </summary>
         public NetworkViewModel NetworkViewModel;
 
-        ///
         /// The current scale at which the content is being viewed.
-        /// 
-        private double contentScale = 1;
+        private double _contentScale = 1;
 
-        ///
         /// The X coordinate of the offset of the viewport onto the content (in content coordinates).
-        /// 
-        private double contentOffsetX;
+        private double _contentOffsetX;
 
-        ///
         /// The Y coordinate of the offset of the viewport onto the content (in content coordinates).
-        /// 
-        private double contentOffsetY;
+        private double _contentOffsetY;
 
-        ///
         /// The width of the content (in content coordinates).
-        /// 
-        private double contentWidth = 10000;
+        private double _contentWidth = 10000;
 
-        ///
         /// The height of the content (in content coordinates).
-        /// 
-        private double contentHeight = 10000;
+        private double _contentHeight = 10000;
 
-        ///
         /// The width of the viewport onto the content (in content coordinates).
         /// The value for this is actually computed by the main window's ZoomAndPanControl and update in the
         /// view-model so that the value can be shared with the overview window.
-        /// 
-        private double contentViewportWidth;
+        private double _contentViewportWidth;
 
-        ///
         /// The height of the viewport onto the content (in content coordinates).
         /// The value for this is actually computed by the main window's ZoomAndPanControl and update in the
         /// view-model so that the value can be shared with the overview window.
-        /// 
-        private double contentViewportHeight;
+        private double _contentViewportHeight;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private SequenceBase _Sequence;
+        private SequenceBase _sequence;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private XmlNode _XmlNodeLoaded;
+        private XmlNode _xmlNodeLoaded;
 
-        /// <summary>
-        /// Gets
-        /// </summary>
         public string Name => Sequence.Name;
 
-        /// <summary>
-        /// Gets
-        /// </summary>
         public string Description => Sequence.Description;
 
-        /// <summary>
-        /// Gets
-        /// </summary>
-        public int ID => Sequence.Id;
+        public int Id => Sequence.Id;
 
-        /// <summary>
-        /// Gets
-        /// </summary>
         public UndoRedoManager UndoRedoManager { get; } = new UndoRedoManager();
 
-        /// <summary>
-        /// Gets
-        /// </summary>
         public SequenceBase Sequence
         {
-            get => _Sequence;
+            get => _sequence;
             private set
             {
-                if (_Sequence != value)
+                if (_sequence != value)
                 {
-                    if (_Sequence != null)
+                    if (_sequence != null)
                     {
-                        _Sequence.PropertyChanged -= OnSequencePropertyChanged;
+                        _sequence.PropertyChanged -= OnSequencePropertyChanged;
                     }
 
-                    _Sequence = value;
-                    _Sequence.PropertyChanged += OnSequencePropertyChanged;
+                    _sequence = value;
+                    _sequence.PropertyChanged += OnSequencePropertyChanged;
                 }
             }
         }
@@ -133,133 +95,109 @@ namespace FlowSimulator.UI
             }
         }
 
-        ///
         /// The current scale at which the content is being viewed.
-        /// 
         public double ContentScale
         {
-            get => contentScale;
+            get => _contentScale;
             set
             {
-                contentScale = value;
+                _contentScale = value;
 
                 OnPropertyChanged("ContentScale");
             }
         }
 
-        ///
         /// The X coordinate of the offset of the viewport onto the content (in content coordinates).
-        /// 
         public double ContentOffsetX
         {
-            get => contentOffsetX;
+            get => _contentOffsetX;
             set
             {
-                contentOffsetX = value;
+                _contentOffsetX = value;
 
                 OnPropertyChanged("ContentOffsetX");
             }
         }
 
-        ///
         /// The Y coordinate of the offset of the viewport onto the content (in content coordinates).
-        /// 
         public double ContentOffsetY
         {
-            get => contentOffsetY;
+            get => _contentOffsetY;
             set
             {
-                contentOffsetY = value;
+                _contentOffsetY = value;
 
                 OnPropertyChanged("ContentOffsetY");
             }
         }
 
-        ///
         /// The width of the content (in content coordinates).
-        /// 
         public double ContentWidth
         {
-            get => contentWidth;
+            get => _contentWidth;
             set
             {
-                contentWidth = value;
+                _contentWidth = value;
 
                 OnPropertyChanged("ContentWidth");
             }
         }
 
-        ///
         /// The heigth of the content (in content coordinates).
-        /// 
         public double ContentHeight
         {
-            get => contentHeight;
+            get => _contentHeight;
             set
             {
-                contentHeight = value;
+                _contentHeight = value;
 
                 OnPropertyChanged("ContentHeight");
             }
         }
 
-        ///
         /// The width of the viewport onto the content (in content coordinates).
         /// The value for this is actually computed by the main window's ZoomAndPanControl and update in the
         /// view-model so that the value can be shared with the overview window.
-        /// 
         public double ContentViewportWidth
         {
-            get => contentViewportWidth;
+            get => _contentViewportWidth;
             set
             {
-                contentViewportWidth = value;
+                _contentViewportWidth = value;
 
                 OnPropertyChanged("ContentViewportWidth");
             }
         }
 
-        ///
         /// The height of the viewport onto the content (in content coordinates).
         /// The value for this is actually computed by the main window's ZoomAndPanControl and update in the
         /// view-model so that the value can be shared with the overview window.
-        /// 
         public double ContentViewportHeight
         {
-            get => contentViewportHeight;
+            get => _contentViewportHeight;
             set
             {
-                contentViewportHeight = value;
+                _contentViewportHeight = value;
 
                 OnPropertyChanged("ContentViewportHeight");
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private FlowGraphControlViewModel()
         {
             Network = new NetworkViewModel();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public FlowGraphControlViewModel(SequenceBase seq_) :
+        public FlowGraphControlViewModel(SequenceBase seq) :
             this()
         {
-            Sequence = seq_;
+            Sequence = seq;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sequenceNode_"></param>
-        public FlowGraphControlViewModel(XmlNode node_) : 
+        public FlowGraphControlViewModel(XmlNode node) :
             this()
         {
-            Load(node_);
+            Load(node);
         }
 
         /// <summary>
@@ -267,32 +205,20 @@ namespace FlowSimulator.UI
         /// </summary>
         public ConnectionViewModel ConnectionDragStarted(ConnectorViewModel draggedOutConnector, Point curDragPoint)
         {
-            //
-            // Create a new connection to add to the view-model.
-            //
             var connection = new ConnectionViewModel();
 
             if (draggedOutConnector.Type == ConnectorType.Output
                 || draggedOutConnector.Type == ConnectorType.VariableOutput)
             {
-                //
-                // The user is dragging out a source connector (an output) and will connect it to a destination connector (an input).
-                //
                 connection.SourceConnector = draggedOutConnector;
                 connection.DestConnectorHotspot = curDragPoint;
             }
             else
             {
-                //
-                // The user is dragging out a destination connector (an input) and will connect it to a source connector (an output).
-                //
                 connection.DestConnector = draggedOutConnector;
                 connection.SourceConnectorHotspot = curDragPoint;
             }
 
-            //
-            // Add the new connection to the view-model.
-            //
             Network.Connections.Add(connection);
 
             return connection;
@@ -305,10 +231,6 @@ namespace FlowSimulator.UI
         {
             if (draggedOutConnector == draggedOverConnector)
             {
-                //
-                // Can't connect to self!
-                // Provide feedback to indicate that this connection is not valid!
-                //
                 feedbackIndicator = new ConnectionBadIndicator("Can't connect to self");
                 connectionOk = false;
             }
@@ -318,11 +240,6 @@ namespace FlowSimulator.UI
                 var sourceConnector = draggedOutConnector;
                 var destConnector = draggedOverConnector;
 
-                //
-                // Only allow connections from output connector to input connector (ie each
-                // connector must have a different type).
-                // Also only allocation from one node to another, never one node back to the same node.
-                //
                 connectionOk = IsValidConnection(sourceConnector, draggedOverConnector, ref message);
 
                 if (connectionOk)
@@ -331,12 +248,6 @@ namespace FlowSimulator.UI
                 }
                 else
                 {
-                    //
-                    // Connectors with the same connector type (eg input & input, or output & output)
-                    // can't be connected.
-                    // Only connectors with separate connector type (eg input & output).
-                    // Provide feedback to indicate that this connection is not valid!
-                    //
                     feedbackIndicator = new ConnectionBadIndicator(message);
                 }
             }
@@ -361,63 +272,40 @@ namespace FlowSimulator.UI
         /// Called when the user has finished dragging out the new connection.
         /// </summary>
         public void ConnectionDragCompleted(
-            ConnectionViewModel newConnection, 
-            ConnectorViewModel connectorDraggedOut, 
+            ConnectionViewModel newConnection,
+            ConnectorViewModel connectorDraggedOut,
             ConnectorViewModel connectorDraggedOver)
         {
             if (connectorDraggedOver == null)
             {
-                //
-                // The connection was unsuccessful.
-                // Maybe the user dragged it out and dropped it in empty space.
-                //
                 Network.Connections.Remove(newConnection);
-//                 _connectorDraggedOut = connectorDraggedOut;
-//                 _ConnectorDraggedOver = connectorDraggedOver;
-// 
-//                 //Open contextMenu
-//                 if (ContextMenuOpened != null)
-//                 {
-//                     ContextMenuOpened(this, null);
-//                 }
+                //                 _connectorDraggedOut = connectorDraggedOut;
+                //                 _ConnectorDraggedOver = connectorDraggedOver;
+                // 
+                //                 //Open contextMenu
+                //                 if (ContextMenuOpened != null)
+                //                 {
+                //                     ContextMenuOpened(this, null);
+                //                 }
 
                 return;
             }
 
-            //
-            // Only allow connections from output connector to input connector (ie each
-            // connector must have a different type).
-            // Also only allocation from one node to another, never one node back to the same node.
-            //
             string dummy = string.Empty;
             bool connectionOk = IsValidConnection(connectorDraggedOut, connectorDraggedOver, ref dummy);
 
             if (!connectionOk)
             {
-                //
-                // Connections between connectors that have the same type,
-                // eg input -> input or output -> output, are not allowed,
-                // Remove the connection.
-                //
                 Network.Connections.Remove(newConnection);
                 return;
             }
 
-            //
-            // The user has dragged the connection on top of another valid connector.
-            //
-
-            //
-            // Remove any existing connection between the same two connectors.
-            //
             var existingConnection = FindConnection(connectorDraggedOut, connectorDraggedOver);
             if (existingConnection != null)
             {
                 Network.Connections.Remove(existingConnection);
             }
 
-            // Finalize the connection by reordering the source & destination
-            // if necessary
             if (newConnection.DestConnector == null)
             {
                 if (connectorDraggedOver.SourceSlot.ConnectionType == SlotType.VarInOut)
@@ -477,9 +365,7 @@ namespace FlowSimulator.UI
             if (newConnection.SourceConnector.SourceSlot is NodeSlotVar
                 && newConnection.DestConnector.SourceSlot is NodeSlotVar)
             {
-                ConnectorViewModel src = newConnection.SourceConnector;
-                newConnection.SourceConnector = newConnection.DestConnector;
-                newConnection.DestConnector = src;
+                (newConnection.SourceConnector, newConnection.DestConnector) = (newConnection.DestConnector, newConnection.SourceConnector);
             }
 
             UndoRedoManager.Add(new CreateConnectionUndoCommand(this, newConnection));
@@ -492,7 +378,7 @@ namespace FlowSimulator.UI
         /// <param name="b"></param>
         /// <param name="message_"></param>
         /// <returns></returns>
-        private bool IsValidConnection(ConnectorViewModel a, ConnectorViewModel b, ref string message_)
+        private bool IsValidConnection(ConnectorViewModel a, ConnectorViewModel b, ref string message)
         {
             bool connectionOk = a.ParentNode != b.ParentNode &&
                                 a.Type != b.Type;
@@ -538,7 +424,7 @@ namespace FlowSimulator.UI
 
                     if (connectionOk == false)
                     {
-                        message_ = "You can connect only one node into this slot";
+                        message = "You can connect only one node into this slot";
                     }
                 }
                 else if (b.Type == ConnectorType.VariableInput/* || b.Type == ConnectorType.VariableOutput*/)
@@ -547,7 +433,7 @@ namespace FlowSimulator.UI
 
                     if (connectionOk == false)
                     {
-                        message_ = "You can connect only one node into this slot";
+                        message = "You can connect only one node into this slot";
                     }
                 }
             }
@@ -569,7 +455,7 @@ namespace FlowSimulator.UI
 
                 if (connectionOk == false)
                 {
-                    message_ = "You can not connect because the type is different";
+                    message = "You can not connect because the type is different";
                 }
             }
 
@@ -641,7 +527,7 @@ namespace FlowSimulator.UI
             }
 
             UndoRedoManager.Add(new DeleteNodesUndoCommand(this, selectedNodes));
-            
+
             foreach (var node in selectedNodes)
             {
                 DeleteNode(node);
@@ -652,9 +538,9 @@ namespace FlowSimulator.UI
         /// Delete the node from the view-model.
         /// Also deletes any connections to or from the node.
         /// </summary>
-        public void DeleteNode(NodeViewModel node, bool saveUndo_ = false)
+        public void DeleteNode(NodeViewModel node, bool saveUndo = false)
         {
-            if (saveUndo_)
+            if (saveUndo)
             {
                 UndoRedoManager.Add(new DeleteNodeUndoCommand(this, node));
             }
@@ -667,32 +553,32 @@ namespace FlowSimulator.UI
         /// Delete the nodes from the view-model.
         /// Also deletes any connections to or from the node.
         /// </summary>
-        public void DeleteNodes(IEnumerable<NodeViewModel> nodes_, bool saveUndo_ = false)
+        public void DeleteNodes(IEnumerable<NodeViewModel> nodes, bool saveUndo = false)
         {
-            if (saveUndo_)
+            if (saveUndo)
             {
-                UndoRedoManager.Add(new DeleteNodesUndoCommand(this, nodes_));
+                UndoRedoManager.Add(new DeleteNodesUndoCommand(this, nodes));
             }
 
-            foreach (var node in nodes_)
+            foreach (var node in nodes)
             {
                 Network.Connections.RemoveRange(node.AttachedConnections);
             }
-            
-            Network.Nodes.RemoveRange(nodes_);
+
+            Network.Nodes.RemoveRange(nodes);
         }
 
         /// <summary>
         /// add a node to the view-model.
         /// </summary>
-        public void AddNode(NodeViewModel node_, bool saveUndo_ = false)
+        public void AddNode(NodeViewModel node, bool saveUndo = false)
         {
-            if (saveUndo_)
+            if (saveUndo)
             {
-                UndoRedoManager.Add(new CreateNodeUndoCommand(this, node_));
+                UndoRedoManager.Add(new CreateNodeUndoCommand(this, node));
             }
 
-            Network.Nodes.Add(node_);
+            Network.Nodes.Add(node);
         }
 
         /// <summary>
@@ -747,17 +633,11 @@ namespace FlowSimulator.UI
             return node;
         }
 
-        /// <summary>
-        /// Copy all nodes in it_ and add it to Network.Nodes
-        /// </summary>
-        /// <param name="it_"></param>
-        /// <param name="centerLocation_"></param>
-        /// <returns></returns>
-        public IEnumerable<NodeViewModel> CopyNodes(IEnumerable<NodeViewModel> it_) 
+        public IEnumerable<NodeViewModel> CopyNodes(IEnumerable<NodeViewModel> it)
         {
             List<NodeViewModel> newNodes = new List<NodeViewModel>();
 
-            foreach (NodeViewModel node in it_)
+            foreach (NodeViewModel node in it)
             {
                 NodeViewModel newNode = node.Copy();
                 newNode.X += 40;
@@ -772,12 +652,9 @@ namespace FlowSimulator.UI
             return newNodes;
         }
 
-        /// <summary>
-        /// Utility method to add a connection from the view-model.
-        /// </summary>
-        public void AddConnection(ConnectionViewModel connection, bool saveUndo_ = false)
+        public void AddConnection(ConnectionViewModel connection, bool saveUndo = false)
         {
-            if (saveUndo_)
+            if (saveUndo)
             {
                 UndoRedoManager.Add(new CreateConnectionUndoCommand(this, connection));
             }
@@ -785,12 +662,9 @@ namespace FlowSimulator.UI
             Network.Connections.Add(connection);
         }
 
-        /// <summary>
-        /// Utility method to delete a connection from the view-model.
-        /// </summary>
-        public void DeleteConnection(ConnectionViewModel connection, bool saveUndo_ = false)
+        public void DeleteConnection(ConnectionViewModel connection, bool saveUndo = false)
         {
-            if (saveUndo_)
+            if (saveUndo)
             {
                 UndoRedoManager.Add(new DeleteConnectionUndoCommand(this, connection));
             }
@@ -798,12 +672,9 @@ namespace FlowSimulator.UI
             Network.Connections.Remove(connection);
         }
 
-        /// <summary>
-        /// Utility method to add a connection list from the view-model.
-        /// </summary>
-        public void AddConnections(IEnumerable<ConnectionViewModel> connections, bool saveUndo_ = false)
+        public void AddConnections(IEnumerable<ConnectionViewModel> connections, bool saveUndo = false)
         {
-            if (saveUndo_)
+            if (saveUndo)
             {
                 UndoRedoManager.Add(new CreateConnectionsUndoCommand(this, connections));
             }
@@ -811,12 +682,9 @@ namespace FlowSimulator.UI
             Network.Connections.AddRange(connections);
         }
 
-        /// <summary>
-        /// Utility method to delete a connection list from the view-model.
-        /// </summary>
-        public void DeleteConnections(IEnumerable<ConnectionViewModel> connections, bool saveUndo_ = false)
+        public void DeleteConnections(IEnumerable<ConnectionViewModel> connections, bool saveUndo = false)
         {
-            if (saveUndo_)
+            if (saveUndo)
             {
                 UndoRedoManager.Add(new DeleteConnectionsUndoCommand(this, connections));
             }
@@ -824,9 +692,6 @@ namespace FlowSimulator.UI
             Network.Connections.RemoveRange(connections);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         internal void InitialNodeFromNewFunction()
         {
             // Function already contains nodes when it is created
@@ -839,20 +704,17 @@ namespace FlowSimulator.UI
 
                 while (it.MoveNext())
                 {
-                    NodeViewModel nodeVM = new NodeViewModel(it.Current)
+                    NodeViewModel nodeVm = new NodeViewModel(it.Current)
                     {
                         X = 50 + i * 150,
                         Y = 50
                     };
-                    Network.Nodes.Add(nodeVM);
+                    Network.Nodes.Add(nodeVm);
                     i++;
                 }
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public void CreateSequence()
         {
             Sequence.RemoveAllNodes();
@@ -881,7 +743,7 @@ namespace FlowSimulator.UI
                         {
                             link.DestConnector.SourceSlot.ConnectTo(link.SourceConnector.SourceSlot);
                         }
-                        
+
                         continue;
                     }
 
@@ -908,10 +770,6 @@ namespace FlowSimulator.UI
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sequenceNode_"></param>
         public void Load(XmlNode xmlNode)
         {
             try
@@ -941,7 +799,7 @@ namespace FlowSimulator.UI
                     {
                         throw new InvalidOperationException("Can't find node from xml " +
                                                             $"id={nodeNode.Attributes["id"].Value}");
-                    } 
+                    }
                 }
 
                 foreach (XmlNode linkNode in xmlNode.SelectNodes("ConnectionList/Connection"))
@@ -949,31 +807,26 @@ namespace FlowSimulator.UI
                     int versionLink = int.Parse(linkNode.Attributes["version"].Value);
 
                     ConnectionViewModel cvm = new ConnectionViewModel();
-                    NodeViewModel srcNode = GetNodeVMBySequenceID(int.Parse(linkNode.Attributes["srcNodeID"].Value));
-                    NodeViewModel destNode = GetNodeVMBySequenceID(int.Parse(linkNode.Attributes["destNodeID"].Value));
+                    NodeViewModel srcNode = GetNodeVmBySequenceId(int.Parse(linkNode.Attributes["srcNodeID"].Value));
+                    NodeViewModel destNode = GetNodeVmBySequenceId(int.Parse(linkNode.Attributes["destNodeID"].Value));
                     cvm.SourceConnector = srcNode.GetConnectorFromSlotId(int.Parse(linkNode.Attributes["srcNodeSlotID"].Value));
                     cvm.DestConnector = destNode.GetConnectorFromSlotId(int.Parse(linkNode.Attributes["destNodeSlotID"].Value));
                     Network.Connections.Add(cvm);
                 }
 
-                _XmlNodeLoaded = xmlNode;
+                _xmlNodeLoaded = xmlNode;
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 LogManager.Instance.WriteException(ex);
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id_"></param>
-        /// <returns></returns>
-        private NodeViewModel GetNodeVMBySequenceID(int seqId_)
+        private NodeViewModel GetNodeVmBySequenceId(int seqId)
         {
             foreach (NodeViewModel n in Network.Nodes)
             {
-                if (n.SeqNode.Id == seqId_)
+                if (n.SeqNode.Id == seqId)
                 {
                     return n;
                 }
@@ -982,80 +835,58 @@ namespace FlowSimulator.UI
             return null;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sequenceNode_"></param>
-        public void Save(XmlNode node_)
+        public void Save(XmlNode node)
         {
             const int version = 1;
             const int versionNode = 1;
 
-            XmlNode graphNode = node_.SelectSingleNode("Graph[@id='" + ID + "']");
+            XmlNode graphNode = node.SelectSingleNode("Graph[@id='" + Id + "']");
             graphNode.AddAttribute("designerVersion", version.ToString());
 
             //save all nodes
-            foreach (NodeViewModel nodeVM in Network.Nodes)
+            foreach (NodeViewModel nodeVm in Network.Nodes)
             {
-                XmlNode nodeNode = graphNode.SelectSingleNode("NodeList/Node[@id='" + nodeVM.SeqNode.Id + "']");
+                XmlNode nodeNode = graphNode.SelectSingleNode("NodeList/Node[@id='" + nodeVm.SeqNode.Id + "']");
 
                 nodeNode.AddAttribute("designerVersion", versionNode.ToString());
 
-                nodeNode.AddAttribute("x", nodeVM.X.ToString());
-                nodeNode.AddAttribute("y", nodeVM.Y.ToString());
-                nodeNode.AddAttribute("z", nodeVM.ZIndex.ToString());
+                nodeNode.AddAttribute("x", nodeVm.X.ToString());
+                nodeNode.AddAttribute("y", nodeVm.Y.ToString());
+                nodeNode.AddAttribute("z", nodeVm.ZIndex.ToString());
             }
         }
 
-        readonly List<PositionNodeUndoCommand.NodeDraggingInfo> _CachedNodesDraggingList = new List<PositionNodeUndoCommand.NodeDraggingInfo>(5);
+        readonly List<PositionNodeUndoCommand.NodeDraggingInfo> _cachedNodesDraggingList = new List<PositionNodeUndoCommand.NodeDraggingInfo>(5);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         public void OnNodeDragStarted(NetworkView sender, NodeDragStartedEventArgs e)
         {
-            _CachedNodesDraggingList.Clear();
+            _cachedNodesDraggingList.Clear();
 
             foreach (NodeViewModel node in e.Nodes)
             {
-                _CachedNodesDraggingList.Add(new PositionNodeUndoCommand.NodeDraggingInfo { Node = node, StartX = node.X, StartY = node.Y });
+                _cachedNodesDraggingList.Add(new PositionNodeUndoCommand.NodeDraggingInfo { Node = node, StartX = node.X, StartY = node.Y });
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         public void OnNodeDragCompleted(NetworkView sender, NodeDragCompletedEventArgs e)
         {
-            foreach (PositionNodeUndoCommand.NodeDraggingInfo info in _CachedNodesDraggingList)
+            foreach (PositionNodeUndoCommand.NodeDraggingInfo info in _cachedNodesDraggingList)
             {
                 info.EndX = info.Node.X;
                 info.EndY = info.Node.Y;
             }
 
-            UndoRedoManager.Add(new PositionNodeUndoCommand(this, _CachedNodesDraggingList));
+            UndoRedoManager.Add(new PositionNodeUndoCommand(this, _cachedNodesDraggingList));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="nodes_"></param>
-        public void OnNodesSelectedChanged(NetworkView view_, IEnumerable<NodeViewModel> nodes_)
+        public void OnNodesSelectedChanged(NetworkView view, IEnumerable<NodeViewModel> nodes)
         {
-            UndoRedoManager.Add(new SelectNodesUndoCommand(view_, nodes_));
+            UndoRedoManager.Add(new SelectNodesUndoCommand(view, nodes));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="nodes_"></param>
-        public void OnNodesDeselectedChanged(NetworkView view_, IEnumerable<NodeViewModel> nodes_)
+        public void OnNodesDeselectedChanged(NetworkView view, IEnumerable<NodeViewModel> nodes)
         {
-            UndoRedoManager.Add(new DeselectNodesUndoCommand(view_, nodes_));
+            UndoRedoManager.Add(new DeselectNodesUndoCommand(view, nodes));
         }
     }
 }

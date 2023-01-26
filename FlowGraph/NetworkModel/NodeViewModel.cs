@@ -28,22 +28,22 @@ namespace NetworkModel
         /// <summary>
         /// The name of the node.
         /// </summary>
-        private string name = string.Empty;
+        private string _name = string.Empty;
 
         /// <summary>
         /// The X coordinate for the position of the node.
         /// </summary>
-        private double x;
+        private double _x;
 
         /// <summary>
         /// The Y coordinate for the position of the node.
         /// </summary>
-        private double y;
+        private double _y;
 
         /// <summary>
         /// The Z index of the node.
         /// </summary>
-        private int zIndex;
+        private int _zIndex;
 
         /// <summary>
         /// The size of the node.
@@ -54,29 +54,29 @@ namespace NetworkModel
         ///     When the size is computed via the UI it is then pushed into the view-model
         ///     so that our application code has access to the size of a node.
         /// </summary>
-        private Size size = Size.Empty;
+        private Size _size = Size.Empty;
 
         /// <summary>
         /// List of all connectors (connections points) attached to the node.
         /// </summary>
-        private readonly ImpObservableCollection<ConnectorViewModel> allConnectors = new ImpObservableCollection<ConnectorViewModel>();
+        private readonly ImpObservableCollection<ConnectorViewModel> _allConnectors = new ImpObservableCollection<ConnectorViewModel>();
 
         /// <summary>
         /// Set to 'true' when the node is selected.
         /// </summary>
-        private bool isSelected;
+        private bool _isSelected;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="node_"></param>
-        public NodeViewModel(SequenceNode node_)
+        public NodeViewModel(SequenceNode node)
         {
-            SeqNode = node_;
+            SeqNode = node;
             SeqNode.PropertyChanged += OnSeqNodePropertyChanged;
 
-            allConnectors.ItemsAdded += allConnectors_ItemsAdded;
-            allConnectors.ItemsRemoved += allConnectors_ItemsRemoved;
+            _allConnectors.ItemsAdded += allConnectors_ItemsAdded;
+            _allConnectors.ItemsRemoved += allConnectors_ItemsRemoved;
 
             InitializeConnectors();
         }
@@ -189,15 +189,15 @@ namespace NetworkModel
         /// </summary>
         public double X
         {
-            get => x;
+            get => _x;
             set
             {
-                if (x == value)
+                if (_x == value)
                 {
                     return;
                 }
 
-                x = value;
+                _x = value;
 
                 OnPropertyChanged("X");
             }
@@ -208,15 +208,15 @@ namespace NetworkModel
         /// </summary>
         public double Y
         {
-            get => y;
+            get => _y;
             set
             {
-                if (y == value)
+                if (_y == value)
                 {
                     return;
                 }
 
-                y = value;
+                _y = value;
 
                 OnPropertyChanged("Y");
             }
@@ -227,15 +227,15 @@ namespace NetworkModel
         /// </summary>
         public int ZIndex
         {
-            get => zIndex;
+            get => _zIndex;
             set
             {
-                if (zIndex == value)
+                if (_zIndex == value)
                 {
                     return;
                 }
 
-                zIndex = value;
+                _zIndex = value;
 
                 OnPropertyChanged("ZIndex");
             }
@@ -252,15 +252,15 @@ namespace NetworkModel
         /// </summary>
         public Size Size
         {
-            get => size;
+            get => _size;
             set
             {
-                if (size == value)
+                if (_size == value)
                 {
                     return;
                 }
 
-                size = value;
+                _size = value;
 
                 SizeChanged?.Invoke(this, EventArgs.Empty);
             }
@@ -277,7 +277,7 @@ namespace NetworkModel
         /// <summary>
         /// List of all connectors (connections points) attached to the node.
         /// </summary>
-        public ImpObservableCollection<ConnectorViewModel> Connectors => allConnectors;
+        public ImpObservableCollection<ConnectorViewModel> Connectors => _allConnectors;
 
         /// <summary>
         /// List of all input connectors (connections points) attached to the node.
@@ -286,7 +286,7 @@ namespace NetworkModel
         {
             get
             {
-                foreach (ConnectorViewModel c in allConnectors)
+                foreach (ConnectorViewModel c in _allConnectors)
                 {
                     if (c.Type == ConnectorType.Input
                         || c.Type == ConnectorType.VariableInput)
@@ -304,7 +304,7 @@ namespace NetworkModel
         {
             get
             {
-                foreach (ConnectorViewModel c in allConnectors)
+                foreach (ConnectorViewModel c in _allConnectors)
                 {
                     if (c.Type == ConnectorType.Output
                         || c.Type == ConnectorType.VariableOutput)
@@ -322,7 +322,7 @@ namespace NetworkModel
         {
             get
             {
-                foreach (ConnectorViewModel c in allConnectors)
+                foreach (ConnectorViewModel c in _allConnectors)
                 {
                     if (c.Type == ConnectorType.Input)
                     {
@@ -339,7 +339,7 @@ namespace NetworkModel
         {
             get
             {
-                foreach (ConnectorViewModel c in allConnectors)
+                foreach (ConnectorViewModel c in _allConnectors)
                 {
                     if (c.Type == ConnectorType.VariableInput)
                     {
@@ -356,7 +356,7 @@ namespace NetworkModel
         {
             get
             {
-                foreach (ConnectorViewModel c in allConnectors)
+                foreach (ConnectorViewModel c in _allConnectors)
                 {
                     if (c.Type == ConnectorType.Output)
                     {
@@ -373,7 +373,7 @@ namespace NetworkModel
         {
             get
             {
-                foreach (ConnectorViewModel c in allConnectors)
+                foreach (ConnectorViewModel c in _allConnectors)
                 {
                     if (c.Type == ConnectorType.VariableOutput)
                     {
@@ -390,7 +390,7 @@ namespace NetworkModel
         {
             get
             {
-                foreach (ConnectorViewModel c in allConnectors)
+                foreach (ConnectorViewModel c in _allConnectors)
                 {
                     if (c.Type == ConnectorType.VariableInputOutput)
                     {
@@ -443,15 +443,15 @@ namespace NetworkModel
         /// </summary>
         public bool IsSelected
         {
-            get => isSelected;
+            get => _isSelected;
             set
             {
-                if (isSelected == value)
+                if (_isSelected == value)
                 {
                     return;
                 }
 
-                isSelected = value;
+                _isSelected = value;
 
                 OnPropertyChanged("IsSelected");
             }
@@ -460,11 +460,11 @@ namespace NetworkModel
         /// <summary>
         /// 
         /// </summary>
-        public ConnectorViewModel GetConnectorFromSlotId(int id_)
+        public ConnectorViewModel GetConnectorFromSlotId(int id)
         {
-            foreach (ConnectorViewModel c in allConnectors)
+            foreach (ConnectorViewModel c in _allConnectors)
             {
-                if (c.SourceSlot.Id == id_)
+                if (c.SourceSlot.Id == id)
                 {
                     return c;
                 }
@@ -483,13 +483,13 @@ namespace NetworkModel
             {
                 if (ContainsConnectorFromNodeSlots(slot) == false)
                 {
-                    allConnectors.Add(new ConnectorViewModel(slot));
+                    _allConnectors.Add(new ConnectorViewModel(slot));
                 }
             }
 
             //if we need to remove a slot
             List<ConnectorViewModel> connectorToRemove = new List<ConnectorViewModel>();
-            foreach (var c in allConnectors)
+            foreach (var c in _allConnectors)
             {
                 bool contains = false;
 
@@ -510,7 +510,7 @@ namespace NetworkModel
 
             foreach (var slot in connectorToRemove)
             {
-                allConnectors.Remove(slot);
+                _allConnectors.Remove(slot);
             }
 
             OnPropertyChanged("Connectors");
@@ -528,11 +528,11 @@ namespace NetworkModel
         /// </summary>
         /// <param name="slot_"></param>
         /// <returns></returns>
-        private bool ContainsConnectorFromNodeSlots(NodeSlot slot_)
+        private bool ContainsConnectorFromNodeSlots(NodeSlot slot)
         {
-            foreach (ConnectorViewModel c in allConnectors)
+            foreach (ConnectorViewModel c in _allConnectors)
             {
-                if (c.SourceSlot.Id == slot_.Id)
+                if (c.SourceSlot.Id == slot.Id)
                 {
                     return true;
                 }
@@ -585,19 +585,19 @@ namespace NetworkModel
         /// </summary>
         /// <param name="copyConnections_"></param>
         /// <returns></returns>
-        public NodeViewModel Copy(bool copyConnections_ = false)
+        public NodeViewModel Copy(bool copyConnections = false)
         {
             NodeViewModel node = new NodeViewModel(SeqNode.Copy())
             {
-                name = name,
-                x = x,
-                y = y,
-                zIndex = zIndex,
-                size = size,
-                isSelected = isSelected
+                _name = _name,
+                _x = _x,
+                _y = _y,
+                _zIndex = _zIndex,
+                _size = _size,
+                _isSelected = _isSelected
             };
 
-            if (copyConnections_)
+            if (copyConnections)
             {
                 throw new NotImplementedException("NodeViewModel.Copy()");
             }

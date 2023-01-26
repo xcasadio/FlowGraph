@@ -5,86 +5,60 @@ using NetworkUI;
 
 namespace FlowSimulator.Undo
 {
-    /// <summary>
-    /// 
-    /// </summary>
     class CreateNodeUndoCommand : IUndoCommand
     {
-        readonly FlowGraphControlViewModel _FlowGraphVM;
-        readonly NodeViewModel _NodeVM;
+        readonly FlowGraphControlViewModel _flowGraphVm;
+        readonly NodeViewModel _nodeVm;
 
-        /// <summary>
-        /// 
-        /// </summary>
         public CreateNodeUndoCommand(FlowGraphControlViewModel fgvm, NodeViewModel nodeVm)
         {
-            _FlowGraphVM = fgvm;
-            _NodeVM = nodeVm;
+            _flowGraphVm = fgvm;
+            _nodeVm = nodeVm;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public void Redo()
         {
-            _FlowGraphVM.AddNode(_NodeVM);
+            _flowGraphVm.AddNode(_nodeVm);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public void Undo()
         {
-            _FlowGraphVM.DeleteNode(_NodeVM);
+            _flowGraphVm.DeleteNode(_nodeVm);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
-            return $"{_FlowGraphVM.Sequence.Name} : Create node {_NodeVM.Title}";
+            return $"{_flowGraphVm.Sequence.Name} : Create node {_nodeVm.Title}";
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     class CreateNodesUndoCommand : IUndoCommand
     {
-        readonly FlowGraphControlViewModel _FlowGraphVM;
-        readonly IEnumerable<NodeViewModel> _NodesVM;
-        readonly List<ConnectionInfo> _ConnectionInfoList = new List<ConnectionInfo>();
+        readonly FlowGraphControlViewModel _flowGraphVm;
+        readonly IEnumerable<NodeViewModel> _nodesVm;
+        readonly List<ConnectionInfo> _connectionInfoList = new List<ConnectionInfo>();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public CreateNodesUndoCommand(FlowGraphControlViewModel fgv_, IEnumerable<NodeViewModel> nodesVM_)
+        public CreateNodesUndoCommand(FlowGraphControlViewModel fgv, IEnumerable<NodeViewModel> nodesVm)
         {
-            _FlowGraphVM = fgv_;
+            _flowGraphVm = fgv;
 
             List<ConnectionViewModel> connections = new List<ConnectionViewModel>();
-            foreach (var node in nodesVM_)
+            foreach (var node in nodesVm)
             {
                 connections.AddRange(node.AttachedConnections);
             }
             CopyConnections(connections);
 
-            _NodesVM = nodesVM_;
+            _nodesVm = nodesVm;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="connections_"></param>
-        private void CopyConnections(IEnumerable<ConnectionViewModel> connections_)
+        private void CopyConnections(IEnumerable<ConnectionViewModel> connections)
         {
-            foreach (ConnectionViewModel c in connections_)
+            foreach (ConnectionViewModel c in connections)
             {
-                _ConnectionInfoList.Add(new ConnectionInfo
+                _connectionInfoList.Add(new ConnectionInfo
                 {
-                    ConnectionVM = null,
+                    ConnectionVm = null,
                     DestConnector = c.DestConnector,
                     DestConnectorHotspot = c.DestConnectorHotspot,
                     Points = c.Points,
@@ -94,92 +68,72 @@ namespace FlowSimulator.Undo
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public void Redo()
         {
-            _FlowGraphVM.Network.Nodes.AddRange(_NodesVM);
+            _flowGraphVm.Network.Nodes.AddRange(_nodesVm);
 
             List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
 
-            for (int i = 0; i < _ConnectionInfoList.Count; i++)
+            for (int i = 0; i < _connectionInfoList.Count; i++)
             {
-                connList.Add(_ConnectionInfoList[i].ConnectionVM);
+                connList.Add(_connectionInfoList[i].ConnectionVm);
             }
 
-            _FlowGraphVM.AddConnections(connList);
+            _flowGraphVm.AddConnections(connList);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public void Undo()
         {
             List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
 
-            for (int i = 0; i < _ConnectionInfoList.Count; i++)
+            for (int i = 0; i < _connectionInfoList.Count; i++)
             {
                 ConnectionViewModel copy = new ConnectionViewModel
                 {
-                    DestConnector = _ConnectionInfoList[i].DestConnector,
-                    DestConnectorHotspot = _ConnectionInfoList[i].DestConnectorHotspot,
-                    Points = _ConnectionInfoList[i].Points,
-                    SourceConnector = _ConnectionInfoList[i].SourceConnector,
-                    SourceConnectorHotspot = _ConnectionInfoList[i].SourceConnectorHotspot
+                    DestConnector = _connectionInfoList[i].DestConnector,
+                    DestConnectorHotspot = _connectionInfoList[i].DestConnectorHotspot,
+                    Points = _connectionInfoList[i].Points,
+                    SourceConnector = _connectionInfoList[i].SourceConnector,
+                    SourceConnectorHotspot = _connectionInfoList[i].SourceConnectorHotspot
                 };
 
                 connList.Add(copy);
 
-                ConnectionInfo inf = _ConnectionInfoList[i];
-                inf.ConnectionVM = copy;
-                _ConnectionInfoList[i] = inf;
+                ConnectionInfo inf = _connectionInfoList[i];
+                inf.ConnectionVm = copy;
+                _connectionInfoList[i] = inf;
             }
 
-            _FlowGraphVM.DeleteConnections(connList);
-            _FlowGraphVM.DeleteNodes(_NodesVM);
+            _flowGraphVm.DeleteConnections(connList);
+            _flowGraphVm.DeleteNodes(_nodesVm);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
-            return $"Graph[{_FlowGraphVM.Sequence.Name}] : Create nodes";
+            return $"Graph[{_flowGraphVm.Sequence.Name}] : Create nodes";
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     class DeleteNodeUndoCommand : IUndoCommand
     {
-        readonly FlowGraphControlViewModel _FlowGraphVM;
-        readonly NodeViewModel _NodeVM;
-        readonly List<ConnectionInfo> _ConnectionInfoList = new List<ConnectionInfo>();
+        readonly FlowGraphControlViewModel _flowGraphVm;
+        readonly NodeViewModel _nodeVm;
+        readonly List<ConnectionInfo> _connectionInfoList = new List<ConnectionInfo>();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public DeleteNodeUndoCommand(FlowGraphControlViewModel fgv_, NodeViewModel nodeVM_)
+        public DeleteNodeUndoCommand(FlowGraphControlViewModel fgv, NodeViewModel nodeVm)
         {
-            _FlowGraphVM = fgv_;
-            _NodeVM = nodeVM_;
-            CopyConnections(_NodeVM.AttachedConnections);
+            _flowGraphVm = fgv;
+            _nodeVm = nodeVm;
+            CopyConnections(_nodeVm.AttachedConnections);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="connections_"></param>
-        private void CopyConnections(IEnumerable<ConnectionViewModel> connections_)
+        private void CopyConnections(IEnumerable<ConnectionViewModel> connections)
         {
-            foreach (ConnectionViewModel c in connections_)
+            foreach (ConnectionViewModel c in connections)
             {
-                _ConnectionInfoList.Add(new ConnectionInfo
+                _connectionInfoList.Add(new ConnectionInfo
                 {
-                    ConnectionVM = null,
+                    ConnectionVm = null,
                     DestConnector = c.DestConnector,
                     DestConnectorHotspot = c.DestConnectorHotspot,
                     Points = c.Points,
@@ -189,98 +143,77 @@ namespace FlowSimulator.Undo
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public void Redo()
         {
             List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
 
-            for (int i = 0; i < _ConnectionInfoList.Count; i++)
+            for (int i = 0; i < _connectionInfoList.Count; i++)
             {
-                connList.Add(_ConnectionInfoList[i].ConnectionVM);
+                connList.Add(_connectionInfoList[i].ConnectionVm);
             }
 
-            _FlowGraphVM.DeleteConnections(connList);
-            _FlowGraphVM.DeleteNode(_NodeVM);
+            _flowGraphVm.DeleteConnections(connList);
+            _flowGraphVm.DeleteNode(_nodeVm);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public void Undo()
         {
             List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
 
-            for (int i = 0; i < _ConnectionInfoList.Count; i++)
+            for (int i = 0; i < _connectionInfoList.Count; i++)
             {
                 ConnectionViewModel copy = new ConnectionViewModel
                 {
-                    DestConnector = _ConnectionInfoList[i].DestConnector,
-                    DestConnectorHotspot = _ConnectionInfoList[i].DestConnectorHotspot,
-                    Points = _ConnectionInfoList[i].Points,
-                    SourceConnector = _ConnectionInfoList[i].SourceConnector,
-                    SourceConnectorHotspot = _ConnectionInfoList[i].SourceConnectorHotspot
+                    DestConnector = _connectionInfoList[i].DestConnector,
+                    DestConnectorHotspot = _connectionInfoList[i].DestConnectorHotspot,
+                    Points = _connectionInfoList[i].Points,
+                    SourceConnector = _connectionInfoList[i].SourceConnector,
+                    SourceConnectorHotspot = _connectionInfoList[i].SourceConnectorHotspot
                 };
 
                 connList.Add(copy);
 
-                ConnectionInfo inf = _ConnectionInfoList[i];
-                inf.ConnectionVM = copy;
-                _ConnectionInfoList[i] = inf;
+                ConnectionInfo inf = _connectionInfoList[i];
+                inf.ConnectionVm = copy;
+                _connectionInfoList[i] = inf;
             }
 
-            _FlowGraphVM.AddNode(_NodeVM);
-            _FlowGraphVM.AddConnections(connList);
+            _flowGraphVm.AddNode(_nodeVm);
+            _flowGraphVm.AddConnections(connList);
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
-            return $"{_FlowGraphVM.Sequence.Name} : Delete node {_NodeVM.Title}";
+            return $"{_flowGraphVm.Sequence.Name} : Delete node {_nodeVm.Title}";
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     class DeleteNodesUndoCommand : IUndoCommand
     {
-        readonly FlowGraphControlViewModel _FlowGraphVM;
-        readonly IEnumerable<NodeViewModel> _NodesVM;
-        readonly List<ConnectionInfo> _ConnectionInfoList = new List<ConnectionInfo>();
+        readonly FlowGraphControlViewModel _flowGraphVm;
+        readonly IEnumerable<NodeViewModel> _nodesVm;
+        readonly List<ConnectionInfo> _connectionInfoList = new List<ConnectionInfo>();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public DeleteNodesUndoCommand(FlowGraphControlViewModel fgv_, IEnumerable<NodeViewModel> nodesVM_)
+        public DeleteNodesUndoCommand(FlowGraphControlViewModel fgv, IEnumerable<NodeViewModel> nodesVm)
         {
-            _FlowGraphVM = fgv_;
+            _flowGraphVm = fgv;
 
             List<ConnectionViewModel> connections = new List<ConnectionViewModel>();
-            foreach (var node in nodesVM_)
+            foreach (var node in nodesVm)
             {
                 connections.AddRange(node.AttachedConnections);
             }
             CopyConnections(connections);
 
-            _NodesVM = nodesVM_;
+            _nodesVm = nodesVm;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="connections_"></param>
-        private void CopyConnections(IEnumerable<ConnectionViewModel> connections_)
+        private void CopyConnections(IEnumerable<ConnectionViewModel> connections)
         {
-            foreach (ConnectionViewModel c in connections_)
+            foreach (ConnectionViewModel c in connections)
             {
-                _ConnectionInfoList.Add(new ConnectionInfo
+                _connectionInfoList.Add(new ConnectionInfo
                 {
-                    ConnectionVM = null,
+                    ConnectionVm = null,
                     DestConnector = c.DestConnector,
                     DestConnectorHotspot = c.DestConnectorHotspot,
                     Points = c.Points,
@@ -290,64 +223,51 @@ namespace FlowSimulator.Undo
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public void Redo()
         {
             List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
 
-            for (int i = 0; i < _ConnectionInfoList.Count; i++)
+            for (int i = 0; i < _connectionInfoList.Count; i++)
             {
-                connList.Add(_ConnectionInfoList[i].ConnectionVM);
+                connList.Add(_connectionInfoList[i].ConnectionVm);
             }
 
-            _FlowGraphVM.DeleteConnections(connList);
-            _FlowGraphVM.Network.Nodes.RemoveRange(_NodesVM);
+            _flowGraphVm.DeleteConnections(connList);
+            _flowGraphVm.Network.Nodes.RemoveRange(_nodesVm);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public void Undo()
         {
             List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
 
-            for (int i = 0; i < _ConnectionInfoList.Count; i++)
+            for (int i = 0; i < _connectionInfoList.Count; i++)
             {
                 ConnectionViewModel copy = new ConnectionViewModel
                 {
-                    DestConnector = _ConnectionInfoList[i].DestConnector,
-                    DestConnectorHotspot = _ConnectionInfoList[i].DestConnectorHotspot,
-                    Points = _ConnectionInfoList[i].Points,
-                    SourceConnector = _ConnectionInfoList[i].SourceConnector,
-                    SourceConnectorHotspot = _ConnectionInfoList[i].SourceConnectorHotspot
+                    DestConnector = _connectionInfoList[i].DestConnector,
+                    DestConnectorHotspot = _connectionInfoList[i].DestConnectorHotspot,
+                    Points = _connectionInfoList[i].Points,
+                    SourceConnector = _connectionInfoList[i].SourceConnector,
+                    SourceConnectorHotspot = _connectionInfoList[i].SourceConnectorHotspot
                 };
 
                 connList.Add(copy);
 
-                ConnectionInfo inf = _ConnectionInfoList[i];
-                inf.ConnectionVM = copy;
-                _ConnectionInfoList[i] = inf;
+                ConnectionInfo inf = _connectionInfoList[i];
+                inf.ConnectionVm = copy;
+                _connectionInfoList[i] = inf;
             }
 
-            _FlowGraphVM.Network.Nodes.AddRange(_NodesVM);
-            _FlowGraphVM.AddConnections(connList);
+            _flowGraphVm.Network.Nodes.AddRange(_nodesVm);
+            _flowGraphVm.AddConnections(connList);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
-            return $"Graph[{_FlowGraphVM.Sequence.Name}] : Delete nodes";
+            return $"Graph[{_flowGraphVm.Sequence.Name}] : Delete nodes";
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     class PositionNodeUndoCommand : IUndoCommand
     {
         internal class NodeDraggingInfo
@@ -357,160 +277,115 @@ namespace FlowSimulator.Undo
             public double EndX, EndY;
         }
 
-        readonly FlowGraphControlViewModel _FlowGraphVM;
-        readonly IEnumerable<NodeDraggingInfo> _NodeInfosVM;
+        readonly FlowGraphControlViewModel _flowGraphVm;
+        readonly IEnumerable<NodeDraggingInfo> _nodeInfosVm;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public PositionNodeUndoCommand(FlowGraphControlViewModel fgv_, IEnumerable<NodeDraggingInfo> nodeInfosVM_)
+        public PositionNodeUndoCommand(FlowGraphControlViewModel fgv, IEnumerable<NodeDraggingInfo> nodeInfosVm)
         {
-            _FlowGraphVM = fgv_;
-            _NodeInfosVM = new List<NodeDraggingInfo>(nodeInfosVM_);
+            _flowGraphVm = fgv;
+            _nodeInfosVm = new List<NodeDraggingInfo>(nodeInfosVm);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public void Redo()
         {
-            foreach (NodeDraggingInfo info in _NodeInfosVM)
+            foreach (NodeDraggingInfo info in _nodeInfosVm)
             {
                 info.Node.X = info.EndX;
                 info.Node.Y = info.EndY;
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public void Undo()
         {
-            foreach (NodeDraggingInfo info in _NodeInfosVM)
+            foreach (NodeDraggingInfo info in _nodeInfosVm)
             {
                 info.Node.X = info.StartX;
                 info.Node.Y = info.StartY;
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
-            return $"{_FlowGraphVM.Sequence.Name} : Node position changed";
+            return $"{_flowGraphVm.Sequence.Name} : Node position changed";
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     class SelectNodesUndoCommand : IUndoCommand
     {
-        readonly NetworkView _View;
-        readonly IEnumerable<NodeViewModel> _NodesVM;
+        readonly NetworkView _view;
+        readonly IEnumerable<NodeViewModel> _nodesVm;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public SelectNodesUndoCommand(NetworkView view_, IEnumerable<NodeViewModel> nodesVM_)
+        public SelectNodesUndoCommand(NetworkView view, IEnumerable<NodeViewModel> nodesVm)
         {
-            _View = view_;
-            _NodesVM = new List<NodeViewModel>(nodesVM_);
+            _view = view;
+            _nodesVm = new List<NodeViewModel>(nodesVm);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public void Redo()
         {
-            _View.IsUndoRegisterEnabled = false;
+            _view.IsUndoRegisterEnabled = false;
 
-            foreach (var node in _NodesVM)
+            foreach (var node in _nodesVm)
             {
-                _View.SelectedNodes.Add(node);
+                _view.SelectedNodes.Add(node);
             }
 
-            _View.IsUndoRegisterEnabled = true;
+            _view.IsUndoRegisterEnabled = true;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public void Undo()
         {
-            _View.IsUndoRegisterEnabled = false;
+            _view.IsUndoRegisterEnabled = false;
 
-            foreach (var node in _NodesVM)
+            foreach (var node in _nodesVm)
             {
-                _View.SelectedNodes.Remove(node);
+                _view.SelectedNodes.Remove(node);
             }
 
-            _View.IsUndoRegisterEnabled = true;
+            _view.IsUndoRegisterEnabled = true;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
             return "Node selected";
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     class DeselectNodesUndoCommand : IUndoCommand
     {
-        readonly NetworkView _View;
-        readonly IEnumerable<NodeViewModel> _NodesVM;
+        readonly NetworkView _view;
+        readonly IEnumerable<NodeViewModel> _nodesVm;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public DeselectNodesUndoCommand(NetworkView view_, IEnumerable<NodeViewModel> nodesVM_)
+        public DeselectNodesUndoCommand(NetworkView view, IEnumerable<NodeViewModel> nodesVm)
         {
-            _View = view_;
-            _NodesVM = new List<NodeViewModel>(nodesVM_);
+            _view = view;
+            _nodesVm = new List<NodeViewModel>(nodesVm);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public void Redo()
         {
-            _View.IsUndoRegisterEnabled = false;
+            _view.IsUndoRegisterEnabled = false;
 
-            foreach (var node in _NodesVM)
+            foreach (var node in _nodesVm)
             {
-                _View.SelectedNodes.Remove(node);
+                _view.SelectedNodes.Remove(node);
             }
 
-            _View.IsUndoRegisterEnabled = true;
+            _view.IsUndoRegisterEnabled = true;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public void Undo()
         {
-            _View.IsUndoRegisterEnabled = false;
+            _view.IsUndoRegisterEnabled = false;
 
-            foreach (var node in _NodesVM)
+            foreach (var node in _nodesVm)
             {
-                _View.SelectedNodes.Add(node);
+                _view.SelectedNodes.Add(node);
             }
- 
-             _View.IsUndoRegisterEnabled = true;
+
+            _view.IsUndoRegisterEnabled = true;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
             return "Node deselected";

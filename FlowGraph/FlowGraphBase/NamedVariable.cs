@@ -45,7 +45,7 @@ namespace FlowGraphBase
         internal ValueContainer InternalValueContainer
         {
             get => _value;
-            set 
+            set
             {
                 if (_value != null)
                 {

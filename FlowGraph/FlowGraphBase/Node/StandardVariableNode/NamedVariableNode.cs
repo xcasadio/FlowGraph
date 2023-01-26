@@ -8,7 +8,7 @@ namespace FlowGraphBase.Node.StandardVariableNode
     /// 
     /// </summary>
     [Visible(false)]
-    public class NamedVariableNode : VariableNode
+    public sealed class NamedVariableNode : VariableNode
     {
         NamedVariable _value;
 

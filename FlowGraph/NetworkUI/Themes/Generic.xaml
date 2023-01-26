@@ -1,14 +1,12 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:NetworkUI"
-    xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
-    >
+    xmlns:local="clr-namespace:NetworkUI">
     <!-- 
     Include this in binding statements for diagnostics:
     diagnostics:PresentationTraceSources.TraceLevel=High
     -->
-    
+
     <LinearGradientBrush x:Key="selectionBorderColor" EndPoint="0.5,1" StartPoint="0.5,0">
         <GradientStop Color="Yellow" Offset="0.5" />
         <GradientStop Color="#FFFF7E00" Offset="1" />
@@ -23,13 +21,13 @@
     <Style 
         TargetType="{x:Type local:NodeItem}"
         >
-        
+
         <!-- Data-bind the parent NetworkView. -->
         <Setter
             Property="ParentNetworkView"
             Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NetworkView}}, Path=.}"
             />
-        
+
         <!-- Set the position of the node within the canvas. -->
         <Setter
             Property="Canvas.Left"
@@ -39,7 +37,7 @@
             Property="Canvas.Top"
             Value="{Binding Y, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
             />
-        
+
         <!-- Set the z-order of the node within the canvas. -->
         <Setter
             Property="Canvas.ZIndex"
@@ -67,7 +65,7 @@
                     TargetType="{x:Type local:NodeItem}"
                     >
                     <Grid>
-                        
+
                         <!-- 
                         This border indicates that node is selected.
                         Normally it is transparent, but when 'IsSelected' is set
@@ -83,18 +81,18 @@
                             Padding="{TemplateBinding Padding}"
                             CornerRadius="5"
                             >
-                            
+
                             <!-- 
                             User-defined node content is presented here. 
                             -->
                             <ContentPresenter />
-                           
+
                         </Border>
-                        
+
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True" >
-                            
+
                             <!-- When the node is selected, set the color of 'selectionBorder' to blue. -->
                             <Setter
                                 TargetName="selectionBorder" Property="BorderBrush"
@@ -105,7 +103,7 @@
                                 Value="{StaticResource selectionBorderBackgroundColor}"
                                 />
                         </Trigger>
-                        
+
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -114,13 +112,13 @@
 
     <!-- Default style and control-template for 'ConnectorItem'. -->
     <Style TargetType="{x:Type local:ConnectorItem}">
-        
+
         <!-- Data-bind the parent NetworkView. -->
         <Setter
             Property="ParentNetworkView"
             Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NetworkView}}, Path=.}"
             />
-        
+
         <!-- Data-bind the parent NodeItem. -->
         <Setter
             Property="ParentNodeItem"
@@ -133,10 +131,10 @@
                 <ControlTemplate 
                     TargetType="{x:Type local:ConnectorItem}"
                     >
-                    
+
                     <!-- Application-defined connector content is presented here. -->
                     <ContentPresenter />
-                    
+
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -167,7 +165,7 @@
     <Style 
         TargetType="{x:Type local:NetworkView}"
         >
-        
+
         <!-- The visual template. -->
         <Setter 
             Property="Template"
@@ -198,7 +196,7 @@
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                             </ItemsControl>
-                            
+
                             <!-- Control that presents the nodes. -->
                             <local:NodeItemsControl
                                 x:Name="PART_NodeItemsControl"
@@ -209,7 +207,7 @@
                                 ItemTemplateSelector="{TemplateBinding NodeItemTemplateSelector}"
                                 ItemContainerStyle="{TemplateBinding NodeItemContainerStyle}"
                                 />
-                            
+
                             <!--
                             This Canvas and Border are used as a very simple way to render a drag selection rectangle.
                             -->

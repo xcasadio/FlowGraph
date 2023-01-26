@@ -67,7 +67,7 @@ namespace FlowSimulator.UI
                     || (parentObject as FrameworkElement).DataContext is NamedVariable)
                 {
                     Type varType = null;
-                    
+
                     if ((parentObject as FrameworkElement).DataContext is NodeSlotVar)
                     {
                         varType = ((parentObject as FrameworkElement).DataContext as NodeSlotVar).VariableType;

@@ -11,8 +11,8 @@ namespace MouseDragScrollViewer
     public class MouseDragScrollViewer : ScrollViewer
     {
         //         public static readonly DependencyProperty IsMouseDraggingProperty =
-//                 DependencyProperty.Register("IsMouseDragging", typeof(bool), typeof(MouseDragScrollViewer),
-//                                             new FrameworkPropertyMetadata(false));
+        //                 DependencyProperty.Register("IsMouseDragging", typeof(bool), typeof(MouseDragScrollViewer),
+        //                                             new FrameworkPropertyMetadata(false));
 
         public static readonly DependencyProperty DragIntervalProperty =
                 DependencyProperty.Register("DragInterval", typeof(double), typeof(MouseDragScrollViewer),
@@ -38,17 +38,17 @@ namespace MouseDragScrollViewer
         /// Set to 'true' to enable the scrolling handled by the mouse dragging.
         /// This is set to 'false' by default.
         /// </summary>
-//         public bool IsMouseDragging
-//         {
-//             get
-//             {
-//                 return (bool)GetValue(IsMouseDraggingProperty);
-//             }
-//             set
-//             {
-//                 SetValue(IsMouseDraggingProperty, value);
-//             }
-//         }
+        //         public bool IsMouseDragging
+        //         {
+        //             get
+        //             {
+        //                 return (bool)GetValue(IsMouseDraggingProperty);
+        //             }
+        //             set
+        //             {
+        //                 SetValue(IsMouseDraggingProperty, value);
+        //             }
+        //         }
 
         /// <summary>
         /// milliseconds
@@ -67,7 +67,7 @@ namespace MouseDragScrollViewer
             get => (double)GetValue(DragAccelerationProperty);
             set => SetValue(DragAccelerationProperty, value);
         }
-        
+
         /// <summary>
         /// pixels per millisecond
         /// </summary>
@@ -204,35 +204,35 @@ namespace MouseDragScrollViewer
         [Flags]
         private enum DragDirection
         {
-            Down    = 1,
-            Up      = 2,
-            Left    = 4,
-            Right   = 8
+            Down = 1,
+            Up = 2,
+            Left = 4,
+            Right = 8
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="direction"></param>
-        private void DragScroll(int direction_)
+        private void DragScroll(int direction)
         {
             double hOffset = 0.0;
             double vOffset = 0.0;
 
-            if ((direction_ & (int)DragDirection.Left) > 0)
+            if ((direction & (int)DragDirection.Left) > 0)
             {
                 hOffset = -_dragVelocity * DragInterval;
             }
-            else if ((direction_ & (int)DragDirection.Right) > 0)
+            else if ((direction & (int)DragDirection.Right) > 0)
             {
                 hOffset = _dragVelocity * DragInterval;
             }
 
-            if ((direction_ & (int)DragDirection.Up) > 0)
+            if ((direction & (int)DragDirection.Up) > 0)
             {
                 vOffset = -_dragVelocity * DragInterval;
             }
-            else if ((direction_ & (int)DragDirection.Down) > 0)
+            else if ((direction & (int)DragDirection.Down) > 0)
             {
                 vOffset = _dragVelocity * DragInterval;
             }

@@ -72,7 +72,7 @@ namespace FlowSimulator.Logger
             }
             else
             {
-                Application.Current.Dispatcher.BeginInvoke(new Action( () => Write(verbose, msg)));
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => Write(verbose, msg)));
             }
         }
     }

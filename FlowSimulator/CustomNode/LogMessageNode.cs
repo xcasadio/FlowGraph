@@ -6,46 +6,29 @@ using FlowGraphBase.Process;
 
 namespace FlowSimulator.CustomNode
 {
-    /// <summary>
-    /// 
-    /// </summary>
     [Category("Action"), Name("Log")]
     public class LogMessageNode : ActionNode
     {
-        public enum NodeSlotId
+        private enum NodeSlotId
         {
             In,
             Out,
             Message
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public override string Title => "Log Message";
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="node_"></param>
-        public LogMessageNode(XmlNode node_)
-            : base(node_)
+        public LogMessageNode(XmlNode node)
+            : base(node)
         {
 
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="node_"></param>
         public LogMessageNode()
         {
-            
+
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         protected override void InitializeSlots()
         {
             base.InitializeSlots();
@@ -56,11 +39,7 @@ namespace FlowSimulator.CustomNode
             AddSlot((int)NodeSlotId.Message, "Message", SlotType.VarIn, typeof(string));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override ProcessingInfo ActivateLogic(ProcessingContext context_, NodeSlot slot_)
+        public override ProcessingInfo ActivateLogic(ProcessingContext context, NodeSlot slot)
         {
             ProcessingInfo info = new ProcessingInfo
             {
@@ -73,7 +52,7 @@ namespace FlowSimulator.CustomNode
                 info.State = LogicState.Warning;
                 info.ErrorMessage = "Please connect a string variable node";
 
-                LogManager.Instance.WriteLine(LogVerbosity.Warning, 
+                LogManager.Instance.WriteLine(LogVerbosity.Warning,
                     "{0} : No message display because no variable node connected. {1}.",
                     Title, info.ErrorMessage);
             }
@@ -82,18 +61,14 @@ namespace FlowSimulator.CustomNode
                 LogManager.Instance.WriteLine(LogVerbosity.Info, val.ToString());
             }
 
-            ActivateOutputLink(context_, (int)NodeSlotId.Out);
+            ActivateOutputLink(context, (int)NodeSlotId.Out);
 
             return info;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         protected override SequenceNode CopyImpl()
         {
             return new LogMessageNode();
         }
-    } // LogMessageNode
+    }
 }

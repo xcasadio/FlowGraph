@@ -12,7 +12,7 @@ namespace FlowGraphBase.Node.StandardActionNode
     /// down the appropriate output. 
     /// </summary>
     [Category("Flow Control"), Name("Branch")]
-    public class BranchNode : 
+    public class BranchNode :
         ActionNode
     {
         public enum NodeSlotId
@@ -370,7 +370,7 @@ namespace FlowGraphBase.Node.StandardActionNode
             {
                 memoryItem = context.CurrentFrame.Allocate(Id, true);
             }
-            
+
             if (slot.Id == (int)NodeSlotId.InEnter)
             {
                 bool val = (bool)memoryItem.Value;
@@ -530,7 +530,7 @@ namespace FlowGraphBase.Node.StandardActionNode
                         // register again this node in order to active itself
                         // after the sequence activated by the loop body slot
                         // is finished
-                        context.RegisterNextExecution(GetSlotById((int)NodeSlotId.In)); 
+                        context.RegisterNextExecution(GetSlotById((int)NodeSlotId.In));
                         ProcessingContext newContext = context.PushNewContext();
                         newContext.Finished += OnLoopBodyFinished;
                         ActivateOutputLink(newContext, (int)NodeSlotId.OutLoop);
@@ -552,7 +552,7 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void OnLoopBodyFinished(object sender, EventArgs e)
-        {            
+        {
             ProcessingContext context = sender as ProcessingContext;
             context.Finished -= OnLoopBodyFinished;
 
@@ -704,7 +704,7 @@ namespace FlowGraphBase.Node.StandardActionNode
                         // is finished
                         memoryInfo.Step = context.RegisterNextExecution(GetSlotById((int)NodeSlotId.In));
                         memoryItem.Value = memoryInfo;
-                        
+
                         ProcessingContext newContext = context.PushNewContext();
                         newContext.Finished += OnLoopBodyFinished;
                         ActivateOutputLink(newContext, (int)NodeSlotId.OutLoop);

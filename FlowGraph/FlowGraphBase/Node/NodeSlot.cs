@@ -48,7 +48,7 @@ namespace FlowGraphBase.Node
 
         public int Id { get; }
         public SequenceNode Node { get; }
-        public virtual SlotType ConnectionType { get; }
+        public SlotType ConnectionType { get; }
         public object Tag { get; }
         public List<NodeSlot> ConnectedNodes { get; }
 
@@ -87,7 +87,7 @@ namespace FlowGraphBase.Node
         /// <summary>
         /// 
         /// </summary>
-        public virtual VariableControlType ControlType
+        public VariableControlType ControlType
         {
             get => _controlType;
             set
@@ -245,7 +245,7 @@ namespace FlowGraphBase.Node
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

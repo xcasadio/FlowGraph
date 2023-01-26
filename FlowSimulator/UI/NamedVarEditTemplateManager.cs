@@ -4,16 +4,10 @@ using System.Windows;
 
 namespace FlowSimulator.UI
 {
-    /// <summary>
-    /// 
-    /// </summary>
     static class NamedVarEditTemplateManager
     {
         private static readonly Dictionary<Type, DataTemplate> TemplatesByTypes = new Dictionary<Type, DataTemplate>(15);
 
-        /// <summary>
-        /// 
-        /// </summary>
         public static void Initialize()
         {
             ResourceDictionary res = new ResourceDictionary
@@ -22,7 +16,7 @@ namespace FlowSimulator.UI
                     UriKind.RelativeOrAbsolute)
             };
 
-            DataTemplate numericTemplate = (DataTemplate) res["numericTemplate"];
+            DataTemplate numericTemplate = (DataTemplate)res["numericTemplate"];
             DataTemplate selectableTemplate = (DataTemplate)res["selectableTemplate"];
             DataTemplate checkableTemplate = (DataTemplate)res["checkableTemplate"];
             DataTemplate textTemplate = (DataTemplate)res["textTemplate"];
@@ -50,30 +44,21 @@ namespace FlowSimulator.UI
             Add(typeof(object), readOnlyTemplate);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="type_"></param>
-        /// <param name="template_"></param>
         public static void Add(Type type, DataTemplate template)
         {
             if (type == null)
             {
-                throw new ArgumentNullException("Type cannot be null");
+                throw new ArgumentNullException(nameof(type));
             }
 
             if (template == null)
             {
-                throw new ArgumentNullException("DataTemplate cannot be null");
+                throw new ArgumentNullException(nameof(template));
             }
 
             TemplatesByTypes.Add(type, template);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="type_"></param>
         public static DataTemplate GetTemplateByType(Type type)
         {
             if (type == null)
@@ -89,14 +74,9 @@ namespace FlowSimulator.UI
             return null;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="type_"></param>
-        /// <returns></returns>
         public static bool ContainsType(Type type)
         {
-            return type == null ? false : TemplatesByTypes.ContainsKey(type);
+            return type != null && TemplatesByTypes.ContainsKey(type);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace NetworkUI
             IsDraggingNode = true;
             IsNotDraggingNode = false;
 
-            var eventArgs = new NodeDragStartedEventArgs(NodeDragStartedEvent, this, SelectedNodes);            
+            var eventArgs = new NodeDragStartedEventArgs(NodeDragStartedEvent, this, SelectedNodes);
             RaiseEvent(eventArgs);
 
             e.Cancel = eventArgs.Cancel;

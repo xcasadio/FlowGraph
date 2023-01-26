@@ -37,10 +37,10 @@ namespace MouseDragScrollViewer
             GeneralTransform transform = relativeTo.TransformToAncestor(presentationSource.RootVisual);
 
             Point offset = transform.Transform(new Point(0, 0));
-// 
-//             Point p = new Point(mouse.X - offset.X, mouse.Y - offset.Y);
-//             System.Diagnostics.Debug.WriteLine(string.Format("mouse {0:0.0}|{1:0.0} offset {2:0.0}|{3:0.0} res {4:0.0}|{5:0.0}",
-//                 mouse.X, mouse.Y, offset.X, offset.Y, p.X, p.Y));
+            // 
+            //             Point p = new Point(mouse.X - offset.X, mouse.Y - offset.Y);
+            //             System.Diagnostics.Debug.WriteLine(string.Format("mouse {0:0.0}|{1:0.0} offset {2:0.0}|{3:0.0} res {4:0.0}|{5:0.0}",
+            //                 mouse.X, mouse.Y, offset.X, offset.Y, p.X, p.Y));
 
             return new Point(mouse.X - offset.X, mouse.Y - offset.Y);
         }

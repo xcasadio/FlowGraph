@@ -14,23 +14,23 @@ namespace NetworkModel
         /// <summary>
         /// The source connector the connection is attached to.
         /// </summary>
-        private ConnectorViewModel sourceConnector;
+        private ConnectorViewModel _sourceConnector;
 
         /// <summary>
         /// The destination connector the connection is attached to.
         /// </summary>
-        private ConnectorViewModel destConnector;
+        private ConnectorViewModel _destConnector;
 
         /// <summary>
         /// The source and dest hotspots used for generating connection points.
         /// </summary>
-        private Point sourceConnectorHotspot;
-        private Point destConnectorHotspot;
+        private Point _sourceConnectorHotspot;
+        private Point _destConnectorHotspot;
 
         /// <summary>
         /// Points that make up the connection.
         /// </summary>
-        private PointCollection points;
+        private PointCollection _points;
 
         //private bool _IsActivated = false;
 
@@ -51,29 +51,29 @@ namespace NetworkModel
         /// </summary>
         public ConnectorViewModel SourceConnector
         {
-            get => sourceConnector;
+            get => _sourceConnector;
             set
             {
-                if (sourceConnector == value)
+                if (_sourceConnector == value)
                 {
                     return;
                 }
 
-                if (sourceConnector != null)
+                if (_sourceConnector != null)
                 {
-                    sourceConnector.AttachedConnections.Remove(this);
-                    sourceConnector.HotspotUpdated -= sourceConnector_HotspotUpdated;
+                    _sourceConnector.AttachedConnections.Remove(this);
+                    _sourceConnector.HotspotUpdated -= sourceConnector_HotspotUpdated;
                     //sourceConnector.SourceSlot.Activated -= new EventHandler(OnSourceSlotActivated); 
                 }
 
-                sourceConnector = value;
+                _sourceConnector = value;
 
-                if (sourceConnector != null)
+                if (_sourceConnector != null)
                 {
-                    sourceConnector.AttachedConnections.Add(this);
-                    sourceConnector.HotspotUpdated += sourceConnector_HotspotUpdated;
+                    _sourceConnector.AttachedConnections.Add(this);
+                    _sourceConnector.HotspotUpdated += sourceConnector_HotspotUpdated;
                     //sourceConnector.SourceSlot.Activated += new EventHandler(OnSourceSlotActivated);
-                    SourceConnectorHotspot = sourceConnector.Hotspot;
+                    SourceConnectorHotspot = _sourceConnector.Hotspot;
                 }
 
                 OnPropertyChanged("SourceConnector");
@@ -86,29 +86,29 @@ namespace NetworkModel
         /// </summary>
         public ConnectorViewModel DestConnector
         {
-            get => destConnector;
+            get => _destConnector;
             set
             {
-                if (destConnector == value)
+                if (_destConnector == value)
                 {
                     return;
                 }
 
-                if (destConnector != null)
+                if (_destConnector != null)
                 {
-                    destConnector.AttachedConnections.Remove(this);
-                    destConnector.HotspotUpdated -= destConnector_HotspotUpdated;
+                    _destConnector.AttachedConnections.Remove(this);
+                    _destConnector.HotspotUpdated -= destConnector_HotspotUpdated;
                     //destConnector.SourceSlot.Activated -= new EventHandler(OnSourceSlotActivated); 
                 }
 
-                destConnector = value;
+                _destConnector = value;
 
-                if (destConnector != null)
+                if (_destConnector != null)
                 {
-                    destConnector.AttachedConnections.Add(this);
-                    destConnector.HotspotUpdated += destConnector_HotspotUpdated;
+                    _destConnector.AttachedConnections.Add(this);
+                    _destConnector.HotspotUpdated += destConnector_HotspotUpdated;
                     //destConnector.SourceSlot.Activated += new EventHandler(OnSourceSlotActivated);
-                    DestConnectorHotspot = destConnector.Hotspot;
+                    DestConnectorHotspot = _destConnector.Hotspot;
                 }
 
                 OnPropertyChanged("DestConnector");
@@ -121,12 +121,12 @@ namespace NetworkModel
         /// </summary>
         public Point SourceConnectorHotspot
         {
-            get => sourceConnectorHotspot;
+            get => _sourceConnectorHotspot;
             set
             {
-                if (sourceConnectorHotspot != value)
+                if (_sourceConnectorHotspot != value)
                 {
-                    sourceConnectorHotspot = value;
+                    _sourceConnectorHotspot = value;
                     ComputeConnectionPoints();
                     OnPropertyChanged("SourceConnectorHotspot");
                 }
@@ -138,12 +138,12 @@ namespace NetworkModel
         /// </summary>
         public Point DestConnectorHotspot
         {
-            get => destConnectorHotspot;
+            get => _destConnectorHotspot;
             set
             {
-                if (destConnectorHotspot != value)
+                if (_destConnectorHotspot != value)
                 {
-                    destConnectorHotspot = value;
+                    _destConnectorHotspot = value;
                     ComputeConnectionPoints();
                     OnPropertyChanged("DestConnectorHotspot");
                 }
@@ -155,10 +155,10 @@ namespace NetworkModel
         /// </summary>
         public PointCollection Points
         {
-            get => points;
+            get => _points;
             set
             {
-                points = value;
+                _points = value;
                 OnPropertyChanged("Points");
             }
         }

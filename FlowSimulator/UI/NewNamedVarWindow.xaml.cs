@@ -58,7 +58,7 @@ namespace FlowSimulator.UI
                 InputName = var.Name;
                 comboBox.IsEnabled = false;
             }
-            
+
             Closing += OnClosing;
         }
 

@@ -79,7 +79,7 @@ namespace FlowSimulator.UI
             var types = (List<Type>)Types;
             types.Add(typeof(bool));
             types.Add(typeof(sbyte));
-            types.Add(typeof(char)); 
+            types.Add(typeof(char));
             types.Add(typeof(short));
             types.Add(typeof(int));
             types.Add(typeof(long));
@@ -110,35 +110,35 @@ namespace FlowSimulator.UI
         /// 
         /// </summary>
         /// <param name="type_"></param>
-        public static Color GetColorFromType(Type type_)
+        public static Color GetColorFromType(Type type)
         {
-            if (type_ == typeof(bool))
+            if (type == typeof(bool))
             {
                 return BooleanColor;
             }
 
-            if (type_ == typeof(sbyte)
-                || type_ == typeof(char)
-                || type_ == typeof(short)
-                || type_ == typeof(int)
-                || type_ == typeof(long)
-                || type_ == typeof(byte)
-                || type_ == typeof(ushort)
-                || type_ == typeof(uint)
-                || type_ == typeof(ulong))
+            if (type == typeof(sbyte)
+                || type == typeof(char)
+                || type == typeof(short)
+                || type == typeof(int)
+                || type == typeof(long)
+                || type == typeof(byte)
+                || type == typeof(ushort)
+                || type == typeof(uint)
+                || type == typeof(ulong))
             {
                 return IntegerColor;
             }
-            if (type_ == typeof(float)
-                || type_ == typeof(double))
+            if (type == typeof(float)
+                || type == typeof(double))
             {
                 return IntegerColor;
             }
-            if (type_ == typeof(string))
+            if (type == typeof(string))
             {
                 return StringColor;
             }
-            if (type_ == typeof(object))
+            if (type == typeof(object))
             {
                 return ObjectColor;
             }
@@ -166,14 +166,14 @@ namespace FlowSimulator.UI
         /// <param name="a_"></param>
         /// <param name="b_"></param>
         /// <returns></returns>
-        public static bool CheckCompatibilityType(Type a_, Type b_)
+        public static bool CheckCompatibilityType(Type a, Type b)
         {
-            if (a_ == typeof(float) || a_ == typeof(double))
+            if (a == typeof(float) || a == typeof(double))
             {
-                return b_ == typeof(float) || b_ == typeof(double);
+                return b == typeof(float) || b == typeof(double);
             }
 
-            return a_ == b_;
+            return a == b;
         }
     }
 }

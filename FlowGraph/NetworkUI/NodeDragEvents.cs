@@ -38,7 +38,7 @@ namespace NetworkUI
         /// <summary>
         /// Set to 'false' to disallow dragging.
         /// </summary>
-        private bool cancel;
+        private bool _cancel;
 
         internal NodeDragStartedEventArgs(RoutedEvent routedEvent, object source, ICollection nodes) :
             base(routedEvent, source, nodes)
@@ -50,8 +50,8 @@ namespace NetworkUI
         /// </summary>
         public bool Cancel
         {
-            get => cancel;
-            set => cancel = value;
+            get => _cancel;
+            set => _cancel = value;
         }
     }
 

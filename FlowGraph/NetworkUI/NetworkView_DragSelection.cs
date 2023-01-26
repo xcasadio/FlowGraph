@@ -96,7 +96,7 @@ namespace NetworkUI
                     e.Handled = true;
                     wasDragSelectionApplied = true;
                 }
-                
+
                 if (_isControlAndLeftMouseButtonDown)
                 {
                     _isControlAndLeftMouseButtonDown = false;
@@ -235,9 +235,9 @@ namespace NetworkUI
             //
             // Find and select all the list box items.
             //
-            for (int nodeIndex = 0; nodeIndex < Nodes.Count; ++nodeIndex) 
+            for (int nodeIndex = 0; nodeIndex < Nodes.Count; ++nodeIndex)
             {
-                var nodeItem = (NodeItem) _nodeItemsControl.ItemContainerGenerator.ContainerFromIndex(nodeIndex);
+                var nodeItem = (NodeItem)_nodeItemsControl.ItemContainerGenerator.ContainerFromIndex(nodeIndex);
                 var transformToAncestor = nodeItem.TransformToAncestor(this);
                 Point itemPt1 = transformToAncestor.Transform(new Point(0, 0));
                 Point itemPt2 = transformToAncestor.Transform(new Point(nodeItem.ActualWidth, nodeItem.ActualHeight));

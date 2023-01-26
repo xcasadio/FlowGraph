@@ -22,7 +22,7 @@ namespace NetworkUI
                 new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         internal static readonly DependencyProperty ParentNetworkViewProperty =
-            DependencyProperty.Register("ParentNetworkView", typeof(NetworkView), typeof(NodeItem), 
+            DependencyProperty.Register("ParentNetworkView", typeof(NetworkView), typeof(NodeItem),
                 new FrameworkPropertyMetadata(ParentNetworkView_PropertyChanged));
 
         internal static readonly RoutedEvent NodeDragStartedEvent =
@@ -81,22 +81,22 @@ namespace NetworkUI
         /// <summary>
         /// The point the mouse was last at when dragging.
         /// </summary>
-        private Point lastMousePoint;
+        private Point _lastMousePoint;
 
         /// <summary>
         /// Set to 'true' when left mouse button is held down.
         /// </summary>
-        private bool isLeftMouseDown;
+        private bool _isLeftMouseDown;
 
         /// <summary>
         /// Set to 'true' when left mouse button and the control key are held down.
         /// </summary>
-        private bool isLeftMouseAndControlDown;
+        private bool _isLeftMouseAndControlDown;
 
         /// <summary>
         /// Set to 'true' when dragging has started.
         /// </summary>
-        private bool isDragging;
+        private bool _isDragging;
 
         /// <summary>
         /// The threshold distance the mouse-cursor must move before dragging begins.
@@ -138,8 +138,8 @@ namespace NetworkUI
 
             if (e.ChangedButton == MouseButton.Left && ParentNetworkView != null)
             {
-                lastMousePoint = e.GetPosition(ParentNetworkView);
-                isLeftMouseDown = true;
+                _lastMousePoint = e.GetPosition(ParentNetworkView);
+                _isLeftMouseDown = true;
 
                 LeftMouseDownSelectionLogic();
 
@@ -148,7 +148,7 @@ namespace NetworkUI
             else if (e.ChangedButton == MouseButton.Right && ParentNetworkView != null)
             {
                 RightMouseDownSelectionLogic();
-           }
+            }
         }
 
         /// <summary>
@@ -165,14 +165,14 @@ namespace NetworkUI
                 // This means that the rectangle is being added to or removed from the existing selection.
                 // Don't do anything yet, we will act on this later in the MouseUp event handler.
                 //
-                isLeftMouseAndControlDown = true;
+                _isLeftMouseAndControlDown = true;
             }
             else
             {
                 //
                 // Control key is not held down.
                 //
-                isLeftMouseAndControlDown = false;
+                _isLeftMouseAndControlDown = false;
 
                 if (ParentNetworkView.SelectedNodes.Count == 0)
                 {
@@ -240,7 +240,7 @@ namespace NetworkUI
         {
             base.OnMouseMove(e);
 
-            if (isDragging)
+            if (_isDragging)
             {
                 //
                 // Raise the event to notify that dragging is in progress.
@@ -254,16 +254,16 @@ namespace NetworkUI
                     item = DataContext;
                 }
 
-                Vector offset = curMousePoint - lastMousePoint;
+                Vector offset = curMousePoint - _lastMousePoint;
                 if (offset.X != 0.0 ||
                     offset.Y != 0.0)
                 {
-                    lastMousePoint = curMousePoint;
+                    _lastMousePoint = curMousePoint;
 
                     RaiseEvent(new NodeDraggingEventArgs(NodeDraggingEvent, this, new[] { item }, offset.X, offset.Y));
                 }
             }
-            else if (isLeftMouseDown && ParentNetworkView.EnableNodeDragging)
+            else if (_isLeftMouseDown && ParentNetworkView.EnableNodeDragging)
             {
                 //
                 // The user is left-dragging the node,
@@ -271,7 +271,7 @@ namespace NetworkUI
                 // the mouse cursor has moved more than the threshold distance.
                 //
                 Point curMousePoint = e.GetPosition(ParentNetworkView);
-                var dragDelta = curMousePoint - lastMousePoint;
+                var dragDelta = curMousePoint - _lastMousePoint;
                 double dragDistance = Math.Abs(dragDelta.Length);
                 if (dragDistance > DragThreshold)
                 {
@@ -290,12 +290,12 @@ namespace NetworkUI
                         //
                         // Handler of the event disallowed dragging of the node.
                         //
-                        isLeftMouseDown = false;
-                        isLeftMouseAndControlDown = false;
-						return;
+                        _isLeftMouseDown = false;
+                        _isLeftMouseAndControlDown = false;
+                        return;
                     }
 
-                    isDragging = true;
+                    _isDragging = true;
                     CaptureMouse();
                     e.Handled = true;
                 }
@@ -309,9 +309,9 @@ namespace NetworkUI
         {
             base.OnMouseUp(e);
 
-            if (isLeftMouseDown)
+            if (_isLeftMouseDown)
             {
-                if (isDragging)
+                if (_isDragging)
                 {
                     //
                     // Raise an event to notify that node dragging has finished.
@@ -319,9 +319,9 @@ namespace NetworkUI
 
                     RaiseEvent(new NodeDragCompletedEventArgs(NodeDragCompletedEvent, this, new[] { this }));
 
-					ReleaseMouseCapture();
+                    ReleaseMouseCapture();
 
-                    isDragging = false;
+                    _isDragging = false;
                 }
                 else
                 {
@@ -332,8 +332,8 @@ namespace NetworkUI
                     LeftMouseUpSelectionLogic();
                 }
 
-                isLeftMouseDown = false;
-                isLeftMouseAndControlDown = false;
+                _isLeftMouseDown = false;
+                _isLeftMouseAndControlDown = false;
 
                 e.Handled = true;
             }
@@ -346,7 +346,7 @@ namespace NetworkUI
         /// </summary>
         internal void LeftMouseUpSelectionLogic()
         {
-            if (isLeftMouseAndControlDown)
+            if (_isLeftMouseAndControlDown)
             {
                 //
                 // Control key was held down.
@@ -378,7 +378,7 @@ namespace NetworkUI
                 }
             }
 
-            isLeftMouseAndControlDown = false;
+            _isLeftMouseAndControlDown = false;
         }
 
         /// <summary>
@@ -389,7 +389,7 @@ namespace NetworkUI
             //
             // Bring new nodes to the front of the z-order.
             //
-            var nodeItem = (NodeItem) o;
+            var nodeItem = (NodeItem)o;
             nodeItem.BringToFront();
         }
     }

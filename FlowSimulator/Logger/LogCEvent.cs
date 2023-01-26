@@ -2,24 +2,13 @@
 
 namespace FlowSimulator.Logger
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class LogCEvent : ILog
     {
-        /// <summary>
-        /// 
-        /// </summary>
         public void Close()
         {
 
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="verbose"></param>
-        /// <param name="msg"></param>
         public void Write(LogVerbosity verbose, string msg)
         {
             msg = msg.Replace("{", "{{").Replace("}", "}}");

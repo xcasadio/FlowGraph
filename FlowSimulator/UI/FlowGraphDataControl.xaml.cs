@@ -17,8 +17,8 @@ namespace FlowSimulator.UI
         public const string DragPrefixNamedVar = "NamedVariable#";
         public const string DragPrefixScriptElement = "ScriptElement#";
 
-        private Point _DragStartPoint;
-        private bool _IsDragAndDrop;
+        private Point _dragStartPoint;
+        private bool _isDragAndDrop;
 
         /// <summary>
         /// 
@@ -33,10 +33,10 @@ namespace FlowSimulator.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="?"></param>
-        private void ListBoxGraphIte_MouseDoubleClick(object sender, MouseButtonEventArgs arg_)
+        private void ListBoxGraphIte_MouseDoubleClick(object sender, MouseButtonEventArgs arg)
         {
             RoutedUICommand cmd = (RoutedUICommand)Application.Current.Resources["Commands.OpenGraph"];
-            cmd.Execute(arg_, this);
+            cmd.Execute(arg, this);
         }
 
         /// <summary>
@@ -109,14 +109,14 @@ namespace FlowSimulator.UI
             if (listBoxGraphs.SelectedItem != null
                 && listBoxGraphs.SelectedItem is Sequence sequence)
             {
-                FlowGraphControlViewModel flowGraphVM = 
+                FlowGraphControlViewModel flowGraphVm =
                     FlowGraphManager.Instance.GetViewModelById(sequence.Id);
 
                 SequenceParametersWindow win = new SequenceParametersWindow
                 {
-                    Title = "Graph " + flowGraphVM.Name + " parameters",
-                    InputName = flowGraphVM.Name,
-                    InputDescription = flowGraphVM.Description,
+                    Title = "Graph " + flowGraphVm.Name + " parameters",
+                    InputName = flowGraphVm.Name,
+                    InputDescription = flowGraphVm.Description,
                     IsValidInputNameCallback = GraphDataManager.Instance.IsValidSequenceName,
                     Owner = MainWindow.Instance
                 };
@@ -126,8 +126,8 @@ namespace FlowSimulator.UI
                     return;
                 }
 
-                flowGraphVM.Sequence.Name = win.InputName;
-                flowGraphVM.Sequence.Description = win.InputDescription;
+                flowGraphVm.Sequence.Name = win.InputName;
+                flowGraphVm.Sequence.Description = win.InputDescription;
             }
         }
 
@@ -141,16 +141,16 @@ namespace FlowSimulator.UI
             if (listBoxGraphs.SelectedItem != null
                 && listBoxGraphs.SelectedItem is Sequence sequence)
             {
-                FlowGraphControlViewModel flowGraphVM =
+                FlowGraphControlViewModel flowGraphVm =
                     FlowGraphManager.Instance.GetViewModelById(sequence.Id);
 
                 if (MessageBox.Show(
-                        "Do you really want to delete the graph " + flowGraphVM.Name + " ?",
+                        "Do you really want to delete the graph " + flowGraphVm.Name + " ?",
                         "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    MainWindow.Instance.FlowGraphManagerControl.CloseTab(flowGraphVM);
-                    FlowGraphManager.Instance.Remove(flowGraphVM);
-                    GraphDataManager.Instance.RemoveSequence(flowGraphVM.Sequence as Sequence);
+                    MainWindow.Instance.FlowGraphManagerControl.CloseTab(flowGraphVm);
+                    FlowGraphManager.Instance.Remove(flowGraphVm);
+                    GraphDataManager.Instance.RemoveSequence(flowGraphVm.Sequence as Sequence);
                 }
             }
         }
@@ -160,10 +160,10 @@ namespace FlowSimulator.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="?"></param>
-        private void ListBoxGraphFunctionIte_MouseDoubleClick(object sender, MouseButtonEventArgs arg_)
+        private void ListBoxGraphFunctionIte_MouseDoubleClick(object sender, MouseButtonEventArgs arg)
         {
             RoutedUICommand cmd = (RoutedUICommand)Application.Current.Resources["Commands.OpenFunction"];
-            cmd.Execute(arg_, this);
+            cmd.Execute(arg, this);
         }
 
         /// <summary>
@@ -224,14 +224,14 @@ namespace FlowSimulator.UI
             if (listBoxGraphFunctions.SelectedItem != null
                 && listBoxGraphFunctions.SelectedItem is SequenceFunction function)
             {
-                FlowGraphControlViewModel flowGraphVM =
+                FlowGraphControlViewModel flowGraphVm =
                     FlowGraphManager.Instance.GetViewModelById(function.Id);
 
                 SequenceParametersWindow win = new SequenceParametersWindow
                 {
-                    Title = "Function " + flowGraphVM.Name + " parameters",
-                    InputName = flowGraphVM.Name,
-                    InputDescription = flowGraphVM.Description,
+                    Title = "Function " + flowGraphVm.Name + " parameters",
+                    InputName = flowGraphVm.Name,
+                    InputDescription = flowGraphVm.Description,
                     IsValidInputNameCallback = GraphDataManager.Instance.IsValidFunctionName,
                     Owner = MainWindow.Instance
                 };
@@ -241,8 +241,8 @@ namespace FlowSimulator.UI
                     return;
                 }
 
-                flowGraphVM.Sequence.Name = win.InputName;
-                flowGraphVM.Sequence.Description = win.InputDescription;
+                flowGraphVm.Sequence.Name = win.InputName;
+                flowGraphVm.Sequence.Description = win.InputDescription;
             }
         }
 
@@ -256,16 +256,16 @@ namespace FlowSimulator.UI
             if (listBoxGraphFunctions.SelectedItem != null
                 && listBoxGraphFunctions.SelectedItem is SequenceFunction function)
             {
-                FlowGraphControlViewModel flowGraphVM =
+                FlowGraphControlViewModel flowGraphVm =
                     FlowGraphManager.Instance.GetViewModelById(function.Id);
 
                 if (MessageBox.Show(
-                        "Do you really want to delete the function " + flowGraphVM.Name + " ?",
+                        "Do you really want to delete the function " + flowGraphVm.Name + " ?",
                         "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    MainWindow.Instance.FlowGraphManagerControl.CloseTab(flowGraphVM);
-                    FlowGraphManager.Instance.Remove(flowGraphVM);
-                    GraphDataManager.Instance.RemoveFunction(flowGraphVM.Sequence as SequenceFunction);
+                    MainWindow.Instance.FlowGraphManagerControl.CloseTab(flowGraphVm);
+                    FlowGraphManager.Instance.Remove(flowGraphVm);
+                    GraphDataManager.Instance.RemoveFunction(flowGraphVm.Sequence as SequenceFunction);
                 }
             }
         }
@@ -281,12 +281,12 @@ namespace FlowSimulator.UI
 
             if (e.ButtonState == MouseButtonState.Pressed)
             {
-                _DragStartPoint = e.GetPosition(null);
-                _IsDragAndDrop = true;
+                _dragStartPoint = e.GetPosition(null);
+                _isDragAndDrop = true;
             }
             else if (e.ButtonState == MouseButtonState.Released)
             {
-                _IsDragAndDrop = false;
+                _isDragAndDrop = false;
             }
         }
 
@@ -297,11 +297,11 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         private void listBoxGraphFunctions_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (_IsDragAndDrop)
+            if (_isDragAndDrop)
             {
                 // Get the current mouse position
                 Point mousePos = e.GetPosition(null);
-                Vector diff = _DragStartPoint - mousePos;
+                Vector diff = _dragStartPoint - mousePos;
 
                 if (e.LeftButton == MouseButtonState.Pressed &&
                     sender is ListBox listBox &&
@@ -348,7 +348,7 @@ namespace FlowSimulator.UI
             }
 
             NamedVariableManager.Instance.Add(
-                win.InputName, 
+                win.InputName,
                 VariableTypeInspector.CreateDefaultValueFromType(Type.GetType(win.InputType)));
         }
 
@@ -408,12 +408,12 @@ namespace FlowSimulator.UI
 
             if (e.ButtonState == MouseButtonState.Pressed)
             {
-                _DragStartPoint = e.GetPosition(null);
-                _IsDragAndDrop = true;
+                _dragStartPoint = e.GetPosition(null);
+                _isDragAndDrop = true;
             }
             else if (e.ButtonState == MouseButtonState.Released)
             {
-                _IsDragAndDrop = false;
+                _isDragAndDrop = false;
             }
         }
 
@@ -424,11 +424,11 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         private void listBoxGraphNamedVars_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (_IsDragAndDrop)
+            if (_isDragAndDrop)
             {
                 // Get the current mouse position
                 Point mousePos = e.GetPosition(null);
-                Vector diff = _DragStartPoint - mousePos;
+                Vector diff = _dragStartPoint - mousePos;
 
                 if (e.LeftButton == MouseButtonState.Pressed &&
                     sender is ListBox listBox &&
@@ -459,10 +459,10 @@ namespace FlowSimulator.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="?"></param>
-        private void ListBoxGraphScriptIte_MouseDoubleClick(object sender, MouseButtonEventArgs arg_)
+        private void ListBoxGraphScriptIte_MouseDoubleClick(object sender, MouseButtonEventArgs arg)
         {
             RoutedUICommand cmd = (RoutedUICommand)Application.Current.Resources["Commands.OpenScript"];
-            cmd.Execute(arg_, this);
+            cmd.Execute(arg, this);
         }
 
         /// <summary>
@@ -553,11 +553,11 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         private void listBoxGraphScripts_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (_IsDragAndDrop)
+            if (_isDragAndDrop)
             {
                 // Get the current mouse position
                 Point mousePos = e.GetPosition(null);
-                Vector diff = _DragStartPoint - mousePos;
+                Vector diff = _dragStartPoint - mousePos;
 
                 if (e.LeftButton == MouseButtonState.Pressed &&
                     sender is ListBox listBox &&

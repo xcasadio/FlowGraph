@@ -85,7 +85,7 @@
     <Compile Include="CustomNode\EventNodeTestStarted.cs" />
     <Compile Include="CustomNode\LogMessageNode.cs" />
     <Compile Include="EventArgExt.cs" />
-    <Compile Include="ExeptionHelper.cs" />
+    <Compile Include="Exception.cs" />
     <Compile Include="FlowGraphs\FlowGraphManager.cs" />
     <Compile Include="DependencyObjectHelper.cs" />
     <Compile Include="Logger\LogCEvent.cs" />

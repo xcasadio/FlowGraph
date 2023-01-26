@@ -28,10 +28,10 @@ namespace FlowGraphBase.Node.StandardActionNode
         /// </summary>
         public override string Title
         {
-            get 
+            get
             {
                 GetFunction(); // TODO : ugly but the fast way to initialize
-                return "ReturnNode"; 
+                return "ReturnNode";
             }
         }
 

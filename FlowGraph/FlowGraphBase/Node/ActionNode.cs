@@ -3,9 +3,6 @@ using FlowGraphBase.Process;
 
 namespace FlowGraphBase.Node
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public abstract
 #if EDITOR
     partial
@@ -13,9 +10,6 @@ namespace FlowGraphBase.Node
     class ActionNode
         : SequenceNode
     {
-        /// <summary>
-        /// 
-        /// </summary>
         public enum LogicState
         {
             Ok,
@@ -23,9 +17,6 @@ namespace FlowGraphBase.Node
             Error
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public struct ProcessingInfo
         {
             public LogicState State;
@@ -34,10 +25,7 @@ namespace FlowGraphBase.Node
 
         private string _errorMessage = "";
         private ProcessingInfo _state;
-
-        /// <summary>
-        /// 
-        /// </summary>
+        
         public ProcessingInfo State
         {
             get => _state;
@@ -47,10 +35,7 @@ namespace FlowGraphBase.Node
                 OnPropertyChanged("State");
             }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
+        
         public string ErrorMessage
         {
             get => _errorMessage;
@@ -60,44 +45,24 @@ namespace FlowGraphBase.Node
                 OnPropertyChanged("ErrorMessage");
             }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="node"></param>
+        
         protected ActionNode(XmlNode node)
             : base(node)
         {
 
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         protected override void InitializeSlots()
         {
             SlotFlag = SlotAvailableFlag.All;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="slot"></param>
-        /// <returns></returns>
         public ProcessingInfo Activate(ProcessingContext context, NodeSlot slot)
         {
             State = ActivateLogic(context, slot);
             return State;
         }
 
-        /// <summary>
-        /// Methods call when the node is activated.
-        /// The other node connected to the input connector has activated his output link.
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="slot"></param>
-        /// <returns></returns>
         public abstract ProcessingInfo ActivateLogic(ProcessingContext context, NodeSlot slot);
     }
 }

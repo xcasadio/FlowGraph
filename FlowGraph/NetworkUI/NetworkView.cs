@@ -74,7 +74,7 @@ namespace NetworkUI
             DependencyProperty.RegisterReadOnly("IsNotDragging", typeof(bool), typeof(NetworkView),
                 new FrameworkPropertyMetadata(true));
         public static readonly DependencyProperty IsNotDraggingProperty = IsNotDraggingPropertyKey.DependencyProperty;
- 
+
         public static readonly DependencyProperty NodeItemTemplateProperty =
             DependencyProperty.Register("NodeItemTemplate", typeof(DataTemplate), typeof(NetworkView));
 
@@ -273,7 +273,7 @@ namespace NetworkUI
         /// </summary>
         public bool IsClearSelectionOnEmptySpaceClickEnabled
         {
-            get => (bool) GetValue(IsClearSelectionOnEmptySpaceClickEnabledProperty);
+            get => (bool)GetValue(IsClearSelectionOnEmptySpaceClickEnabledProperty);
             set => SetValue(IsClearSelectionOnEmptySpaceClickEnabledProperty, value);
         }
 

@@ -160,7 +160,7 @@ namespace FlowGraphBase.Process
                     ProcessingContext c = CurrentProcessingContext;
                     CurrentProcessingContext.Parent.Child = null;
                     // Call Parent.PopStep() else the execution will stop because step is null
-                    step = c.Parent.PopStep(); 
+                    step = c.Parent.PopStep();
                 }
             }
 

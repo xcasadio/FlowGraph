@@ -121,7 +121,7 @@ namespace ZoomAndPan
 
         public static readonly DependencyProperty AnimationDurationProperty =
                 DependencyProperty.Register("AnimationDuration", typeof(double), typeof(ZoomAndPanControl),
-                                            new FrameworkPropertyMetadata(0.4  )); 
+                                            new FrameworkPropertyMetadata(0.4));
 
         public static readonly DependencyProperty ContentZoomFocusXProperty =
                 DependencyProperty.Register("ContentZoomFocusX", typeof(double), typeof(ZoomAndPanControl),
@@ -616,7 +616,7 @@ namespace ZoomAndPan
         private static object ContentScale_Coerce(DependencyObject d, object baseValue)
         {
             ZoomAndPanControl c = (ZoomAndPanControl)d;
-            double value = (double) baseValue;
+            double value = (double)baseValue;
             value = Math.Min(Math.Max(value, c.MinContentScale), c.MaxContentScale);
             return value;
         }
@@ -890,7 +890,7 @@ namespace ZoomAndPan
                 //
                 height = childSize.Height;
             }
-            
+
             UpdateTranslationX();
             UpdateTranslationY();
 

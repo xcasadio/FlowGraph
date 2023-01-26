@@ -22,20 +22,20 @@ using ICSharpCode.AvalonEdit.Folding;
 
 namespace FlowSimulator.AvalonEdit
 {
-	/// <summary>
-	/// Allows producing foldings from a document based on braces.
-	/// </summary>
-	public class BraceFoldingStrategy : AbstractFoldingStrategy
-	{
-		/// <summary>
-		/// Gets/Sets the opening brace. The default value is '{'.
-		/// </summary>
-		public char OpeningBrace { get; set; }
-		
-		/// <summary>
-		/// Gets/Sets the closing brace. The default value is '}'.
-		/// </summary>
-		public char ClosingBrace { get; set; }
+    /// <summary>
+    /// Allows producing foldings from a document based on braces.
+    /// </summary>
+    public class BraceFoldingStrategy : AbstractFoldingStrategy
+    {
+        /// <summary>
+        /// Gets/Sets the opening brace. The default value is '{'.
+        /// </summary>
+        public char OpeningBrace { get; set; }
+
+        /// <summary>
+        /// Gets/Sets the closing brace. The default value is '}'.
+        /// </summary>
+        public char ClosingBrace { get; set; }
 
         /// <summary>
         /// Gets/Sets the opening brace. The default value is '{'.
@@ -46,42 +46,42 @@ namespace FlowSimulator.AvalonEdit
         /// Gets/Sets the closing brace. The default value is '}'.
         /// </summary>
         public string EndRegion { get; set; }
-		
-		/// <summary>
-		/// Creates a new BraceFoldingStrategy.
-		/// </summary>
-		public BraceFoldingStrategy()
-		{
-			OpeningBrace = '{';
-			ClosingBrace = '}';
+
+        /// <summary>
+        /// Creates a new BraceFoldingStrategy.
+        /// </summary>
+        public BraceFoldingStrategy()
+        {
+            OpeningBrace = '{';
+            ClosingBrace = '}';
             BeginRegion = "#region";
             EndRegion = "#endregion";
-		}
-		
-		/// <summary>
-		/// Create <see cref="NewFolding"/>s for the specified document.
-		/// </summary>
-		public override IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out int firstErrorOffset)
-		{
-			firstErrorOffset = -1;
-			return CreateNewFoldings(document);
-		}
-		
-		/// <summary>
-		/// Create <see cref="NewFolding"/>s for the specified document.
-		/// </summary>
-		public IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
-		{
-			List<NewFolding> newFoldings = new List<NewFolding>();
-			
-			Stack<int> startOffsets = new Stack<int>();
+        }
+
+        /// <summary>
+        /// Create <see cref="NewFolding"/>s for the specified document.
+        /// </summary>
+        public override IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out int firstErrorOffset)
+        {
+            firstErrorOffset = -1;
+            return CreateNewFoldings(document);
+        }
+
+        /// <summary>
+        /// Create <see cref="NewFolding"/>s for the specified document.
+        /// </summary>
+        public IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
+        {
+            List<NewFolding> newFoldings = new List<NewFolding>();
+
+            Stack<int> startOffsets = new Stack<int>();
             Stack<int> startRegionOffsets = new Stack<int>();
 
-			int lastNewLineOffset = 0;
-			char openingBrace = OpeningBrace;
-			char closingBrace = ClosingBrace;
+            int lastNewLineOffset = 0;
+            char openingBrace = OpeningBrace;
+            char closingBrace = ClosingBrace;
 
-			for (int i = 0; i < document.TextLength; i++) 
+            for (int i = 0; i < document.TextLength; i++)
             {
                 char c = document.GetCharAt(i);
 
@@ -91,8 +91,8 @@ namespace FlowSimulator.AvalonEdit
                     startRegionOffsets.Push(i);
                 }
                 else if (i + EndRegion.Length < document.TextLength
-                    && EndRegion.Equals(document.GetText(i, EndRegion.Length)) 
-                    && startRegionOffsets.Count > 0) 
+                    && EndRegion.Equals(document.GetText(i, EndRegion.Length))
+                    && startRegionOffsets.Count > 0)
                 {
                     int startOffset = startRegionOffsets.Pop();
                     int endOffset = i + 1;
@@ -121,25 +121,26 @@ namespace FlowSimulator.AvalonEdit
                         newFoldings.Add(new NewFolding(startOffset, endOffset));
                     }
                 }
-                else if (c == openingBrace) 
+                else if (c == openingBrace)
                 {
-					startOffsets.Push(i);
-				} 
-                else if (c == closingBrace && startOffsets.Count > 0) 
+                    startOffsets.Push(i);
+                }
+                else if (c == closingBrace && startOffsets.Count > 0)
                 {
-					int startOffset = startOffsets.Pop();
-					// don't fold if opening and closing brace are on the same line
-					if (startOffset < lastNewLineOffset) {
-						newFoldings.Add(new NewFolding(startOffset, i + 1));
-					}
-				} 
-                else if (c == '\n' || c == '\r') 
+                    int startOffset = startOffsets.Pop();
+                    // don't fold if opening and closing brace are on the same line
+                    if (startOffset < lastNewLineOffset)
+                    {
+                        newFoldings.Add(new NewFolding(startOffset, i + 1));
+                    }
+                }
+                else if (c == '\n' || c == '\r')
                 {
-					lastNewLineOffset = i + 1;
-				}
-			}
-			newFoldings.Sort((a,b) => a.StartOffset.CompareTo(b.StartOffset));
-			return newFoldings;
-		}
-	}
+                    lastNewLineOffset = i + 1;
+                }
+            }
+            newFoldings.Sort((a, b) => a.StartOffset.CompareTo(b.StartOffset));
+            return newFoldings;
+        }
+    }
 }

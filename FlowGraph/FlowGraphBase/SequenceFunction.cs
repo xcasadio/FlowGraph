@@ -25,7 +25,7 @@ namespace FlowGraphBase
         /// </summary>
         public IEnumerable<SequenceFunctionSlot> Inputs
         {
-            get 
+            get
             {
                 foreach (SequenceFunctionSlot s in _slots)
                 {
@@ -33,7 +33,7 @@ namespace FlowGraphBase
                     {
                         yield return s;
                     }
-                }                
+                }
             }
         }
 
@@ -148,7 +148,7 @@ namespace FlowGraphBase
             foreach (XmlNode slotNode in node.SelectNodes("SlotList/Slot"))
             {
                 int id = int.Parse(slotNode.Attributes["id"].Value);
-                FunctionSlotType type = (FunctionSlotType) Enum.Parse(typeof(FunctionSlotType), slotNode.Attributes["type"].Value);
+                FunctionSlotType type = (FunctionSlotType)Enum.Parse(typeof(FunctionSlotType), slotNode.Attributes["type"].Value);
 
                 if (_nextSlotId <= id) _nextSlotId = id + 1;
 
