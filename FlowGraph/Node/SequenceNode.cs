@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Reflection;
 using System.Xml;
 using FlowGraph.Logger;
 using FlowGraph.Process;
@@ -336,27 +337,34 @@ namespace FlowGraph.Node
             }
         }
 
+        public static IList<Assembly> GetAssemblies()
+        {
+            var returnAssemblies = new List<Assembly>();
+            var loadedAssemblies = new HashSet<string>();
+
+            foreach (var reference in Assembly.GetEntryAssembly()!.GetReferencedAssemblies()
+                .Where(x => x.Name != null && !x.Name.StartsWith("Microsoft") && !x.Name.StartsWith("System")))
+            {
+                if (!loadedAssemblies.Contains(reference.FullName))
+                {
+                    var assembly = Assembly.Load(reference);
+                    loadedAssemblies.Add(reference.FullName);
+                    returnAssemblies.Add(assembly);
+                }
+            }
+
+            return returnAssemblies;
+        }
+
         public static SequenceNode? CreateNodeFromXml(XmlNode node)
         {
             var typeVal = node.Attributes["type"].Value;
 
             try
             {
-                //                 IEnumerable<Type> classes = AppDomain.CurrentDomain.GetAssemblies()
-                //                        .SelectMany(t => t.GetTypes())
-                //                        .Where(t => t.IsClass == true
-                //                            && t.IsGenericType == false
-                //                            && t.IsInterface == false
-                //                            && t.IsAbstract == false
-                //                            && t.IsSubclassOf(typeof(SequenceNode)));
-                // 
-                //                 foreach (Type t in classes)
-                //                 {
-                //                     LogManager.Instance.WriteLine(LogVerbosity.Info, "{0}", t.FullName);
-                //                 }
-
-                var type = AppDomain.CurrentDomain.GetAssemblies()
-                       .SelectMany(t => t.GetTypes()).Single(t => t.IsClass
+                var type = GetAssemblies()
+                       .SelectMany(t => t.GetTypes())
+                       .Single(t => t.IsClass
                                                                   && t.IsGenericType == false
                                                                   && t.IsInterface == false
                                                                   && t.IsAbstract == false

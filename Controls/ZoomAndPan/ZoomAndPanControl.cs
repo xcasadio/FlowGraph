@@ -3,6 +3,8 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
+[assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
+
 namespace ZoomAndPan
 {
     /// <summary>
@@ -507,7 +509,7 @@ namespace ZoomAndPan
         /// <summary>
         /// Zoom to the specified scale and move the specified focus point to the center of the viewport.
         /// </summary>
-        private void AnimatedZoomPointToViewportCenter(double newContentScale, Point contentZoomFocus, EventHandler callback)
+        private void AnimatedZoomPointToViewportCenter(double newContentScale, Point contentZoomFocus, EventHandler? callback)
         {
             newContentScale = Math.Min(Math.Max(newContentScale, MinContentScale), MaxContentScale);
 

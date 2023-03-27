@@ -2,76 +2,49 @@
 
 namespace FlowSimulator.UI
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public static class VariableTypeInspector
     {
-        /// <summary>
-        /// 
-        /// </summary>
         public static IEnumerable<Type> Types
         {
             get;
         } = new List<Type>();
 
-        /// <summary>
-        /// 
-        /// </summary>
         public static Color BooleanColor
         {
             get;
             set;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public static Color IntegerColor
         {
             get;
             set;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public static Color DoubleColor
         {
             get;
             set;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public static Color StringColor
         {
             get;
             set;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public static Color ObjectColor
         {
             get;
             set;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public static Color MessageColor
         {
             get;
             set;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         static VariableTypeInspector()
         {
             var types = (List<Type>)Types;
@@ -91,9 +64,6 @@ namespace FlowSimulator.UI
             types.Add(typeof(object));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public static void SetDefaultValues()
         {
             BooleanColor = Colors.Red;
@@ -104,10 +74,6 @@ namespace FlowSimulator.UI
             MessageColor = Colors.Orange;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="type_"></param>
         public static Color GetColorFromType(Type type)
         {
             if (type == typeof(bool))
@@ -144,10 +110,6 @@ namespace FlowSimulator.UI
             return Colors.White;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="type_"></param>
         public static object CreateDefaultValueFromType(Type type)
         {
             if (type == typeof(string))
@@ -158,12 +120,6 @@ namespace FlowSimulator.UI
             return Activator.CreateInstance(type);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a_"></param>
-        /// <param name="b_"></param>
-        /// <returns></returns>
         public static bool CheckCompatibilityType(Type a, Type b)
         {
             if (a == typeof(float) || a == typeof(double))

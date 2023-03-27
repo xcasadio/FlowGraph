@@ -30,7 +30,7 @@ namespace FlowGraph.Node
 
     public class NodeSlot : INotifyPropertyChanged
     {
-        public event EventHandler Activated;
+        public event EventHandler? Activated;
 
         private string? _text;
         private Type _variableType;
@@ -163,7 +163,7 @@ namespace FlowGraph.Node
                 }
             }
 
-            Activated(this, EventArgs.Empty);
+            Activated?.Invoke(this, EventArgs.Empty);
         }
 
         public virtual void Save(XmlNode node)

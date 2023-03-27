@@ -20,7 +20,7 @@ namespace ZoomAndPan
         /// Starts an animation to a particular value on the specified dependency property.
         /// You can pass in an event handler to call when the animation has completed.
         /// </summary>
-        public static void StartAnimation(UIElement animatableElement, DependencyProperty dependencyProperty, double toValue, double animationDurationSeconds, EventHandler completedEvent)
+        public static void StartAnimation(UIElement animatableElement, DependencyProperty dependencyProperty, double toValue, double animationDurationSeconds, EventHandler? completedEvent)
         {
             double fromValue = (double)animatableElement.GetValue(dependencyProperty);
 
@@ -31,7 +31,7 @@ namespace ZoomAndPan
                 Duration = TimeSpan.FromSeconds(animationDurationSeconds)
             };
 
-            animation.Completed += delegate (object sender, EventArgs e)
+            animation.Completed += delegate (object? sender, EventArgs e)
             {
                 //
                 // When the animation has completed bake final value of the animation

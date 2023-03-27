@@ -416,20 +416,31 @@ namespace FlowSimulator
                     var serializer = new XmlLayoutSerializer(dockingManager1);
                     serializer.LayoutSerializationCallback += (s, args) =>
                     {
-                        //args.Content = args.Content;
-                        //args.Content = Application.Current.MainWindow.FindName(args.Model.ContentId);
-                        if (args.Content is LayoutAnchorable layout)
+                        if (args.Model.Title == "Flow Graph List")
                         {
-                            if (layout.CanHide
-                                && layout.IsHidden)
-                            {
-                                layout.Hide();
-                            }
+                            args.Content = flowGraphListContainer;
+                        }
+                        else if (args.Model.Title == "Details")
+                        {
+                            args.Content = detailsGrid;
+                        }
+                        else if (args.Model.Title == "Action Graph")
+                        {
+                            args.Content = containerFlowGraph;
+                        }
+                        else if (args.Model.Title == "Log")
+                        {
+                            args.Content = gridLog;
+                        }
+
+                        if (args.Content is LayoutAnchorable { CanHide: true, IsHidden: true } layout)
+                        {
+                            layout.Hide();
                         }
                     };
 
-                    using (var stream = new StreamReader(_dockSettingsFile))
-                        serializer.Deserialize(stream);
+                    using var stream = new StreamReader(_dockSettingsFile);
+                    serializer.Deserialize(stream);
                 }
                 catch (System.Exception ex3)
                 {

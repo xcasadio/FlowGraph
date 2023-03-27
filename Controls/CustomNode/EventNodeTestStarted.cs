@@ -4,7 +4,7 @@ using FlowGraph.Node;
 
 namespace CustomNode
 {
-    [Category("Event"), Name("Test Started")]
+    [Name("Test Started")]
     public class EventNodeTestStarted : EventNode
     {
         public override string Title => "Test Started Event";

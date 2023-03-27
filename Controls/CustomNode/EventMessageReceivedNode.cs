@@ -1,8 +1,10 @@
 ﻿using System.Xml;
+using FlowGraph;
 using FlowGraph.Node;
 
 namespace CustomNode
 {
+    [Name("Message Received")]
     public class EventMessageReceivedNode : EventNode
     {
         public EventMessageReceivedNode(XmlNode node) : base(node)

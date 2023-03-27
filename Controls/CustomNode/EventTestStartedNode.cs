@@ -1,8 +1,10 @@
 ﻿using System.Xml;
+using FlowGraph;
 using FlowGraph.Node;
 
 namespace CustomNode
 {
+    [Name("Test Started")]
     public class EventTestStartedNode : EventNode
     {
 #if EDITOR

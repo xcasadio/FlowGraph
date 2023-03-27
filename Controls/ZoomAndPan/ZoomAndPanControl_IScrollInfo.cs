@@ -60,7 +60,7 @@ namespace ZoomAndPan
         /// Reference to the ScrollViewer that is wrapped (in XAML) around the ZoomAndPanControl.
         /// Or set to null if there is no ScrollViewer.
         /// </summary>
-        public ScrollViewer ScrollOwner
+        public ScrollViewer? ScrollOwner
         {
             get => _scrollOwner;
             set => _scrollOwner = value;
@@ -237,7 +237,7 @@ namespace ZoomAndPan
         /// </summary>
         public Rect MakeVisible(Visual visual, Rect rectangle)
         {
-            if (_content.IsAncestorOf(visual))
+            if (_content != null && _content.IsAncestorOf(visual))
             {
                 Rect transformedRect = visual.TransformToAncestor(_content).TransformBounds(rectangle);
                 Rect viewportRect = new Rect(ContentOffsetX, ContentOffsetY, ContentViewportWidth, ContentViewportHeight);

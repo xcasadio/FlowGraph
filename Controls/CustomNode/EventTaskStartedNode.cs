@@ -1,8 +1,10 @@
 ﻿using System.Xml;
+using FlowGraph;
 using FlowGraph.Node;
 
 namespace CustomNode
 {
+    [Name("Task Started")]
     public class EventTaskStartedNode : EventNode
     {
         public EventTaskStartedNode(XmlNode node)
