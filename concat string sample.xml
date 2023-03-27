@@ -3,20 +3,20 @@
   <GraphList version="1" designerVersion="1">
     <Graph version="1" id="0" name="Concat string sample" description="description of the graph" type="Sequence" designerVersion="1">
       <NodeList>
-        <Node version="1" comment="First node activated when we click the button Launch" id="1" type="FlowSimulator.CustomNode.EventNodeTestStarted, FlowSimulator" designerVersion="1" x="186,59" y="39,577766818884" z="51">
+        <Node version="1" comment="First node activated when we click the button Launch" id="1" type="CustomNode.EventNodeTestStarted, CustomNode" designerVersion="1" x="186,59" y="39,577766818884" z="51">
           <Slot version="1" index="0" />
           <Slot version="1" index="1" saveValue="True">
             <ValueContainer version="1" type="System.String, mscorlib">test</ValueContainer>
           </Slot>
         </Node>
-        <Node version="1" comment="" id="2" type="FlowSimulator.CustomNode.LogMessageNode, FlowSimulator" designerVersion="1" x="728,638333333333" y="39,577766818884" z="49">
+        <Node version="1" comment="" id="2" type="CustomNode.LogMessageNode, CustomNode" designerVersion="1" x="728,638333333333" y="39,577766818884" z="49">
           <Slot version="1" index="0" />
           <Slot version="1" index="1" />
           <Slot version="1" index="2" saveValue="True">
             <ValueContainer version="1" type="System.String, mscorlib">&lt;null&gt;</ValueContainer>
           </Slot>
         </Node>
-        <Node version="1" comment="" id="3" type="FlowGraphBase.Node.StandardActionNode.StringConcatNode, FlowGraphBase" designerVersion="1" x="470,878333333333" y="44,597766818884" z="58">
+        <Node version="1" comment="" id="3" type="FlowGraph.Node.StandardActionNode.StringConcatNode, FlowGraph" designerVersion="1" x="470,878333333333" y="44,597766818884" z="58">
           <Slot version="1" index="0" />
           <Slot version="1" index="1" />
           <Slot version="1" index="2" saveValue="True">
@@ -29,7 +29,7 @@
             <ValueContainer version="1" type="System.String, mscorlib">The name of the sequence is test</ValueContainer>
           </Slot>
         </Node>
-        <Node version="1" comment="" id="4" type="FlowGraphBase.Node.StandardVariableNode.VariableNodeString, FlowGraphBase" designerVersion="1" x="185,5" y="133,077766818884" z="59">
+        <Node version="1" comment="" id="4" type="FlowGraph.Node.StandardVariableNode.VariableNodeString, FlowGraph" designerVersion="1" x="185,5" y="133,077766818884" z="59">
           <Slot version="1" index="0" />
           <Value>The name of the sequence is </Value>
         </Node>

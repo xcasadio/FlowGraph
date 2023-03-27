@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using FlowGraphBase.Logger;
+﻿using System.ComponentModel;
+using FlowGraph.Logger;
 
 namespace FlowSimulator.Undo
 {
@@ -140,6 +138,6 @@ namespace FlowSimulator.Undo
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
     }
 }

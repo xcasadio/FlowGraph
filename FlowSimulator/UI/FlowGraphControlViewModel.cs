@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Xml;
-using FlowGraphBase;
-using FlowGraphBase.Logger;
-using FlowGraphBase.Node;
+using FlowGraph;
+using FlowGraph.Logger;
+using FlowGraph.Node;
 using FlowGraphUI;
 using FlowSimulator.Undo;
 using NetworkModel;

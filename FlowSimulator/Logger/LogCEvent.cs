@@ -1,4 +1,4 @@
-﻿using FlowGraphBase.Logger;
+﻿using FlowGraph.Logger;
 
 namespace FlowSimulator.Logger
 {

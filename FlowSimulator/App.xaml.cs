@@ -1,7 +1,6 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Threading;
-using FlowGraphBase.Logger;
+using FlowGraph.Logger;
 
 namespace FlowSimulator
 {

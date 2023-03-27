@@ -1,9 +1,8 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using FlowGraphBase;
-using FlowGraphBase.Node;
-using FlowGraphBase.Script;
+using FlowGraph;
+using FlowGraph.Node;
+using FlowGraph.Script;
 using NetworkModel;
 
 namespace FlowSimulator.UI

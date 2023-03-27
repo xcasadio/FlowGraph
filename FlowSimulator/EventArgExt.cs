@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FlowSimulator
+﻿namespace FlowSimulator
 {
     public class EventArg1Param<T> : EventArgs
     {

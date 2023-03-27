@@ -1,7 +1,7 @@
 ﻿using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
-using FlowGraphBase.Logger;
+using FlowGraph.Logger;
 using FlowSimulator.Logger;
 
 namespace FlowSimulator.UI

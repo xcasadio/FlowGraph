@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using FlowGraphBase;
-using FlowGraphBase.Script;
+using FlowGraph;
+using FlowGraph.Script;
 
 namespace FlowSimulator.UI
 {

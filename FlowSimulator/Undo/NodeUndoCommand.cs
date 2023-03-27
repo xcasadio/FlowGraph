@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using FlowSimulator.UI;
+﻿using FlowSimulator.UI;
 using NetworkModel;
 using NetworkUI;
 
