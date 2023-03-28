@@ -21,3 +21,4 @@ obj/
 _ReSharper*/
 **ncrunch**
 packages/**
+.vs/**
