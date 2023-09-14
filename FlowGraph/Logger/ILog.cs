@@ -1,9 +1,8 @@
-﻿namespace FlowGraph.Logger
-{
-    public interface ILog
-    {
-        void Close();
+﻿namespace FlowGraph.Logger;
 
-        void Write(LogVerbosity verbose, string msg);
-    }
+public interface ILog
+{
+    void Close();
+
+    void Write(LogVerbosity verbose, string msg);
 }

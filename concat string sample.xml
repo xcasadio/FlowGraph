@@ -3,50 +3,100 @@
   <GraphList version="1" designerVersion="1">
     <Graph version="1" id="0" name="Concat string sample" description="description of the graph" type="Sequence" designerVersion="1">
       <NodeList>
-        <Node version="1" comment="First node activated when we click the button Launch" id="1" type="CustomNode.EventNodeTestStarted, CustomNode" designerVersion="1" x="186,59" y="39,577766818884" z="51">
+        <Node version="1" comment="First node activated when we click the button Launch" id="1" type="CustomNode.EventNodeTestStarted, CustomNode" designerVersion="1" x="186,59" y="39,577766818884" z="104">
           <Slot version="1" index="0" />
           <Slot version="1" index="1" saveValue="True">
-            <ValueContainer version="1" type="System.String, mscorlib">test</ValueContainer>
+            <ValueContainer version="1" type="System.String, System.Private.CoreLib">test</ValueContainer>
           </Slot>
         </Node>
-        <Node version="1" comment="" id="2" type="CustomNode.LogMessageNode, CustomNode" designerVersion="1" x="728,638333333333" y="39,577766818884" z="49">
+        <Node version="1" comment="" id="2" type="CustomNode.LogMessageNode, CustomNode" designerVersion="1" x="728,638333333333" y="39,577766818884" z="61">
           <Slot version="1" index="0" />
           <Slot version="1" index="1" />
           <Slot version="1" index="2" saveValue="True">
-            <ValueContainer version="1" type="System.String, mscorlib">&lt;null&gt;</ValueContainer>
+            <ValueContainer version="1" type="System.String, System.Private.CoreLib">&lt;null&gt;</ValueContainer>
           </Slot>
         </Node>
-        <Node version="1" comment="" id="3" type="FlowGraph.Node.StandardActionNode.StringConcatNode, FlowGraph" designerVersion="1" x="470,878333333333" y="44,597766818884" z="58">
+        <Node version="1" comment="" id="3" type="FlowGraph.Nodes.StandardAction.StringManipulation.StringConcatNode, FlowGraph" designerVersion="1" x="470,878333333333" y="44,597766818884" z="81">
           <Slot version="1" index="0" />
           <Slot version="1" index="1" />
           <Slot version="1" index="2" saveValue="True">
-            <ValueContainer version="1" type="System.String, mscorlib">&lt;null&gt;</ValueContainer>
+            <ValueContainer version="1" type="System.String, System.Private.CoreLib">&lt;null&gt;</ValueContainer>
           </Slot>
           <Slot version="1" index="3" saveValue="True">
-            <ValueContainer version="1" type="System.String, mscorlib">&lt;null&gt;</ValueContainer>
+            <ValueContainer version="1" type="System.String, System.Private.CoreLib">&lt;null&gt;</ValueContainer>
           </Slot>
           <Slot version="1" index="4" saveValue="True">
-            <ValueContainer version="1" type="System.String, mscorlib">The name of the sequence is test</ValueContainer>
+            <ValueContainer version="1" type="System.String, System.Private.CoreLib">The name of the sequence is test</ValueContainer>
           </Slot>
         </Node>
-        <Node version="1" comment="" id="4" type="FlowGraph.Node.StandardVariableNode.VariableNodeString, FlowGraph" designerVersion="1" x="185,5" y="133,077766818884" z="59">
+        <Node version="1" comment="" id="4" type="FlowGraph.Nodes.StandardVariable.VariableNodeString, FlowGraph" designerVersion="1" x="5,5" y="116,07776681888399" z="80">
           <Slot version="1" index="0" />
           <Value>The name of the sequence is </Value>
+        </Node>
+        <Node version="1" comment="" id="6" type="FlowGraph.Nodes.StandardAction.FlowControl.ForLoopNode, FlowGraph" designerVersion="1" x="307,8333337720235" y="282,5977664947509" z="102">
+          <Slot version="1" index="0" />
+          <Slot version="1" index="3" saveValue="True">
+            <ValueContainer version="1" type="System.Int32, System.Private.CoreLib">0</ValueContainer>
+          </Slot>
+          <Slot version="1" index="4" saveValue="True">
+            <ValueContainer version="1" type="System.Int32, System.Private.CoreLib">10</ValueContainer>
+          </Slot>
+          <Slot version="1" index="1" />
+          <Slot version="1" index="5" saveValue="True">
+            <ValueContainer version="1" type="System.Int32, System.Private.CoreLib">11</ValueContainer>
+          </Slot>
+          <Slot version="1" index="2" />
+        </Node>
+        <Node version="1" comment="" id="7" type="CustomNode.LogMessageNode, CustomNode" designerVersion="1" x="1011,1383333333333" y="243,57776649475093" z="100">
+          <Slot version="1" index="0" />
+          <Slot version="1" index="1" />
+          <Slot version="1" index="2" saveValue="True">
+            <ValueContainer version="1" type="System.String, System.Private.CoreLib">
+            </ValueContainer>
+          </Slot>
+        </Node>
+        <Node version="1" comment="" id="8" type="FlowGraph.Nodes.StandardAction.StringManipulation.StringConcatNode, FlowGraph" designerVersion="1" x="592,878333333333" y="266,597766818884" z="99">
+          <Slot version="1" index="0" />
+          <Slot version="1" index="1" />
+          <Slot version="1" index="2" saveValue="True">
+            <ValueContainer version="1" type="System.String, System.Private.CoreLib">Loop number </ValueContainer>
+          </Slot>
+          <Slot version="1" index="3" saveValue="True">
+            <ValueContainer version="1" type="System.String, System.Private.CoreLib">
+            </ValueContainer>
+          </Slot>
+          <Slot version="1" index="4" saveValue="True">
+            <ValueContainer version="1" type="System.String, System.Private.CoreLib">Loop number 10</ValueContainer>
+          </Slot>
+        </Node>
+        <Node version="1" comment="" id="10" type="FlowGraph.Nodes.StandardAction.FlowControl.BranchNode, FlowGraph" designerVersion="1" x="90,84875439299111" y="317,57776649475096" z="105">
+          <Slot version="1" index="0" />
+          <Slot version="1" index="3" saveValue="True">
+            <ValueContainer version="1" type="System.Boolean, System.Private.CoreLib">True</ValueContainer>
+          </Slot>
+          <Slot version="1" index="1" />
+          <Slot version="1" index="2" />
         </Node>
       </NodeList>
       <ConnectionList>
         <Connection version="1" srcNodeID="1" srcNodeSlotID="0" destNodeID="3" destNodeSlotID="0" />
+        <Connection version="1" srcNodeID="1" srcNodeSlotID="0" destNodeID="10" destNodeSlotID="0" />
         <Connection version="1" srcNodeID="2" srcNodeSlotID="2" destNodeID="3" destNodeSlotID="4" />
         <Connection version="1" srcNodeID="3" srcNodeSlotID="1" destNodeID="2" destNodeSlotID="0" />
         <Connection version="1" srcNodeID="3" srcNodeSlotID="2" destNodeID="4" destNodeSlotID="0" />
         <Connection version="1" srcNodeID="3" srcNodeSlotID="3" destNodeID="1" destNodeSlotID="1" />
+        <Connection version="1" srcNodeID="6" srcNodeSlotID="1" destNodeID="8" destNodeSlotID="0" />
+        <Connection version="1" srcNodeID="7" srcNodeSlotID="2" destNodeID="8" destNodeSlotID="4" />
+        <Connection version="1" srcNodeID="8" srcNodeSlotID="1" destNodeID="7" destNodeSlotID="0" />
+        <Connection version="1" srcNodeID="8" srcNodeSlotID="3" destNodeID="6" destNodeSlotID="5" />
+        <Connection version="1" srcNodeID="10" srcNodeSlotID="1" destNodeID="6" destNodeSlotID="0" />
       </ConnectionList>
     </Graph>
   </GraphList>
   <ScriptList />
   <NamedVariableList version="1">
     <NamedVariable version="1" key="name of the variable">
-      <ValueContainer version="1" type="System.Boolean, mscorlib">False</ValueContainer>
+      <ValueContainer version="1" type="System.Boolean, System.Private.CoreLib">False</ValueContainer>
     </NamedVariable>
   </NamedVariableList>
 </FlowSimulator>

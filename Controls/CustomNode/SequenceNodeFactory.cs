@@ -1,7 +1,7 @@
 ﻿using System.Xml;
-using FlowGraph.Node;
-using FlowGraph.Node.StandardActionNode;
-using FlowGraph.Node.StandardVariableNode;
+using FlowGraph.Nodes;
+using FlowGraph.Nodes.StandardAction.Math;
+using FlowGraph.Nodes.StandardVariable;
 
 namespace CustomNode
 {

@@ -4,7 +4,7 @@ using System.Windows;
 using System.Xml;
 using FlowGraph;
 using FlowGraph.Logger;
-using FlowGraph.Node;
+using FlowGraph.Nodes;
 using FlowGraphUI;
 using FlowSimulator.Undo;
 using NetworkModel;

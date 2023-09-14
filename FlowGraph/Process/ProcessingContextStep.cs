@@ -1,20 +1,19 @@
-﻿using FlowGraph.Node;
+﻿using FlowGraph.Nodes;
 
-namespace FlowGraph.Process
+namespace FlowGraph.Process;
+
+public class ProcessingContextStep
 {
-    public class ProcessingContextStep
+    public SequenceBase SequenceBase { get; }
+
+    public MemoryStack MemoryStack { get; }
+
+    public NodeSlot Slot { get; }
+
+    public ProcessingContextStep(SequenceBase seq, MemoryStack stack, NodeSlot slot)
     {
-        public SequenceBase SequenceBase { get; }
-
-        public MemoryStack MemoryStack { get; }
-
-        public NodeSlot Slot { get; }
-
-        public ProcessingContextStep(SequenceBase seq, MemoryStack stack, NodeSlot slot)
-        {
-            SequenceBase = seq;
-            MemoryStack = stack;
-            Slot = slot;
-        }
+        SequenceBase = seq;
+        MemoryStack = stack;
+        Slot = slot;
     }
 }

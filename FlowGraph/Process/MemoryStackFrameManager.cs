@@ -1,24 +1,23 @@
-﻿namespace FlowGraph.Process
+﻿namespace FlowGraph.Process;
+
+public class MemoryStackFrameManager
 {
-    public class MemoryStackFrameManager
+    readonly Stack<MemoryStack> _stackFrames = new(2);
+
+    public MemoryStack? CurrentFrame => _stackFrames.Count == 0 ? null : _stackFrames.Peek();
+
+    public void AddStackFrame()
     {
-        readonly Stack<MemoryStack> _stackFrames = new(2);
+        _stackFrames.Push(new MemoryStack());
+    }
 
-        public MemoryStack? CurrentFrame => _stackFrames.Count == 0 ? null : _stackFrames.Peek();
+    public void RemoveStackFrame()
+    {
+        _stackFrames.Pop();
+    }
 
-        public void AddStackFrame()
-        {
-            _stackFrames.Push(new MemoryStack());
-        }
-
-        public void RemoveStackFrame()
-        {
-            _stackFrames.Pop();
-        }
-
-        public void Clear()
-        {
-            _stackFrames.Clear();
-        }
+    public void Clear()
+    {
+        _stackFrames.Clear();
     }
 }
