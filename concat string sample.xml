@@ -16,7 +16,7 @@
             <ValueContainer version="1" type="System.String, System.Private.CoreLib">&lt;null&gt;</ValueContainer>
           </Slot>
         </Node>
-        <Node version="1" comment="" id="3" type="FlowGraph.Nodes.StandardAction.StringManipulation.StringConcatNode, FlowGraph" designerVersion="1" x="470,878333333333" y="44,597766818884" z="81">
+        <Node version="1" comment="" id="3" type="FlowGraph.Nodes.Actions.StringManipulation.StringConcatNode, FlowGraph" designerVersion="1" x="470,878333333333" y="44,597766818884" z="81">
           <Slot version="1" index="0" />
           <Slot version="1" index="1" />
           <Slot version="1" index="2" saveValue="True">
@@ -29,11 +29,11 @@
             <ValueContainer version="1" type="System.String, System.Private.CoreLib">The name of the sequence is test</ValueContainer>
           </Slot>
         </Node>
-        <Node version="1" comment="" id="4" type="FlowGraph.Nodes.StandardVariable.VariableNodeString, FlowGraph" designerVersion="1" x="5,5" y="116,07776681888399" z="80">
+        <Node version="1" comment="" id="4" type="FlowGraph.Nodes.Variables.VariableNodeString, FlowGraph" designerVersion="1" x="5,5" y="116,07776681888399" z="80">
           <Slot version="1" index="0" />
           <Value>The name of the sequence is </Value>
         </Node>
-        <Node version="1" comment="" id="6" type="FlowGraph.Nodes.StandardAction.FlowControl.ForLoopNode, FlowGraph" designerVersion="1" x="307,8333337720235" y="282,5977664947509" z="102">
+        <Node version="1" comment="" id="6" type="FlowGraph.Nodes.Actions.FlowControl.ForLoopNode, FlowGraph" designerVersion="1" x="307,8333337720235" y="282,5977664947509" z="102">
           <Slot version="1" index="0" />
           <Slot version="1" index="3" saveValue="True">
             <ValueContainer version="1" type="System.Int32, System.Private.CoreLib">0</ValueContainer>
@@ -55,7 +55,7 @@
             </ValueContainer>
           </Slot>
         </Node>
-        <Node version="1" comment="" id="8" type="FlowGraph.Nodes.StandardAction.StringManipulation.StringConcatNode, FlowGraph" designerVersion="1" x="592,878333333333" y="266,597766818884" z="99">
+        <Node version="1" comment="" id="8" type="FlowGraph.Nodes.Actions.StringManipulation.StringConcatNode, FlowGraph" designerVersion="1" x="592,878333333333" y="266,597766818884" z="99">
           <Slot version="1" index="0" />
           <Slot version="1" index="1" />
           <Slot version="1" index="2" saveValue="True">
@@ -69,7 +69,7 @@
             <ValueContainer version="1" type="System.String, System.Private.CoreLib">Loop number 10</ValueContainer>
           </Slot>
         </Node>
-        <Node version="1" comment="" id="10" type="FlowGraph.Nodes.StandardAction.FlowControl.BranchNode, FlowGraph" designerVersion="1" x="90,84875439299111" y="317,57776649475096" z="105">
+        <Node version="1" comment="" id="10" type="FlowGraph.Nodes.Actions.FlowControl.BranchNode, FlowGraph" designerVersion="1" x="90,84875439299111" y="317,57776649475096" z="105">
           <Slot version="1" index="0" />
           <Slot version="1" index="3" saveValue="True">
             <ValueContainer version="1" type="System.Boolean, System.Private.CoreLib">True</ValueContainer>
