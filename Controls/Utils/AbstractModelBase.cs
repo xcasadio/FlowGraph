@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Utils
 {
@@ -11,7 +12,7 @@ namespace Utils
         private static int _nextObjectId;
 
         public int ObjectDebugId { get; } = _nextObjectId++;
-#endif //  DEBUG
+#endif
 
         /// <summary>
         /// Raises the PropertyChanged event.
@@ -24,6 +25,14 @@ namespace Utils
         /// <summary>
         /// Event raised to indicate that a property value has changed.
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+            field = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
     }
 }

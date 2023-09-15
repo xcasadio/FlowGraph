@@ -11,7 +11,6 @@ public abstract class SequenceNode : INotifyPropertyChanged
 #if EDITOR
     private static int _freeId;
 
-    private string? _customText;
 
     private bool _isProcessing;
 
@@ -34,21 +33,9 @@ public abstract class SequenceNode : INotifyPropertyChanged
         get;
     }
 
-    public string? Comment
-    {
-        get;
-        set;
-    }
+    public string? Comment;
 
-    public string? CustomText
-    {
-        get => _customText;
-        set
-        {
-            _customText = value;
-            OnPropertyChanged("CustomText");
-        }
-    }
+    public string? CustomText;
 
     [Browsable(false)]
     public NodeSlot[] Slots => NodeSlots.ToArray();
