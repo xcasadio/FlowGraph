@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 
-namespace FlowSimulator
+namespace FlowGraphUI
 {
-    static class DependencyObjectHelper
+    public static class DependencyObjectHelper
     {
         /// <summary>
         /// Finds a parent of a given item on the visual tree.

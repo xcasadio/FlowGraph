@@ -2,7 +2,6 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:base="clr-namespace:FlowGraph;assembly=FlowGraph"
-             xmlns:ui="clr-namespace:FlowSimulator.UI"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:flowGraphUi="clr-namespace:FlowGraphUI;assembly=FlowGraphUI"
@@ -14,7 +13,7 @@
         <ResourceDictionary>
 
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="SharedVisualTemplates.xaml" />
+                <ResourceDictionary Source="/FlowGraphUI;component/SharedVisualTemplates.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate x:Key="graphParamsTemplate" >
@@ -138,7 +137,7 @@
                         <Grid>
                             <ContentControl Content="{Binding}" Margin="0">
                                 <ContentControl.ContentTemplateSelector>
-                                    <ui:VariableNodeTemplateSelector
+                                    <flowGraphUi:VariableNodeTemplateSelector
                                     NumericTemplate="{StaticResource numericTemplate}"
                                     SelectableTemplate="{StaticResource selectableTemplate}"
                                     CheckableTemplate="{StaticResource checkableTemplate}"
@@ -201,7 +200,7 @@
                 </StackPanel>
             </DataTemplate>
 
-            <ui:DetailTemplateSelector x:Key="detailsTemplateSelector"
+            <flowGraphUi:DetailTemplateSelector x:Key="detailsTemplateSelector"
             SequenceTemplate="{StaticResource graphTemplate}"
             SequenceFunctionTemplate="{StaticResource functionTemplate}"
             VariableTemplate="{StaticResource variableTemplate}"

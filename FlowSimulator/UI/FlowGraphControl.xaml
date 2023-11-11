@@ -6,7 +6,6 @@
 			xmlns:ZoomAndPan="clr-namespace:ZoomAndPan;assembly=ZoomAndPan"
             xmlns:scroll="clr-namespace:MouseDragScrollViewer;assembly=MouseDragScrollViewer"
 			xmlns:ac="clr-namespace:AdornedControl;assembly=AdornedControl"
-            xmlns:local="clr-namespace:FlowSimulator.UI"
             xmlns:sys="clr-namespace:System;assembly=mscorlib"
             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
 
@@ -21,7 +20,7 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="SharedVisualTemplates.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/FlowGraphUI;component/SharedVisualTemplates.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!-- UI commands. -->
@@ -57,8 +56,8 @@
             <FlowGraphUI:ScaleToPercentConverter x:Key="scaleToPercentConverter" />
 
             <!-- This converts the type of a variable to a color value. -->
-            <local:TypeToColorConverter x:Key="typeToColorConverter" />
-            <local:TypeToLinearGradientConverter x:Key="typeToLinearGradientConverter" />
+            <FlowGraphUI:TypeToColorConverter x:Key="typeToColorConverter" />
+            <FlowGraphUI:TypeToLinearGradientConverter x:Key="typeToLinearGradientConverter" />
 
             <!-- 
             This graphic is used to indicate that a connection cannot be made between two particular connectors.        

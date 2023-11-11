@@ -3,14 +3,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using CustomNode;
 using FlowGraph;
 using FlowGraph.Attributes;
 using FlowGraph.Logger;
 using FlowGraph.Nodes;
 using FlowGraph.Nodes.Actions;
 using FlowGraph.Nodes.Variables;
-using FlowGraph.Process;
 using FlowGraph.Script;
 using FlowGraphUI;
 using Logger;
@@ -20,9 +18,6 @@ using ZoomAndPan;
 
 namespace FlowSimulator.UI
 {
-    /// <summary>
-    /// Interaction logic for FlowGraphControl.xaml
-    /// </summary>
     public partial class FlowGraphControl : UserControl
     {
         /// <summary>

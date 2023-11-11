@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 
-namespace FlowSimulator.UI
+namespace FlowGraphUI
 {
-    static class NamedVarEditTemplateManager
+    public static class NamedVarEditTemplateManager
     {
         private static readonly Dictionary<Type, DataTemplate> TemplatesByTypes = new Dictionary<Type, DataTemplate>(15);
 
@@ -10,8 +10,7 @@ namespace FlowSimulator.UI
         {
             ResourceDictionary res = new ResourceDictionary
             {
-                Source = new Uri("/FlowSimulator;component/UI/SharedVisualTemplates.xaml",
-                    UriKind.RelativeOrAbsolute)
+                Source = new Uri("/FlowGraphUI;component/SharedVisualTemplates.xaml", UriKind.RelativeOrAbsolute)
             };
 
             DataTemplate numericTemplate = (DataTemplate)res["numericTemplate"];

@@ -5,7 +5,7 @@ using FlowGraph.Nodes;
 using FlowGraph.Script;
 using NetworkModel;
 
-namespace FlowSimulator.UI
+namespace FlowGraphUI
 {
     /// <summary>
     /// 

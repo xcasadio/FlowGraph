@@ -4,17 +4,18 @@
         xmlns:local="clr-namespace:FlowSimulator.UI"
         mc:Ignorable="d" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:flowGraphUi="clr-namespace:FlowGraphUI;assembly=FlowGraphUI"
         Height="159" Width="504" WindowStartupLocation="CenterOwner">
 
     <Window.Resources>
 
         <ResourceDictionary>
-            <local:TypeToColorConverter x:Key="typeToColorConverter" />
+            <flowGraphUi:TypeToColorConverter x:Key="typeToColorConverter" />
         </ResourceDictionary>
     </Window.Resources>
 
-            <Grid Margin="5">
+    <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
@@ -33,7 +34,7 @@
         <Label x:Name="labelError" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
                HorizontalContentAlignment="Center" 
                Foreground="Red" FontWeight="Bold" />
-        
+
         <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,5,0,0"
                     Orientation="Horizontal" FlowDirection="RightToLeft" >
 
@@ -41,6 +42,6 @@
             <Button Content="Ok" Margin="5,0,0,0" Width="60" Click="ButtonOK_Click" />
 
         </StackPanel>
-        
+
     </Grid>
 </Window>
