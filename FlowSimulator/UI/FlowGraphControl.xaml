@@ -39,7 +39,7 @@
             <!-- flow graph edition -->
             <RoutedUICommand x:Key="Commands.FlowGraph.Copy" />
             <RoutedUICommand x:Key="Commands.FlowGraph.Paste" />
-            
+
             <RoutedUICommand x:Key="Commands.FlowGraph.Undo" />
             <RoutedUICommand x:Key="Commands.FlowGraph.Redo" />
             <!-- flow graph processing -->
@@ -388,10 +388,10 @@
                                         </EventTrigger.Actions>
                                     </EventTrigger>
                                 </Style.Triggers>
-                                
+
                             </Style>
                         </FlowGraphUI:CurvedArrow.Style>
-                        
+
                     </FlowGraphUI:CurvedArrow>
 
                     <ac:AdornedControl.AdornerContent>
@@ -429,7 +429,7 @@
                                 />
                         </Canvas>
                     </ac:AdornedControl.AdornerContent>
-                
+
                 </ac:AdornedControl>
             </DataTemplate>
 
@@ -450,7 +450,7 @@
                     FadeInTime="0.0"
                     FadeOutTime="0.0"
                     CloseAdornerTimeOut="2.0" >
-                    
+
                     <ac:AdornedControl.Style>
                         <Style TargetType="{x:Type ac:AdornedControl}">
                             <Setter Property="IsAdornerVisible" Value="True" />
@@ -538,7 +538,7 @@
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
-                                    </Grid.Style>
+                                </Grid.Style>
 
                                 <StackPanel Orientation="Vertical">
                                     <Border Background="DarkOrange" CornerRadius="4"
@@ -621,7 +621,7 @@
 
     </UserControl.Resources>
 
-	<UserControl.InputBindings>
+    <UserControl.InputBindings>
 
         <KeyBinding Gesture="Ctrl+C" Command="{StaticResource Commands.FlowGraph.Copy}"/>
         <KeyBinding Gesture="Ctrl+V" Command="{StaticResource Commands.FlowGraph.Paste}"/>
@@ -637,13 +637,13 @@
         <KeyBinding Key="Plus" Command="{StaticResource Commands.ZoomIn}"/>
         <KeyBinding Key="Backspace" Command="{StaticResource Commands.JumpBackToPrevZoom}"/>
         <KeyBinding Key="Space" Command="{StaticResource Commands.FitContent}"/>
-        
+
     </UserControl.InputBindings>
-    
+
     <UserControl.CommandBindings>
 
         <!-- Bind commands to event handlers.-->
-        
+
         <CommandBinding 
             Command="{StaticResource Commands.DeleteSelectedNodes}" 
             Executed="DeleteSelectedNodes_Executed" 
@@ -688,20 +688,17 @@
         <!-- flow graph debugging -->
         <CommandBinding Command="{StaticResource Commands.FlowGraph.Copy}" Executed="FlowGraphCopy_Executed" />
         <CommandBinding Command="{StaticResource Commands.FlowGraph.Paste}" Executed="FlowGraphPaste_Executed" />
-        
+
         <CommandBinding Command="{StaticResource Commands.FlowGraph.Undo}" Executed="FlowGraphUndo_Executed" />
         <CommandBinding Command="{StaticResource Commands.FlowGraph.Redo}" Executed="FlowGraphRedo_Executed" />
-        <!-- flow graph debugging -->
-        <CommandBinding Command="{StaticResource Commands.FlowGraph.Launch}" Executed="Launch_Executed" />
-
     </UserControl.CommandBindings>
 
     <UserControl.ContextMenu>
-        
+
         <ContextMenu>
-            
+
             <!-- Clicking this menu item creates a new node. -->
-            
+
             <MenuItem x:Name="menuItemCreateNode" Header="Create Node" />
 
             <Separator />
@@ -718,7 +715,7 @@
                 />
 
             <Separator />
-            
+
             <MenuItem
                 Header="Fit"
                 Command="{StaticResource Commands.FitContent}"
@@ -775,7 +772,7 @@
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                            </Image.Style>
+                        </Image.Style>
                     </Image>
 
                     <Button.Style>
@@ -791,7 +788,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                
+
                 <Button Command="{StaticResource Commands.FlowGraph.Redo}" ToolTip="Redo the last action" >
 
                     <Image x:Name="imgRedo" Width="16" Height="16"
@@ -823,7 +820,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                
+
                 <Separator />
 
                 <Button Command="{StaticResource Commands.FlowGraph.Copy}" ToolTip="Copy" >
@@ -836,10 +833,6 @@
                            Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"  />
                 </Button>
 
-            </ToolBar>
-            
-            <ToolBar>
-                <Button Name="buttonLaunch" Command="{StaticResource Commands.FlowGraph.Launch}" Content="Launch" ToolTip="Launch" />
             </ToolBar>
         </ToolBarTray>
 
@@ -873,7 +866,7 @@
                 Background="#FF2A2A2C"
                 Focusable="False"
                 >
-				
+
                 <!--
                 We need to nest our NetworkView in an AdornerDecorator so that adorners work correct when
                 we zoom in and out using the ZoomAndPanControl
@@ -910,56 +903,56 @@
                             AllowDrop="True"
                             Drop="DropList_Drop" 
                             DragEnter="DropList_DragEnter"  >
-							
-							<NetworkUI:NetworkView.Background>
-								<VisualBrush>
-									<VisualBrush.Visual>
-										<Grid>
-											<Rectangle Width="10000" Height="10000">
-												<Rectangle.Fill>
-													<DrawingBrush Stretch="None" TileMode="Tile" Viewport="0,0 15,15" ViewportUnits="Absolute">
-														<DrawingBrush.Drawing>
-															<GeometryDrawing>
-																<GeometryDrawing.Geometry>
-																	<GeometryGroup>
-																		<LineGeometry StartPoint="0,0" EndPoint="0,15"/>
-																		<LineGeometry StartPoint="0,0" EndPoint="15,0"/>
-																	</GeometryGroup>
-																</GeometryDrawing.Geometry>
-																<GeometryDrawing.Pen>
-																	<Pen Thickness="1" Brush="#FF555555"/>
-																</GeometryDrawing.Pen>
-															</GeometryDrawing>
-														</DrawingBrush.Drawing>
-													</DrawingBrush>
-												</Rectangle.Fill>
-											</Rectangle>
-											<Rectangle Width="10000" Height="10000">
-												<Rectangle.Fill>
-													<DrawingBrush Stretch="None" TileMode="Tile" Viewport="0,0 150,150" ViewportUnits="Absolute">
-														<DrawingBrush.Drawing>
-															<GeometryDrawing>
-																<GeometryDrawing.Geometry>
-																	<GeometryGroup>
-																		<LineGeometry StartPoint="0,0" EndPoint="0,150"/>
-																		<LineGeometry StartPoint="0,0" EndPoint="150,0"/>
-																	</GeometryGroup>
-																</GeometryDrawing.Geometry>
-																<GeometryDrawing.Pen>
-																	<Pen Thickness="1" Brush="Black"/>
-																</GeometryDrawing.Pen>
-															</GeometryDrawing>
-														</DrawingBrush.Drawing>
-													</DrawingBrush>
-												</Rectangle.Fill>
-											</Rectangle>
-										</Grid>
-									</VisualBrush.Visual>
-								</VisualBrush>
-							</NetworkUI:NetworkView.Background>
-						
-						</NetworkUI:NetworkView>
-							
+
+                            <NetworkUI:NetworkView.Background>
+                                <VisualBrush>
+                                    <VisualBrush.Visual>
+                                        <Grid>
+                                            <Rectangle Width="10000" Height="10000">
+                                                <Rectangle.Fill>
+                                                    <DrawingBrush Stretch="None" TileMode="Tile" Viewport="0,0 15,15" ViewportUnits="Absolute">
+                                                        <DrawingBrush.Drawing>
+                                                            <GeometryDrawing>
+                                                                <GeometryDrawing.Geometry>
+                                                                    <GeometryGroup>
+                                                                        <LineGeometry StartPoint="0,0" EndPoint="0,15"/>
+                                                                        <LineGeometry StartPoint="0,0" EndPoint="15,0"/>
+                                                                    </GeometryGroup>
+                                                                </GeometryDrawing.Geometry>
+                                                                <GeometryDrawing.Pen>
+                                                                    <Pen Thickness="1" Brush="#FF555555"/>
+                                                                </GeometryDrawing.Pen>
+                                                            </GeometryDrawing>
+                                                        </DrawingBrush.Drawing>
+                                                    </DrawingBrush>
+                                                </Rectangle.Fill>
+                                            </Rectangle>
+                                            <Rectangle Width="10000" Height="10000">
+                                                <Rectangle.Fill>
+                                                    <DrawingBrush Stretch="None" TileMode="Tile" Viewport="0,0 150,150" ViewportUnits="Absolute">
+                                                        <DrawingBrush.Drawing>
+                                                            <GeometryDrawing>
+                                                                <GeometryDrawing.Geometry>
+                                                                    <GeometryGroup>
+                                                                        <LineGeometry StartPoint="0,0" EndPoint="0,150"/>
+                                                                        <LineGeometry StartPoint="0,0" EndPoint="150,0"/>
+                                                                    </GeometryGroup>
+                                                                </GeometryDrawing.Geometry>
+                                                                <GeometryDrawing.Pen>
+                                                                    <Pen Thickness="1" Brush="Black"/>
+                                                                </GeometryDrawing.Pen>
+                                                            </GeometryDrawing>
+                                                        </DrawingBrush.Drawing>
+                                                    </DrawingBrush>
+                                                </Rectangle.Fill>
+                                            </Rectangle>
+                                        </Grid>
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </NetworkUI:NetworkView.Background>
+
+                        </NetworkUI:NetworkView>
+
 
                         <!--
                         This Canvas and Border are used as a very simple way to render a drag rectangle that the user

@@ -16,6 +16,7 @@
         <!--CommandBinding Command="Exit" Executed="ExitCommandBinding_Executed" /-->
 
         <!-- flow graph debugging -->
+        <CommandBinding Command="{StaticResource Commands.FlowGraph.Launch}" Executed="Launch_Executed" />
         <CommandBinding Command="{StaticResource Commands.FlowGraph.Resume}" Executed="Resume_Executed" />
         <CommandBinding Command="{StaticResource Commands.FlowGraph.NextStep}" Executed="NextStep_Executed" />
         <CommandBinding Command="{StaticResource Commands.FlowGraph.Pause}" Executed="Pause_Executed" />
@@ -31,6 +32,7 @@
         <KeyBinding Key="S" Modifiers="Control" Command="Save" />
         <!--KeyBinding Key="F4" Modifiers="Alt" Command="Exit"></KeyBinding-->
 
+        <KeyBinding Key="F5" Command="{StaticResource Commands.FlowGraph.Launch}"/>
         <KeyBinding Gesture="Ctrl+F5" Command="{StaticResource Commands.FlowGraph.Stop}"/>
 
     </Window.InputBindings>
@@ -43,7 +45,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        
+
         <Menu Grid.Row="0" Name="menu1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <MenuItem Header="File" x:Name="menuItemFile">
                 <MenuItem Header="New" Command="New" InputGestureText="Ctrl+N" />
@@ -66,6 +68,8 @@
 
         <ToolBarTray Grid.Row="1">
             <ToolBar>
+                <Button Name="buttonLaunch" Command="{StaticResource Commands.FlowGraph.Launch}" ToolTip="Launch" Content="Launch" />
+
                 <Button Name="buttonResume" Command="{StaticResource Commands.FlowGraph.Resume}" ToolTip="Resume">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
@@ -212,14 +216,14 @@
                             <avalondock:LayoutAnchorablePaneGroup Orientation="Horizontal">
 
                                 <avalondock:LayoutAnchorablePaneGroup Orientation="Vertical">
-                                
+
                                     <avalondock:LayoutAnchorablePane>
                                         <avalondock:LayoutAnchorable x:Name="flowGraphListLayout" Title="Flow Graph List">
                                             <Grid x:Name="flowGraphListContainer" >
                                                 <ui:FlowGraphDataControl x:Name="flowGraphListControl" />
                                             </Grid>
                                         </avalondock:LayoutAnchorable>
-                                    
+
                                     </avalondock:LayoutAnchorablePane >
 
                                     <avalondock:LayoutAnchorablePane>
@@ -239,9 +243,9 @@
                                             <ui:FlowGraphManagerControl x:Name="flowGraphManagerControl" />
                                         </Grid>
                                     </avalondock:LayoutAnchorable>
-                                    
+
                                 </avalondock:LayoutAnchorablePane>
-                                
+
                             </avalondock:LayoutAnchorablePaneGroup>
 
                             <avalondock:LayoutAnchorablePane>
@@ -254,7 +258,7 @@
 
                         </avalondock:LayoutAnchorablePaneGroup>
 
-                     </avalondock:LayoutAnchorablePaneGroup>
+                    </avalondock:LayoutAnchorablePaneGroup>
 
                     <avalondock:LayoutDocumentPaneGroup>
                         <avalondock:LayoutDocumentPane />
@@ -274,7 +278,7 @@
                     <Setter Property="Padding" Value="0" />
                 </Style>
             </StatusBar.Resources>
-            
+
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid>
@@ -305,8 +309,8 @@
             <StatusBarItem Grid.Column="3">
                 <Label x:Name="labelNbTask" Content="0 Task(s) running" />
             </StatusBarItem>
-            
+
         </StatusBar>
-        
+
     </Grid>
 </Window>

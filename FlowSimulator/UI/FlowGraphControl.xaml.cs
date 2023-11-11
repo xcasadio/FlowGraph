@@ -760,14 +760,8 @@ namespace FlowSimulator.UI
         /// </summary>
         private void ApplyDragZoomRect()
         {
-            //
-            // Record the previous zoom level, so that we can jump back to it when the backspace key is pressed.
-            //
             SavePrevZoomRect();
 
-            //
-            // Retreive the rectangle that the user draggged out and zoom in on it.
-            //
             double contentX = Canvas.GetLeft(dragZoomBorder);
             double contentY = Canvas.GetTop(dragZoomBorder);
             double contentWidth = dragZoomBorder.Width;
@@ -777,9 +771,6 @@ namespace FlowSimulator.UI
             FadeOutDragZoomRect();
         }
 
-        //
-        // Fade out the drag zoom rectangle.
-        //
         private void FadeOutDragZoomRect()
         {
             AnimationHelper.StartAnimation(dragZoomBorder, OpacityProperty, 0.0, 0.1,
@@ -789,9 +780,6 @@ namespace FlowSimulator.UI
                 });
         }
 
-        //
-        // Record the previous zoom level, so that we can jump back to it when the backspace key is pressed.
-        //
         private void SavePrevZoomRect()
         {
             _prevZoomRect = new Rect(zoomAndPanControl.ContentOffsetX, zoomAndPanControl.ContentOffsetY, zoomAndPanControl.ContentViewportWidth, zoomAndPanControl.ContentViewportHeight);
@@ -799,19 +787,11 @@ namespace FlowSimulator.UI
             _prevZoomRectSet = true;
         }
 
-        /// <summary>
-        /// Clear the memory of the previous zoom level.
-        /// </summary>
         private void ClearPrevZoomRect()
         {
             _prevZoomRectSet = false;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void networkControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (sender is NetworkView view
@@ -857,11 +837,6 @@ namespace FlowSimulator.UI
             SelectionChanged?.Invoke(this, new SelectionChangedEventArgs(Selector.SelectionChangedEvent, e.RemovedItems, e.AddedItems));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void EditCustomVariable_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (e.OriginalSource is FrameworkElement fe)
@@ -875,11 +850,6 @@ namespace FlowSimulator.UI
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void DropList_DragEnter(object sender, DragEventArgs e)
         {
             if (!e.Data.GetDataPresent(DataFormats.StringFormat) ||
@@ -889,11 +859,6 @@ namespace FlowSimulator.UI
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void DropList_Drop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.StringFormat))
@@ -931,11 +896,6 @@ namespace FlowSimulator.UI
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void FlowGraphCopy_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             try
@@ -956,11 +916,6 @@ namespace FlowSimulator.UI
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void FlowGraphPaste_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             try
@@ -985,52 +940,21 @@ namespace FlowSimulator.UI
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void FlowGraphUndo_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             ViewModel.UndoRedoManager.Undo();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void FlowGraphRedo_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             ViewModel.UndoRedoManager.Redo();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Launch_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            ViewModel.CreateSequence();
-            ProcessLauncher.Instance.LaunchSequence(ViewModel.Sequence, typeof(EventNodeTestStarted), 0, "test");
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void networkControl_NodeDragStarted(object sender, NodeDragStartedEventArgs e)
         {
             ViewModel.OnNodeDragStarted(sender as NetworkView, e);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void networkControl_NodeDragCompleted(object sender, NodeDragCompletedEventArgs e)
         {
             ViewModel.OnNodeDragCompleted(sender as NetworkView, e);

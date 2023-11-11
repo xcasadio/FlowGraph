@@ -8,8 +8,9 @@
     <Application.Resources>
 
         <ui:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
-        
+
         <!-- flow graph debugging -->
+        <RoutedUICommand x:Key="Commands.FlowGraph.Launch" />
         <RoutedUICommand x:Key="Commands.FlowGraph.Resume" />
         <RoutedUICommand x:Key="Commands.FlowGraph.NextStep" />
         <RoutedUICommand x:Key="Commands.FlowGraph.Pause" />
@@ -34,7 +35,7 @@
         <RoutedUICommand x:Key="Commands.OpenScript" />
         <RoutedUICommand x:Key="Commands.CreateScript" />
         <RoutedUICommand x:Key="Commands.RenameScript" />
-        <RoutedUICommand x:Key="Commands.DeleteScript" />        
+        <RoutedUICommand x:Key="Commands.DeleteScript" />
 
         <!-- Expander style -->
         <SolidColorBrush x:Key="NormalBorderBrush" Color="DarkGray"/>

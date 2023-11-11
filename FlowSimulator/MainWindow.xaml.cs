@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Xml;
+using CustomNode;
 using FlowGraph;
 using FlowGraph.Logger;
 using FlowGraph.Process;
@@ -32,6 +33,7 @@ namespace FlowSimulator
         private string _fileOpened = "";
 
         private double _lastLeft, _lastTop, _lastWidth, _lastHeight;
+        private FlowGraphViewerControlViewModel _selectedGlowGraphViewerControlVm;
 
         internal static MainWindow Instance
         {
@@ -60,6 +62,13 @@ namespace FlowSimulator
 
             Loaded += OnLoaded;
             Closed += OnClosed;
+
+            FlowGraphManagerControl.SelectedGraphChanged += OnSelectedGraphChanged;
+        }
+
+        private void OnSelectedGraphChanged(object? sender, EventArg1Param<SequenceBase?> e)
+        {
+            _selectedGlowGraphViewerControlVm = e.Arg != null ? FlowGraphManager.Instance.GetViewModelById(e.Arg.Id) : null;
         }
 
         void OnLoaded(object sender, RoutedEventArgs e)
@@ -121,6 +130,16 @@ namespace FlowSimulator
             {
                 LogManager.Instance.WriteException(ex);
             }
+        }
+        private void Launch_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (_selectedGlowGraphViewerControlVm == null)
+            {
+                return;
+            }
+
+            _selectedGlowGraphViewerControlVm.CreateSequence();
+            ProcessLauncher.Instance.LaunchSequence(_selectedGlowGraphViewerControlVm.Sequence, typeof(EventNodeTestStarted), 0, "test");
         }
 
         private void Resume_Executed(object sender, ExecutedRoutedEventArgs e)
