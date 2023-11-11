@@ -7,6 +7,7 @@ using System.Text;
 using System.Xml;
 using FlowGraph.Logger;
 using FlowGraph.Nodes.Actions;
+using Logger;
 using Microsoft.CSharp;
 
 namespace FlowGraph.Script;

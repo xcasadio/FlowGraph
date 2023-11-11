@@ -1,8 +1,9 @@
 ﻿using System.Text;
+using Logger;
 
 namespace FlowGraph.Logger;
 
-public sealed class LogManager
+public sealed class LogManager : ILogManager
 {
     public static LogManager Instance { get; } = new();
 

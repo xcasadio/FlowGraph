@@ -8,217 +8,19 @@ namespace FlowGraph.Nodes;
 
 public abstract class SequenceNode : INotifyPropertyChanged
 {
-#if EDITOR
-    private static int _freeId;
+    //Used to convert a SequenceNode to a Node (graphic node)
+    protected readonly List<NodeSlot> NodeSlots = new();
 
-
-    private bool _isProcessing;
-
-    [Browsable(false)]
-    public abstract NodeType NodeType
+    public int Id
     {
         get;
+        private set;
     }
-
-    [Browsable(false)]
-    public SlotAvailableFlag SlotFlag
-    {
-        get;
-        protected set;
-    }
-
-    [Browsable(false)]
-    public abstract string Title
-    {
-        get;
-    }
-
-    public string? Comment;
-
-    public string? CustomText;
-
-    [Browsable(false)]
-    public NodeSlot[] Slots => NodeSlots.ToArray();
-
-    public bool IsProcessing
-    {
-        get => _isProcessing;
-        set
-        {
-            _isProcessing = value;
-            OnPropertyChanged("IsProcessing");
-        }
-    }
-
-    [Browsable(false)]
-    public NodeSlot? SlotConnectorIn => NodeSlots.FirstOrDefault(slot => slot.ConnectionType == SlotType.NodeIn);
-
-    [Browsable(false)]
-    public IEnumerable<NodeSlot> SlotConnectorOut => NodeSlots.Where(slot => slot.ConnectionType == SlotType.NodeOut);
-
-    [Browsable(false)]
-    public int SlotConnectorOutCount => NodeSlots.Count(slot => slot.ConnectionType == SlotType.NodeOut);
-
-    [Browsable(false)]
-    public IEnumerable<NodeSlot> SlotVariableIn => NodeSlots.Where(slot => slot.ConnectionType == SlotType.VarIn);
-
-    [Browsable(false)]
-    public int SlotVariableInCount => NodeSlots.Count(slot => slot.ConnectionType == SlotType.VarIn);
-
-    [Browsable(false)]
-    public IEnumerable<NodeSlot> SlotVariableOut => NodeSlots.Where(slot => slot.ConnectionType == SlotType.VarOut);
-
-    [Browsable(false)]
-    public int SlotVariableOutCount => NodeSlots.Count(slot => slot.ConnectionType == SlotType.VarOut);
-
-    [Browsable(false)]
-    public IEnumerable<NodeSlot> SlotVariableInOut => NodeSlots.Where(slot => slot.ConnectionType == SlotType.VarInOut);
-
-    [Browsable(false)]
-    public int SlotVariableInOutCount => NodeSlots.Count(slot => slot.ConnectionType == SlotType.VarInOut);
-
-    [Browsable(false)]
-    public bool HasSlotConnectorIn => (SlotFlag & SlotAvailableFlag.NodeIn) == SlotAvailableFlag.NodeIn;
-
-
-    [Browsable(false)]
-    public bool HasSlotConnectorOut => (SlotFlag & SlotAvailableFlag.NodeOut) == SlotAvailableFlag.NodeOut;
-
-
-    [Browsable(false)]
-    public bool HasSlotVariableIn => (SlotFlag & SlotAvailableFlag.VarIn) == SlotAvailableFlag.VarIn;
-
-
-    [Browsable(false)]
-    public bool HasSlotVariableOut => (SlotFlag & SlotAvailableFlag.VarOut) == SlotAvailableFlag.VarOut;
 
     protected SequenceNode()
     {
         Id = ++_freeId;
         InitializeSlots();
-    }
-
-    public void Reset()
-    {
-        CustomText = null;
-        IsProcessing = false;
-    }
-
-    protected void AddFunctionSlot(int slotId, SlotType connectionType, SequenceFunctionSlot slot)
-    {
-        AddSlot(new NodeFunctionSlot(slotId, this, connectionType, slot));
-    }
-
-    protected void AddSlot(int slotId, string? text, SlotType connectionType, Type type = null,
-        bool saveInternalValue = true, VariableControlType controlType = VariableControlType.ReadOnly,
-        object? tag = null)
-    {
-        AddSlot(connectionType is SlotType.VarIn or SlotType.VarOut
-            ? new NodeSlotVar(slotId, this, text, connectionType, type, controlType, tag, saveInternalValue)
-            : new NodeSlot(slotId, this, text, connectionType, type, controlType, tag));
-    }
-
-    private void AddSlot(NodeSlot ite)
-    {
-        if (NodeSlots.Any(slot => slot.Id == ite.Id))
-        {
-            throw new InvalidOperationException("A slot with the Id '" + ite.Id + "' already exists.");
-        }
-
-        if (HasSlotConnectorIn == false
-            && ite.ConnectionType == SlotType.NodeIn)
-        {
-            throw new InvalidOperationException("This type of node can not have IN connector.");
-        }
-
-        if (HasSlotConnectorOut == false
-            && ite.ConnectionType == SlotType.NodeOut)
-        {
-            throw new InvalidOperationException("This type of node can not have OUT connector.");
-        }
-
-        if (HasSlotVariableIn == false
-            && ite.ConnectionType == SlotType.VarIn)
-        {
-            throw new InvalidOperationException("This type of node can not have IN variable.");
-        }
-
-        if (HasSlotVariableOut == false
-            && ite.ConnectionType == SlotType.VarOut)
-        {
-            throw new InvalidOperationException("This type of node can not have OUT variable.");
-        }
-
-        NodeSlots.Add(ite);
-    }
-
-    public void RemoveSlotById(int id)
-    {
-        foreach (var s in NodeSlots.Where(s => s.Id == id))
-        {
-            NodeSlots.Remove(s);
-            OnPropertyChanged("Slots");
-            break;
-        }
-    }
-
-    public bool IsConnectorIn(int index)
-    {
-        return index < (SlotConnectorIn == null ? 0 : 1);
-    }
-
-    public virtual void Save(XmlNode seqNodeNode)
-    {
-        const int version = 1;
-        seqNodeNode.AddAttribute("version", version.ToString());
-
-        seqNodeNode.AddAttribute("comment", Comment);
-        seqNodeNode.AddAttribute("id", Id.ToString());
-
-        var typeName = GetType().AssemblyQualifiedName!;
-        var index = typeName.IndexOf(',', typeName.IndexOf(',') + 1);
-        typeName = typeName.Substring(0, index);
-        seqNodeNode.AddAttribute("type", typeName);
-
-        //Save slots
-        foreach (var slot in NodeSlots)
-        {
-            XmlNode nodeSlot = seqNodeNode.OwnerDocument.CreateElement("Slot");
-            seqNodeNode.AppendChild(nodeSlot);
-            slot.Save(nodeSlot);
-        }
-    }
-
-    public void SaveConnections(XmlNode connectionListNode)
-    {
-        const int versionConnection = 1;
-        foreach (var slot in NodeSlots)
-        {
-            foreach (var otherSlot in slot.ConnectedNodes)
-            {
-                XmlNode linkNode = connectionListNode.OwnerDocument.CreateElement("Connection");
-                connectionListNode.AppendChild(linkNode);
-
-                linkNode.AddAttribute("version", versionConnection.ToString());
-
-                linkNode.AddAttribute("srcNodeID", Id.ToString());
-                linkNode.AddAttribute("srcNodeSlotID", slot.Id.ToString());
-                linkNode.AddAttribute("destNodeID", otherSlot.Node.Id.ToString());
-                linkNode.AddAttribute("destNodeSlotID", otherSlot.Id.ToString());
-            }
-        }
-    }
-
-#endif
-
-    //Used to convert a SequenceNode to a Node (graphic node)
-    protected readonly List<NodeSlot> NodeSlots = new();
-
-    [Browsable(false)]
-    public int Id
-    {
-        get;
-        private set;
     }
 
     protected SequenceNode(XmlNode node)
@@ -394,4 +196,184 @@ public abstract class SequenceNode : INotifyPropertyChanged
     {
         return CopyImpl();
     }
+
+#if EDITOR
+    private static int _freeId;
+
+    private bool _isProcessing;
+
+    public abstract NodeType NodeType
+    {
+        get;
+    }
+
+    public SlotAvailableFlag SlotFlag
+    {
+        get;
+        protected set;
+    }
+
+    public abstract string Title
+    {
+        get;
+    }
+
+    public string? Comment;
+
+    public string? CustomText;
+
+    public NodeSlot[] Slots => NodeSlots.ToArray();
+
+    public bool IsProcessing
+    {
+        get => _isProcessing;
+        set
+        {
+            _isProcessing = value;
+            OnPropertyChanged("IsProcessing");
+        }
+    }
+
+    public NodeSlot? SlotConnectorIn => NodeSlots.FirstOrDefault(slot => slot.ConnectionType == SlotType.NodeIn);
+
+    public IEnumerable<NodeSlot> SlotConnectorOut => NodeSlots.Where(slot => slot.ConnectionType == SlotType.NodeOut);
+
+    public int SlotConnectorOutCount => NodeSlots.Count(slot => slot.ConnectionType == SlotType.NodeOut);
+
+    public IEnumerable<NodeSlot> SlotVariableIn => NodeSlots.Where(slot => slot.ConnectionType == SlotType.VarIn);
+
+    public int SlotVariableInCount => NodeSlots.Count(slot => slot.ConnectionType == SlotType.VarIn);
+
+    public IEnumerable<NodeSlot> SlotVariableOut => NodeSlots.Where(slot => slot.ConnectionType == SlotType.VarOut);
+
+    public int SlotVariableOutCount => NodeSlots.Count(slot => slot.ConnectionType == SlotType.VarOut);
+
+    public IEnumerable<NodeSlot> SlotVariableInOut => NodeSlots.Where(slot => slot.ConnectionType == SlotType.VarInOut);
+
+    public int SlotVariableInOutCount => NodeSlots.Count(slot => slot.ConnectionType == SlotType.VarInOut);
+
+    public bool HasSlotConnectorIn => (SlotFlag & SlotAvailableFlag.NodeIn) == SlotAvailableFlag.NodeIn;
+
+
+    public bool HasSlotConnectorOut => (SlotFlag & SlotAvailableFlag.NodeOut) == SlotAvailableFlag.NodeOut;
+
+
+    public bool HasSlotVariableIn => (SlotFlag & SlotAvailableFlag.VarIn) == SlotAvailableFlag.VarIn;
+
+
+    public bool HasSlotVariableOut => (SlotFlag & SlotAvailableFlag.VarOut) == SlotAvailableFlag.VarOut;
+
+    public void Reset()
+    {
+        CustomText = null;
+        IsProcessing = false;
+    }
+
+    protected void AddFunctionSlot(int slotId, SlotType connectionType, SequenceFunctionSlot slot)
+    {
+        AddSlot(new NodeFunctionSlot(slotId, this, connectionType, slot));
+    }
+
+    protected void AddSlot(int slotId, string? text, SlotType connectionType, Type type = null,
+        bool saveInternalValue = true, VariableControlType controlType = VariableControlType.ReadOnly,
+        object? tag = null)
+    {
+        AddSlot(connectionType is SlotType.VarIn or SlotType.VarOut
+            ? new NodeSlotVar(slotId, this, text, connectionType, type, controlType, tag, saveInternalValue)
+            : new NodeSlot(slotId, this, text, connectionType, type, controlType, tag));
+    }
+
+    private void AddSlot(NodeSlot ite)
+    {
+        if (NodeSlots.Any(slot => slot.Id == ite.Id))
+        {
+            throw new InvalidOperationException("A slot with the Id '" + ite.Id + "' already exists.");
+        }
+
+        if (HasSlotConnectorIn == false
+            && ite.ConnectionType == SlotType.NodeIn)
+        {
+            throw new InvalidOperationException("This type of node can not have IN connector.");
+        }
+
+        if (HasSlotConnectorOut == false
+            && ite.ConnectionType == SlotType.NodeOut)
+        {
+            throw new InvalidOperationException("This type of node can not have OUT connector.");
+        }
+
+        if (HasSlotVariableIn == false
+            && ite.ConnectionType == SlotType.VarIn)
+        {
+            throw new InvalidOperationException("This type of node can not have IN variable.");
+        }
+
+        if (HasSlotVariableOut == false
+            && ite.ConnectionType == SlotType.VarOut)
+        {
+            throw new InvalidOperationException("This type of node can not have OUT variable.");
+        }
+
+        NodeSlots.Add(ite);
+    }
+
+    public void RemoveSlotById(int id)
+    {
+        foreach (var s in NodeSlots.Where(s => s.Id == id))
+        {
+            NodeSlots.Remove(s);
+            OnPropertyChanged("Slots");
+            break;
+        }
+    }
+
+    public bool IsConnectorIn(int index)
+    {
+        return index < (SlotConnectorIn == null ? 0 : 1);
+    }
+
+    public virtual void Save(XmlNode seqNodeNode)
+    {
+        const int version = 1;
+        seqNodeNode.AddAttribute("version", version.ToString());
+
+        seqNodeNode.AddAttribute("comment", Comment);
+        seqNodeNode.AddAttribute("id", Id.ToString());
+
+        var typeName = GetType().AssemblyQualifiedName!;
+        var index = typeName.IndexOf(',', typeName.IndexOf(',') + 1);
+        typeName = typeName.Substring(0, index);
+        seqNodeNode.AddAttribute("type", typeName);
+
+        //Save slots
+        foreach (var slot in NodeSlots)
+        {
+            XmlNode nodeSlot = seqNodeNode.OwnerDocument.CreateElement("Slot");
+            seqNodeNode.AppendChild(nodeSlot);
+            slot.Save(nodeSlot);
+        }
+    }
+
+    public void SaveConnections(XmlNode connectionListNode)
+    {
+        const int versionConnection = 1;
+        foreach (var slot in NodeSlots)
+        {
+            foreach (var otherSlot in slot.ConnectedNodes)
+            {
+                XmlNode linkNode = connectionListNode.OwnerDocument.CreateElement("Connection");
+                connectionListNode.AppendChild(linkNode);
+
+                linkNode.AddAttribute("version", versionConnection.ToString());
+
+                linkNode.AddAttribute("srcNodeID", Id.ToString());
+                linkNode.AddAttribute("srcNodeSlotID", slot.Id.ToString());
+                linkNode.AddAttribute("destNodeID", otherSlot.Node.Id.ToString());
+                linkNode.AddAttribute("destNodeSlotID", otherSlot.Id.ToString());
+            }
+        }
+    }
+
+#endif
+
 }

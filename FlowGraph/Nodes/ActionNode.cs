@@ -5,14 +5,6 @@ namespace FlowGraph.Nodes;
 
 public abstract class ActionNode : SequenceNode
 {
-#if EDITOR
-    public override NodeType NodeType => NodeType.Action;
-
-    public ActionNode()
-    {
-    }
-#endif
-
     public enum LogicState
     {
         Ok,
@@ -49,6 +41,10 @@ public abstract class ActionNode : SequenceNode
         }
     }
 
+    public ActionNode()
+    {
+    }
+
     protected ActionNode(XmlNode node)
         : base(node)
     {
@@ -67,4 +63,10 @@ public abstract class ActionNode : SequenceNode
     }
 
     public abstract ProcessingInfo ActivateLogic(ProcessingContext context, NodeSlot slot);
+
+
+#if EDITOR
+    public override NodeType NodeType => NodeType.Action;
+
+#endif
 }

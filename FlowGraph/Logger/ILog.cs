@@ -1,4 +1,6 @@
-﻿namespace FlowGraph.Logger;
+﻿using Logger;
+
+namespace FlowGraph.Logger;
 
 public interface ILog
 {

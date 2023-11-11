@@ -6,13 +6,14 @@
              xmlns:log="clr-namespace:FlowSimulator.Logger"
              xmlns:logBase="clr-namespace:FlowGraph.Logger;assembly=FlowGraph"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:logger="clr-namespace:Logger;assembly=Logger"
              mc:Ignorable="d" 
              d:DesignHeight="124" d:DesignWidth="525">
 
     <UserControl.Resources>
         <ObjectDataProvider x:Key="logVerbosity" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="logBase:LogVerbosity"/>
+                <x:Type TypeName="logger:LogVerbosity"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
 

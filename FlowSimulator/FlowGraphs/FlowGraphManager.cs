@@ -2,6 +2,7 @@
 using System.Xml;
 using FlowGraph;
 using FlowGraph.Logger;
+using FlowGraphUI;
 using FlowSimulator.UI;
 
 namespace FlowSimulator.FlowGraphs
@@ -10,16 +11,16 @@ namespace FlowSimulator.FlowGraphs
     {
         public static FlowGraphManager Instance { get; } = new FlowGraphManager();
 
-        public ObservableCollection<FlowGraphControlViewModel> FlowGraphList { get; } = new ObservableCollection<FlowGraphControlViewModel>();
+        public ObservableCollection<FlowGraphViewerControlViewModel> FlowGraphList { get; } = new ObservableCollection<FlowGraphViewerControlViewModel>();
 
         private FlowGraphManager()
         {
 
         }
 
-        public FlowGraphControlViewModel GetViewModelById(int id)
+        public FlowGraphViewerControlViewModel GetViewModelById(int id)
         {
-            foreach (FlowGraphControlViewModel vm in FlowGraphList)
+            foreach (FlowGraphViewerControlViewModel vm in FlowGraphList)
             {
                 if (vm.Id == id)
                 {
@@ -35,12 +36,12 @@ namespace FlowSimulator.FlowGraphs
             FlowGraphList.Clear();
         }
 
-        internal void Add(FlowGraphControlViewModel viewModel)
+        internal void Add(FlowGraphViewerControlViewModel viewModel)
         {
             FlowGraphList.Add(viewModel);
         }
 
-        internal void Remove(FlowGraphControlViewModel viewModel)
+        internal void Remove(FlowGraphViewerControlViewModel viewModel)
         {
             FlowGraphList.Remove(viewModel);
         }
@@ -60,7 +61,7 @@ namespace FlowSimulator.FlowGraphs
 
                 foreach (XmlNode graphNode in node.SelectNodes("GraphList/Graph"))
                 {
-                    FlowGraphList.Add(new FlowGraphControlViewModel(graphNode));
+                    FlowGraphList.Add(new FlowGraphViewerControlViewModel(graphNode));
                 }
             }
             catch (System.Exception ex)
@@ -72,7 +73,7 @@ namespace FlowSimulator.FlowGraphs
         public void Save(XmlNode node)
         {
             // Create all sequence to reflect all changes make (because it is not done in real time)
-            foreach (FlowGraphControlViewModel wm in FlowGraphList)
+            foreach (FlowGraphViewerControlViewModel wm in FlowGraphList)
             {
                 wm.CreateSequence();
             }
@@ -85,7 +86,7 @@ namespace FlowSimulator.FlowGraphs
 
             list.AddAttribute("designerVersion", version.ToString());
 
-            foreach (FlowGraphControlViewModel wm in FlowGraphList)
+            foreach (FlowGraphViewerControlViewModel wm in FlowGraphList)
             {
                 wm.Save(list);
             }

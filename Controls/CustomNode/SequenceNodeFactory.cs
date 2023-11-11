@@ -5,8 +5,7 @@ using FlowGraph.Nodes.Variables;
 
 namespace CustomNode
 {
-    public class SequenceNodeFactory
-        : ISequenceNodeFactory
+    public class SequenceNodeFactory : ISequenceNodeFactory
     {
         public SequenceNode? CreateNode(XmlNode node)
         {

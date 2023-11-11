@@ -13,8 +13,6 @@ namespace CustomNode
 
         }
 
-#if EDITOR
-
         public EventMessageReceivedNode()
         {
             AddSlot(0, "received", SlotType.NodeOut);
@@ -24,8 +22,6 @@ namespace CustomNode
 
             //AddSlot(new NodeItemType("Message", SequenceNode.ConnectionType.Variable, typeof(string)));
         }
-
-#endif
 
         public override string Title => "Test Started Event";
 

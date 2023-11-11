@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using FlowGraph.Logger;
+using Logger;
 
 namespace FlowSimulatorConsole;
 

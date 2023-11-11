@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using FlowGraph;
 using FlowGraph.Script;
+using FlowGraphUI;
 using FlowSimulator.FlowGraphs;
 
 namespace FlowSimulator.UI
@@ -92,7 +93,7 @@ namespace FlowSimulator.UI
             };
             GraphDataManager.Instance.AddSequence(newSeq);
 
-            FlowGraphControlViewModel wm = new FlowGraphControlViewModel(newSeq);
+            FlowGraphViewerControlViewModel wm = new FlowGraphViewerControlViewModel(newSeq);
             FlowGraphManager.Instance.Add(wm);
 
             MainWindow.Instance.FlowGraphManagerControl.OpenGraphInNewTab(newSeq);
@@ -108,7 +109,7 @@ namespace FlowSimulator.UI
             if (listBoxGraphs.SelectedItem != null
                 && listBoxGraphs.SelectedItem is Sequence sequence)
             {
-                FlowGraphControlViewModel flowGraphVm =
+                FlowGraphViewerControlViewModel flowGraphVm =
                     FlowGraphManager.Instance.GetViewModelById(sequence.Id);
 
                 SequenceParametersWindow win = new SequenceParametersWindow
@@ -140,7 +141,7 @@ namespace FlowSimulator.UI
             if (listBoxGraphs.SelectedItem != null
                 && listBoxGraphs.SelectedItem is Sequence sequence)
             {
-                FlowGraphControlViewModel flowGraphVm =
+                FlowGraphViewerControlViewModel flowGraphVm =
                     FlowGraphManager.Instance.GetViewModelById(sequence.Id);
 
                 if (MessageBox.Show(
@@ -206,7 +207,7 @@ namespace FlowSimulator.UI
             };
             GraphDataManager.Instance.AddFunction(newSeq);
 
-            FlowGraphControlViewModel wm = new FlowGraphControlViewModel(newSeq);
+            FlowGraphViewerControlViewModel wm = new FlowGraphViewerControlViewModel(newSeq);
             wm.InitialNodeFromNewFunction();
             FlowGraphManager.Instance.Add(wm);
 
@@ -223,7 +224,7 @@ namespace FlowSimulator.UI
             if (listBoxGraphFunctions.SelectedItem != null
                 && listBoxGraphFunctions.SelectedItem is SequenceFunction function)
             {
-                FlowGraphControlViewModel flowGraphVm =
+                FlowGraphViewerControlViewModel flowGraphVm =
                     FlowGraphManager.Instance.GetViewModelById(function.Id);
 
                 SequenceParametersWindow win = new SequenceParametersWindow
@@ -255,7 +256,7 @@ namespace FlowSimulator.UI
             if (listBoxGraphFunctions.SelectedItem != null
                 && listBoxGraphFunctions.SelectedItem is SequenceFunction function)
             {
-                FlowGraphControlViewModel flowGraphVm =
+                FlowGraphViewerControlViewModel flowGraphVm =
                     FlowGraphManager.Instance.GetViewModelById(function.Id);
 
                 if (MessageBox.Show(

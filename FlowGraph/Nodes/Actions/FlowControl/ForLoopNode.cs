@@ -2,6 +2,7 @@
 using FlowGraph.Attributes;
 using FlowGraph.Logger;
 using FlowGraph.Process;
+using Logger;
 
 namespace FlowGraph.Nodes.Actions.FlowControl;
 

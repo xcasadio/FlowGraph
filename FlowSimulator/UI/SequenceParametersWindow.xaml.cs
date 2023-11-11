@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows;
+using FlowGraphUI;
 
 namespace FlowSimulator.UI
 {
@@ -43,7 +44,7 @@ namespace FlowSimulator.UI
         /// 
         /// </summary>
         /// <param name="vm"></param>
-        public SequenceParametersWindow(FlowGraphControlViewModel vm = null, IsValidInputNameDelegate callback = null)
+        public SequenceParametersWindow(FlowGraphViewerControlViewModel vm = null, IsValidInputNameDelegate callback = null)
         {
             InitializeComponent();
 

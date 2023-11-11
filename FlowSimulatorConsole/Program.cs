@@ -3,6 +3,7 @@ using CustomNode;
 using FlowGraph;
 using FlowGraph.Logger;
 using FlowGraph.Process;
+using Logger;
 
 namespace FlowSimulatorConsole
 {

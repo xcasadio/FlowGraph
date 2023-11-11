@@ -1,6 +1,6 @@
 ﻿using System.Windows.Media;
 
-namespace FlowSimulator.UI
+namespace FlowGraphUI
 {
     public static class VariableTypeInspector
     {

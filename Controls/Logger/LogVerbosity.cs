@@ -1,4 +1,4 @@
-﻿namespace FlowGraph.Logger;
+﻿namespace Logger;
 
 public enum LogVerbosity
 {

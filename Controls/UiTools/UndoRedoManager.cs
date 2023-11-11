@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel;
-using FlowGraph.Logger;
+using Logger;
 
-namespace FlowSimulator.Undo
+namespace UiTools
 {
     public class UndoRedoManager : INotifyPropertyChanged
     {
+        private readonly ILogManager _logManager;
         public event EventHandler UndoRedoCommandListChanged;
         public event EventHandler UndoRedoCommandExecuted;
 
@@ -16,18 +17,23 @@ namespace FlowSimulator.Undo
         public bool CanUndo => _undo.Count != 0;
         public bool CanRedo => _redo.Count != 0;
 
+        public UndoRedoManager(ILogManager logManager)
+        {
+            _logManager = logManager;
+        }
+
         public void Add(IUndoCommand command)
         {
             if (_isProcessing)
             {
-                LogManager.Instance.WriteLine(LogVerbosity.Trace, "UndoRedo : can't add because processing");
+                _logManager.WriteLine(LogVerbosity.Trace, "UndoRedo : can't add because processing");
                 return;
             }
 
             _undo.Push(command);
             _redo.Clear();
 
-            LogManager.Instance.WriteLine(LogVerbosity.Trace, "UndoRedo Add({0}) : history list: {1} item(s)",
+            _logManager.WriteLine(LogVerbosity.Trace, "UndoRedo Add({0}) : history list: {1} item(s)",
                 command.ToString(), _undo.Count);
 
             OnPropertyChanged("CanUndo");
@@ -41,7 +47,7 @@ namespace FlowSimulator.Undo
             _undo.Clear();
             _redo.Clear();
 
-            LogManager.Instance.WriteLine(LogVerbosity.Trace, "UndoRedo Clear()");
+            _logManager.WriteLine(LogVerbosity.Trace, "UndoRedo Clear()");
 
             OnPropertyChanged("CanUndo");
             OnPropertyChanged("CanRedo");
@@ -59,7 +65,7 @@ namespace FlowSimulator.Undo
                 {
                     IUndoCommand command = _undo.Pop();
 
-                    LogManager.Instance.WriteLine(LogVerbosity.Trace, "UndoRedo Undo({0}) : history list: {1} item(s)",
+                    _logManager.WriteLine(LogVerbosity.Trace, "UndoRedo Undo({0}) : history list: {1} item(s)",
                         command.ToString(), _undo.Count);
 
                     command.Undo();
@@ -87,7 +93,7 @@ namespace FlowSimulator.Undo
                 {
                     IUndoCommand command = _redo.Pop();
 
-                    LogManager.Instance.WriteLine(LogVerbosity.Trace, "UndoRedo Redo({0}) : history list: {1} item(s)",
+                    _logManager.WriteLine(LogVerbosity.Trace, "UndoRedo Redo({0}) : history list: {1} item(s)",
                         command.ToString(), _undo.Count);
 
                     command.Redo();
@@ -124,7 +130,7 @@ namespace FlowSimulator.Undo
                 }
             }
 
-            LogManager.Instance.WriteLine(LogVerbosity.Trace, "UndoRedo RemoveLastNCommands({0}) : history list: {1} item(s)",
+            _logManager.WriteLine(LogVerbosity.Trace, "UndoRedo RemoveLastNCommands({0}) : history list: {1} item(s)",
                     nu, _undo.Count);
 
             OnPropertyChanged("CanUndo");

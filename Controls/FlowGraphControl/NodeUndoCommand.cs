@@ -1,15 +1,15 @@
-﻿using FlowSimulator.UI;
-using NetworkModel;
+﻿using NetworkModel;
 using NetworkUI;
+using UiTools;
 
-namespace FlowSimulator.Undo
+namespace FlowGraphUI
 {
     class CreateNodeUndoCommand : IUndoCommand
     {
-        readonly FlowGraphControlViewModel _flowGraphVm;
+        readonly FlowGraphViewerControlViewModel _flowGraphVm;
         readonly NodeViewModel _nodeVm;
 
-        public CreateNodeUndoCommand(FlowGraphControlViewModel fgvm, NodeViewModel nodeVm)
+        public CreateNodeUndoCommand(FlowGraphViewerControlViewModel fgvm, NodeViewModel nodeVm)
         {
             _flowGraphVm = fgvm;
             _nodeVm = nodeVm;
@@ -33,11 +33,11 @@ namespace FlowSimulator.Undo
 
     class CreateNodesUndoCommand : IUndoCommand
     {
-        readonly FlowGraphControlViewModel _flowGraphVm;
+        readonly FlowGraphViewerControlViewModel _flowGraphVm;
         readonly IEnumerable<NodeViewModel> _nodesVm;
         readonly List<ConnectionInfo> _connectionInfoList = new List<ConnectionInfo>();
 
-        public CreateNodesUndoCommand(FlowGraphControlViewModel fgv, IEnumerable<NodeViewModel> nodesVm)
+        public CreateNodesUndoCommand(FlowGraphViewerControlViewModel fgv, IEnumerable<NodeViewModel> nodesVm)
         {
             _flowGraphVm = fgv;
 
@@ -115,11 +115,11 @@ namespace FlowSimulator.Undo
 
     class DeleteNodeUndoCommand : IUndoCommand
     {
-        readonly FlowGraphControlViewModel _flowGraphVm;
+        readonly FlowGraphViewerControlViewModel _flowGraphVm;
         readonly NodeViewModel _nodeVm;
         readonly List<ConnectionInfo> _connectionInfoList = new List<ConnectionInfo>();
 
-        public DeleteNodeUndoCommand(FlowGraphControlViewModel fgv, NodeViewModel nodeVm)
+        public DeleteNodeUndoCommand(FlowGraphViewerControlViewModel fgv, NodeViewModel nodeVm)
         {
             _flowGraphVm = fgv;
             _nodeVm = nodeVm;
@@ -188,11 +188,11 @@ namespace FlowSimulator.Undo
 
     class DeleteNodesUndoCommand : IUndoCommand
     {
-        readonly FlowGraphControlViewModel _flowGraphVm;
+        readonly FlowGraphViewerControlViewModel _flowGraphVm;
         readonly IEnumerable<NodeViewModel> _nodesVm;
         readonly List<ConnectionInfo> _connectionInfoList = new List<ConnectionInfo>();
 
-        public DeleteNodesUndoCommand(FlowGraphControlViewModel fgv, IEnumerable<NodeViewModel> nodesVm)
+        public DeleteNodesUndoCommand(FlowGraphViewerControlViewModel fgv, IEnumerable<NodeViewModel> nodesVm)
         {
             _flowGraphVm = fgv;
 
@@ -276,10 +276,10 @@ namespace FlowSimulator.Undo
             public double EndX, EndY;
         }
 
-        readonly FlowGraphControlViewModel _flowGraphVm;
+        readonly FlowGraphViewerControlViewModel _flowGraphVm;
         readonly IEnumerable<NodeDraggingInfo> _nodeInfosVm;
 
-        public PositionNodeUndoCommand(FlowGraphControlViewModel fgv, IEnumerable<NodeDraggingInfo> nodeInfosVm)
+        public PositionNodeUndoCommand(FlowGraphViewerControlViewModel fgv, IEnumerable<NodeDraggingInfo> nodeInfosVm)
         {
             _flowGraphVm = fgv;
             _nodeInfosVm = new List<NodeDraggingInfo>(nodeInfosVm);

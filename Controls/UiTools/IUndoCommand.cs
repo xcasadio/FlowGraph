@@ -1,4 +1,4 @@
-﻿namespace FlowSimulator.Undo
+﻿namespace UiTools
 {
     public interface IUndoCommand
     {

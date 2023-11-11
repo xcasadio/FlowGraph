@@ -1,4 +1,5 @@
 ﻿using FlowGraph.Logger;
+using Logger;
 
 namespace FlowGraph.Script;
 

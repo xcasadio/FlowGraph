@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Media;
-using FlowSimulator.UI;
 using NetworkModel;
+using UiTools;
 
-namespace FlowSimulator.Undo
+namespace FlowGraphUI
 {
     /// <summary>
     /// Used to copy info from a ConnectionViewModel
@@ -21,9 +21,9 @@ namespace FlowSimulator.Undo
     /// <summary>
     /// 
     /// </summary>
-    class CreateConnectionUndoCommand : IUndoCommand
+    public class CreateConnectionUndoCommand : IUndoCommand
     {
-        readonly FlowGraphControlViewModel _flowGraphVm;
+        readonly FlowGraphViewerControlViewModel _flowGraphVm;
 
         ConnectionViewModel _connectionVm;
         readonly ConnectorViewModel _destConnector;
@@ -35,7 +35,7 @@ namespace FlowSimulator.Undo
         /// <summary>
         /// 
         /// </summary>
-        public CreateConnectionUndoCommand(FlowGraphControlViewModel fgvm, ConnectionViewModel connectionVm)
+        public CreateConnectionUndoCommand(FlowGraphViewerControlViewModel fgvm, ConnectionViewModel connectionVm)
         {
             _flowGraphVm = fgvm;
             //_ConnectionVM = connectionVM_.Copy();
@@ -80,7 +80,7 @@ namespace FlowSimulator.Undo
     /// </summary>
     class DeleteConnectionUndoCommand : IUndoCommand
     {
-        readonly FlowGraphControlViewModel _flowGraphVm;
+        readonly FlowGraphViewerControlViewModel _flowGraphVm;
 
         ConnectionViewModel _connectionVm;
         readonly ConnectorViewModel _destConnector;
@@ -92,7 +92,7 @@ namespace FlowSimulator.Undo
         /// <summary>
         /// 
         /// </summary>
-        public DeleteConnectionUndoCommand(FlowGraphControlViewModel fgv, ConnectionViewModel connectionVm)
+        public DeleteConnectionUndoCommand(FlowGraphViewerControlViewModel fgv, ConnectionViewModel connectionVm)
         {
             _flowGraphVm = fgv;
             //_ConnectionVM = connectionVM_.Copy();
@@ -136,13 +136,13 @@ namespace FlowSimulator.Undo
     /// </summary>
     class CreateConnectionsUndoCommand : IUndoCommand
     {
-        readonly FlowGraphControlViewModel _flowGraphVm;
+        readonly FlowGraphViewerControlViewModel _flowGraphVm;
         readonly IEnumerable<ConnectionViewModel> _connectionsVm;
 
         /// <summary>
         /// 
         /// </summary>
-        public CreateConnectionsUndoCommand(FlowGraphControlViewModel fgv, IEnumerable<ConnectionViewModel> connectionsVm)
+        public CreateConnectionsUndoCommand(FlowGraphViewerControlViewModel fgv, IEnumerable<ConnectionViewModel> connectionsVm)
         {
             _flowGraphVm = fgv;
             _connectionsVm = connectionsVm;
@@ -170,13 +170,13 @@ namespace FlowSimulator.Undo
     /// </summary>
     class DeleteConnectionsUndoCommand : IUndoCommand
     {
-        readonly FlowGraphControlViewModel _flowGraphVm;
+        readonly FlowGraphViewerControlViewModel _flowGraphVm;
         readonly List<ConnectionInfo> _connectionInfoList = new List<ConnectionInfo>();
 
         /// <summary>
         /// 
         /// </summary>
-        public DeleteConnectionsUndoCommand(FlowGraphControlViewModel fgv, IEnumerable<ConnectionViewModel> connectionsVm)
+        public DeleteConnectionsUndoCommand(FlowGraphViewerControlViewModel fgv, IEnumerable<ConnectionViewModel> connectionsVm)
         {
             _flowGraphVm = fgv;
 
