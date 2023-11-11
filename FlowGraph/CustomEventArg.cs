@@ -1,27 +1,26 @@
-﻿namespace FlowGraph
+﻿namespace FlowGraph;
+
+public enum FunctionSlotChangedType
 {
-    public enum FunctionSlotChangedType
+    Added,
+    Removed
+}
+
+public class FunctionSlotChangedEventArg : EventArgs
+{
+    public FunctionSlotChangedType Type
     {
-        Added,
-        Removed
+        get;
     }
 
-    public class FunctionSlotChangedEventArg : EventArgs
+    public SequenceFunctionSlot FunctionSlot
     {
-        public FunctionSlotChangedType Type
-        {
-            get;
-        }
+        get;
+    }
 
-        public SequenceFunctionSlot FunctionSlot
-        {
-            get;
-        }
-
-        public FunctionSlotChangedEventArg(FunctionSlotChangedType type, SequenceFunctionSlot slot)
-        {
-            Type = type;
-            FunctionSlot = slot;
-        }
+    public FunctionSlotChangedEventArg(FunctionSlotChangedType type, SequenceFunctionSlot slot)
+    {
+        Type = type;
+        FunctionSlot = slot;
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System.Xml;
 using FlowGraph;
+using FlowGraph.Attributes;
 using FlowGraph.Logger;
-using FlowGraph.Node;
+using FlowGraph.Nodes;
 using FlowGraph.Process;
+using Logger;
 
 namespace CustomNode
 {

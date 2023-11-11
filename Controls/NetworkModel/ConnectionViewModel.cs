@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Media;
-using FlowGraph.Node;
+using FlowGraph.Nodes;
 using Utils;
 
 namespace NetworkModel

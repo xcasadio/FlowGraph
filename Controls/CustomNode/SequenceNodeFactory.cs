@@ -1,12 +1,11 @@
 ﻿using System.Xml;
-using FlowGraph.Node;
-using FlowGraph.Node.StandardActionNode;
-using FlowGraph.Node.StandardVariableNode;
+using FlowGraph.Nodes;
+using FlowGraph.Nodes.Actions.Math;
+using FlowGraph.Nodes.Variables;
 
 namespace CustomNode
 {
-    public class SequenceNodeFactory
-        : ISequenceNodeFactory
+    public class SequenceNodeFactory : ISequenceNodeFactory
     {
         public SequenceNode? CreateNode(XmlNode node)
         {

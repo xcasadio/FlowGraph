@@ -23,4 +23,8 @@
     <PackageReference Include="System.CodeDom" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Controls\Logger\Logger.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -5,12 +5,15 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using CustomNode;
 using FlowGraph;
+using FlowGraph.Attributes;
 using FlowGraph.Logger;
-using FlowGraph.Node;
-using FlowGraph.Node.StandardActionNode;
-using FlowGraph.Node.StandardVariableNode;
+using FlowGraph.Nodes;
+using FlowGraph.Nodes.Actions;
+using FlowGraph.Nodes.Variables;
 using FlowGraph.Process;
 using FlowGraph.Script;
+using FlowGraphUI;
+using Logger;
 using NetworkModel;
 using NetworkUI;
 using ZoomAndPan;
@@ -38,7 +41,7 @@ namespace FlowSimulator.UI
         /// <summary>
         /// Convenient accessor for the view-model.
         /// </summary>
-        public FlowGraphControlViewModel ViewModel => (FlowGraphControlViewModel)DataContext;
+        public FlowGraphViewerControlViewModel ViewModel => (FlowGraphViewerControlViewModel)DataContext;
 
         /// <summary>
         /// 
@@ -58,17 +61,17 @@ namespace FlowSimulator.UI
         /// <param name="e"></param>
         void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            FlowGraphControlViewModel fgcvm;
+            FlowGraphViewerControlViewModel fgcvm;
 
-            if (e.OldValue is FlowGraphControlViewModel)
+            if (e.OldValue is FlowGraphViewerControlViewModel)
             {
-                fgcvm = DataContext as FlowGraphControlViewModel;
+                fgcvm = DataContext as FlowGraphViewerControlViewModel;
                 fgcvm.ContextMenuOpened -= OnContextMenuOpened;
             }
 
-            if (e.NewValue is FlowGraphControlViewModel)
+            if (e.NewValue is FlowGraphViewerControlViewModel)
             {
-                fgcvm = DataContext as FlowGraphControlViewModel;
+                fgcvm = DataContext as FlowGraphViewerControlViewModel;
                 fgcvm.ContextMenuOpened += OnContextMenuOpened;
             }
         }

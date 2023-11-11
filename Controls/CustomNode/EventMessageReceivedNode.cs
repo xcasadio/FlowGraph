@@ -1,6 +1,7 @@
 ﻿using System.Xml;
 using FlowGraph;
-using FlowGraph.Node;
+using FlowGraph.Attributes;
+using FlowGraph.Nodes;
 
 namespace CustomNode
 {
@@ -12,8 +13,6 @@ namespace CustomNode
 
         }
 
-#if EDITOR
-
         public EventMessageReceivedNode()
         {
             AddSlot(0, "received", SlotType.NodeOut);
@@ -23,8 +22,6 @@ namespace CustomNode
 
             //AddSlot(new NodeItemType("Message", SequenceNode.ConnectionType.Variable, typeof(string)));
         }
-
-#endif
 
         public override string Title => "Test Started Event";
 

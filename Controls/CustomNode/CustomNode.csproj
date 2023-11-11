@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\FlowGraph\FlowGraph.csproj" />
+    <ProjectReference Include="..\Logger\Logger.csproj" />
   </ItemGroup>
 
 </Project>

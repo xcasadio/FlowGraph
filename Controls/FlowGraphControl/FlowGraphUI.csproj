@@ -18,6 +18,8 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\NetworkModel\NetworkModel.csproj" />
+		<ProjectReference Include="..\NetworkUI\NetworkUI.csproj" />
+		<ProjectReference Include="..\UiTools\UiTools.csproj" />
 	</ItemGroup>
 
 </Project>

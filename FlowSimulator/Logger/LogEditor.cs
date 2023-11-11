@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using FlowGraph.Logger;
+using Logger;
 
 namespace FlowSimulator.Logger
 {
@@ -25,8 +26,7 @@ namespace FlowSimulator.Logger
     /// <summary>
     /// 
     /// </summary>
-    public class LogEditor
-        : ILog
+    public class LogEditor : ILog
     {
         /// <summary>
         /// 

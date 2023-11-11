@@ -2,6 +2,7 @@
 using FlowGraph;
 using FlowGraph.Logger;
 using FlowSimulator.FlowGraphs;
+using Logger;
 
 namespace FlowSimulator
 {

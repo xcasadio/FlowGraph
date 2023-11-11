@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using FlowGraph;
-using FlowGraph.Node;
+using FlowGraph.Nodes;
 using FlowGraph.Script;
 using NetworkModel;
 

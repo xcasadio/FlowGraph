@@ -6,14 +6,14 @@
 			xmlns:ZoomAndPan="clr-namespace:ZoomAndPan;assembly=ZoomAndPan"
             xmlns:scroll="clr-namespace:MouseDragScrollViewer;assembly=MouseDragScrollViewer"
 			xmlns:ac="clr-namespace:AdornedControl;assembly=AdornedControl"
-            xmlns:node="clr-namespace:FlowGraph.Node;assembly=FlowGraph"
-			xmlns:local="clr-namespace:FlowSimulator.UI"
+            xmlns:local="clr-namespace:FlowSimulator.UI"
             xmlns:sys="clr-namespace:System;assembly=mscorlib"
             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
 
 			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-			xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			xmlns:nodes="clr-namespace:FlowGraph.Nodes;assembly=FlowGraph"
 			mc:Ignorable="d" 
 			d:DesignHeight="153" d:DesignWidth="603">
 
@@ -596,13 +596,13 @@
                                 <ContentControl.Style>
                                     <Style TargetType="{x:Type ContentControl}">
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding SequenceNodeType}" Value="{x:Static node:NodeType.Action}" >
+                                            <DataTrigger Binding="{Binding SequenceNodeType}" Value="{x:Static nodes:NodeType.Action}" >
                                                 <Setter Property="ContentTemplate" Value="{StaticResource actionNodeTemplate}" />
                                             </DataTrigger>
-                                            <DataTrigger Binding="{Binding SequenceNodeType}" Value="{x:Static node:NodeType.Event}" >
+                                            <DataTrigger Binding="{Binding SequenceNodeType}" Value="{x:Static nodes:NodeType.Event}" >
                                                 <Setter Property="ContentTemplate" Value="{StaticResource actionNodeTemplate}" />
                                             </DataTrigger>
-                                            <DataTrigger Binding="{Binding SequenceNodeType}" Value="{x:Static node:NodeType.Variable}" >
+                                            <DataTrigger Binding="{Binding SequenceNodeType}" Value="{x:Static nodes:NodeType.Variable}" >
                                                 <Setter Property="ContentTemplate" Value="{StaticResource variableNodeTemplate}" />
                                             </DataTrigger>
                                         </Style.Triggers>

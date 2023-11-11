@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows;
-using FlowGraph.Node;
+using FlowGraph.Nodes;
 using Utils;
 
 namespace NetworkModel

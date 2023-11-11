@@ -1,79 +1,78 @@
 ﻿using System.ComponentModel;
 
-namespace FlowGraph
+namespace FlowGraph;
+
+public enum FunctionSlotType
 {
-    public enum FunctionSlotType
+    Input,
+    Output
+}
+
+public class SequenceFunctionSlot : INotifyPropertyChanged
+{
+    private string? _name;
+    private Type _varType;
+    private bool _isArray;
+
+    public int Id
     {
-        Input,
-        Output
+        get;
     }
 
-    public class SequenceFunctionSlot : INotifyPropertyChanged
+    public FunctionSlotType SlotType
     {
-        private string? _name;
-        private Type _varType;
-        private bool _isArray;
+        get;
+    }
 
-        public int Id
+    public string? Name
+    {
+        get => _name;
+        set
         {
-            get;
-        }
-
-        public FunctionSlotType SlotType
-        {
-            get;
-        }
-
-        public string? Name
-        {
-            get => _name;
-            set
+            if (_name != value)
             {
-                if (_name != value)
-                {
-                    _name = value;
-                    OnPropertyChanged("Name");
-                }
+                _name = value;
+                OnPropertyChanged("Name");
             }
         }
+    }
 
-        public Type VariableType
+    public Type VariableType
+    {
+        get => _varType;
+        set
         {
-            get => _varType;
-            set
+            if (_varType != value)
             {
-                if (_varType != value)
-                {
-                    _varType = value;
-                    OnPropertyChanged("VariableType");
-                }
+                _varType = value;
+                OnPropertyChanged("VariableType");
             }
         }
+    }
 
-        public bool IsArray
+    public bool IsArray
+    {
+        get => _isArray;
+        set
         {
-            get => _isArray;
-            set
+            if (_isArray != value)
             {
-                if (_isArray != value)
-                {
-                    _isArray = value;
-                    OnPropertyChanged("IsArray");
-                }
+                _isArray = value;
+                OnPropertyChanged("IsArray");
             }
         }
+    }
 
-        public SequenceFunctionSlot(int id, FunctionSlotType type)
-        {
-            Id = id;
-            SlotType = type;
-        }
+    public SequenceFunctionSlot(int id, FunctionSlotType type)
+    {
+        Id = id;
+        SlotType = type;
+    }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler PropertyChanged;
 
-        public void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+    public void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using FlowGraph.Node;
+using FlowGraph.Nodes;
 
 namespace CustomNode;
 

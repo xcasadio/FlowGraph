@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Data;
 using FlowGraph;
+using FlowGraphUI;
 using FlowSimulator.FlowGraphs;
 
 namespace FlowSimulator.UI
@@ -19,7 +20,7 @@ namespace FlowSimulator.UI
         {
             foreach (TabItem item in tabControl.Items)
             {
-                if (item.DataContext is FlowGraphControlViewModel fgcvm && fgcvm.Id == seq.Id)
+                if (item.DataContext is FlowGraphViewerControlViewModel fgcvm && fgcvm.Id == seq.Id)
                 {
                     tabControl.SelectedItem = item;
                     return;
@@ -27,7 +28,7 @@ namespace FlowSimulator.UI
             }
 
             TabItem tab = new TabItem();
-            FlowGraphControlViewModel fgvm = FlowGraphManager.Instance.GetViewModelById(seq.Id);
+            FlowGraphViewerControlViewModel fgvm = FlowGraphManager.Instance.GetViewModelById(seq.Id);
             tab.DataContext = fgvm;
 
             FlowGraphControl fgc = new FlowGraphControl { DataContext = fgvm };
@@ -39,11 +40,11 @@ namespace FlowSimulator.UI
             tabControl.SelectedIndex = tabControl.Items.Add(tab);
         }
 
-        public void CloseTab(FlowGraphControlViewModel v)
+        public void CloseTab(FlowGraphViewerControlViewModel v)
         {
             foreach (TabItem item in tabControl.Items)
             {
-                if (item.DataContext is FlowGraphControlViewModel fgvm && fgvm.Id == v.Id)
+                if (item.DataContext is FlowGraphViewerControlViewModel fgvm && fgvm.Id == v.Id)
                 {
                     tabControl.Items.Remove(item);
                     return;

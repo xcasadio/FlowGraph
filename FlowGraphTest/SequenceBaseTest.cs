@@ -1,6 +1,6 @@
 ﻿using FlowGraph;
-using FlowGraph.Node;
-using FlowGraph.Node.StandardVariableNode;
+using FlowGraph.Nodes;
+using FlowGraph.Nodes.Variables;
 using FlowGraph.Process;
 using NFluent;
 

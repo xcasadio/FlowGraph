@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Controls\CustomNode\CustomNode.csproj" />
+    <ProjectReference Include="..\Controls\Logger\Logger.csproj" />
     <ProjectReference Include="..\FlowGraph\FlowGraph.csproj" />
   </ItemGroup>
 
