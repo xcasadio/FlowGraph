@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdornedControl", "Controls\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomNode", "Controls\CustomNode\CustomNode.csproj", "{BEE1F445-2A9B-4179-9BC3-54A816DB3308}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowGraphUI", "Controls\FlowGraphControl\FlowGraphUI.csproj", "{2A5C5C5A-C6FE-4B62-B251-7AC7167F5419}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowGraphUI", "Controls\FlowGraphUI\FlowGraphUI.csproj", "{2A5C5C5A-C6FE-4B62-B251-7AC7167F5419}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MouseDragScrollViewer", "Controls\MouseDragDropScrollViewer\MouseDragScrollViewer.csproj", "{98C27855-1BFF-465D-B217-43F966C79323}"
 EndProject

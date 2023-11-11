@@ -10,13 +10,12 @@ using FlowGraph.Nodes;
 using FlowGraph.Nodes.Actions;
 using FlowGraph.Nodes.Variables;
 using FlowGraph.Script;
-using FlowGraphUI;
 using Logger;
 using NetworkModel;
 using NetworkUI;
 using ZoomAndPan;
 
-namespace FlowSimulator.UI
+namespace FlowGraphUI
 {
     public partial class FlowGraphControl : UserControl
     {
@@ -862,20 +861,20 @@ namespace FlowSimulator.UI
                 {
                     string data = e.Data.GetData(DataFormats.StringFormat) as string;
 
-                    if (data.StartsWith(FlowGraphDataControl.DragPrefixFunction))
+                    if (data.StartsWith((string)FlowGraphDragAndDropManager.DragPrefixFunction))
                     {
                         string id = data.Split('#')[1];
                         SequenceFunction func = GraphDataManager.Instance.GetFunctionById(int.Parse(id));
                         CallFunctionNode seqNode = new CallFunctionNode(func);
                         ViewModel.CreateNode(seqNode, e.GetPosition(networkControl), false);
                     }
-                    else if (data.StartsWith(FlowGraphDataControl.DragPrefixNamedVar))
+                    else if (data.StartsWith((string)FlowGraphDragAndDropManager.DragPrefixNamedVar))
                     {
                         string name = data.Split('#')[1];
                         NamedVariableNode seqNode = new NamedVariableNode(name);
                         ViewModel.CreateNode(seqNode, e.GetPosition(networkControl), false);
                     }
-                    else if (data.StartsWith(FlowGraphDataControl.DragPrefixScriptElement))
+                    else if (data.StartsWith((string)FlowGraphDragAndDropManager.DragPrefixScriptElement))
                     {
                         string idStr = data.Split('#')[1];
                         int id = int.Parse(idStr);

@@ -8,15 +8,8 @@ using FlowSimulator.FlowGraphs;
 
 namespace FlowSimulator.UI
 {
-    /// <summary>
-    /// Interaction logic for FlowGraphListWindow.xaml
-    /// </summary>
     public partial class FlowGraphDataControl : UserControl
     {
-        public const string DragPrefixFunction = "SequenceFunction#";
-        public const string DragPrefixNamedVar = "NamedVariable#";
-        public const string DragPrefixScriptElement = "ScriptElement#";
-
         private Point _dragStartPoint;
         private bool _isDragAndDrop;
 
@@ -319,7 +312,7 @@ namespace FlowSimulator.UI
 
                         if (func != null)
                         {
-                            DataObject dragData = new DataObject(DataFormats.Text, DragPrefixFunction + func.Id);
+                            DataObject dragData = new DataObject(DataFormats.Text, FlowGraphDragAndDropManager.DragPrefixFunction + func.Id);
                             DragDrop.DoDragDrop(listBoxItem, dragData, DragDropEffects.Move);
                         }
                     }
@@ -446,7 +439,7 @@ namespace FlowSimulator.UI
 
                         if (var != null)
                         {
-                            DataObject dragData = new DataObject(DataFormats.Text, DragPrefixNamedVar + var.Name);
+                            DataObject dragData = new DataObject(DataFormats.Text, FlowGraphDragAndDropManager.DragPrefixNamedVar + var.Name);
                             DragDrop.DoDragDrop(listBoxItem, dragData, DragDropEffects.Move);
                         }
                     }
@@ -575,7 +568,7 @@ namespace FlowSimulator.UI
 
                         if (var != null)
                         {
-                            DataObject dragData = new DataObject(DataFormats.Text, DragPrefixScriptElement + var.Id);
+                            DataObject dragData = new DataObject(DataFormats.Text, FlowGraphDragAndDropManager.DragPrefixScriptElement + var.Id);
                             DragDrop.DoDragDrop(listBoxItem, dragData, DragDropEffects.Move);
                         }
                     }

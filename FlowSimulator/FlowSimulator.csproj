@@ -104,7 +104,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Controls\AdornedControl\AdornedControl.csproj" />
 	  <ProjectReference Include="..\Controls\CustomNode\CustomNode.csproj" />
-	  <ProjectReference Include="..\Controls\FlowGraphControl\FlowGraphUI.csproj" />
+	  <ProjectReference Include="..\Controls\FlowGraphUI\FlowGraphUI.csproj" />
 	  <ProjectReference Include="..\Controls\Logger\Logger.csproj" />
 	  <ProjectReference Include="..\Controls\MouseDragDropScrollViewer\MouseDragScrollViewer.csproj" />
 	  <ProjectReference Include="..\Controls\NetworkModel\NetworkModel.csproj" />

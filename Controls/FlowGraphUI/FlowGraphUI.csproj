@@ -17,9 +17,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\AdornedControl\AdornedControl.csproj" />
+		<ProjectReference Include="..\Logger\Logger.csproj" />
+		<ProjectReference Include="..\MouseDragDropScrollViewer\MouseDragScrollViewer.csproj" />
 		<ProjectReference Include="..\NetworkModel\NetworkModel.csproj" />
 		<ProjectReference Include="..\NetworkUI\NetworkUI.csproj" />
 		<ProjectReference Include="..\UiTools\UiTools.csproj" />
+		<ProjectReference Include="..\ZoomAndPan\ZoomAndPan.csproj" />
 	</ItemGroup>
 
 </Project>

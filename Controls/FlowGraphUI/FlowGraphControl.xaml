@@ -1,10 +1,10 @@
-﻿<UserControl x:Class="FlowSimulator.UI.FlowGraphControl"
+﻿<UserControl x:Class="FlowGraphUI.FlowGraphControl"
 			xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-			xmlns:FlowGraphUI="clr-namespace:FlowGraphUI;assembly=FlowGraphUI"
 			xmlns:NetworkUI="clr-namespace:NetworkUI;assembly=NetworkUI"
 			xmlns:NetworkModel="clr-namespace:NetworkModel;assembly=NetworkModel"
 			xmlns:ZoomAndPan="clr-namespace:ZoomAndPan;assembly=ZoomAndPan"
             xmlns:scroll="clr-namespace:MouseDragScrollViewer;assembly=MouseDragScrollViewer"
+            xmlns:flowGraphUi="clr-namespace:FlowGraphUI"
 			xmlns:ac="clr-namespace:AdornedControl;assembly=AdornedControl"
             xmlns:sys="clr-namespace:System;assembly=mscorlib"
             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
@@ -53,16 +53,16 @@
             This converts from a scale value to a percentage value.
             It is used to convert the value of 'ContentScale' to the percentage zoom level that is displayed in the UI.
             -->
-            <FlowGraphUI:ScaleToPercentConverter x:Key="scaleToPercentConverter" />
+            <flowGraphUi:ScaleToPercentConverter x:Key="scaleToPercentConverter" />
 
             <!-- This converts the type of a variable to a color value. -->
-            <FlowGraphUI:TypeToColorConverter x:Key="typeToColorConverter" />
-            <FlowGraphUI:TypeToLinearGradientConverter x:Key="typeToLinearGradientConverter" />
+            <flowGraphUi:TypeToColorConverter x:Key="typeToColorConverter" />
+            <flowGraphUi:TypeToLinearGradientConverter x:Key="typeToLinearGradientConverter" />
 
             <!-- 
             This graphic is used to indicate that a connection cannot be made between two particular connectors.        
             -->
-            <DataTemplate DataType="{x:Type FlowGraphUI:ConnectionBadIndicator}">
+            <DataTemplate DataType="{x:Type flowGraphUi:ConnectionBadIndicator}">
                 <Border BorderBrush="Gray" Background="Black" BorderThickness="1" Padding="5,2,5,2">
                     <Grid >
                         <Grid.ColumnDefinitions>
@@ -82,7 +82,7 @@
             <!-- 
             This graphic is used to indicate that a connection can be made between two particular connectors.        
             -->
-            <DataTemplate DataType="{x:Type FlowGraphUI:ConnectionOkIndicator}">
+            <DataTemplate DataType="{x:Type flowGraphUi:ConnectionOkIndicator}">
                 <Grid >
                     <Image 
                         Width="16"
@@ -357,12 +357,12 @@
                     >
 
                     <!-- The connection is represented by a curved arrow. -->
-                    <FlowGraphUI:CurvedArrow Name="curveArrow"
+                    <flowGraphUi:CurvedArrow Name="curveArrow"
                         Stroke="{Binding ConnectedConnector.SourceSlot.VariableType, Converter={StaticResource typeToColorConverter}}"
                         Fill="{Binding ConnectedConnector.SourceSlot.VariableType, Converter={StaticResource typeToColorConverter}}"
                         Points="{Binding Points}" >
 
-                        <FlowGraphUI:CurvedArrow.Resources>
+                        <flowGraphUi:CurvedArrow.Resources>
                             <Storyboard x:Key="curveArrowStoryboard" >
                                 <DoubleAnimation Storyboard.TargetProperty="StrokeDashOffset" Timeline.DesiredFrameRate="30"
                                                        From="0.0" To="-200.0" Duration="0:0:3" BeginTime="0:0:0" />
@@ -370,10 +370,10 @@
                                 <DoubleAnimation Storyboard.TargetProperty="StrokeThickness" Timeline.DesiredFrameRate="30"
                                                        From="8.0" To="2.0" Duration="0:0:3" BeginTime="0:0:0"/>
                             </Storyboard>
-                        </FlowGraphUI:CurvedArrow.Resources>
+                        </flowGraphUi:CurvedArrow.Resources>
 
-                        <FlowGraphUI:CurvedArrow.Style>
-                            <Style TargetType="{x:Type FlowGraphUI:CurvedArrow}">
+                        <flowGraphUi:CurvedArrow.Style>
+                            <Style TargetType="{x:Type flowGraphUi:CurvedArrow}">
                                 <Setter Property="StrokeThickness" Value="2" />
                                 <Setter Property="StrokeDashOffset" Value="0.0" />
                                 <Setter Property="StrokeDashArray" Value="" />
@@ -389,9 +389,9 @@
                                 </Style.Triggers>
 
                             </Style>
-                        </FlowGraphUI:CurvedArrow.Style>
+                        </flowGraphUi:CurvedArrow.Style>
 
-                    </FlowGraphUI:CurvedArrow>
+                    </flowGraphUi:CurvedArrow>
 
                     <ac:AdornedControl.AdornerContent>
 
@@ -754,7 +754,7 @@
 
     <DockPanel>
 
-        <ToolBarTray DockPanel.Dock="Top">
+        <!--ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
                 <Button Command="{StaticResource Commands.FlowGraph.Undo}" ToolTip="Undo the last action" >
 
@@ -833,7 +833,7 @@
                 </Button>
 
             </ToolBar>
-        </ToolBarTray>
+        </ToolBarTray-->
 
         <!-- 
         The ScrollViewer displays scrollbars when the content is too big to fit in the viewport. 
