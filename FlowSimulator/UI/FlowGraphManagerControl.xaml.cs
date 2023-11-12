@@ -1,9 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using FlowGraph;
 using FlowGraphUI;
-using FlowSimulator.FlowGraphs;
 
 namespace FlowSimulator.UI
 {
@@ -14,10 +12,17 @@ namespace FlowSimulator.UI
         public FlowGraphManagerControl()
         {
             InitializeComponent();
+
+            var flowGraphViewerControlViewModel = new SequenceViewModel(new Sequence("test"));
+            var fgc = new FlowGraphControl { DataContext = flowGraphViewerControlViewModel };
+            containerFlowGraph.Children.Add(fgc);
         }
 
         public void OpenGraphInNewTab(SequenceBase seq)
         {
+
+
+            /*
             foreach (TabItem item in tabControl.Items)
             {
                 if (item.DataContext is FlowGraphViewerControlViewModel fgcvm && fgcvm.Id == seq.Id)
@@ -37,29 +42,24 @@ namespace FlowSimulator.UI
             Binding bind = new Binding("Name") { Source = fgvm };
             tab.SetBinding(HeaderedContentControl.HeaderProperty, bind);
 
-            tabControl.SelectedIndex = tabControl.Items.Add(tab);
+            tabControl.SelectedIndex = tabControl.Items.Add(tab);*/
         }
 
-        public void CloseTab(FlowGraphViewerControlViewModel v)
+        public void CloseTab(SequenceViewModel v)
         {
-            foreach (TabItem item in tabControl.Items)
+            /*foreach (TabItem item in tabControl.Items)
             {
                 if (item.DataContext is FlowGraphViewerControlViewModel fgvm && fgvm.Id == v.Id)
                 {
                     tabControl.Items.Remove(item);
                     return;
                 }
-            }
+            }*/
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (tabControl.SelectedItem is TabItem tab)
+            /*if (tabControl.SelectedItem is TabItem tab)
             {
                 int index = tabControl.Items.IndexOf(tab);
                 tabControl.Items.Remove(tab);
@@ -68,17 +68,12 @@ namespace FlowSimulator.UI
                 {
                     tabControl.SelectedIndex = index > 0 ? index - 1 : 0;
                 }
-            }
+            }*/
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (SelectedGraphChanged == null)
+            /*if (SelectedGraphChanged == null)
             {
                 return;
             }
@@ -90,7 +85,7 @@ namespace FlowSimulator.UI
                 seq = control.ViewModel.Sequence;
             }
 
-            SelectedGraphChanged(this, new EventArg1Param<SequenceBase?>(seq));
+            SelectedGraphChanged(this, new EventArg1Param<SequenceBase?>(seq));*/
         }
     }
 }

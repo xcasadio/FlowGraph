@@ -32,11 +32,6 @@
 
         <RoutedUICommand x:Key="Commands.EditCustomVariable" />
 
-        <RoutedUICommand x:Key="Commands.OpenScript" />
-        <RoutedUICommand x:Key="Commands.CreateScript" />
-        <RoutedUICommand x:Key="Commands.RenameScript" />
-        <RoutedUICommand x:Key="Commands.DeleteScript" />
-
         <!-- Expander style -->
         <SolidColorBrush x:Key="NormalBorderBrush" Color="DarkGray"/>
         <SolidColorBrush x:Key="NormalBrush" Color="#202020"/>
@@ -188,7 +183,7 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsExpanded" Value="True">
                                 <Setter TargetName="ContentRow" Property="Height"
-                                        Value="{Binding ElementName=Content,Path=DesiredHeight}" />
+                                        Value="{Binding ElementName=Content,Path=Height}" />
                                 <Setter TargetName="Border" Property="BorderBrush"
                                         Value="{StaticResource OpenHeaderBorderBrush}"/>
                                 <Setter TargetName="Border" Property="CornerRadius"

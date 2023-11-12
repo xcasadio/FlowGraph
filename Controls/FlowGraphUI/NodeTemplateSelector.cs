@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using FlowGraph;
 using FlowGraph.Nodes;
-using FlowGraph.Script;
 using NetworkModel;
 
 namespace FlowGraphUI
@@ -122,10 +121,6 @@ namespace FlowGraphUI
                 if ((parentObject as FrameworkElement).DataContext is NamedVariable)
                 {
                     return VariableTemplate;
-                }
-                if ((parentObject as FrameworkElement).DataContext is ScriptElement)
-                {
-                    return ScriptTemplate;
                 }
             }
 

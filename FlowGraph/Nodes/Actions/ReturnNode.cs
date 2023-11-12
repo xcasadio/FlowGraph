@@ -16,7 +16,7 @@ public class ReturnNode
     }
 
     private int _functionId = -1; // used when the node is loaded, in order to retrieve the function
-    private SequenceFunction? _function;
+    private SequenceFunction _function;
 
     private List<int> _outputIds = new();
 
@@ -24,21 +24,14 @@ public class ReturnNode
     {
         get
         {
-            GetFunction(); // TODO : ugly but the fast way to initialize
             return "ReturnNode";
         }
     }
 
-    public ReturnNode(SequenceFunction? function)
+    public ReturnNode(SequenceFunction function)
     {
         _function = function;
         _function.PropertyChanged += OnFuntionPropertyChanged;
-    }
-
-    public ReturnNode(XmlNode node)
-        : base(node)
-    {
-
     }
 
     private void OnFunctionSlotChanged(object sender, FunctionSlotChangedEventArg e)
@@ -64,8 +57,6 @@ public class ReturnNode
 
     private void UpdateNodeSlot()
     {
-        GetFunction();
-
         foreach (var slot in _function.Outputs)
         {
             AddFunctionSlot((int)NodeSlotId.InputStart + slot.Id, SlotType.VarIn, slot);
@@ -74,25 +65,6 @@ public class ReturnNode
 
         OnPropertyChanged("Slots");
         //OnPropertyChanged("SlotVariableIn");
-    }
-
-    private SequenceFunction? GetFunction()
-    {
-        if (_function == null
-            && _functionId != -1)
-        {
-            SetFunction(GraphDataManager.Instance.GetFunctionById(_functionId));
-        }
-
-        return _function;
-    }
-
-    private void SetFunction(SequenceFunction? func)
-    {
-        _function = func;
-        _function.PropertyChanged += OnFuntionPropertyChanged;
-        _function.FunctionSlotChanged += OnFunctionSlotChanged;
-        UpdateNodeSlot();
     }
 
     protected override void InitializeSlots()
@@ -133,7 +105,7 @@ public class ReturnNode
     public override void Save(XmlNode node)
     {
         base.Save(node);
-        node.AddAttribute("functionID", GetFunction().Id.ToString());
+        node.AddAttribute("functionID", _function.Id.ToString());
     }
 
     void OnFuntionPropertyChanged(object sender, PropertyChangedEventArgs e)

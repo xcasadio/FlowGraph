@@ -201,10 +201,10 @@
             </DataTemplate>
 
             <flowGraphUi:DetailTemplateSelector x:Key="detailsTemplateSelector"
-            SequenceTemplate="{StaticResource graphTemplate}"
-            SequenceFunctionTemplate="{StaticResource functionTemplate}"
-            VariableTemplate="{StaticResource variableTemplate}"
-            ScriptTemplate="{StaticResource scriptParamsTemplate}" />
+                SequenceTemplate="{StaticResource graphTemplate}"
+                SequenceFunctionTemplate="{StaticResource functionTemplate}"
+                VariableTemplate="{StaticResource variableTemplate}"
+                ScriptTemplate="{StaticResource scriptParamsTemplate}" />
 
         </ResourceDictionary>
     </UserControl.Resources>

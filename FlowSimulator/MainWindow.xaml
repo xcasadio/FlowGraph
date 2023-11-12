@@ -5,7 +5,8 @@
         xmlns:extToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:process="clr-namespace:FlowGraph.Process;assembly=FlowGraph"
         xmlns:ui="clr-namespace:FlowSimulator.UI"
-        
+        xmlns:flowGraphUi="clr-namespace:FlowGraphUI;assembly=FlowGraphUI"
+
         Title="Flow Simulator" Height="681" Width="851">
 
     <Window.CommandBindings>
@@ -200,8 +201,7 @@
             </ToolBar>
         </ToolBarTray>
 
-        <avalondock:DockingManager Name="dockingManager1" Grid.Row="2"
-                                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <avalondock:DockingManager Name="dockingManager1" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
             <avalondock:DockingManager.Theme>
                 <avalondock:GenericTheme/>
@@ -240,7 +240,7 @@
                                 <avalondock:LayoutAnchorablePane >
                                     <avalondock:LayoutAnchorable x:Name="flowGraphLayout" Title="Action Graph">
                                         <Grid x:Name="containerFlowGraph">
-                                            <ui:FlowGraphManagerControl x:Name="flowGraphManagerControl" />
+                                            <flowGraphUi:FlowGraphControl x:Name="flowGraphControl" DataContext="{Binding SequenceViewModel}"/>
                                         </Grid>
                                     </avalondock:LayoutAnchorable>
 
@@ -268,8 +268,7 @@
             </avalondock:LayoutRoot>
         </avalondock:DockingManager>
 
-        <extToolkit:WindowContainer x:Name="windowContainer" Grid.Row="2"
-                                     ModalBackgroundBrush="#80000000" />
+        <extToolkit:WindowContainer x:Name="windowContainer" Grid.Row="2" ModalBackgroundBrush="#80000000" />
 
         <StatusBar x:Name="statusBar" Grid.Row="3">
             <StatusBar.Resources>

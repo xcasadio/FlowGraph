@@ -1,7 +1,6 @@
 ﻿using System.Xml;
 using FlowGraph;
 using FlowGraph.Logger;
-using FlowSimulator.FlowGraphs;
 using Logger;
 
 namespace FlowSimulator
@@ -11,8 +10,6 @@ namespace FlowSimulator
         public static void Clear()
         {
             NamedVariableManager.Instance.Clear();
-            GraphDataManager.Instance.Clear();
-            FlowGraphManager.Instance.Clear();
             MainWindow.Instance.DetailsControl.DataContext = null;
         }
 
@@ -33,7 +30,7 @@ namespace FlowSimulator
                 }
 
                 NamedVariableManager.Instance.Load(rootNode);
-                FlowGraphManager.Instance.Load(rootNode); // GraphDataManager.Instance.Load(rootNode) done inside
+                //FlowGraphManager.Instance.Load(rootNode); // GraphDataManager.Instance.Load(rootNode) done inside
 
                 LogManager.Instance.WriteLine(LogVerbosity.Info, "'{0}' successfully loaded", fileName);
             }
@@ -56,7 +53,7 @@ namespace FlowSimulator
                 XmlNode rootNode = xmlDoc.AddRootNode("FlowSimulator");
                 rootNode.AddAttribute("version", version.ToString());
 
-                FlowGraphManager.Instance.Save(rootNode);
+                //FlowGraphManager.Instance.Save(rootNode);
                 NamedVariableManager.Instance.Save(rootNode);
 
                 xmlDoc.Save(fileName);

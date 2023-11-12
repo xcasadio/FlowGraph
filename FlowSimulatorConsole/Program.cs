@@ -26,7 +26,8 @@ namespace FlowSimulatorConsole
                 // It is the user who build the xml
                 XmlNode rootNode = xmlDoc.FirstChild.NextSibling;
                 NamedVariableManager.Instance.Load(rootNode);
-                GraphDataManager.Instance.Load(rootNode);
+                var flowGraphManager = new FlowGraphManager();
+                flowGraphManager.Load(rootNode);
 
                 Sequence seq = new Sequence("test");
                 seq.Load(xmlDoc.SelectSingleNode("FlowSimulator/GraphList/Graph[@name='test']"));

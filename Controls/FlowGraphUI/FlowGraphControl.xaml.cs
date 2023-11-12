@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -9,7 +10,6 @@ using FlowGraph.Logger;
 using FlowGraph.Nodes;
 using FlowGraph.Nodes.Actions;
 using FlowGraph.Nodes.Variables;
-using FlowGraph.Script;
 using Logger;
 using NetworkModel;
 using NetworkUI;
@@ -35,11 +35,8 @@ namespace FlowGraphUI
         /// <summary>
         /// Convenient accessor for the view-model.
         /// </summary>
-        public FlowGraphViewerControlViewModel ViewModel => (FlowGraphViewerControlViewModel)DataContext;
+        public SequenceViewModel ViewModel => (SequenceViewModel)DataContext;
 
-        /// <summary>
-        /// 
-        /// </summary>
         public FlowGraphControl()
         {
             DataContextChanged += OnDataContextChanged;
@@ -48,33 +45,23 @@ namespace FlowGraphUI
             Loaded += OnLoaded;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            FlowGraphViewerControlViewModel fgcvm;
+            SequenceViewModel sequenceViewModel;
 
-            if (e.OldValue is FlowGraphViewerControlViewModel)
+            if (e.OldValue is SequenceViewModel)
             {
-                fgcvm = DataContext as FlowGraphViewerControlViewModel;
-                fgcvm.ContextMenuOpened -= OnContextMenuOpened;
+                sequenceViewModel = e.OldValue as SequenceViewModel;
+                sequenceViewModel.ContextMenuOpened -= OnContextMenuOpened;
             }
 
-            if (e.NewValue is FlowGraphViewerControlViewModel)
+            if (e.NewValue is SequenceViewModel)
             {
-                fgcvm = DataContext as FlowGraphViewerControlViewModel;
-                fgcvm.ContextMenuOpened += OnContextMenuOpened;
+                sequenceViewModel = e.NewValue as SequenceViewModel;
+                sequenceViewModel.ContextMenuOpened += OnContextMenuOpened;
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         void OnLoaded(object sender, RoutedEventArgs e)
         {
             if (_isContextMenuCreated == false)
@@ -125,11 +112,6 @@ namespace FlowGraphUI
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="categPath_"></param>
-        /// <param name="name_"></param>
         MenuItem CreateParentMenuItemNode(string categPath, MenuItem parent)
         {
             if (string.IsNullOrWhiteSpace(categPath))
@@ -155,11 +137,6 @@ namespace FlowGraphUI
             return CreateParentMenuItemNode(categPath, child);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         void MenuItemCreateNode_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem item)
@@ -169,11 +146,6 @@ namespace FlowGraphUI
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         void OnContextMenuOpened(object sender, EventArgs e)
         {
             ContextMenu.IsOpen = true;
@@ -209,7 +181,7 @@ namespace FlowGraphUI
             object feedbackIndicator = null;
             bool connectionOk = true;
 
-            ViewModel.QueryConnnectionFeedback(draggedOutConnector, draggedOverConnector, out feedbackIndicator, out connectionOk);
+            ViewModel.QueryConnectionFeedback(draggedOutConnector, draggedOverConnector, out feedbackIndicator, out connectionOk);
 
             //
             // Return the feedback object to NetworkView.
@@ -864,22 +836,15 @@ namespace FlowGraphUI
                     if (data.StartsWith((string)FlowGraphDragAndDropManager.DragPrefixFunction))
                     {
                         string id = data.Split('#')[1];
-                        SequenceFunction func = GraphDataManager.Instance.GetFunctionById(int.Parse(id));
-                        CallFunctionNode seqNode = new CallFunctionNode(func);
-                        ViewModel.CreateNode(seqNode, e.GetPosition(networkControl), false);
+                        Debugger.Break();
+                        //SequenceFunction func = GraphDataManager.Instance.GetFunctionById(int.Parse(id));
+                        //CallFunctionNode seqNode = new CallFunctionNode(func);
+                        //ViewModel.CreateNode(seqNode, e.GetPosition(networkControl), false);
                     }
                     else if (data.StartsWith((string)FlowGraphDragAndDropManager.DragPrefixNamedVar))
                     {
                         string name = data.Split('#')[1];
                         NamedVariableNode seqNode = new NamedVariableNode(name);
-                        ViewModel.CreateNode(seqNode, e.GetPosition(networkControl), false);
-                    }
-                    else if (data.StartsWith((string)FlowGraphDragAndDropManager.DragPrefixScriptElement))
-                    {
-                        string idStr = data.Split('#')[1];
-                        int id = int.Parse(idStr);
-                        ScriptElement el = GraphDataManager.Instance.GetScriptById(id);
-                        ScriptNode seqNode = new ScriptNode(el);
                         ViewModel.CreateNode(seqNode, e.GetPosition(networkControl), false);
                     }
                 }

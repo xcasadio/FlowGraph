@@ -14,20 +14,14 @@ internal class OnEnterFunctionEvent : EventNode
     }
 
     private int _functionId = -1; // used when the node is loaded, in order to retrieve the function
-    private SequenceFunction? _function;
+    private SequenceFunction _function;
 
-    public override string? Title => (GetFunction() == null ? "<null>" : _function.Name) + " function";
+    public override string? Title => _function.Name + " function";
 
     public OnEnterFunctionEvent(SequenceFunction? func)
     {
         _function = func;
         _function.PropertyChanged += OnFuntionPropertyChanged;
-    }
-
-    public OnEnterFunctionEvent(XmlNode node)
-        : base(node)
-    {
-
     }
 
     private void OnFunctionSlotChanged(object sender, FunctionSlotChangedEventArg e)
@@ -53,8 +47,6 @@ internal class OnEnterFunctionEvent : EventNode
 
     private void UpdateNodeSlot()
     {
-        GetFunction();
-
         foreach (var slot in _function.Inputs)
         {
             AddFunctionSlot((int)NodeSlotId.OutputStart + slot.Id, SlotType.VarOut, slot);
@@ -63,17 +55,6 @@ internal class OnEnterFunctionEvent : EventNode
 
         OnPropertyChanged("Slots");
         //OnPropertyChanged("SlotVariableOut");
-    }
-
-    private SequenceFunction? GetFunction()
-    {
-        if (_function == null
-            && _functionId != -1)
-        {
-            SetFunction(GraphDataManager.Instance.GetFunctionById(_functionId));
-        }
-
-        return _function;
     }
 
     private void SetFunction(SequenceFunction? func)
@@ -105,7 +86,7 @@ internal class OnEnterFunctionEvent : EventNode
     public override void Save(XmlNode node)
     {
         base.Save(node);
-        node.AddAttribute("functionID", GetFunction().Id.ToString());
+        node.AddAttribute("functionID", _function.Id.ToString());
     }
 
     protected override SequenceNode CopyImpl()

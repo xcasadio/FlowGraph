@@ -3,13 +3,6 @@ using FlowGraph.Nodes;
 
 namespace FlowGraph;
 
-public enum SequenceState
-{
-    Running,
-    Pause,
-    Stop
-}
-
 public class Sequence : SequenceBase
 {
     public const string? XmlAttributeTypeValue = "Sequence";

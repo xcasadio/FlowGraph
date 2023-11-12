@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,9 +11,7 @@ using CustomNode;
 using FlowGraph;
 using FlowGraph.Logger;
 using FlowGraph.Process;
-using FlowGraph.Script;
 using FlowGraphUI;
-using FlowSimulator.FlowGraphs;
 using FlowSimulator.UI;
 using Logger;
 using Xceed.Wpf.AvalonDock.Layout;
@@ -33,7 +32,8 @@ namespace FlowSimulator
         private string _fileOpened = "";
 
         private double _lastLeft, _lastTop, _lastWidth, _lastHeight;
-        private FlowGraphViewerControlViewModel _selectedGlowGraphViewerControlVm;
+
+        private readonly FlowGraphViewModel _flowGraphViewModel;
 
         internal static MainWindow Instance
         {
@@ -41,7 +41,7 @@ namespace FlowSimulator
             private set;
         }
 
-        internal FlowGraphManagerControl FlowGraphManagerControl => flowGraphManagerControl;
+        //internal FlowGraphManagerControl FlowGraphManagerControl => flowGraphManagerControl;
 
         internal DetailsControl DetailsControl => detailsControl;
 
@@ -49,26 +49,21 @@ namespace FlowSimulator
         {
             InitializeComponent();
 
+            _flowGraphViewModel = new FlowGraphViewModel(new FlowGraphManager());
+            DataContext = _flowGraphViewModel;
+
             Instance = this;
 
             //LogManager.Instance.NbErrorChanged += new EventHandler(OnNbErrorChanged);
             Version ver = Assembly.GetExecutingAssembly().GetName().Version;
             statusLabelVersion.Content = "v" + ver;
             SetTitle();
-
             LogManager.Instance.WriteLine(LogVerbosity.Info, "FlowSimulator - v{0} started", ver);
             VariableTypeInspector.SetDefaultValues();
             NamedVarEditTemplateManager.Initialize();
 
             Loaded += OnLoaded;
             Closed += OnClosed;
-
-            FlowGraphManagerControl.SelectedGraphChanged += OnSelectedGraphChanged;
-        }
-
-        private void OnSelectedGraphChanged(object? sender, EventArg1Param<SequenceBase?> e)
-        {
-            _selectedGlowGraphViewerControlVm = e.Arg != null ? FlowGraphManager.Instance.GetViewModelById(e.Arg.Id) : null;
         }
 
         void OnLoaded(object sender, RoutedEventArgs e)
@@ -99,14 +94,13 @@ namespace FlowSimulator
                 // 
                 if (string.IsNullOrWhiteSpace(_mruManager.GetFirstFileName) == false)
                 {
-                    LoadFile(_mruManager.GetFirstFileName);
+                    //LoadFile(_mruManager.GetFirstFileName);
                 }
 
                 _lastLeft = Left;
                 _lastTop = Top;
                 _lastWidth = Width;
                 _lastHeight = Height;
-
 
                 ProcessLauncher.Instance.StartLoop();
             }
@@ -116,7 +110,7 @@ namespace FlowSimulator
             }
         }
 
-        private void OnClosed(object sender, EventArgs e)
+        private void OnClosed(object? sender, EventArgs e)
         {
             ProcessLauncher.Instance.StopLoop();
             LogManager.Instance.WriteLine(LogVerbosity.Info, "Closed by user");
@@ -133,13 +127,8 @@ namespace FlowSimulator
         }
         private void Launch_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (_selectedGlowGraphViewerControlVm == null)
-            {
-                return;
-            }
-
-            _selectedGlowGraphViewerControlVm.CreateSequence();
-            ProcessLauncher.Instance.LaunchSequence(_selectedGlowGraphViewerControlVm.Sequence, typeof(EventNodeTestStarted), 0, "test");
+            _flowGraphViewModel.SequenceViewModel.CreateSequence();
+            ProcessLauncher.Instance.LaunchSequence(_flowGraphViewModel.SequenceViewModel.SequenceBase, typeof(EventNodeTestStarted), 0, "test");
         }
 
         private void Resume_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -382,15 +371,15 @@ namespace FlowSimulator
 
         private void SaveChangesOnDemand()
         {
-            if (GraphDataManager.Instance.IsChanges()
-                || FlowGraphManager.Instance.IsChanges())
+            Debugger.Break();
+            /*if (_flowGraphManagerViewModel.IsChanges())
             {
                 if (System.Windows.MessageBox.Show(this, "Save changes ?", "Save ?",
                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     SaveProject();
                 }
-            }
+            }*/
         }
 
         private void LoadSettings()
@@ -528,37 +517,6 @@ namespace FlowSimulator
             if (string.IsNullOrWhiteSpace(_fileOpened) == false)
             {
                 Title += " - " + _fileOpened;
-            }
-        }
-
-        public void OpenScriptElement(ScriptElement el)
-        {
-            var list = dockingManager1.Layout.Descendents().OfType<LayoutDocument>();
-
-            foreach (LayoutDocument ld in list)
-            {
-                if (ld.Content is ScriptElementControl control)
-                {
-                    if (control.Script.Id == el.Id)
-                    {
-                        ld.IsSelected = true;
-                        return;
-                    }
-                }
-            }
-
-            var firstDocumentPane = dockingManager1.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
-            if (firstDocumentPane != null)
-            {
-                var script = new ScriptElementControl { DataContext = el };
-
-                LayoutDocument doc = new LayoutDocument
-                {
-                    Title = el.Name,
-                    Content = script
-                };
-                firstDocumentPane.Children.Add(doc);
-                doc.IsSelected = true;
             }
         }
     }

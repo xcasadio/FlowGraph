@@ -23,7 +23,7 @@ struct ConnectionInfo
 /// </summary>
 public class CreateConnectionUndoCommand : IUndoCommand
 {
-    readonly FlowGraphViewerControlViewModel _flowGraphVm;
+    readonly SequenceViewModel _flowGraphVm;
 
     ConnectionViewModel _connectionVm;
     readonly ConnectorViewModel _destConnector;
@@ -35,7 +35,7 @@ public class CreateConnectionUndoCommand : IUndoCommand
     /// <summary>
     /// 
     /// </summary>
-    public CreateConnectionUndoCommand(FlowGraphViewerControlViewModel fgvm, ConnectionViewModel connectionVm)
+    public CreateConnectionUndoCommand(SequenceViewModel fgvm, ConnectionViewModel connectionVm)
     {
         _flowGraphVm = fgvm;
         //_ConnectionVM = connectionVM_.Copy();
@@ -80,7 +80,7 @@ public class CreateConnectionUndoCommand : IUndoCommand
 /// </summary>
 class DeleteConnectionUndoCommand : IUndoCommand
 {
-    readonly FlowGraphViewerControlViewModel _flowGraphVm;
+    readonly SequenceViewModel _flowGraphVm;
 
     ConnectionViewModel _connectionVm;
     readonly ConnectorViewModel _destConnector;
@@ -92,7 +92,7 @@ class DeleteConnectionUndoCommand : IUndoCommand
     /// <summary>
     /// 
     /// </summary>
-    public DeleteConnectionUndoCommand(FlowGraphViewerControlViewModel fgv, ConnectionViewModel connectionVm)
+    public DeleteConnectionUndoCommand(SequenceViewModel fgv, ConnectionViewModel connectionVm)
     {
         _flowGraphVm = fgv;
         //_ConnectionVM = connectionVM_.Copy();
@@ -136,13 +136,13 @@ class DeleteConnectionUndoCommand : IUndoCommand
 /// </summary>
 class CreateConnectionsUndoCommand : IUndoCommand
 {
-    readonly FlowGraphViewerControlViewModel _flowGraphVm;
+    readonly SequenceViewModel _flowGraphVm;
     readonly IEnumerable<ConnectionViewModel> _connectionsVm;
 
     /// <summary>
     /// 
     /// </summary>
-    public CreateConnectionsUndoCommand(FlowGraphViewerControlViewModel fgv, IEnumerable<ConnectionViewModel> connectionsVm)
+    public CreateConnectionsUndoCommand(SequenceViewModel fgv, IEnumerable<ConnectionViewModel> connectionsVm)
     {
         _flowGraphVm = fgv;
         _connectionsVm = connectionsVm;
@@ -170,13 +170,13 @@ class CreateConnectionsUndoCommand : IUndoCommand
 /// </summary>
 class DeleteConnectionsUndoCommand : IUndoCommand
 {
-    readonly FlowGraphViewerControlViewModel _flowGraphVm;
+    readonly SequenceViewModel _flowGraphVm;
     readonly List<ConnectionInfo> _connectionInfoList = new List<ConnectionInfo>();
 
     /// <summary>
     /// 
     /// </summary>
-    public DeleteConnectionsUndoCommand(FlowGraphViewerControlViewModel fgv, IEnumerable<ConnectionViewModel> connectionsVm)
+    public DeleteConnectionsUndoCommand(SequenceViewModel fgv, IEnumerable<ConnectionViewModel> connectionsVm)
     {
         _flowGraphVm = fgv;
 

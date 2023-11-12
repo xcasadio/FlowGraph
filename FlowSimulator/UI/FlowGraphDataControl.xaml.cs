@@ -1,10 +1,9 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using FlowGraph;
-using FlowGraph.Script;
 using FlowGraphUI;
-using FlowSimulator.FlowGraphs;
 
 namespace FlowSimulator.UI
 {
@@ -13,30 +12,19 @@ namespace FlowSimulator.UI
         private Point _dragStartPoint;
         private bool _isDragAndDrop;
 
-        /// <summary>
-        /// 
-        /// </summary>
+        public FlowGraphViewModel FlowGraphViewModel => DataContext as FlowGraphViewModel;
+
         public FlowGraphDataControl()
         {
             InitializeComponent();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="?"></param>
         private void ListBoxGraphIte_MouseDoubleClick(object sender, MouseButtonEventArgs arg)
         {
-            RoutedUICommand cmd = (RoutedUICommand)Application.Current.Resources["Commands.OpenGraph"];
+            var cmd = (RoutedUICommand)Application.Current.Resources["Commands.OpenGraph"];
             cmd.Execute(arg, this);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void listBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (ItemsControl.ContainerFromElement(sender as ListBox, e.OriginalSource as DependencyObject) is ListBoxItem item)
@@ -45,147 +33,29 @@ namespace FlowSimulator.UI
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OpenGraph_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void ListBoxGraphFunctionItem_MouseDoubleClick(object sender, MouseButtonEventArgs arg)
         {
-            if (listBoxGraphs.SelectedItem != null
-                && listBoxGraphs.SelectedItem is Sequence item)
-            {
-                MainWindow.Instance.FlowGraphManagerControl.OpenGraphInNewTab(item);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CreateGraph_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            SequenceParametersWindow win = new SequenceParametersWindow
-            {
-                Title = "New Graph parameters",
-                InputName = "name of the graph",
-                InputDescription = "",
-                IsValidInputNameCallback = GraphDataManager.Instance.IsValidSequenceName,
-                Owner = MainWindow.Instance
-            };
-
-            if (win.ShowDialog() == false)
-            {
-                return;
-            }
-
-            Sequence newSeq = new Sequence(win.InputName)
-            {
-                Description = win.InputDescription
-            };
-            GraphDataManager.Instance.AddSequence(newSeq);
-
-            FlowGraphViewerControlViewModel wm = new FlowGraphViewerControlViewModel(newSeq);
-            FlowGraphManager.Instance.Add(wm);
-
-            MainWindow.Instance.FlowGraphManagerControl.OpenGraphInNewTab(newSeq);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void RenameGraph_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            if (listBoxGraphs.SelectedItem != null
-                && listBoxGraphs.SelectedItem is Sequence sequence)
-            {
-                FlowGraphViewerControlViewModel flowGraphVm =
-                    FlowGraphManager.Instance.GetViewModelById(sequence.Id);
-
-                SequenceParametersWindow win = new SequenceParametersWindow
-                {
-                    Title = "Graph " + flowGraphVm.Name + " parameters",
-                    InputName = flowGraphVm.Name,
-                    InputDescription = flowGraphVm.Description,
-                    IsValidInputNameCallback = GraphDataManager.Instance.IsValidSequenceName,
-                    Owner = MainWindow.Instance
-                };
-
-                if (win.ShowDialog() == false)
-                {
-                    return;
-                }
-
-                flowGraphVm.Sequence.Name = win.InputName;
-                flowGraphVm.Sequence.Description = win.InputDescription;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void DeleteGraph_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            if (listBoxGraphs.SelectedItem != null
-                && listBoxGraphs.SelectedItem is Sequence sequence)
-            {
-                FlowGraphViewerControlViewModel flowGraphVm =
-                    FlowGraphManager.Instance.GetViewModelById(sequence.Id);
-
-                if (MessageBox.Show(
-                        "Do you really want to delete the graph " + flowGraphVm.Name + " ?",
-                        "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                {
-                    MainWindow.Instance.FlowGraphManagerControl.CloseTab(flowGraphVm);
-                    FlowGraphManager.Instance.Remove(flowGraphVm);
-                    GraphDataManager.Instance.RemoveSequence(flowGraphVm.Sequence as Sequence);
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="?"></param>
-        private void ListBoxGraphFunctionIte_MouseDoubleClick(object sender, MouseButtonEventArgs arg)
-        {
-            RoutedUICommand cmd = (RoutedUICommand)Application.Current.Resources["Commands.OpenFunction"];
+            var cmd = (RoutedUICommand)Application.Current.Resources["Commands.OpenFunction"];
             cmd.Execute(arg, this);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OpenFunction_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (listBoxGraphFunctions.SelectedItem != null
-                && listBoxGraphFunctions.SelectedItem is SequenceFunction item)
+            if (listBoxGraphFunctions.SelectedItem is SequenceFunction item)
             {
-                MainWindow.Instance.FlowGraphManagerControl.OpenGraphInNewTab(item);
+                Debugger.Break();
+                //MainWindow.Instance.FlowGraphManagerControl.OpenGraphInNewTab(item);
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void CreateFunction_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            SequenceParametersWindow win = new SequenceParametersWindow
+            var win = new SequenceParametersWindow
             {
                 Title = "New Function parameters",
                 InputName = "name of the function",
                 InputDescription = "",
-                IsValidInputNameCallback = GraphDataManager.Instance.IsValidFunctionName,
+                IsValidInputNameCallback = FlowGraphViewModel.IsValidFunctionName,
                 Owner = MainWindow.Instance
             };
 
@@ -194,38 +64,30 @@ namespace FlowSimulator.UI
                 return;
             }
 
-            SequenceFunction newSeq = new SequenceFunction(win.InputName)
+            var newSeq = new SequenceFunction(win.InputName)
             {
                 Description = win.InputDescription
             };
-            GraphDataManager.Instance.AddFunction(newSeq);
 
-            FlowGraphViewerControlViewModel wm = new FlowGraphViewerControlViewModel(newSeq);
-            wm.InitialNodeFromNewFunction();
-            FlowGraphManager.Instance.Add(wm);
+            var sequenceViewModel = new SequenceViewModel(newSeq);
 
-            MainWindow.Instance.FlowGraphManagerControl.OpenGraphInNewTab(newSeq);
+            FlowGraphViewModel.AddFunction(sequenceViewModel);
+            sequenceViewModel.InitialNodeFromNewFunction();
+
+            Debugger.Break();
+            //MainWindow.Instance.FlowGraphManagerControl.OpenGraphInNewTab(newSeq);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void RenameFunction_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (listBoxGraphFunctions.SelectedItem != null
-                && listBoxGraphFunctions.SelectedItem is SequenceFunction function)
+            if (listBoxGraphFunctions.SelectedItem is SequenceViewModel sequenceViewModel)
             {
-                FlowGraphViewerControlViewModel flowGraphVm =
-                    FlowGraphManager.Instance.GetViewModelById(function.Id);
-
-                SequenceParametersWindow win = new SequenceParametersWindow
+                var win = new SequenceParametersWindow
                 {
-                    Title = "Function " + flowGraphVm.Name + " parameters",
-                    InputName = flowGraphVm.Name,
-                    InputDescription = flowGraphVm.Description,
-                    IsValidInputNameCallback = GraphDataManager.Instance.IsValidFunctionName,
+                    Title = "Function " + sequenceViewModel.Name + " parameters",
+                    InputName = sequenceViewModel.Name,
+                    InputDescription = sequenceViewModel.Description,
+                    IsValidInputNameCallback = FlowGraphViewModel.IsValidFunctionName,
                     Owner = MainWindow.Instance
                 };
 
@@ -234,40 +96,26 @@ namespace FlowSimulator.UI
                     return;
                 }
 
-                flowGraphVm.Sequence.Name = win.InputName;
-                flowGraphVm.Sequence.Description = win.InputDescription;
+                sequenceViewModel.Name = win.InputName;
+                sequenceViewModel.Description = win.InputDescription;
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void DeleteFunction_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (listBoxGraphFunctions.SelectedItem != null
-                && listBoxGraphFunctions.SelectedItem is SequenceFunction function)
+            if (listBoxGraphFunctions.SelectedItem is SequenceViewModel sequenceViewModel)
             {
-                FlowGraphViewerControlViewModel flowGraphVm =
-                    FlowGraphManager.Instance.GetViewModelById(function.Id);
-
                 if (MessageBox.Show(
-                        "Do you really want to delete the function " + flowGraphVm.Name + " ?",
+                        "Do you really want to delete the function " + sequenceViewModel.Name + " ?",
                         "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    MainWindow.Instance.FlowGraphManagerControl.CloseTab(flowGraphVm);
-                    FlowGraphManager.Instance.Remove(flowGraphVm);
-                    GraphDataManager.Instance.RemoveFunction(flowGraphVm.Sequence as SequenceFunction);
+                    Debugger.Break();
+                    //MainWindow.Instance.FlowGraphManagerControl.CloseTab(sequenceViewModel);
+                    FlowGraphViewModel.RemoveFunction(sequenceViewModel);
                 }
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void listBoxGraphFunctions_PreviewMouseLeftButton(object sender, MouseButtonEventArgs e)
         {
             listBox_PreviewMouseLeftButtonDown(sender, e);
@@ -283,18 +131,13 @@ namespace FlowSimulator.UI
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void listBoxGraphFunctions_PreviewMouseMove(object sender, MouseEventArgs e)
         {
             if (_isDragAndDrop)
             {
                 // Get the current mouse position
-                Point mousePos = e.GetPosition(null);
-                Vector diff = _dragStartPoint - mousePos;
+                var mousePos = e.GetPosition(null);
+                var diff = _dragStartPoint - mousePos;
 
                 if (e.LeftButton == MouseButtonState.Pressed &&
                     sender is ListBox listBox &&
@@ -302,17 +145,17 @@ namespace FlowSimulator.UI
                     (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
                     Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
                 {
-                    ListBoxItem listBoxItem =
+                    var listBoxItem =
                         DependencyObjectHelper.FindAnchestor<ListBoxItem>(source);
 
                     if (listBoxItem != null)
                     {
-                        SequenceFunction func = (SequenceFunction)listBox.ItemContainerGenerator.
+                        var func = (SequenceFunction)listBox.ItemContainerGenerator.
                             ItemFromContainer(listBoxItem);
 
                         if (func != null)
                         {
-                            DataObject dragData = new DataObject(DataFormats.Text, FlowGraphDragAndDropManager.DragPrefixFunction + func.Id);
+                            var dragData = new DataObject(DataFormats.Text, FlowGraphDragAndDropManager.DragPrefixFunction + func.Id);
                             DragDrop.DoDragDrop(listBoxItem, dragData, DragDropEffects.Move);
                         }
                     }
@@ -320,14 +163,9 @@ namespace FlowSimulator.UI
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void CreateNamedVar_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            NewNamedVarWindow win = new NewNamedVarWindow
+            var win = new NewNamedVarWindow
             {
                 Title = "New Named Variable",
                 InputName = "name of the variable",
@@ -345,17 +183,11 @@ namespace FlowSimulator.UI
                 VariableTypeInspector.CreateDefaultValueFromType(Type.GetType(win.InputType)));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void RenameNamedVar_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (listBoxGraphNamedVars.SelectedItem != null
-                && listBoxGraphNamedVars.SelectedItem is NamedVariable @var)
+            if (listBoxGraphNamedVars.SelectedItem is NamedVariable var)
             {
-                NewNamedVarWindow win = new NewNamedVarWindow(var)
+                var win = new NewNamedVarWindow(var)
                 {
                     Title = "Rename Named Variable",
                     IsValidInputNameCallback = NamedVariableManager.Instance.IsValidName,
@@ -371,15 +203,9 @@ namespace FlowSimulator.UI
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void DeleteNamedVar_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (listBoxGraphNamedVars.SelectedItem != null
-                && listBoxGraphNamedVars.SelectedItem is NamedVariable variable)
+            if (listBoxGraphNamedVars.SelectedItem is NamedVariable variable)
             {
                 if (MessageBox.Show(
                         "Do you really want to delete the named variable " + variable.Name + " ?",
@@ -390,11 +216,6 @@ namespace FlowSimulator.UI
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void listBoxGraphNamedVars_PreviewMouseLeftButton(object sender, MouseButtonEventArgs e)
         {
             listBox_PreviewMouseLeftButtonDown(sender, e);
@@ -410,18 +231,13 @@ namespace FlowSimulator.UI
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void listBoxGraphNamedVars_PreviewMouseMove(object sender, MouseEventArgs e)
         {
             if (_isDragAndDrop)
             {
                 // Get the current mouse position
-                Point mousePos = e.GetPosition(null);
-                Vector diff = _dragStartPoint - mousePos;
+                var mousePos = e.GetPosition(null);
+                var diff = _dragStartPoint - mousePos;
 
                 if (e.LeftButton == MouseButtonState.Pressed &&
                     sender is ListBox listBox &&
@@ -429,146 +245,16 @@ namespace FlowSimulator.UI
                     (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
                     Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
                 {
-                    ListBoxItem listBoxItem =
-                        DependencyObjectHelper.FindAnchestor<ListBoxItem>(source);
+                    var listBoxItem = DependencyObjectHelper.FindAnchestor<ListBoxItem>(source);
 
                     if (listBoxItem != null)
                     {
-                        NamedVariable var = (NamedVariable)listBox.ItemContainerGenerator.
+                        var var = (NamedVariable)listBox.ItemContainerGenerator.
                             ItemFromContainer(listBoxItem);
 
                         if (var != null)
                         {
-                            DataObject dragData = new DataObject(DataFormats.Text, FlowGraphDragAndDropManager.DragPrefixNamedVar + var.Name);
-                            DragDrop.DoDragDrop(listBoxItem, dragData, DragDropEffects.Move);
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="?"></param>
-        private void ListBoxGraphScriptIte_MouseDoubleClick(object sender, MouseButtonEventArgs arg)
-        {
-            RoutedUICommand cmd = (RoutedUICommand)Application.Current.Resources["Commands.OpenScript"];
-            cmd.Execute(arg, this);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OpenScript_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            if (listBoxGraphScripts.SelectedItem != null
-                && listBoxGraphScripts.SelectedItem is ScriptElement item)
-            {
-                MainWindow.Instance.OpenScriptElement(item);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CreateScript_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            NewScriptWindow win = new NewScriptWindow
-            {
-                Title = "New script",
-                InputName = "name of the script",
-                //win.IsValidInputNameCallback = GraphDataManager.Instance.IsValidName;
-                Owner = MainWindow.Instance
-            };
-
-            if (win.ShowDialog() == false)
-            {
-                return;
-            }
-
-            GraphDataManager.Instance.AddScript(new ScriptElement { Name = win.InputName });
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void RenameScript_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            if (listBoxGraphScripts.SelectedItem != null
-                && listBoxGraphScripts.SelectedItem is ScriptElement el)
-            {
-                NewScriptWindow win = new NewScriptWindow(el)
-                {
-                    //win.IsValidInputNameCallback = GraphDataManager.Instance.IsValidName;
-                    Owner = MainWindow.Instance
-                };
-
-                if (win.ShowDialog() == false)
-                {
-                    return;
-                }
-
-                el.Name = win.InputName;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void DeleteScript_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            if (listBoxGraphScripts.SelectedItem != null
-                && listBoxGraphScripts.SelectedItem is ScriptElement el)
-            {
-                if (MessageBox.Show(
-                        "Do you really want to delete the named variable " + el.Name + " ?",
-                        "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                {
-                    GraphDataManager.Instance.RemoveScript(el);
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void listBoxGraphScripts_PreviewMouseMove(object sender, MouseEventArgs e)
-        {
-            if (_isDragAndDrop)
-            {
-                // Get the current mouse position
-                Point mousePos = e.GetPosition(null);
-                Vector diff = _dragStartPoint - mousePos;
-
-                if (e.LeftButton == MouseButtonState.Pressed &&
-                    sender is ListBox listBox &&
-                    e.OriginalSource is DependencyObject source &&
-                    (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
-                    Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
-                {
-                    ListBoxItem listBoxItem =
-                        DependencyObjectHelper.FindAnchestor<ListBoxItem>(source);
-
-                    if (listBoxItem != null)
-                    {
-                        ScriptElement var = (ScriptElement)listBox.ItemContainerGenerator.
-                            ItemFromContainer(listBoxItem);
-
-                        if (var != null)
-                        {
-                            DataObject dragData = new DataObject(DataFormats.Text, FlowGraphDragAndDropManager.DragPrefixScriptElement + var.Id);
+                            var dragData = new DataObject(DataFormats.Text, FlowGraphDragAndDropManager.DragPrefixNamedVar + var.Name);
                             DragDrop.DoDragDrop(listBoxItem, dragData, DragDropEffects.Move);
                         }
                     }

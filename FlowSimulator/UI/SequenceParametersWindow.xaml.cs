@@ -44,7 +44,7 @@ namespace FlowSimulator.UI
         /// 
         /// </summary>
         /// <param name="vm"></param>
-        public SequenceParametersWindow(FlowGraphViewerControlViewModel vm = null, IsValidInputNameDelegate callback = null)
+        public SequenceParametersWindow(SequenceViewModel vm = null, IsValidInputNameDelegate callback = null)
         {
             InitializeComponent();
 

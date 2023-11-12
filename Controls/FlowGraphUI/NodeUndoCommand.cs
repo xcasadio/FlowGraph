@@ -1,4 +1,5 @@
-﻿using NetworkModel;
+﻿using FlowGraph;
+using NetworkModel;
 using NetworkUI;
 using UiTools;
 
@@ -6,10 +7,10 @@ namespace FlowGraphUI;
 
 class CreateNodeUndoCommand : IUndoCommand
 {
-    readonly FlowGraphViewerControlViewModel _flowGraphVm;
+    readonly SequenceViewModel _flowGraphVm;
     readonly NodeViewModel _nodeVm;
 
-    public CreateNodeUndoCommand(FlowGraphViewerControlViewModel fgvm, NodeViewModel nodeVm)
+    public CreateNodeUndoCommand(SequenceViewModel fgvm, NodeViewModel nodeVm)
     {
         _flowGraphVm = fgvm;
         _nodeVm = nodeVm;
@@ -27,17 +28,17 @@ class CreateNodeUndoCommand : IUndoCommand
 
     public override string ToString()
     {
-        return $"{_flowGraphVm.Sequence.Name} : Create node {_nodeVm.Title}";
+        return $"{_flowGraphVm.Name} : Create node {_nodeVm.Title}";
     }
 }
 
 class CreateNodesUndoCommand : IUndoCommand
 {
-    readonly FlowGraphViewerControlViewModel _flowGraphVm;
+    readonly SequenceViewModel _flowGraphVm;
     readonly IEnumerable<NodeViewModel> _nodesVm;
     readonly List<ConnectionInfo> _connectionInfoList = new List<ConnectionInfo>();
 
-    public CreateNodesUndoCommand(FlowGraphViewerControlViewModel fgv, IEnumerable<NodeViewModel> nodesVm)
+    public CreateNodesUndoCommand(SequenceViewModel fgv, IEnumerable<NodeViewModel> nodesVm)
     {
         _flowGraphVm = fgv;
 
@@ -109,17 +110,17 @@ class CreateNodesUndoCommand : IUndoCommand
 
     public override string ToString()
     {
-        return $"Graph[{_flowGraphVm.Sequence.Name}] : Create nodes";
+        return $"Graph[{_flowGraphVm.Name}] : Create nodes";
     }
 }
 
 class DeleteNodeUndoCommand : IUndoCommand
 {
-    readonly FlowGraphViewerControlViewModel _flowGraphVm;
+    readonly SequenceViewModel _flowGraphVm;
     readonly NodeViewModel _nodeVm;
     readonly List<ConnectionInfo> _connectionInfoList = new List<ConnectionInfo>();
 
-    public DeleteNodeUndoCommand(FlowGraphViewerControlViewModel fgv, NodeViewModel nodeVm)
+    public DeleteNodeUndoCommand(SequenceViewModel fgv, NodeViewModel nodeVm)
     {
         _flowGraphVm = fgv;
         _nodeVm = nodeVm;
@@ -182,17 +183,17 @@ class DeleteNodeUndoCommand : IUndoCommand
     }
     public override string ToString()
     {
-        return $"{_flowGraphVm.Sequence.Name} : Delete node {_nodeVm.Title}";
+        return $"{_flowGraphVm.Name} : Delete node {_nodeVm.Title}";
     }
 }
 
 class DeleteNodesUndoCommand : IUndoCommand
 {
-    readonly FlowGraphViewerControlViewModel _flowGraphVm;
+    readonly SequenceViewModel _flowGraphVm;
     readonly IEnumerable<NodeViewModel> _nodesVm;
     readonly List<ConnectionInfo> _connectionInfoList = new List<ConnectionInfo>();
 
-    public DeleteNodesUndoCommand(FlowGraphViewerControlViewModel fgv, IEnumerable<NodeViewModel> nodesVm)
+    public DeleteNodesUndoCommand(SequenceViewModel fgv, IEnumerable<NodeViewModel> nodesVm)
     {
         _flowGraphVm = fgv;
 
@@ -263,7 +264,7 @@ class DeleteNodesUndoCommand : IUndoCommand
 
     public override string ToString()
     {
-        return $"Graph[{_flowGraphVm.Sequence.Name}] : Delete nodes";
+        return $"Graph[{_flowGraphVm.Name}] : Delete nodes";
     }
 }
 
@@ -276,10 +277,10 @@ class PositionNodeUndoCommand : IUndoCommand
         public double EndX, EndY;
     }
 
-    readonly FlowGraphViewerControlViewModel _flowGraphVm;
+    readonly SequenceViewModel _flowGraphVm;
     readonly IEnumerable<NodeDraggingInfo> _nodeInfosVm;
 
-    public PositionNodeUndoCommand(FlowGraphViewerControlViewModel fgv, IEnumerable<NodeDraggingInfo> nodeInfosVm)
+    public PositionNodeUndoCommand(SequenceViewModel fgv, IEnumerable<NodeDraggingInfo> nodeInfosVm)
     {
         _flowGraphVm = fgv;
         _nodeInfosVm = new List<NodeDraggingInfo>(nodeInfosVm);
@@ -305,7 +306,7 @@ class PositionNodeUndoCommand : IUndoCommand
 
     public override string ToString()
     {
-        return $"{_flowGraphVm.Sequence.Name} : Node position changed";
+        return $"{_flowGraphVm.Name} : Node position changed";
     }
 }
 

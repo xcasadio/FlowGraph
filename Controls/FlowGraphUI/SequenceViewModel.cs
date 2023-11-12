@@ -12,7 +12,7 @@ using Utils;
 
 namespace FlowGraphUI;
 
-public class FlowGraphViewerControlViewModel : AbstractModelBase
+public class SequenceViewModel : AbstractModelBase
 {
     public event EventHandler ContextMenuOpened;
 
@@ -47,35 +47,43 @@ public class FlowGraphViewerControlViewModel : AbstractModelBase
     /// view-model so that the value can be shared with the overview window.
     private double _contentViewportHeight;
 
-    private SequenceBase _sequence;
+    private readonly SequenceBase _sequence;
 
-    private XmlNode _xmlNodeLoaded;
+    public SequenceBase SequenceBase => _sequence;
 
-    public string Name => Sequence.Name;
-
-    public string Description => Sequence.Description;
-
-    public int Id => Sequence.Id;
-
-    public UndoRedoManager UndoRedoManager { get; }
-
-    public SequenceBase Sequence
+    public string? Name
     {
-        get => _sequence;
-        private set
+        get => _sequence.Name;
+        set
         {
-            if (_sequence != value)
+            if (string.Equals(_sequence.Name, value))
             {
-                if (_sequence != null)
-                {
-                    _sequence.PropertyChanged -= OnSequencePropertyChanged;
-                }
-
-                _sequence = value;
-                _sequence.PropertyChanged += OnSequencePropertyChanged;
+                return;
             }
+
+            _sequence.Name = value;
+            OnPropertyChanged(nameof(Name));
         }
     }
+
+    public string? Description
+    {
+        get => _sequence.Description;
+        set
+        {
+            if (string.Equals(_sequence.Description, value))
+            {
+                return;
+            }
+
+            _sequence.Description = value;
+            OnPropertyChanged(nameof(Description));
+        }
+    }
+
+    public int Id => _sequence.Id;
+
+    public UndoRedoManager UndoRedoManager { get; }
 
     /// <summary>
     /// This is the NetworkViewModel that is displayed in the window.
@@ -180,22 +188,17 @@ public class FlowGraphViewerControlViewModel : AbstractModelBase
         }
     }
 
-    private FlowGraphViewerControlViewModel()
+    private SequenceViewModel()
     {
         Network = new NetworkViewModel();
         UndoRedoManager = new UndoRedoManager(LogManager.Instance);
     }
 
-    public FlowGraphViewerControlViewModel(SequenceBase seq) :
-        this()
+    public SequenceViewModel(SequenceBase sequenceBase) : this()
     {
-        Sequence = seq;
-    }
-
-    public FlowGraphViewerControlViewModel(XmlNode node) :
-        this()
-    {
-        Load(node);
+        _sequence = sequenceBase;
+        _sequence.PropertyChanged -= OnSequencePropertyChanged;
+        _sequence.PropertyChanged += OnSequencePropertyChanged;
     }
 
     /// <summary>
@@ -225,7 +228,7 @@ public class FlowGraphViewerControlViewModel : AbstractModelBase
     /// <summary>
     /// Called to query the application for feedback while the user is dragging the connection.
     /// </summary>
-    public void QueryConnnectionFeedback(ConnectorViewModel draggedOutConnector, ConnectorViewModel draggedOverConnector, out object feedbackIndicator, out bool connectionOk)
+    public void QueryConnectionFeedback(ConnectorViewModel draggedOutConnector, ConnectorViewModel draggedOverConnector, out object feedbackIndicator, out bool connectionOk)
     {
         if (draggedOutConnector == draggedOverConnector)
         {
@@ -234,7 +237,7 @@ public class FlowGraphViewerControlViewModel : AbstractModelBase
         }
         else
         {
-            string message = string.Empty;
+            var message = string.Empty;
             var sourceConnector = draggedOutConnector;
             var destConnector = draggedOverConnector;
 
@@ -289,8 +292,8 @@ public class FlowGraphViewerControlViewModel : AbstractModelBase
             return;
         }
 
-        string dummy = string.Empty;
-        bool connectionOk = IsValidConnection(connectorDraggedOut, connectorDraggedOver, ref dummy);
+        var dummy = string.Empty;
+        var connectionOk = IsValidConnection(connectorDraggedOut, connectorDraggedOver, ref dummy);
 
         if (!connectionOk)
         {
@@ -310,7 +313,7 @@ public class FlowGraphViewerControlViewModel : AbstractModelBase
             {
                 if (newConnection.SourceConnector.SourceSlot.ConnectionType == SlotType.VarIn)
                 {
-                    ConnectorViewModel dest = newConnection.SourceConnector;
+                    var dest = newConnection.SourceConnector;
                     newConnection.SourceConnector = connectorDraggedOver;
                     newConnection.DestConnector = dest;
                 }
@@ -326,7 +329,7 @@ public class FlowGraphViewerControlViewModel : AbstractModelBase
             }
             else
             {
-                ConnectorViewModel dest = newConnection.SourceConnector;
+                var dest = newConnection.SourceConnector;
                 newConnection.SourceConnector = connectorDraggedOver;
                 newConnection.DestConnector = dest;
             }
@@ -341,7 +344,7 @@ public class FlowGraphViewerControlViewModel : AbstractModelBase
                 }
                 else
                 {
-                    ConnectorViewModel dest = newConnection.DestConnector;
+                    var dest = newConnection.DestConnector;
                     newConnection.DestConnector = connectorDraggedOver;
                     newConnection.SourceConnector = dest;
                 }
@@ -353,7 +356,7 @@ public class FlowGraphViewerControlViewModel : AbstractModelBase
             }
             else
             {
-                ConnectorViewModel dest = newConnection.DestConnector;
+                var dest = newConnection.DestConnector;
                 newConnection.SourceConnector = connectorDraggedOver;
                 newConnection.DestConnector = dest;
             }
@@ -378,8 +381,8 @@ public class FlowGraphViewerControlViewModel : AbstractModelBase
     /// <returns></returns>
     private bool IsValidConnection(ConnectorViewModel a, ConnectorViewModel b, ref string message)
     {
-        bool connectionOk = a.ParentNode != b.ParentNode &&
-                            a.Type != b.Type;
+        var connectionOk = a.ParentNode != b.ParentNode &&
+                           a.Type != b.Type;
 
         if (connectionOk)
         {
@@ -515,7 +518,7 @@ public class FlowGraphViewerControlViewModel : AbstractModelBase
         // Take a copy of the selected nodes list so we can delete nodes while iterating.
         var nodesCopy = Network.Nodes.ToArray();
 
-        List<NodeViewModel> selectedNodes = new List<NodeViewModel>();
+        var selectedNodes = new List<NodeViewModel>();
         foreach (var node in nodesCopy)
         {
             if (node.IsSelected)
@@ -584,7 +587,7 @@ public class FlowGraphViewerControlViewModel : AbstractModelBase
     /// </summary>
     public NodeViewModel CreateNode(SequenceNode sequenceNode, Point nodeLocation, bool centerNode)
     {
-        NodeViewModel node = new NodeViewModel(sequenceNode)
+        var node = new NodeViewModel(sequenceNode)
         {
             X = nodeLocation.X,
             Y = nodeLocation.Y
@@ -633,11 +636,11 @@ public class FlowGraphViewerControlViewModel : AbstractModelBase
 
     public IEnumerable<NodeViewModel> CopyNodes(IEnumerable<NodeViewModel> it)
     {
-        List<NodeViewModel> newNodes = new List<NodeViewModel>();
+        var newNodes = new List<NodeViewModel>();
 
-        foreach (NodeViewModel node in it)
+        foreach (var node in it)
         {
-            NodeViewModel newNode = node.Copy();
+            var newNode = node.Copy();
             newNode.X += 40;
             newNode.Y += 40;
             newNode.IsSelected = false;
@@ -694,15 +697,15 @@ public class FlowGraphViewerControlViewModel : AbstractModelBase
     {
         // Function already contains nodes when it is created
         // so we need to create the corresponding NodeViewModel for each node
-        if (Sequence is SequenceFunction
+        if (_sequence is SequenceFunction
             && Network.Nodes.Count == 0)
         {
-            IEnumerator<SequenceNode> it = Sequence.Nodes.GetEnumerator();
-            int i = 0;
+            var it = _sequence.Nodes.GetEnumerator();
+            var i = 0;
 
             while (it.MoveNext())
             {
-                NodeViewModel nodeVm = new NodeViewModel(it.Current)
+                var nodeVm = new NodeViewModel(it.Current)
                 {
                     X = 50 + i * 150,
                     Y = 50
@@ -715,7 +718,7 @@ public class FlowGraphViewerControlViewModel : AbstractModelBase
 
     public void CreateSequence()
     {
-        Sequence.RemoveAllNodes();
+        _sequence.RemoveAllNodes();
 
         foreach (var node in Network.Nodes)
         {
@@ -764,28 +767,28 @@ public class FlowGraphViewerControlViewModel : AbstractModelBase
 
         foreach (var node in Network.Nodes)
         {
-            Sequence.AddNode(node.SeqNode);
+            _sequence.AddNode(node.SeqNode);
         }
     }
-
+    /*
     public void Load(XmlNode xmlNode)
     {
         try
         {
-            int version = int.Parse(xmlNode.Attributes["version"].Value);
+            var version = int.Parse(xmlNode.Attributes["version"].Value);
 
-            int graphId = int.Parse(xmlNode.Attributes["id"].Value);
-            Sequence = GraphDataManager.Instance.GetById(graphId);
+            var graphId = int.Parse(xmlNode.Attributes["id"].Value);
+            _sequence = GraphDataManager.Instance.GetById(graphId);
 
-            foreach (SequenceNode sequenceNode in Sequence.Nodes)
+            foreach (var sequenceNode in _sequence.Nodes)
             {
-                XmlNode nodeNode = xmlNode.SelectSingleNode("NodeList/Node[@id='" + sequenceNode.Id + "']");
+                var nodeNode = xmlNode.SelectSingleNode("NodeList/Node[@id='" + sequenceNode.Id + "']");
 
                 if (nodeNode != null)
                 {
-                    int versionNode = int.Parse(nodeNode.Attributes["version"].Value);
+                    var versionNode = int.Parse(nodeNode.Attributes["version"].Value);
 
-                    NodeViewModel nodeVm = new NodeViewModel(sequenceNode)
+                    var nodeVm = new NodeViewModel(sequenceNode)
                     {
                         X = double.Parse(nodeNode.Attributes["x"].Value),
                         Y = double.Parse(nodeNode.Attributes["y"].Value),
@@ -802,11 +805,11 @@ public class FlowGraphViewerControlViewModel : AbstractModelBase
 
             foreach (XmlNode linkNode in xmlNode.SelectNodes("ConnectionList/Connection"))
             {
-                int versionLink = int.Parse(linkNode.Attributes["version"].Value);
+                var versionLink = int.Parse(linkNode.Attributes["version"].Value);
 
-                ConnectionViewModel cvm = new ConnectionViewModel();
-                NodeViewModel srcNode = GetNodeVmBySequenceId(int.Parse(linkNode.Attributes["srcNodeID"].Value));
-                NodeViewModel destNode = GetNodeVmBySequenceId(int.Parse(linkNode.Attributes["destNodeID"].Value));
+                var cvm = new ConnectionViewModel();
+                var srcNode = GetNodeVmBySequenceId(int.Parse(linkNode.Attributes["srcNodeID"].Value));
+                var destNode = GetNodeVmBySequenceId(int.Parse(linkNode.Attributes["destNodeID"].Value));
                 cvm.SourceConnector = srcNode.GetConnectorFromSlotId(int.Parse(linkNode.Attributes["srcNodeSlotID"].Value));
                 cvm.DestConnector = destNode.GetConnectorFromSlotId(int.Parse(linkNode.Attributes["destNodeSlotID"].Value));
                 Network.Connections.Add(cvm);
@@ -818,11 +821,11 @@ public class FlowGraphViewerControlViewModel : AbstractModelBase
         {
             LogManager.Instance.WriteException(ex);
         }
-    }
+    }*/
 
     private NodeViewModel GetNodeVmBySequenceId(int seqId)
     {
-        foreach (NodeViewModel n in Network.Nodes)
+        foreach (var n in Network.Nodes)
         {
             if (n.SeqNode.Id == seqId)
             {
@@ -838,13 +841,13 @@ public class FlowGraphViewerControlViewModel : AbstractModelBase
         const int version = 1;
         const int versionNode = 1;
 
-        XmlNode graphNode = node.SelectSingleNode("Graph[@id='" + Id + "']");
+        var graphNode = node.SelectSingleNode("Graph[@id='" + Id + "']");
         graphNode.AddAttribute("designerVersion", version.ToString());
 
         //save all nodes
-        foreach (NodeViewModel nodeVm in Network.Nodes)
+        foreach (var nodeVm in Network.Nodes)
         {
-            XmlNode nodeNode = graphNode.SelectSingleNode("NodeList/Node[@id='" + nodeVm.SeqNode.Id + "']");
+            var nodeNode = graphNode.SelectSingleNode("NodeList/Node[@id='" + nodeVm.SeqNode.Id + "']");
 
             nodeNode.AddAttribute("designerVersion", versionNode.ToString());
 
@@ -868,7 +871,7 @@ public class FlowGraphViewerControlViewModel : AbstractModelBase
 
     public void OnNodeDragCompleted(NetworkView sender, NodeDragCompletedEventArgs e)
     {
-        foreach (PositionNodeUndoCommand.NodeDraggingInfo info in _cachedNodesDraggingList)
+        foreach (var info in _cachedNodesDraggingList)
         {
             info.EndX = info.Node.X;
             info.EndY = info.Node.Y;

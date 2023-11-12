@@ -5,19 +5,14 @@
         mc:Ignorable="d" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        d:DesignHeight="230" d:DesignWidth="390">    
-    
+        d:DesignHeight="230" d:DesignWidth="390">
+
     <UserControl.Resources>
-        
+
     </UserControl.Resources>
-    
+
     <UserControl.CommandBindings>
         <!-- flow graph management -->
-        <CommandBinding Command="{StaticResource Commands.OpenGraph}" Executed="OpenGraph_Executed" />
-        <CommandBinding Command="{StaticResource Commands.CreateGraph}" Executed="CreateGraph_Executed" />
-        <CommandBinding Command="{StaticResource Commands.RenameGraph}" Executed="RenameGraph_Executed" />
-        <CommandBinding Command="{StaticResource Commands.DeleteGraph}" Executed="DeleteGraph_Executed" />
-
         <CommandBinding Command="{StaticResource Commands.OpenFunction}" Executed="OpenFunction_Executed" />
         <CommandBinding Command="{StaticResource Commands.CreateFunction}" Executed="CreateFunction_Executed" />
         <CommandBinding Command="{StaticResource Commands.RenameFunction}" Executed="RenameFunction_Executed" />
@@ -27,63 +22,18 @@
         <CommandBinding Command="{StaticResource Commands.RenameNamedVar}" Executed="RenameNamedVar_Executed" />
         <CommandBinding Command="{StaticResource Commands.DeleteNamedVar}" Executed="DeleteNamedVar_Executed" />
 
-        <CommandBinding Command="{StaticResource Commands.OpenScript}" Executed="OpenScript_Executed" />
-        <CommandBinding Command="{StaticResource Commands.CreateScript}" Executed="CreateScript_Executed" />
-        <CommandBinding Command="{StaticResource Commands.RenameScript}" Executed="RenameScript_Executed" />
-        <CommandBinding Command="{StaticResource Commands.DeleteScript}" Executed="DeleteScript_Executed" />
     </UserControl.CommandBindings>
-    
+
     <Grid>
-        
+
         <ScrollViewer CanContentScroll="True" 
                       VerticalScrollBarVisibility="Auto" 
                       HorizontalScrollBarVisibility="Disabled">
-        
+
             <StackPanel Grid.Row="0" Orientation="Vertical" 
                 Margin="0,0,5,0" MinWidth="150">
 
-                <Expander x:Name="expanderGraphs" Header="Graph list" Style="{StaticResource expanderStyle}"
-                          Foreground="White" Margin="0,0,0,5">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <ListBox x:Name="listBoxGraphs" Grid.Row="0" Margin="0,0,0,5" IsSynchronizedWithCurrentItem="True"
-                                ItemsSource="{Binding GraphList, Source={x:Static base:GraphDataManager.Instance}, Mode=OneWay}" 
-                                Foreground="White" BorderThickness="0" Background="Transparent"
-                                PreviewMouseLeftButtonDown="listBox_PreviewMouseLeftButtonDown">
-                            <ListBox.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="Open Graph" Command="{StaticResource Commands.OpenGraph}"/>
-                                    <MenuItem Header="New Graph" Command="{StaticResource Commands.CreateGraph}"/>
-                                    <MenuItem Header="Rename Graph" Command="{StaticResource Commands.RenameGraph}"/>
-                                    <MenuItem Header="Delete Graph" Command="{StaticResource Commands.DeleteGraph}"/>
-                                </ContextMenu>
-                            </ListBox.ContextMenu>
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <TextBlock Margin="2" Text="{Binding Name}"/>
-                                        <TextBlock Margin="2" Text="{Binding Description}" Padding="15,0,0,0"
-                                            FontSize="11" FontStyle="Italic" Foreground="LightGray" />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                            <ListBox.ItemContainerStyle>
-                                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-                                    <EventSetter Event="MouseDoubleClick" Handler="ListBoxGraphIte_MouseDoubleClick"  />
-                                </Style>
-                            </ListBox.ItemContainerStyle>
-                        </ListBox>
-
-                        <Button Grid.Row="1" Content="New" 
-                                HorizontalAlignment="Right" Command="{StaticResource Commands.CreateGraph}"/>
-                    </Grid>
-                </Expander>
-
-                <Expander x:Name="expanderFunctions" Header="Function list" Style="{StaticResource expanderStyle}"
+                <Expander x:Name="expanderFunctions" Header="Functions" Style="{StaticResource expanderStyle}"
                           Foreground="White" Margin="0,0,0,5">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -92,7 +42,7 @@
                         </Grid.RowDefinitions>
 
                         <ListBox x:Name="listBoxGraphFunctions" Grid.Row="0" Margin="0,0,0,5" IsSynchronizedWithCurrentItem="True"
-                                ItemsSource="{Binding GraphFunctionList, Source={x:Static base:GraphDataManager.Instance}, Mode=OneWay}"
+                                ItemsSource="{Binding Functions, Mode=OneWay}"
                                 Foreground="White" BorderThickness="0" Background="Transparent"
                                 PreviewMouseLeftButtonDown="listBoxGraphFunctions_PreviewMouseLeftButton"
                                 PreviewMouseLeftButtonUp="listBoxGraphFunctions_PreviewMouseLeftButton"
@@ -116,7 +66,7 @@
                             </ListBox.ItemTemplate>
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-                                    <EventSetter Event="MouseDoubleClick" Handler="ListBoxGraphFunctionIte_MouseDoubleClick"  />
+                                    <EventSetter Event="MouseDoubleClick" Handler="ListBoxGraphFunctionItem_MouseDoubleClick"  />
                                 </Style>
                             </ListBox.ItemContainerStyle>
                         </ListBox>
@@ -126,7 +76,7 @@
                     </Grid>
                 </Expander>
 
-                <Expander x:Name="expanderVariables" Header="Variable list" Style="{StaticResource expanderStyle}"
+                <Expander x:Name="expanderVariables" Header="Variables" Style="{StaticResource expanderStyle}"
                           Foreground="White" Margin="0,0,0,5">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -160,48 +110,6 @@
                                 Command="{StaticResource Commands.CreateNamedVar}"/>
                     </Grid>
                 </Expander>
-
-                <Expander x:Name="expanderScripts" Header="Script list" Style="{StaticResource expanderStyle}"
-                          Foreground="White" Margin="0,0,0,5">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <ListBox x:Name="listBoxGraphScripts" Grid.Row="0" Margin="0,0,0,5" IsSynchronizedWithCurrentItem="True"
-                                ItemsSource="{Binding ScriptElementList, Source={x:Static base:GraphDataManager.Instance}, Mode=OneWay}"
-                                Foreground="White" BorderThickness="0" Background="Transparent"
-                                PreviewMouseLeftButtonDown="listBoxGraphNamedVars_PreviewMouseLeftButton"
-                                PreviewMouseLeftButtonUp="listBoxGraphNamedVars_PreviewMouseLeftButton"
-                                PreviewMouseMove="listBoxGraphScripts_PreviewMouseMove">
-                            <ListBox.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="Open Script" Command="{StaticResource Commands.OpenScript}"/>
-                                    <MenuItem Header="New Script" Command="{StaticResource Commands.CreateScript}"/>
-                                    <MenuItem Header="Rename Script" Command="{StaticResource Commands.RenameScript}"/>
-                                    <MenuItem Header="Delete Script" Command="{StaticResource Commands.DeleteScript}"/>
-                                </ContextMenu>
-                            </ListBox.ContextMenu>
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <TextBlock Margin="2" Text="{Binding Name}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                            <ListBox.ItemContainerStyle>
-                                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-                                    <EventSetter Event="MouseDoubleClick" Handler="ListBoxGraphScriptIte_MouseDoubleClick"  />
-                                </Style>
-                            </ListBox.ItemContainerStyle>
-                        </ListBox>
-
-                        <Button Grid.Row="1" Content="New" HorizontalAlignment="Right"
-                                Command="{StaticResource Commands.CreateScript}"/>
-                    </Grid>
-                </Expander>
-
 
             </StackPanel>
         </ScrollViewer>

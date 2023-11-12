@@ -3,10 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
+             xmlns:ui="clr-namespace:FlowSimulator.UI"
              mc:Ignorable="d" d:DesignHeight="250" d:DesignWidth="664">
 
     <UserControl.Resources>
-        
+
         <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#FFF" />
         <!-- test -->
         <SolidColorBrush x:Key="WindowBackgroundBrush2" Color="#AAAAFF" />
@@ -29,90 +31,76 @@
                 </GradientStopCollection>
             </GradientBrush.GradientStops>
         </LinearGradientBrush>
-        
+
     </UserControl.Resources>
-    
+
     <Grid >
-        <TabControl x:Name="tabControl"
-                SelectionChanged="tabControl_SelectionChanged" >
-            <TabControl.Resources>
-                
-                <Style TargetType="{x:Type TabItem}">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type TabItem}">
-                                <Border 
-                                        Name="Border"
-                                        Margin="-2,-2,0,-1" 
-                                        Background="{StaticResource LightBrush2}"
-                                        BorderBrush="{StaticResource SolidBorderBrush}" 
-                                        BorderThickness="1,1,1,0" 
-                                        CornerRadius="0" >
-                                    
-                                    <DockPanel Name="Panel" Margin="0,0,2,0">
-                                        <Image DockPanel.Dock="Right" Margin="0,0,0,0" Width="12" Height="12"
-                                               Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                               MouseLeftButtonDown="btnDelete_Click" 
-                                               Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabItem}}, Path=Name}">                                            
-                                            <Image.Style>
-                                                <Style TargetType="Image">
-                                                    <Setter Property="Source" Value="/FlowSimulator;component/Resources/cross-icon.png" />
-                                                    
-                                                    <Style.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="Source" Value="/FlowSimulator;component/Resources/delete-icon.png" />
-                                                        </Trigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Image.Style>                                            
-                                        </Image>
+        <xcad:DockingManager Name="dockingManager1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-                                        <ContentPresenter x:Name="ContentSite"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Center"
-                                            ContentSource="Header"
-                                            Margin="8,4,8,4"
-                                            RecognizesAccessKey="True" />
-                                    
-                                    </DockPanel>
-                                </Border>
-                                
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter Property="Panel.ZIndex" Value="100" />
-                                        <Setter TargetName="Border" Property="Background" Value="{StaticResource WindowBackgroundBrush2}" />
-                                        <Setter TargetName="Border" Property="BorderThickness" Value="1,1,1,0" />
-                                    </Trigger>
-                                    <Trigger Property="IsEnabled" Value="False">
-                                        <Setter TargetName="Border" Property="Background" Value="{StaticResource DisabledBackgroundBrush}" />
-                                        <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource DisabledBorderBrush}" />
-                                        <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}" />
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                                
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
+            <xcad:DockingManager.Theme>
+                <xcad:GenericTheme/>
+            </xcad:DockingManager.Theme>
 
-                <!--DataTemplate DataType="TabItem">
-                    
-                </DataTemplate>
-                <Style TargetType="TextBox">
-                    <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
-                    <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
-                    <Setter Property="AcceptsReturn" Value="True"></Setter>
-                    <Setter Property="TextWrapping" Value="WrapWithOverflow"></Setter>
-                    <Setter Property="MaxLines" Value="5000"></Setter>
-                    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"></Setter>
-                    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"></Setter>
-                </Style-->
-            </TabControl.Resources>
+            <xcad:LayoutRoot>
+                <xcad:LayoutPanel Orientation="Vertical">
 
-            <!--TabItem Header="graph test">
-                <ui:FlowGraphControl x:Name="flowGraphControl" />
-            </TabItem-->
-        </TabControl>
+                    <xcad:LayoutAnchorablePaneGroup Orientation="Horizontal" >
+
+                        <xcad:LayoutAnchorablePaneGroup Orientation="Vertical">
+                            <xcad:LayoutAnchorablePaneGroup Orientation="Horizontal">
+
+                                <xcad:LayoutAnchorablePaneGroup Orientation="Vertical">
+
+                                    <xcad:LayoutAnchorablePane>
+                                        <xcad:LayoutAnchorable x:Name="flowGraphListLayout" Title="Flow Graph List">
+                                            <Grid x:Name="flowGraphListContainer" >
+                                                <ui:FlowGraphDataControl x:Name="flowGraphListControl" />
+                                            </Grid>
+                                        </xcad:LayoutAnchorable>
+
+                                    </xcad:LayoutAnchorablePane >
+
+                                    <xcad:LayoutAnchorablePane>
+                                        <xcad:LayoutAnchorable x:Name="detailsLayout" Title="Details">
+                                            <Grid x:Name="detailsGrid" >
+                                                <ui:DetailsControl x:Name="detailsControl" />
+                                            </Grid>
+                                        </xcad:LayoutAnchorable>
+
+                                    </xcad:LayoutAnchorablePane>
+
+                                </xcad:LayoutAnchorablePaneGroup>
+
+                                <xcad:LayoutAnchorablePane >
+                                    <xcad:LayoutAnchorable x:Name="flowGraphLayout" Title="Action Graph">
+                                        <Grid x:Name="containerFlowGraph">
+                                            <!--ui:FlowGraphManagerControl x:Name="flowGraphManagerControl" /-->
+                                        </Grid>
+                                    </xcad:LayoutAnchorable>
+
+                                </xcad:LayoutAnchorablePane>
+
+                            </xcad:LayoutAnchorablePaneGroup>
+
+                            <xcad:LayoutAnchorablePane>
+                                <xcad:LayoutAnchorable x:Name="logLayout" Title="Log">
+                                    <Grid x:Name="gridLog" >
+                                        <ui:LogViewer />
+                                    </Grid>
+                                </xcad:LayoutAnchorable>
+                            </xcad:LayoutAnchorablePane>
+
+                        </xcad:LayoutAnchorablePaneGroup>
+
+                    </xcad:LayoutAnchorablePaneGroup>
+
+                    <xcad:LayoutDocumentPaneGroup>
+                        <xcad:LayoutDocumentPane />
+                    </xcad:LayoutDocumentPaneGroup>
+
+                </xcad:LayoutPanel>
+            </xcad:LayoutRoot>
+        </xcad:DockingManager>
     </Grid>
-    
+
 </UserControl>

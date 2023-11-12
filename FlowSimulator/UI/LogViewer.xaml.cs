@@ -6,17 +6,11 @@ using FlowSimulator.Logger;
 
 namespace FlowSimulator.UI
 {
-    /// <summary>
-    /// Interaction logic for LogViewer.xaml
-    /// </summary>
     public partial class LogViewer : UserControl
     {
         ScrollViewer _scrollViewer;
         bool _isAutoScroll = true;
 
-        /// <summary>
-        /// 
-        /// </summary>
         public bool IsAutoScroll
         {
             get => _isAutoScroll;
@@ -35,9 +29,6 @@ namespace FlowSimulator.UI
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public LogViewer()
         {
             LogManager.Instance.AddLogger(new LogEditor());
@@ -46,16 +37,11 @@ namespace FlowSimulator.UI
             LogEditor.LogEntries.CollectionChanged += OnCollectionChanged;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (_scrollViewer == null)
             {
-                object o = logContent.Template.FindName("logScrollViewer", logContent);
+                var o = logContent.Template.FindName("logScrollViewer", logContent);
 
                 if (o != null && o is ScrollViewer viewer)
                 {
@@ -70,11 +56,6 @@ namespace FlowSimulator.UI
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ButtonClear_Click(object sender, RoutedEventArgs e)
         {
             LogEditor.LogEntries.Clear();

@@ -357,7 +357,7 @@
                     >
 
                     <!-- The connection is represented by a curved arrow. -->
-                    <flowGraphUi:CurvedArrow Name="curveArrow"
+                    <flowGraphUi:CurvedArrow x:Name="curveArrow"
                         Stroke="{Binding ConnectedConnector.SourceSlot.VariableType, Converter={StaticResource typeToColorConverter}}"
                         Fill="{Binding ConnectedConnector.SourceSlot.VariableType, Converter={StaticResource typeToColorConverter}}"
                         Points="{Binding Points}" >
