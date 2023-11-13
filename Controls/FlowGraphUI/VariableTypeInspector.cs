@@ -4,45 +4,21 @@ namespace FlowGraphUI;
 
 public static class VariableTypeInspector
 {
-    public static IEnumerable<Type> Types
-    {
-        get;
-    } = new List<Type>();
+    public static IEnumerable<Type> Types { get; } = new List<Type>();
 
-    public static Color BooleanColor
-    {
-        get;
-        set;
-    }
+    public static Color BooleanColor { get; set; }
 
-    public static Color IntegerColor
-    {
-        get;
-        set;
-    }
+    public static Color IntegerColor { get; set; }
 
-    public static Color DoubleColor
-    {
-        get;
-        set;
-    }
+    public static Color DoubleColor { get; set; }
 
-    public static Color StringColor
-    {
-        get;
-        set;
-    }
+    public static Color StringColor { get; set; }
 
-    public static Color ObjectColor
-    {
-        get;
-        set;
-    }
+    public static Color ObjectColor { get; set; }
 
     public static Color MessageColor
     {
-        get;
-        set;
+        get; set;
     }
 
     static VariableTypeInspector()

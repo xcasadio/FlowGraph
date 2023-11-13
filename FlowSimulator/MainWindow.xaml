@@ -220,7 +220,7 @@
                                     <avalondock:LayoutAnchorablePane>
                                         <avalondock:LayoutAnchorable x:Name="flowGraphListLayout" Title="Flow Graph List">
                                             <Grid x:Name="flowGraphListContainer" >
-                                                <ui:FlowGraphDataControl x:Name="flowGraphListControl" />
+                                                <flowGraphUi:FlowGraphDataControl x:Name="flowGraphListControl" />
                                             </Grid>
                                         </avalondock:LayoutAnchorable>
 
@@ -229,7 +229,7 @@
                                     <avalondock:LayoutAnchorablePane>
                                         <avalondock:LayoutAnchorable x:Name="detailsLayout" Title="Details">
                                             <Grid x:Name="detailsGrid" >
-                                                <ui:DetailsControl x:Name="detailsControl" />
+                                                <flowGraphUi:DetailsControl x:Name="detailsControl" />
                                             </Grid>
                                         </avalondock:LayoutAnchorable>
 

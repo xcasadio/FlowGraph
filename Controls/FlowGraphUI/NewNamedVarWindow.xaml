@@ -1,17 +1,16 @@
-﻿<Window x:Class="FlowSimulator.UI.NewNamedVarWindow"
+﻿<Window x:Class="FlowGraphUI.NewNamedVarWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:ui="clr-namespace:FlowSimulator.UI"
         mc:Ignorable="d" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:flowGraphUi="clr-namespace:FlowGraphUI;assembly=FlowGraphUI"
+        xmlns:flowGraphUi="clr-namespace:FlowGraphUI"
         Height="159" Width="504" WindowStartupLocation="CenterOwner">
 
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/FlowGraphUI;component/SharedVisualTemplates.xaml" />
+                <ResourceDictionary Source="SharedVisualTemplates.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
