@@ -38,9 +38,11 @@ public static class VariableTypeInspector
         types.Add(typeof(double));
         types.Add(typeof(string));
         types.Add(typeof(object));
+
+        SetDefaultValues();
     }
 
-    public static void SetDefaultValues()
+    private static void SetDefaultValues()
     {
         BooleanColor = Colors.Red;
         IntegerColor = Colors.Cyan;

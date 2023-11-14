@@ -171,7 +171,7 @@ class CreateConnectionsUndoCommand : IUndoCommand
 class DeleteConnectionsUndoCommand : IUndoCommand
 {
     readonly SequenceViewModel _flowGraphVm;
-    readonly List<ConnectionInfo> _connectionInfoList = new List<ConnectionInfo>();
+    readonly List<ConnectionInfo> _connectionInfoList = new();
 
     /// <summary>
     /// 
@@ -199,7 +199,7 @@ class DeleteConnectionsUndoCommand : IUndoCommand
     /// </summary>
     public void Redo()
     {
-        List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
+        List<ConnectionViewModel> connList = new();
 
         for (int i = 0; i < _connectionInfoList.Count; i++)
         {
@@ -214,7 +214,7 @@ class DeleteConnectionsUndoCommand : IUndoCommand
     /// </summary>
     public void Undo()
     {
-        List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
+        List<ConnectionViewModel> connList = new();
 
         for (int i = 0; i < _connectionInfoList.Count; i++)
         {

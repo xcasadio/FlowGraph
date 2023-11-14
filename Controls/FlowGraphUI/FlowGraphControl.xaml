@@ -20,7 +20,7 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/FlowGraphUI;component/SharedVisualTemplates.xaml" />
+                <ResourceDictionary Source="/FlowGraphUI;component/SharedVisualTemplates.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!-- UI commands. -->

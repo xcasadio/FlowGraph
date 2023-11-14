@@ -12,7 +12,6 @@ using FlowGraph;
 using FlowGraph.Logger;
 using FlowGraph.Process;
 using FlowGraphUI;
-using FlowSimulator.UI;
 using Logger;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
@@ -41,8 +40,6 @@ namespace FlowSimulator
             private set;
         }
 
-        //internal FlowGraphManagerControl FlowGraphManagerControl => flowGraphManagerControl;
-
         internal DetailsControl DetailsControl => detailsControl;
 
         public MainWindow()
@@ -59,8 +56,6 @@ namespace FlowSimulator
             statusLabelVersion.Content = "v" + ver;
             SetTitle();
             LogManager.Instance.WriteLine(LogVerbosity.Info, "FlowSimulator - v{0} started", ver);
-            VariableTypeInspector.SetDefaultValues();
-            NamedVarEditTemplateManager.Initialize();
 
             Loaded += OnLoaded;
             Closed += OnClosed;

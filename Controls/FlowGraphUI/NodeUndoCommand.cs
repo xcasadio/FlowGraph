@@ -35,13 +35,13 @@ class CreateNodesUndoCommand : IUndoCommand
 {
     readonly SequenceViewModel _flowGraphVm;
     readonly IEnumerable<NodeViewModel> _nodesVm;
-    readonly List<ConnectionInfo> _connectionInfoList = new List<ConnectionInfo>();
+    readonly List<ConnectionInfo> _connectionInfoList = new();
 
     public CreateNodesUndoCommand(SequenceViewModel fgv, IEnumerable<NodeViewModel> nodesVm)
     {
         _flowGraphVm = fgv;
 
-        List<ConnectionViewModel> connections = new List<ConnectionViewModel>();
+        List<ConnectionViewModel> connections = new();
         foreach (var node in nodesVm)
         {
             connections.AddRange(node.AttachedConnections);
@@ -71,7 +71,7 @@ class CreateNodesUndoCommand : IUndoCommand
     {
         _flowGraphVm.Network.Nodes.AddRange(_nodesVm);
 
-        List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
+        List<ConnectionViewModel> connList = new();
 
         for (int i = 0; i < _connectionInfoList.Count; i++)
         {
@@ -83,7 +83,7 @@ class CreateNodesUndoCommand : IUndoCommand
 
     public void Undo()
     {
-        List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
+        List<ConnectionViewModel> connList = new();
 
         for (int i = 0; i < _connectionInfoList.Count; i++)
         {
@@ -117,7 +117,7 @@ class DeleteNodeUndoCommand : IUndoCommand
 {
     readonly SequenceViewModel _flowGraphVm;
     readonly NodeViewModel _nodeVm;
-    readonly List<ConnectionInfo> _connectionInfoList = new List<ConnectionInfo>();
+    readonly List<ConnectionInfo> _connectionInfoList = new();
 
     public DeleteNodeUndoCommand(SequenceViewModel fgv, NodeViewModel nodeVm)
     {
@@ -144,7 +144,7 @@ class DeleteNodeUndoCommand : IUndoCommand
 
     public void Redo()
     {
-        List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
+        List<ConnectionViewModel> connList = new();
 
         for (int i = 0; i < _connectionInfoList.Count; i++)
         {
@@ -157,7 +157,7 @@ class DeleteNodeUndoCommand : IUndoCommand
 
     public void Undo()
     {
-        List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
+        List<ConnectionViewModel> connList = new();
 
         for (int i = 0; i < _connectionInfoList.Count; i++)
         {
@@ -190,13 +190,13 @@ class DeleteNodesUndoCommand : IUndoCommand
 {
     readonly SequenceViewModel _flowGraphVm;
     readonly IEnumerable<NodeViewModel> _nodesVm;
-    readonly List<ConnectionInfo> _connectionInfoList = new List<ConnectionInfo>();
+    readonly List<ConnectionInfo> _connectionInfoList = new();
 
     public DeleteNodesUndoCommand(SequenceViewModel fgv, IEnumerable<NodeViewModel> nodesVm)
     {
         _flowGraphVm = fgv;
 
-        List<ConnectionViewModel> connections = new List<ConnectionViewModel>();
+        List<ConnectionViewModel> connections = new();
         foreach (var node in nodesVm)
         {
             connections.AddRange(node.AttachedConnections);
@@ -224,7 +224,7 @@ class DeleteNodesUndoCommand : IUndoCommand
 
     public void Redo()
     {
-        List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
+        List<ConnectionViewModel> connList = new();
 
         for (int i = 0; i < _connectionInfoList.Count; i++)
         {
@@ -237,7 +237,7 @@ class DeleteNodesUndoCommand : IUndoCommand
 
     public void Undo()
     {
-        List<ConnectionViewModel> connList = new List<ConnectionViewModel>();
+        List<ConnectionViewModel> connList = new();
 
         for (int i = 0; i < _connectionInfoList.Count; i++)
         {

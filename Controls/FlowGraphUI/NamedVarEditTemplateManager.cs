@@ -4,9 +4,14 @@ namespace FlowGraphUI;
 
 public static class NamedVarEditTemplateManager
 {
-    private static readonly Dictionary<Type, DataTemplate> TemplatesByTypes = new Dictionary<Type, DataTemplate>(15);
+    private static readonly Dictionary<Type, DataTemplate> TemplatesByTypes = new(15);
 
-    public static void Initialize()
+    static NamedVarEditTemplateManager()
+    {
+        Initialize();
+    }
+
+    private static void Initialize()
     {
         ResourceDictionary res = new ResourceDictionary
         {
@@ -56,7 +61,7 @@ public static class NamedVarEditTemplateManager
         TemplatesByTypes.Add(type, template);
     }
 
-    public static DataTemplate GetTemplateByType(Type type)
+    public static DataTemplate? GetTemplateByType(Type? type)
     {
         if (type == null)
         {
@@ -71,7 +76,7 @@ public static class NamedVarEditTemplateManager
         return null;
     }
 
-    public static bool ContainsType(Type type)
+    public static bool ContainsType(Type? type)
     {
         return type != null && TemplatesByTypes.ContainsKey(type);
     }

@@ -20,7 +20,7 @@ public partial class FlowGraphControl : UserControl
     /// <summary>
     /// Use to copy/paste nodes (shared with all graphs)
     /// </summary>
-    private static readonly List<NodeViewModel> ClipboardNodes = new List<NodeViewModel>(10);
+    private static readonly List<NodeViewModel> ClipboardNodes = new(10);
 
     private bool _isContextMenuCreated;
 
@@ -759,7 +759,7 @@ public partial class FlowGraphControl : UserControl
         {
             if (e.RemovedItems.Count > 0)
             {
-                List<NodeViewModel> list = new List<NodeViewModel>();
+                List<NodeViewModel> list = new();
 
                 foreach (object node in e.RemovedItems)
                 {
@@ -777,7 +777,7 @@ public partial class FlowGraphControl : UserControl
 
             if (e.AddedItems.Count > 0)
             {
-                List<NodeViewModel> list = new List<NodeViewModel>();
+                List<NodeViewModel> list = new();
 
                 foreach (object node in e.AddedItems)
                 {

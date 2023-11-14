@@ -857,7 +857,7 @@ public class SequenceViewModel : AbstractModelBase
         }
     }
 
-    readonly List<PositionNodeUndoCommand.NodeDraggingInfo> _cachedNodesDraggingList = new List<PositionNodeUndoCommand.NodeDraggingInfo>(5);
+    readonly List<PositionNodeUndoCommand.NodeDraggingInfo> _cachedNodesDraggingList = new(5);
 
     public void OnNodeDragStarted(NetworkView sender, NodeDragStartedEventArgs e)
     {
