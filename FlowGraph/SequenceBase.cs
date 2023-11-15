@@ -101,9 +101,9 @@ public class SequenceBase : INotifyPropertyChanged
     {
         //_MustStop = false;
 
-        foreach (var eventNode in SequenceNodes.Select(pair => pair.Value as EventNode)
-                     .Where(node => node != null
-                                    && node.GetType() == type))
+        foreach (var eventNode in SequenceNodes
+                     .Select(pair => pair.Value as EventNode)
+                     .Where(node => node != null && node.GetType() == type))
         {
             eventNode.Triggered(context, index, param);
         }
@@ -128,8 +128,7 @@ public class SequenceBase : INotifyPropertyChanged
             }
             else
             {
-                throw new InvalidOperationException("Can't create SequenceNode from xml " +
-                                                    $"id={nodeNode.Attributes["id"].Value}");
+                throw new InvalidOperationException($"Can't create SequenceNode from xml id={nodeNode.Attributes["id"].Value}");
             }
         }
     }
