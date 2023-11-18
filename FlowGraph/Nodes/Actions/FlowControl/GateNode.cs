@@ -1,12 +1,12 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 using FlowGraph.Process;
 
 namespace FlowGraph.Nodes.Actions.FlowControl;
 
 [Category("Flow Control"), Name("Gate")]
-public class GateNode :
-    ActionNode
+public class GateNode : ActionNode
 {
     public enum NodeSlotId
     {
@@ -51,7 +51,7 @@ public class GateNode :
         if (memoryItem == null)
         {
             var a = GetValueFromSlot((int)NodeSlotId.VarInStartClosed);
-            var state = a != null ? (bool)a : true;
+            var state = a == null || (bool)a;
             memoryItem = context.CurrentFrame.Allocate(Id, state);
         }
 
@@ -80,8 +80,15 @@ public class GateNode :
         return info;
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         return new GateNode();
+    }
+
+    public override Statement GenerateAst()
+    {
+        //new If()
+
+        throw new NotImplementedException();
     }
 }

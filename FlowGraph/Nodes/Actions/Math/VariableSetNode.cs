@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 using FlowGraph.Logger;
 using FlowGraph.Process;
@@ -75,7 +76,15 @@ public abstract class VariableSetNode<T> : ActionNode
 
         return info;
     }
+
+    public override Statement GenerateAst()
+    {
+        //new If()
+
+        throw new NotImplementedException();
+    }
 }
+
 [Name("Byte")]
 public class VariableSetNodeByte : VariableSetNode<sbyte>
 {
@@ -85,7 +94,7 @@ public class VariableSetNodeByte : VariableSetNode<sbyte>
     { }
     public VariableSetNodeByte(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new VariableSetNodeByte(); }
+    public override SequenceNode Copy() { return new VariableSetNodeByte(); }
 }
 
 [Name("Short")]
@@ -97,7 +106,7 @@ public class VariableSetNodeShort : VariableSetNode<short>
     { }
     public VariableSetNodeShort(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new VariableSetNodeShort(); }
+    public override SequenceNode Copy() { return new VariableSetNodeShort(); }
 }
 
 [Name("Integer")]
@@ -109,7 +118,7 @@ public class VariableSetNodeInt : VariableSetNode<int>
     { }
     public VariableSetNodeInt(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new VariableSetNodeInt(); }
+    public override SequenceNode Copy() { return new VariableSetNodeInt(); }
 }
 
 [Name("Long")]
@@ -121,7 +130,7 @@ public class VariableSetNodeLong : VariableSetNode<long>
     { }
     public VariableSetNodeLong(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new VariableSetNodeLong(); }
+    public override SequenceNode Copy() { return new VariableSetNodeLong(); }
 }
 
 [Name("Float")]
@@ -133,7 +142,7 @@ public class VariableSetNodeFloat : VariableSetNode<float>
     { }
     public VariableSetNodeFloat(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new VariableSetNodeFloat(); }
+    public override SequenceNode Copy() { return new VariableSetNodeFloat(); }
 }
 
 [Name("Double")]
@@ -145,7 +154,7 @@ public class VariableSetNodeDouble : VariableSetNode<double>
     { }
     public VariableSetNodeDouble(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new VariableSetNodeDouble(); }
+    public override SequenceNode Copy() { return new VariableSetNodeDouble(); }
 }
 
 [Name("String")]
@@ -157,7 +166,7 @@ public class VariableSetNodeString : VariableSetNode<double>
     { }
     public VariableSetNodeString(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new VariableSetNodeString(); }
+    public override SequenceNode Copy() { return new VariableSetNodeString(); }
 }
 
 [Name("Object")]
@@ -169,5 +178,5 @@ public class VariableSetNodeObject : VariableSetNode<object>
     { }
     public VariableSetNodeObject(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new VariableSetNodeObject(); }
+    public override SequenceNode Copy() { return new VariableSetNodeObject(); }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 using FlowGraph.Logger;
 using FlowGraph.Process;
@@ -7,8 +8,7 @@ using Logger;
 namespace FlowGraph.Nodes.Actions;
 
 [Category("Time"), Name("Delay")]
-public class DelayNode
-    : ActionNode
+public class DelayNode : ActionNode
 {
     public enum NodeSlotId
     {
@@ -103,8 +103,21 @@ public class DelayNode
         return info;
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         return new DelayNode();
+    }
+
+    public override Statement GenerateAst()
+    {
+        /*var tokens = new List<Token>
+        {
+            new Token(TokenType.Var, "myVariable", null);
+        };
+
+        return new FunctionCall("LogManager.Instance.WriteLineDebug" + Title, new VariableStatement());
+        */
+
+        throw new NotImplementedException();
     }
 }

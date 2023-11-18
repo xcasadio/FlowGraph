@@ -28,7 +28,7 @@ namespace CustomNode
 
         public override string Title => "Task Started Event";
 
-        protected override SequenceNode CopyImpl()
+        public override SequenceNode Copy()
         {
             throw new NotImplementedException();
         }

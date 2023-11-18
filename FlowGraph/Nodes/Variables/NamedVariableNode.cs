@@ -42,7 +42,7 @@ public sealed class NamedVariableNode : VariableNode
         }
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         return new NamedVariableNode(_value.Name);
     }

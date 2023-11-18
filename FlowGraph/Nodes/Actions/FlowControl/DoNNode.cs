@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 using FlowGraph.Logger;
 using FlowGraph.Process;
@@ -7,8 +8,7 @@ using Logger;
 namespace FlowGraph.Nodes.Actions.FlowControl;
 
 [Category("Flow Control"), Name("Do N")]
-public class DoNNode :
-    ActionNode
+public class DoNNode : ActionNode
 {
     public enum NodeSlotId
     {
@@ -95,8 +95,15 @@ public class DoNNode :
         return info;
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         return new DoNNode();
+    }
+
+    public override Statement GenerateAst()
+    {
+        //new If()
+
+        throw new NotImplementedException();
     }
 }

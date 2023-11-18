@@ -1,12 +1,12 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 using FlowGraph.Process;
 
 namespace FlowGraph.Nodes.Actions.FlowControl;
 
 [Category("Flow Control"), Name("Do Once")]
-public class DoOnceNode :
-    ActionNode
+public class DoOnceNode : ActionNode
 {
     public enum NodeSlotId
     {
@@ -62,8 +62,15 @@ public class DoOnceNode :
         return info;
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         return new DoOnceNode();
+    }
+
+    public override Statement GenerateAst()
+    {
+        //new If()
+
+        throw new NotImplementedException();
     }
 }

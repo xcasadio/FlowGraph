@@ -1,12 +1,12 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 using FlowGraph.Process;
 
 namespace FlowGraph.Nodes.Actions.FlowControl;
 
 [Category("Flow Control"), Name("Flip Flop")]
-public class FlipFlopNode :
-    ActionNode
+public class FlipFlopNode : ActionNode
 {
     public enum NodeSlotId
     {
@@ -68,8 +68,15 @@ public class FlipFlopNode :
         return info;
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         return new FlipFlopNode();
+    }
+
+    public override Statement GenerateAst()
+    {
+        //new If()
+
+        throw new NotImplementedException();
     }
 }

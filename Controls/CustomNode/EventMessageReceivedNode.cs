@@ -25,7 +25,7 @@ namespace CustomNode
 
         public override string Title => "Test Started Event";
 
-        protected override SequenceNode CopyImpl()
+        public override SequenceNode Copy()
         {
             throw new NotImplementedException();
         }

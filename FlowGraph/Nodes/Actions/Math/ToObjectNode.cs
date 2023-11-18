@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 
 namespace FlowGraph.Nodes.Actions.Math;
@@ -15,6 +16,13 @@ public abstract class ToObjectNode<TIn> : MathCastOperatorNode<TIn, object>
         dynamic x = a;
         return Convert.ChangeType(x, typeof(object));
     }
+
+    public override Statement GenerateAst()
+    {
+        //new If()
+
+        throw new NotImplementedException();
+    }
 }
 
 [Name("Byte to Object")]
@@ -26,7 +34,7 @@ public class ToObjectNodeByte : ToObjectNode<sbyte>
     { }
     public ToObjectNodeByte(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToObjectNodeByte(); }
+    public override SequenceNode Copy() { return new ToObjectNodeByte(); }
 }
 
 [Name("Char to Object")]
@@ -38,7 +46,7 @@ public class ToObjectNodeChar : ToObjectNode<char>
     { }
     public ToObjectNodeChar(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToObjectNodeChar(); }
+    public override SequenceNode Copy() { return new ToObjectNodeChar(); }
 }
 
 [Name("Short to Object")]
@@ -50,7 +58,7 @@ public class ToObjectNodeShort : ToObjectNode<short>
     { }
     public ToObjectNodeShort(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToObjectNodeShort(); }
+    public override SequenceNode Copy() { return new ToObjectNodeShort(); }
 }
 
 [Name("Integer to Object")]
@@ -62,7 +70,7 @@ public class ToObjectNodeInteger : ToObjectNode<int>
     { }
     public ToObjectNodeInteger(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToObjectNodeInteger(); }
+    public override SequenceNode Copy() { return new ToObjectNodeInteger(); }
 }
 
 [Name("Long to Object")]
@@ -74,7 +82,7 @@ public class ToObjectNodeLong : ToObjectNode<long>
     { }
     public ToObjectNodeLong(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToObjectNodeLong(); }
+    public override SequenceNode Copy() { return new ToObjectNodeLong(); }
 }
 
 [Name("Float to Object")]
@@ -86,7 +94,7 @@ public class ToObjectNodeFloat : ToObjectNode<float>
     { }
     public ToObjectNodeFloat(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToObjectNodeFloat(); }
+    public override SequenceNode Copy() { return new ToObjectNodeFloat(); }
 }
 
 [Name("Double to Object")]
@@ -98,7 +106,7 @@ public class ToObjectNodeDouble : ToObjectNode<double>
     { }
     public ToObjectNodeDouble(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToObjectNodeDouble(); }
+    public override SequenceNode Copy() { return new ToObjectNodeDouble(); }
 }
 
 [Name("String to Object")]
@@ -110,5 +118,5 @@ public class ToObjectNodeString : ToObjectNode<string>
     { }
     public ToObjectNodeString(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToObjectNodeString(); }
+    public override SequenceNode Copy() { return new ToObjectNodeString(); }
 }

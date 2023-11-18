@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 
 namespace FlowGraph.Nodes.Actions.Math;
@@ -16,6 +17,13 @@ public abstract class NotEqualNode<T> : MathLogicOperatorNode<T>
         dynamic y = b;
         return x != y;
     }
+
+    public override Statement GenerateAst()
+    {
+        //new If()
+
+        throw new NotImplementedException();
+    }
 }
 
 [Name("Byte")]
@@ -27,7 +35,7 @@ public class NotEqualNodeByte : NotEqualNode<sbyte>
     { }
     public NotEqualNodeByte(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new NotEqualNodeByte(); }
+    public override SequenceNode Copy() { return new NotEqualNodeByte(); }
 }
 
 [Name("Short")]
@@ -39,7 +47,7 @@ public class NotEqualNodeShort : NotEqualNode<short>
     { }
     public NotEqualNodeShort(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new NotEqualNodeShort(); }
+    public override SequenceNode Copy() { return new NotEqualNodeShort(); }
 }
 
 [Name("Integer")]
@@ -51,7 +59,7 @@ public class NotEqualNodeInt : NotEqualNode<int>
     { }
     public NotEqualNodeInt(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new NotEqualNodeInt(); }
+    public override SequenceNode Copy() { return new NotEqualNodeInt(); }
 }
 
 [Name("Long")]
@@ -63,7 +71,7 @@ public class NotEqualNodeLong : NotEqualNode<long>
     { }
     public NotEqualNodeLong(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new NotEqualNodeLong(); }
+    public override SequenceNode Copy() { return new NotEqualNodeLong(); }
 }
 
 [Name("Float")]
@@ -75,7 +83,7 @@ public class NotEqualNodeFloat : NotEqualNode<float>
     { }
     public NotEqualNodeFloat(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new NotEqualNodeFloat(); }
+    public override SequenceNode Copy() { return new NotEqualNodeFloat(); }
 }
 
 [Name("Double")]
@@ -87,5 +95,5 @@ public class NotEqualNodeDouble : NotEqualNode<double>
     { }
     public NotEqualNodeDouble(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new NotEqualNodeDouble(); }
+    public override SequenceNode Copy() { return new NotEqualNodeDouble(); }
 }

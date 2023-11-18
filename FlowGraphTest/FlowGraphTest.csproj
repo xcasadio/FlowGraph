@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DotNetCodeGenerator\DotNetCodeGenerator.csproj" />
     <ProjectReference Include="..\FlowGraph\FlowGraph.csproj" />
   </ItemGroup>
 

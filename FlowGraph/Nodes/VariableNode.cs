@@ -1,18 +1,8 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Process;
 
 namespace FlowGraph.Nodes;
-#if EDITOR
-public enum VariableControlType
-{
-    Numeric,
-    Selectable,
-    Checkable,
-    Text,
-    ReadOnly,
-    Custom
-}
-#endif
 
 public abstract class VariableNode : SequenceNode
 {
@@ -20,10 +10,6 @@ public abstract class VariableNode : SequenceNode
     public override NodeType NodeType => NodeType.Variable;
     public NodeSlot VariableSlot => NodeSlots[0];
     public override string Title => "";
-
-    public VariableNode()
-    {
-    }
 
     public override void Save(XmlNode node)
     {
@@ -37,7 +23,16 @@ public abstract class VariableNode : SequenceNode
     protected abstract object LoadValue(XmlNode node);
 
     protected abstract void SaveValue(XmlNode node);
+    public override Statement GenerateAst()
+    {
+        return new VariableStatement(new Token(TokenType.Var, "", Value), new Literal(Value));
+    }
+
 #endif
+
+    public VariableNode()
+    {
+    }
 
     protected VariableNode(XmlNode node)
         : base(node)
@@ -59,7 +54,7 @@ public abstract class VariableNode : SequenceNode
     {
         // TODO : create function => object abstract CopyValue(object val_) ?????
         // do this only to copy the value
-        var clone = (VariableNode)CopyImpl();
+        var clone = (VariableNode)Copy();
         memoryStack.Allocate(Id, clone.Value);
     }
 

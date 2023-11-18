@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel;
 using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 using FlowGraph.Process;
 
 namespace FlowGraph.Nodes.Actions;
 
 [Visible(false)]
-public class ReturnNode
-    : ActionNode
+public class ReturnNode : ActionNode
 {
     public enum NodeSlotId
     {
@@ -91,7 +91,7 @@ public class ReturnNode
         return info;
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         return new ReturnNode(_function);
     }
@@ -110,5 +110,12 @@ public class ReturnNode
 
     void OnFuntionPropertyChanged(object sender, PropertyChangedEventArgs e)
     {
+    }
+
+    public override Statement GenerateAst()
+    {
+        //new If()
+
+        throw new NotImplementedException();
     }
 }

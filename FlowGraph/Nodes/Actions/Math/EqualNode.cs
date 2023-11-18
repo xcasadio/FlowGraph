@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 
 namespace FlowGraph.Nodes.Actions.Math;
@@ -16,6 +17,13 @@ public abstract class EqualNode<T> : MathLogicOperatorNode<T>
         dynamic y = b;
         return x == y;
     }
+
+    public override Statement GenerateAst()
+    {
+        //new If()
+
+        throw new NotImplementedException();
+    }
 }
 
 [Name("Byte")]
@@ -27,7 +35,7 @@ public class EqualNodeByte : EqualNode<sbyte>
     { }
     public EqualNodeByte(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new EqualNodeByte(); }
+    public override SequenceNode Copy() { return new EqualNodeByte(); }
 }
 
 [Name("Short")]
@@ -39,7 +47,7 @@ public class EqualNodeShort : EqualNode<short>
     { }
     public EqualNodeShort(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new EqualNodeShort(); }
+    public override SequenceNode Copy() { return new EqualNodeShort(); }
 }
 
 [Name("Integer")]
@@ -51,7 +59,7 @@ public class EqualNodeInt : EqualNode<int>
     { }
     public EqualNodeInt(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new EqualNodeInt(); }
+    public override SequenceNode Copy() { return new EqualNodeInt(); }
 }
 
 [Name("Long")]
@@ -63,7 +71,7 @@ public class EqualNodeLong : EqualNode<long>
     { }
     public EqualNodeLong(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new EqualNodeLong(); }
+    public override SequenceNode Copy() { return new EqualNodeLong(); }
 }
 
 [Name("Float")]
@@ -75,7 +83,7 @@ public class EqualNodeFloat : EqualNode<float>
     { }
     public EqualNodeFloat(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new EqualNodeFloat(); }
+    public override SequenceNode Copy() { return new EqualNodeFloat(); }
 }
 
 [Name("Double")]
@@ -87,5 +95,5 @@ public class EqualNodeDouble : EqualNode<double>
     { }
     public EqualNodeDouble(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new EqualNodeDouble(); }
+    public override SequenceNode Copy() { return new EqualNodeDouble(); }
 }

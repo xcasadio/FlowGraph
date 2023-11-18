@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 
 namespace FlowGraph.Nodes.Actions.Math;
@@ -15,6 +16,13 @@ public abstract class AdditionNode<T> : MathOperatorNode<T>
         dynamic y = b;
         return x + y;
     }
+
+    public override Statement GenerateAst()
+    {
+        //new If()
+
+        throw new NotImplementedException();
+    }
 }
 
 [Name("Byte")]
@@ -24,7 +32,7 @@ public class AdditionNodeByte : AdditionNode<sbyte>
     public AdditionNodeByte() { }
     public AdditionNodeByte(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new AdditionNodeByte(); }
+    public override SequenceNode Copy() { return new AdditionNodeByte(); }
 }
 
 [Name("Short")]
@@ -35,7 +43,7 @@ public class AdditionNodeShort : AdditionNode<short>
     public AdditionNodeShort() { }
     public AdditionNodeShort(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new AdditionNodeShort(); }
+    public override SequenceNode Copy() { return new AdditionNodeShort(); }
 }
 
 [Name("Integer")]
@@ -46,7 +54,7 @@ public class AdditionNodeInt : AdditionNode<int>
     public AdditionNodeInt() { }
     public AdditionNodeInt(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new AdditionNodeInt(); }
+    public override SequenceNode Copy() { return new AdditionNodeInt(); }
 }
 
 [Name("Long")]
@@ -57,7 +65,7 @@ public class AdditionNodeLong : AdditionNode<long>
     public AdditionNodeLong() { }
     public AdditionNodeLong(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new AdditionNodeLong(); }
+    public override SequenceNode Copy() { return new AdditionNodeLong(); }
 }
 
 [Name("Float")]
@@ -68,7 +76,7 @@ public class AdditionNodeFloat : AdditionNode<float>
     public AdditionNodeFloat() { }
     public AdditionNodeFloat(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new AdditionNodeFloat(); }
+    public override SequenceNode Copy() { return new AdditionNodeFloat(); }
 }
 
 [Name("Double")]
@@ -79,5 +87,5 @@ public class AdditionNodeDouble : AdditionNode<double>
     public AdditionNodeDouble() { }
     public AdditionNodeDouble(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new AdditionNodeDouble(); }
+    public override SequenceNode Copy() { return new AdditionNodeDouble(); }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 using FlowGraph.Logger;
 using FlowGraph.Process;
@@ -7,10 +8,8 @@ using Logger;
 namespace FlowGraph.Nodes.Actions.FlowControl;
 
 [Category("Flow Control"), Name("For Loop With Break")]
-public class ForLoopWithBreakNode :
-    ActionNode
+public class ForLoopWithBreakNode : ActionNode
 {
-
     struct ForLoopNodeInfo
     {
         public int Counter;
@@ -156,8 +155,15 @@ public class ForLoopWithBreakNode :
         }
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         return new ForLoopWithBreakNode();
+    }
+
+    public override Statement GenerateAst()
+    {
+        //new If()
+
+        throw new NotImplementedException();
     }
 }

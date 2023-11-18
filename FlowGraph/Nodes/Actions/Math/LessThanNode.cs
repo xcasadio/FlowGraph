@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 
 namespace FlowGraph.Nodes.Actions.Math;
@@ -16,6 +17,13 @@ public abstract class LessThanNode<T> : MathLogicOperatorNode<T>
         dynamic y = b;
         return x < y;
     }
+
+    public override Statement GenerateAst()
+    {
+        //new If()
+
+        throw new NotImplementedException();
+    }
 }
 
 [Name("Byte")]
@@ -27,7 +35,7 @@ public class LessThanNodeByte : LessThanNode<sbyte>
     { }
     public LessThanNodeByte(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new LessThanNodeByte(); }
+    public override SequenceNode Copy() { return new LessThanNodeByte(); }
 }
 
 [Name("Short")]
@@ -39,7 +47,7 @@ public class LessThanNodeShort : LessThanNode<short>
     { }
     public LessThanNodeShort(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new LessThanNodeShort(); }
+    public override SequenceNode Copy() { return new LessThanNodeShort(); }
 }
 
 [Name("Integer")]
@@ -51,7 +59,7 @@ public class LessThanNodeInt : LessThanNode<int>
     { }
     public LessThanNodeInt(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new LessThanNodeInt(); }
+    public override SequenceNode Copy() { return new LessThanNodeInt(); }
 }
 
 [Name("Long")]
@@ -63,7 +71,7 @@ public class LessThanNodeLong : LessThanNode<long>
     { }
     public LessThanNodeLong(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new LessThanNodeLong(); }
+    public override SequenceNode Copy() { return new LessThanNodeLong(); }
 }
 
 [Name("Float")]
@@ -75,7 +83,7 @@ public class LessThanNodeFloat : LessThanNode<float>
     { }
     public LessThanNodeFloat(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new LessThanNodeFloat(); }
+    public override SequenceNode Copy() { return new LessThanNodeFloat(); }
 }
 
 [Name("Double")]
@@ -87,5 +95,5 @@ public class LessThanNodeDouble : LessThanNode<double>
     { }
     public LessThanNodeDouble(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new LessThanNodeDouble(); }
+    public override SequenceNode Copy() { return new LessThanNodeDouble(); }
 }

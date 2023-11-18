@@ -34,7 +34,7 @@ namespace CustomNode
             SetValueInSlot(1, para);
         }
 
-        protected override SequenceNode CopyImpl()
+        public override SequenceNode Copy()
         {
             return new EventNodeTestStarted();
         }

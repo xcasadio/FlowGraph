@@ -16,7 +16,7 @@ namespace CustomNode
             //AddSlot(new NodeItemType("Message", SequenceNode.ConnectionType.Variable, typeof(string)));
         }
 
-        protected override SequenceNode CopyImpl()
+        public override SequenceNode Copy()
         {
             return new EventTestStartedNode();
         }

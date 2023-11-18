@@ -91,19 +91,4 @@ namespace FlowGraphTest
             Check.That(sequenceNodeDummy.IsProcessing).IsEqualTo(false);
         }
     }
-
-    public class SequenceNodeDummy : SequenceNode
-    {
-        protected override void InitializeSlots()
-        { }
-
-        protected override SequenceNode CopyImpl()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override NodeType NodeType => NodeType.Action;
-
-        public override string Title => "SequenceNodeDummy";
-    }
 }

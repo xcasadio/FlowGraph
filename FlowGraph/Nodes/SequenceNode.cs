@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
 using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Logger;
 using FlowGraph.Process;
 
@@ -63,11 +64,11 @@ public abstract class SequenceNode : INotifyPropertyChanged
             {
                 return variableNode.Value;
             }
-            throw new InvalidOperationException(
-                $"Node({Id}) GetValueFromSlot({id}) : type of link not supported");
-        }
-        // if no node is connected, we take the nested value of the slot
 
+            throw new InvalidOperationException($"Node({Id}) GetValueFromSlot({id}) : type of link not supported");
+        }
+
+        // if no node is connected, we take the nested value of the slot
         if (slot is NodeSlotVar slotVar)
         {
             return slotVar.Value;
@@ -190,12 +191,7 @@ public abstract class SequenceNode : INotifyPropertyChanged
 
     protected abstract void InitializeSlots();
 
-    protected abstract SequenceNode CopyImpl();
-
-    public SequenceNode Copy()
-    {
-        return CopyImpl();
-    }
+    public abstract SequenceNode Copy();
 
 #if EDITOR
     private static int _freeId;
@@ -373,6 +369,8 @@ public abstract class SequenceNode : INotifyPropertyChanged
             }
         }
     }
+
+    public abstract Statement GenerateAst();
 
 #endif
 

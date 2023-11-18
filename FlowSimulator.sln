@@ -29,9 +29,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZoomAndPan", "Controls\Zoom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowSimulator", "FlowSimulator\FlowSimulator.csproj", "{FD00075A-F1B6-40BF-B3CF-BADD610464EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiTools", "Controls\UiTools\UiTools.csproj", "{8A30F9F6-D2B4-48E0-A7AA-C8233EA9DC50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiTools", "Controls\UiTools\UiTools.csproj", "{8A30F9F6-D2B4-48E0-A7AA-C8233EA9DC50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "Controls\Logger\Logger.csproj", "{639250DC-621C-4B88-AC88-288104D6EE3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logger", "Controls\Logger\Logger.csproj", "{639250DC-621C-4B88-AC88-288104D6EE3E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCodeGenerator", "DotNetCodeGenerator\DotNetCodeGenerator.csproj", "{13F17E4B-D0AD-4B77-9B97-6819C90BACA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -298,6 +300,24 @@ Global
 		{639250DC-621C-4B88-AC88-288104D6EE3E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{639250DC-621C-4B88-AC88-288104D6EE3E}.Release|x86.ActiveCfg = Release|Any CPU
 		{639250DC-621C-4B88-AC88-288104D6EE3E}.Release|x86.Build.0 = Release|Any CPU
+		{13F17E4B-D0AD-4B77-9B97-6819C90BACA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13F17E4B-D0AD-4B77-9B97-6819C90BACA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13F17E4B-D0AD-4B77-9B97-6819C90BACA5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{13F17E4B-D0AD-4B77-9B97-6819C90BACA5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{13F17E4B-D0AD-4B77-9B97-6819C90BACA5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{13F17E4B-D0AD-4B77-9B97-6819C90BACA5}.Debug|x86.Build.0 = Debug|Any CPU
+		{13F17E4B-D0AD-4B77-9B97-6819C90BACA5}.Editor Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13F17E4B-D0AD-4B77-9B97-6819C90BACA5}.Editor Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13F17E4B-D0AD-4B77-9B97-6819C90BACA5}.Editor Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{13F17E4B-D0AD-4B77-9B97-6819C90BACA5}.Editor Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{13F17E4B-D0AD-4B77-9B97-6819C90BACA5}.Editor Debug|x86.ActiveCfg = Debug|Any CPU
+		{13F17E4B-D0AD-4B77-9B97-6819C90BACA5}.Editor Debug|x86.Build.0 = Debug|Any CPU
+		{13F17E4B-D0AD-4B77-9B97-6819C90BACA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13F17E4B-D0AD-4B77-9B97-6819C90BACA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13F17E4B-D0AD-4B77-9B97-6819C90BACA5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{13F17E4B-D0AD-4B77-9B97-6819C90BACA5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{13F17E4B-D0AD-4B77-9B97-6819C90BACA5}.Release|x86.ActiveCfg = Release|Any CPU
+		{13F17E4B-D0AD-4B77-9B97-6819C90BACA5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

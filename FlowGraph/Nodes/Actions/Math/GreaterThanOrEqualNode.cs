@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 
 namespace FlowGraph.Nodes.Actions.Math;
@@ -16,6 +17,13 @@ public abstract class GreaterThanOrEqualNode<T> : MathLogicOperatorNode<T>
         dynamic y = b;
         return x >= y;
     }
+
+    public override Statement GenerateAst()
+    {
+        //new If()
+
+        throw new NotImplementedException();
+    }
 }
 [Name("Byte")]
 public class GreaterThanOrEqualNodeByte : GreaterThanOrEqualNode<sbyte>
@@ -26,7 +34,7 @@ public class GreaterThanOrEqualNodeByte : GreaterThanOrEqualNode<sbyte>
     { }
     public GreaterThanOrEqualNodeByte(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new GreaterThanOrEqualNodeByte(); }
+    public override SequenceNode Copy() { return new GreaterThanOrEqualNodeByte(); }
 }
 
 [Name("Short")]
@@ -38,7 +46,7 @@ public class GreaterThanOrEqualNodeShort : GreaterThanOrEqualNode<short>
     { }
     public GreaterThanOrEqualNodeShort(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new GreaterThanOrEqualNodeShort(); }
+    public override SequenceNode Copy() { return new GreaterThanOrEqualNodeShort(); }
 }
 
 [Name("Integer")]
@@ -50,7 +58,7 @@ public class GreaterThanOrEqualNodeInt : GreaterThanOrEqualNode<int>
     { }
     public GreaterThanOrEqualNodeInt(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new GreaterThanOrEqualNodeInt(); }
+    public override SequenceNode Copy() { return new GreaterThanOrEqualNodeInt(); }
 }
 
 [Name("Long")]
@@ -62,7 +70,7 @@ public class GreaterThanOrEqualNodeLong : GreaterThanOrEqualNode<long>
     { }
     public GreaterThanOrEqualNodeLong(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new GreaterThanOrEqualNodeLong(); }
+    public override SequenceNode Copy() { return new GreaterThanOrEqualNodeLong(); }
 }
 
 [Name("Float")]
@@ -74,7 +82,7 @@ public class GreaterThanOrEqualNodeFloat : GreaterThanOrEqualNode<float>
     { }
     public GreaterThanOrEqualNodeFloat(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new GreaterThanOrEqualNodeFloat(); }
+    public override SequenceNode Copy() { return new GreaterThanOrEqualNodeFloat(); }
 }
 
 [Name("Double")]
@@ -86,5 +94,5 @@ public class GreaterThanOrEqualNodeDouble : GreaterThanOrEqualNode<double>
     { }
     public GreaterThanOrEqualNodeDouble(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new GreaterThanOrEqualNodeDouble(); }
+    public override SequenceNode Copy() { return new GreaterThanOrEqualNodeDouble(); }
 }

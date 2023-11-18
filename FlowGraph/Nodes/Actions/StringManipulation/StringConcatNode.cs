@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 using FlowGraph.Logger;
 using FlowGraph.Process;
@@ -83,5 +84,15 @@ public class StringConcatNode : ActionNode
         return info;
     }
 
-    protected override SequenceNode CopyImpl() { return new StringConcatNode(); }
+    public override SequenceNode Copy()
+    {
+        return new StringConcatNode();
+    }
+
+    public override Statement GenerateAst()
+    {
+        //new If()
+
+        throw new NotImplementedException();
+    }
 }

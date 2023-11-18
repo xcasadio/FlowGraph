@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 using FlowGraph.Logger;
 using FlowGraph.Process;
@@ -7,8 +8,7 @@ using Logger;
 namespace FlowGraph.Nodes.Actions.FlowControl;
 
 [Category("Flow Control"), Name("For Loop")]
-public class ForLoopNode :
-    ActionNode
+public class ForLoopNode : ActionNode
 {
     struct ForLoopNodeInfo
     {
@@ -139,8 +139,15 @@ public class ForLoopNode :
         memoryItem.Value = memoryInfo;
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         return new ForLoopNode();
+    }
+
+    public override Statement GenerateAst()
+    {
+        //new If()
+
+        throw new NotImplementedException();
     }
 }

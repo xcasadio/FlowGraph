@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 using FlowGraph.Process;
 
@@ -13,6 +14,22 @@ public abstract class EventNode : SequenceNode
     protected EventNode()
     {
     }
+
+    public override Statement GenerateAst()
+    {
+        var block = new Scope();
+
+        foreach (var slot in SlotConnectorOut)
+        {
+            foreach (var node in slot.ConnectedNodes)
+            {
+                block.Statements.Add(node.Node.GenerateAst());
+            }
+        }
+
+        return new FunctionDeclaration("function" + Title, Enumerable.Empty<Token>(), block);
+    }
+
 #endif
 
     protected EventNode(XmlNode node)

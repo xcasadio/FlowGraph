@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 
 namespace FlowGraph.Nodes.Actions.Math;
@@ -16,6 +17,13 @@ public abstract class MultiplicationNode<T> : MathOperatorNode<T>
         dynamic y = b;
         return x * y;
     }
+
+    public override Statement GenerateAst()
+    {
+        //new If()
+
+        throw new NotImplementedException();
+    }
 }
 
 [Name("Byte")]
@@ -27,7 +35,7 @@ public class MultiplicationNodeByte : MultiplicationNode<sbyte>
     { }
     public MultiplicationNodeByte(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new MultiplicationNodeByte(); }
+    public override SequenceNode Copy() { return new MultiplicationNodeByte(); }
 }
 
 [Name("Short")]
@@ -39,7 +47,7 @@ public class MultiplicationNodeShort : MultiplicationNode<short>
     { }
     public MultiplicationNodeShort(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new MultiplicationNodeShort(); }
+    public override SequenceNode Copy() { return new MultiplicationNodeShort(); }
 }
 
 [Name("Integer")]
@@ -51,7 +59,7 @@ public class MultiplicationNodeInt : MultiplicationNode<int>
     { }
     public MultiplicationNodeInt(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new MultiplicationNodeInt(); }
+    public override SequenceNode Copy() { return new MultiplicationNodeInt(); }
 }
 
 [Name("Long")]
@@ -63,7 +71,7 @@ public class MultiplicationNodeLong : MultiplicationNode<long>
     { }
     public MultiplicationNodeLong(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new MultiplicationNodeLong(); }
+    public override SequenceNode Copy() { return new MultiplicationNodeLong(); }
 }
 
 [Name("Float")]
@@ -75,7 +83,7 @@ public class MultiplicationNodeFloat : MultiplicationNode<float>
     { }
     public MultiplicationNodeFloat(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new MultiplicationNodeFloat(); }
+    public override SequenceNode Copy() { return new MultiplicationNodeFloat(); }
 }
 
 [Name("Double")]
@@ -87,5 +95,5 @@ public class MultiplicationNodeDouble : MultiplicationNode<double>
     { }
     public MultiplicationNodeDouble(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new MultiplicationNodeDouble(); }
+    public override SequenceNode Copy() { return new MultiplicationNodeDouble(); }
 }

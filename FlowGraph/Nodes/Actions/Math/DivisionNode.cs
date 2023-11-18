@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 
 namespace FlowGraph.Nodes.Actions.Math;
@@ -16,6 +17,13 @@ public abstract class DivisionNode<T> : MathOperatorNode<T>
         dynamic y = b;
         return x / y;
     }
+
+    public override Statement GenerateAst()
+    {
+        //new If()
+
+        throw new NotImplementedException();
+    }
 }
 [Name("Byte")]
 public class DivisionNodeByte : DivisionNode<sbyte>
@@ -26,7 +34,7 @@ public class DivisionNodeByte : DivisionNode<sbyte>
     { }
     public DivisionNodeByte(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new DivisionNodeByte(); }
+    public override SequenceNode Copy() { return new DivisionNodeByte(); }
 }
 
 [Name("Short")]
@@ -38,7 +46,7 @@ public class DivisionNodeShort : DivisionNode<short>
     { }
     public DivisionNodeShort(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new DivisionNodeShort(); }
+    public override SequenceNode Copy() { return new DivisionNodeShort(); }
 }
 
 [Name("Integer")]
@@ -50,7 +58,7 @@ public class DivisionNodeInt : DivisionNode<int>
     { }
     public DivisionNodeInt(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new DivisionNodeInt(); }
+    public override SequenceNode Copy() { return new DivisionNodeInt(); }
 }
 
 [Name("Long")]
@@ -62,7 +70,7 @@ public class DivisionNodeLong : DivisionNode<long>
     { }
     public DivisionNodeLong(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new DivisionNodeLong(); }
+    public override SequenceNode Copy() { return new DivisionNodeLong(); }
 }
 
 [Name("Float")]
@@ -74,7 +82,7 @@ public class DivisionNodeFloat : DivisionNode<float>
     { }
     public DivisionNodeFloat(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new DivisionNodeFloat(); }
+    public override SequenceNode Copy() { return new DivisionNodeFloat(); }
 }
 
 [Name("Double")]
@@ -86,5 +94,5 @@ public class DivisionNodeDouble : DivisionNode<double>
     { }
     public DivisionNodeDouble(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new DivisionNodeDouble(); }
+    public override SequenceNode Copy() { return new DivisionNodeDouble(); }
 }

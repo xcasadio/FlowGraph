@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 
 namespace FlowGraph.Nodes.Actions.Math;
@@ -15,6 +16,13 @@ public abstract class ToDoubleNode<TIn> : MathCastOperatorNode<TIn, double>
         dynamic x = a;
         return (double)Convert.ChangeType(x, typeof(double));
     }
+
+    public override Statement GenerateAst()
+    {
+        //new If()
+
+        throw new NotImplementedException();
+    }
 }
 
 [Name("Byte to Double")]
@@ -26,7 +34,7 @@ public class ToDoubleNodeByte : ToDoubleNode<sbyte>
     { }
     public ToDoubleNodeByte(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToDoubleNodeByte(); }
+    public override SequenceNode Copy() { return new ToDoubleNodeByte(); }
 }
 
 [Name("Char to Double")]
@@ -38,7 +46,7 @@ public class ToDoubleNodeChar : ToDoubleNode<char>
     { }
     public ToDoubleNodeChar(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToDoubleNodeChar(); }
+    public override SequenceNode Copy() { return new ToDoubleNodeChar(); }
 }
 
 [Name("Short to Double")]
@@ -50,7 +58,7 @@ public class ToDoubleNodeShort : ToDoubleNode<short>
     { }
     public ToDoubleNodeShort(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToDoubleNodeShort(); }
+    public override SequenceNode Copy() { return new ToDoubleNodeShort(); }
 }
 
 [Name("Integer to Double")]
@@ -62,7 +70,7 @@ public class ToDoubleNodeInteger : ToDoubleNode<int>
     { }
     public ToDoubleNodeInteger(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToDoubleNodeInteger(); }
+    public override SequenceNode Copy() { return new ToDoubleNodeInteger(); }
 }
 
 [Name("Long to Double")]
@@ -74,7 +82,7 @@ public class ToDoubleNodeLong : ToDoubleNode<long>
     { }
     public ToDoubleNodeLong(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToDoubleNodeLong(); }
+    public override SequenceNode Copy() { return new ToDoubleNodeLong(); }
 }
 
 [Name("Float to Double")]
@@ -86,7 +94,7 @@ public class ToDoubleNodeFloat : ToDoubleNode<float>
     { }
     public ToDoubleNodeFloat(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToDoubleNodeFloat(); }
+    public override SequenceNode Copy() { return new ToDoubleNodeFloat(); }
 }
 
 [Name("String to Double")]
@@ -98,5 +106,5 @@ public class ToDoubleNodeString : ToDoubleNode<string>
     { }
     public ToDoubleNodeString(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToDoubleNodeString(); }
+    public override SequenceNode Copy() { return new ToDoubleNodeString(); }
 }

@@ -9,6 +9,9 @@ public class FlowGraphManager
     public Sequence Sequence { get; set; } = new("sequence");
     public List<SequenceFunction> Functions { get; } = new();
 
+    //macros ?
+    //variables
+
     public void Load(XmlNode node)
     {
         try

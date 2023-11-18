@@ -92,7 +92,7 @@ public class VariableNodeObject : GenericVariableNode<object>
         base.InitializeSlots();
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         var node = new VariableNodeObject
         {
@@ -126,7 +126,7 @@ public class VariableNodeString : GenericVariableNode<string>
         base.InitializeSlots();
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         var node = new VariableNodeString
         {
@@ -151,7 +151,7 @@ public class VariableNodeBool : GenericVariableNode<bool>
         base.InitializeSlots();
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         var node = new VariableNodeBool
         {
@@ -176,7 +176,7 @@ public class VariableNodeByte : GenericVariableNode<sbyte>
         base.InitializeSlots();
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         var node = new VariableNodeByte
         {
@@ -201,7 +201,7 @@ public class VariableNodeChar : GenericVariableNode<char>
         base.InitializeSlots();
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         var node = new VariableNodeChar
         {
@@ -226,7 +226,7 @@ public class VariableNodeShort : GenericVariableNode<short>
         base.InitializeSlots();
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         var node = new VariableNodeShort
         {
@@ -251,7 +251,7 @@ public class VariableNodeInt : GenericVariableNode<int>
         base.InitializeSlots();
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         var node = new VariableNodeInt
         {
@@ -276,7 +276,7 @@ public class VariableNodeLong : GenericVariableNode<long>
         base.InitializeSlots();
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         var node = new VariableNodeLong
         {
@@ -301,7 +301,7 @@ public class VariableNodeFloat : GenericVariableNode<float>
         base.InitializeSlots();
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         var node = new VariableNodeFloat
         {
@@ -326,7 +326,7 @@ public class VariableNodeDouble : GenericVariableNode<double>
         base.InitializeSlots();
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         var node = new VariableNodeDouble
         {
@@ -351,7 +351,7 @@ public class VariableNodeUByte : GenericVariableNode<byte>
         base.InitializeSlots();
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         var node = new VariableNodeUByte
         {
@@ -376,7 +376,7 @@ public class VariableNodeUShort : GenericVariableNode<ushort>
         base.InitializeSlots();
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         var node = new VariableNodeUShort
         {
@@ -401,7 +401,7 @@ public class VariableNodeUInt : GenericVariableNode<uint>
         base.InitializeSlots();
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         var node = new VariableNodeUInt
         {
@@ -426,7 +426,7 @@ public class VariableNodeULong : GenericVariableNode<ulong>
         base.InitializeSlots();
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         var node = new VariableNodeULong
         {

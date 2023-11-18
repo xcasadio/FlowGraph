@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 
 namespace FlowGraph.Nodes.Actions.Math;
@@ -15,7 +16,15 @@ public abstract class ToIntegerNode<TIn> : MathCastOperatorNode<TIn, int>
         dynamic x = a;
         return (int)Convert.ChangeType(x, typeof(int));
     }
+
+    public override Statement GenerateAst()
+    {
+        //new If()
+
+        throw new NotImplementedException();
+    }
 }
+
 [Name("Byte to Integer")]
 public class ToIntegerNodeByte : ToIntegerNode<sbyte>
 {
@@ -25,7 +34,7 @@ public class ToIntegerNodeByte : ToIntegerNode<sbyte>
     { }
     public ToIntegerNodeByte(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToIntegerNodeByte(); }
+    public override SequenceNode Copy() { return new ToIntegerNodeByte(); }
 }
 
 [Name("Char to Integer")]
@@ -37,7 +46,7 @@ public class ToIntegerNodeChar : ToIntegerNode<char>
     { }
     public ToIntegerNodeChar(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToIntegerNodeChar(); }
+    public override SequenceNode Copy() { return new ToIntegerNodeChar(); }
 }
 
 [Name("Short to Integer")]
@@ -49,7 +58,7 @@ public class ToIntegerNodeShort : ToIntegerNode<short>
     { }
     public ToIntegerNodeShort(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToIntegerNodeShort(); }
+    public override SequenceNode Copy() { return new ToIntegerNodeShort(); }
 }
 
 [Name("Long to Integer")]
@@ -61,7 +70,7 @@ public class ToIntegerNodeLong : ToIntegerNode<long>
     { }
     public ToIntegerNodeLong(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToIntegerNodeLong(); }
+    public override SequenceNode Copy() { return new ToIntegerNodeLong(); }
 }
 
 [Name("Float to Integer")]
@@ -73,7 +82,7 @@ public class ToIntegerNodeFloat : ToIntegerNode<float>
     { }
     public ToIntegerNodeFloat(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToIntegerNodeFloat(); }
+    public override SequenceNode Copy() { return new ToIntegerNodeFloat(); }
 }
 
 [Name("Double to Integer")]
@@ -85,7 +94,7 @@ public class ToIntegerNodeDouble : ToIntegerNode<double>
     { }
     public ToIntegerNodeDouble(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToIntegerNodeDouble(); }
+    public override SequenceNode Copy() { return new ToIntegerNodeDouble(); }
 }
 
 [Name("String to Integer")]
@@ -97,5 +106,5 @@ public class ToIntegerNodeString : ToIntegerNode<string>
     { }
     public ToIntegerNodeString(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new ToIntegerNodeString(); }
+    public override SequenceNode Copy() { return new ToIntegerNodeString(); }
 }

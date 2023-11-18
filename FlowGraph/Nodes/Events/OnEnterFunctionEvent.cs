@@ -89,7 +89,7 @@ internal class OnEnterFunctionEvent : EventNode
         node.AddAttribute("functionID", _function.Id.ToString());
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         return new OnEnterFunctionEvent(_function);
     }

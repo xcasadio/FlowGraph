@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 using FlowGraph.Logger;
 using FlowGraph.Process;
@@ -97,6 +98,13 @@ public abstract class MathRandomNode<T> : ActionNode
 
         return info;
     }
+
+    public override Statement GenerateAst()
+    {
+        //new If()
+
+        throw new NotImplementedException();
+    }
 }
 
 [Name("Random Byte")]
@@ -108,7 +116,7 @@ public class RandomByteNode : MathRandomNode<sbyte>
     { }
     public RandomByteNode(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new RandomByteNode(); }
+    public override SequenceNode Copy() { return new RandomByteNode(); }
 }
 
 [Name("Random Short")]
@@ -120,7 +128,7 @@ public class RandomShortNode : MathRandomNode<short>
     { }
     public RandomShortNode(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new RandomShortNode(); }
+    public override SequenceNode Copy() { return new RandomShortNode(); }
 }
 
 [Name("Random Integer")]
@@ -132,7 +140,7 @@ public class RandomIntegerNode : MathRandomNode<int>
     { }
     public RandomIntegerNode(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new RandomIntegerNode(); }
+    public override SequenceNode Copy() { return new RandomIntegerNode(); }
 }
 
 [Name("Random Long")]
@@ -144,7 +152,7 @@ public class RandomLongNode : MathRandomNode<long>
     { }
     public RandomLongNode(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new RandomLongNode(); }
+    public override SequenceNode Copy() { return new RandomLongNode(); }
 }
 
 [Name("Random Float")]
@@ -156,7 +164,7 @@ public class RandomFloatNode : MathRandomNode<float>
     { }
     public RandomFloatNode(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new RandomFloatNode(); }
+    public override SequenceNode Copy() { return new RandomFloatNode(); }
 }
 
 [Name("Random Double")]
@@ -168,5 +176,5 @@ public class RandomDoubleNode : MathRandomNode<double>
     { }
     public RandomDoubleNode(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new RandomDoubleNode(); }
+    public override SequenceNode Copy() { return new RandomDoubleNode(); }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 
 namespace FlowGraph.Nodes.Actions.Math;
@@ -17,6 +18,13 @@ public abstract class SubstractionNode<T> : MathOperatorNode<T>
         dynamic y = b;
         return x - y;
     }
+
+    public override Statement GenerateAst()
+    {
+        //new If()
+
+        throw new NotImplementedException();
+    }
 }
 
 [Name("Byte")]
@@ -28,7 +36,7 @@ public class SubstractionNodeByte : SubstractionNode<sbyte>
     { }
     public SubstractionNodeByte(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new SubstractionNodeByte(); }
+    public override SequenceNode Copy() { return new SubstractionNodeByte(); }
 }
 
 [Name("Short")]
@@ -40,7 +48,7 @@ public class SubstractionNodeShort : SubstractionNode<short>
     { }
     public SubstractionNodeShort(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new SubstractionNodeShort(); }
+    public override SequenceNode Copy() { return new SubstractionNodeShort(); }
 }
 
 [Name("Integer")]
@@ -52,7 +60,7 @@ public class SubstractionNodeInt : SubstractionNode<int>
     { }
     public SubstractionNodeInt(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new SubstractionNodeInt(); }
+    public override SequenceNode Copy() { return new SubstractionNodeInt(); }
 }
 
 [Name("Long")]
@@ -64,7 +72,7 @@ public class SubstractionNodeLong : SubstractionNode<long>
     { }
     public SubstractionNodeLong(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new SubstractionNodeLong(); }
+    public override SequenceNode Copy() { return new SubstractionNodeLong(); }
 }
 
 [Name("Float")]
@@ -76,7 +84,7 @@ public class SubstractionNodeFloat : SubstractionNode<float>
     { }
     public SubstractionNodeFloat(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new SubstractionNodeFloat(); }
+    public override SequenceNode Copy() { return new SubstractionNodeFloat(); }
 }
 
 [Name("Double")]
@@ -88,5 +96,5 @@ public class SubstractionNodeDouble : SubstractionNode<double>
     { }
     public SubstractionNodeDouble(XmlNode node) : base(node) { }
 
-    protected override SequenceNode CopyImpl() { return new SubstractionNodeDouble(); }
+    public override SequenceNode Copy() { return new SubstractionNodeDouble(); }
 }

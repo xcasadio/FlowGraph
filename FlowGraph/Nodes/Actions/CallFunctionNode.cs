@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Xml;
+using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 using FlowGraph.Nodes.Events;
 using FlowGraph.Process;
@@ -7,8 +8,7 @@ using FlowGraph.Process;
 namespace FlowGraph.Nodes.Actions;
 
 [Visible(false)]
-public class CallFunctionNode
-    : ActionNode
+public class CallFunctionNode : ActionNode
 {
     public enum NodeSlotId
     {
@@ -130,7 +130,7 @@ public class CallFunctionNode
         return info;
     }
 
-    protected override SequenceNode CopyImpl()
+    public override SequenceNode Copy()
     {
         return new CallFunctionNode(_function);
     }
@@ -161,5 +161,18 @@ public class CallFunctionNode
                 OnPropertyChanged("Title");
                 break;
         }
+    }
+
+    public override Statement GenerateAst()
+    {
+        /*var tokens = new List<Token>
+        {
+            new Token(TokenType.Var, "myVariable", null);
+        };
+
+        return new FunctionCall("LogManager.Instance.WriteLineDebug" + Title, new VariableStatement());
+        */
+
+        throw new NotImplementedException();
     }
 }
