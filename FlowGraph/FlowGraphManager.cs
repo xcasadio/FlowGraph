@@ -1,4 +1,5 @@
-﻿using FlowGraph.Logger;
+﻿using System.Diagnostics;
+using FlowGraph.Logger;
 using Logger;
 using System.Xml;
 
@@ -6,7 +7,7 @@ namespace FlowGraph;
 
 public class FlowGraphManager
 {
-    public Sequence Sequence { get; set; } = new("sequence");
+    public Sequence Sequence { get; } = new("sequence");
     public List<SequenceFunction> Functions { get; } = new();
 
     //macros ?
@@ -23,7 +24,8 @@ public class FlowGraphManager
             {
                 foreach (XmlNode graphNode in graphNodes)
                 {
-                    Sequence = new Sequence(graphNode);
+                    Debugger.Break(); // only one sequence
+                    Sequence.Load(graphNode);
                 }
             }
 
