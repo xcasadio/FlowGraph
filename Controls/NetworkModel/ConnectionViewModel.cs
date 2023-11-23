@@ -168,7 +168,7 @@ namespace NetworkModel
         /// <returns></returns>
         public ConnectionViewModel Copy()
         {
-            ConnectionViewModel newConn = new ConnectionViewModel
+            ConnectionViewModel newConn = new()
             {
                 DestConnector = DestConnector,
                 DestConnectorHotspot = DestConnectorHotspot,
@@ -216,13 +216,11 @@ namespace NetworkModel
 
             if (SourceConnector != null)
             {
-                if (SourceConnector.Type == ConnectorType.Input
-                    || SourceConnector.Type == ConnectorType.VariableInput)
+                if (SourceConnector.Type is ConnectorType.Input or ConnectorType.VariableInput)
                 {
                     srcDeltaX = -offset;
                 }
-                else if (SourceConnector.Type == ConnectorType.Output
-                    || SourceConnector.Type == ConnectorType.VariableOutput)
+                else if (SourceConnector.Type is ConnectorType.Output or ConnectorType.VariableOutput)
                 {
                     srcDeltaX = offset;
                 }
@@ -230,18 +228,16 @@ namespace NetworkModel
 
             if (DestConnector != null)
             {
-                if (DestConnector.Type == ConnectorType.Output
-                    || DestConnector.Type == ConnectorType.VariableOutput
-                    || DestConnector.Type == ConnectorType.VariableInputOutput)
+                if (DestConnector.Type is ConnectorType.Output or ConnectorType.VariableOutput or ConnectorType.VariableInputOutput)
                 {
                     destDeltaX = offset;
                 }
             }
 
-            PointCollection computedPoints = new PointCollection();
+            PointCollection computedPoints = new();
             computedPoints.Add(SourceConnectorHotspot);
-            computedPoints.Add(new Point(SourceConnectorHotspot.X + srcDeltaX, SourceConnectorHotspot.Y));
-            computedPoints.Add(new Point(DestConnectorHotspot.X + destDeltaX, DestConnectorHotspot.Y));
+            computedPoints.Add(new(SourceConnectorHotspot.X + srcDeltaX, SourceConnectorHotspot.Y));
+            computedPoints.Add(new(DestConnectorHotspot.X + destDeltaX, DestConnectorHotspot.Y));
             computedPoints.Add(DestConnectorHotspot);
             computedPoints.Freeze();
 

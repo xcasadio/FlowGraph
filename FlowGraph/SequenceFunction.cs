@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Xml;
+﻿using System.Xml;
 using FlowGraph.Nodes.Actions;
 using FlowGraph.Nodes.Events;
 
@@ -10,9 +8,8 @@ public class SequenceFunction : SequenceBase
 {
     public const string? XmlAttributeTypeValue = "Function";
 
-    public event EventHandler<FunctionSlotChangedEventArg> FunctionSlotChanged;
 
-    private readonly ObservableCollection<SequenceFunctionSlot> _slots = new();
+    private readonly List<SequenceFunctionSlot> _slots = new();
     private int _nextSlotId;
 
     public IEnumerable<SequenceFunctionSlot> Inputs
@@ -48,14 +45,6 @@ public class SequenceFunction : SequenceBase
     {
         AddNode(new OnEnterFunctionEvent(this));
         AddNode(new ReturnNode(this));
-
-        _slots.CollectionChanged += OnSlotCollectionChanged;
-    }
-
-    public SequenceFunction(XmlNode node)
-        : base(node)
-    {
-        _slots.CollectionChanged += OnSlotCollectionChanged;
     }
 
     public void AddInput(string name)
@@ -74,8 +63,6 @@ public class SequenceFunction : SequenceBase
         slot.VariableType = typeof(int);
 
         _slots.Add(slot);
-
-        FunctionSlotChanged?.Invoke(this, new FunctionSlotChangedEventArg(FunctionSlotChangedType.Added, slot));
     }
 
     public void RemoveSlotById(int id)
@@ -85,18 +72,9 @@ public class SequenceFunction : SequenceBase
             if (slot.Id == id)
             {
                 _slots.Remove(slot);
-
-                FunctionSlotChanged?.Invoke(this, new FunctionSlotChangedEventArg(FunctionSlotChangedType.Removed, slot));
-
                 break;
             }
         }
-    }
-
-    private void OnSlotCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-    {
-        OnPropertyChanged("Inputs");
-        OnPropertyChanged("Outputs");
     }
 
     public override void Load(XmlNode node)

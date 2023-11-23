@@ -18,30 +18,11 @@ public abstract class ActionNode : SequenceNode
         public string ErrorMessage;
     }
 
-    private string _errorMessage = "";
-    private ProcessingInfo _state;
+    public ProcessingInfo State { get; private set; }
 
-    public ProcessingInfo State
-    {
-        get => _state;
-        private set
-        {
-            _state = value;
-            OnPropertyChanged("State");
-        }
-    }
+    public string ErrorMessage { get; internal set; } = "";
 
-    public string ErrorMessage
-    {
-        get => _errorMessage;
-        internal set
-        {
-            _errorMessage = value;
-            OnPropertyChanged("ErrorMessage");
-        }
-    }
-
-    public ActionNode()
+    protected ActionNode()
     {
     }
 

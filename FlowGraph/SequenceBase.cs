@@ -1,50 +1,20 @@
-﻿using System.ComponentModel;
-using System.Xml;
+﻿using System.Xml;
 using FlowGraph.Nodes;
 using FlowGraph.Process;
 
 namespace FlowGraph;
 
-public class SequenceBase : INotifyPropertyChanged
+public class SequenceBase
 {
     static int _newId;
 
     protected readonly Dictionary<int, SequenceNode> SequenceNodes = new();
 
-    private string? _name;
-    private string? _description;
+    public string? Name { get; set; }
 
-    public string? Name
-    {
-        get => _name;
-        set
-        {
-            if (string.Equals(_name, value) == false)
-            {
-                _name = value;
-                OnPropertyChanged("Name");
-            }
-        }
-    }
+    public string? Description { get; set; }
 
-    public string? Description
-    {
-        get => _description;
-        set
-        {
-            if (string.Equals(_description, value) == false)
-            {
-                _description = value;
-                OnPropertyChanged("Description");
-            }
-        }
-    }
-
-    public int Id
-    {
-        get;
-        private set;
-    }
+    public int Id { get; private set; }
 
     public IEnumerable<SequenceNode> Nodes => SequenceNodes.Values.ToArray();
 
@@ -54,11 +24,6 @@ public class SequenceBase : INotifyPropertyChanged
     {
         Name = name;
         Id = _newId++;
-    }
-
-    protected SequenceBase(XmlNode node)
-    {
-        Load(node);
     }
 
     public SequenceNode GetNodeById(int id)
@@ -99,8 +64,6 @@ public class SequenceBase : INotifyPropertyChanged
 
     public void OnEvent(ProcessingContext context, Type type, int index, object? param)
     {
-        //_MustStop = false;
-
         foreach (var eventNode in SequenceNodes
                      .Select(pair => pair.Value as EventNode)
                      .Where(node => node != null && node.GetType() == type))
@@ -171,12 +134,5 @@ public class SequenceBase : INotifyPropertyChanged
             pair.Value.Save(nodeNode);
             pair.Value.SaveConnections(connectionList);
         }
-    }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    protected void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

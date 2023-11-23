@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Xml;
 using DotNetCodeGenerator.Ast;
 using FlowGraph.Logger;
@@ -7,16 +6,11 @@ using FlowGraph.Process;
 
 namespace FlowGraph.Nodes;
 
-public abstract class SequenceNode : INotifyPropertyChanged
+public abstract class SequenceNode
 {
-    //Used to convert a SequenceNode to a Node (graphic node)
     protected readonly List<NodeSlot> NodeSlots = new();
 
-    public int Id
-    {
-        get;
-        private set;
-    }
+    public int Id { get; private set; }
 
     protected SequenceNode()
     {
@@ -55,7 +49,7 @@ public abstract class SequenceNode : INotifyPropertyChanged
             var node = slot.ConnectedNodes[0].Node;
 
             // Connected directly to a NodeSlot value (VarOut) ?
-            if (dstSlot is NodeSlotVar @var)
+            if (dstSlot is NodeSlotVar var)
             {
                 return var.Value;
             }
@@ -91,7 +85,7 @@ public abstract class SequenceNode : INotifyPropertyChanged
                 }
             }
         }
-        else if (slot is NodeSlotVar @var)
+        else if (slot is NodeSlotVar var)
         {
             var.Value = value;
         }
@@ -174,13 +168,6 @@ public abstract class SequenceNode : INotifyPropertyChanged
         }
     }
 
-    protected void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
     public void RemoveAllConnections()
     {
         foreach (var slot in NodeSlots)
@@ -196,23 +183,11 @@ public abstract class SequenceNode : INotifyPropertyChanged
 #if EDITOR
     private static int _freeId;
 
-    private bool _isProcessing;
+    public abstract NodeType NodeType { get; }
 
-    public abstract NodeType NodeType
-    {
-        get;
-    }
+    public SlotAvailableFlag SlotFlag { get; protected set; }
 
-    public SlotAvailableFlag SlotFlag
-    {
-        get;
-        protected set;
-    }
-
-    public abstract string Title
-    {
-        get;
-    }
+    public abstract string Title { get; }
 
     public string? Comment;
 
@@ -220,15 +195,7 @@ public abstract class SequenceNode : INotifyPropertyChanged
 
     public NodeSlot[] Slots => NodeSlots.ToArray();
 
-    public bool IsProcessing
-    {
-        get => _isProcessing;
-        set
-        {
-            _isProcessing = value;
-            OnPropertyChanged("IsProcessing");
-        }
-    }
+    public bool IsProcessing { get; set; }
 
     public NodeSlot? SlotConnectorIn => NodeSlots.FirstOrDefault(slot => slot.ConnectionType == SlotType.NodeIn);
 
@@ -318,7 +285,6 @@ public abstract class SequenceNode : INotifyPropertyChanged
         foreach (var s in NodeSlots.Where(s => s.Id == id))
         {
             NodeSlots.Remove(s);
-            OnPropertyChanged("Slots");
             break;
         }
     }

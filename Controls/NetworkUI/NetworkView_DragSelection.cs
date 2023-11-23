@@ -80,7 +80,7 @@ namespace NetworkUI
 
             if (e.ChangedButton == MouseButton.Left)
             {
-                bool wasDragSelectionApplied = false;
+                var wasDragSelectionApplied = false;
 
                 if (_isDraggingSelectionRect)
                 {
@@ -126,7 +126,7 @@ namespace NetworkUI
                 //
                 // Drag selection is in progress.
                 //
-                Point curMouseDownPoint = e.GetPosition(this);
+                var curMouseDownPoint = e.GetPosition(this);
                 UpdateDragSelectionRect(_origMouseDownPoint, curMouseDownPoint);
 
                 e.Handled = true;
@@ -138,9 +138,9 @@ namespace NetworkUI
                 // but don't initiate drag selection until
                 // they have dragged past the threshold value.
                 //
-                Point curMouseDownPoint = e.GetPosition(this);
+                var curMouseDownPoint = e.GetPosition(this);
                 var dragDelta = curMouseDownPoint - _origMouseDownPoint;
-                double dragDistance = Math.Abs(dragDelta.Length);
+                var dragDistance = Math.Abs(dragDelta.Length);
                 if (dragDistance > DragThreshold)
                 {
                     //
@@ -213,11 +213,11 @@ namespace NetworkUI
         {
             _dragSelectionCanvas.Visibility = Visibility.Collapsed;
 
-            double x = Canvas.GetLeft(_dragSelectionBorder);
-            double y = Canvas.GetTop(_dragSelectionBorder);
-            double width = _dragSelectionBorder.Width;
-            double height = _dragSelectionBorder.Height;
-            Rect dragRect = new Rect(x, y, width, height);
+            var x = Canvas.GetLeft(_dragSelectionBorder);
+            var y = Canvas.GetTop(_dragSelectionBorder);
+            var width = _dragSelectionBorder.Width;
+            var height = _dragSelectionBorder.Height;
+            var dragRect = new Rect(x, y, width, height);
 
             //
             // Inflate the drag selection-rectangle by 1/10 of its size to 
@@ -233,13 +233,13 @@ namespace NetworkUI
             //
             // Find and select all the list box items.
             //
-            for (int nodeIndex = 0; nodeIndex < Nodes.Count; ++nodeIndex)
+            for (var nodeIndex = 0; nodeIndex < Nodes.Count; ++nodeIndex)
             {
                 var nodeItem = (NodeItem)_nodeItemsControl.ItemContainerGenerator.ContainerFromIndex(nodeIndex);
                 var transformToAncestor = nodeItem.TransformToAncestor(this);
-                Point itemPt1 = transformToAncestor.Transform(new Point(0, 0));
-                Point itemPt2 = transformToAncestor.Transform(new Point(nodeItem.ActualWidth, nodeItem.ActualHeight));
-                Rect itemRect = new Rect(itemPt1, itemPt2);
+                var itemPt1 = transformToAncestor.Transform(new Point(0, 0));
+                var itemPt2 = transformToAncestor.Transform(new Point(nodeItem.ActualWidth, nodeItem.ActualHeight));
+                var itemRect = new Rect(itemPt1, itemPt2);
                 if (dragRect.Contains(itemRect))
                 {
                     nodeItem.IsSelected = true;

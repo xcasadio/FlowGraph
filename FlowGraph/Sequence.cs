@@ -9,11 +9,9 @@ public class Sequence : SequenceBase
 
     public Sequence(string? name)
         : base(name)
-    { }
+    {
 
-    public Sequence(XmlNode node)
-        : base(node)
-    { }
+    }
 
     public bool ContainsEventNodeWithType(Type type)
     {

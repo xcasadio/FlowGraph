@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
+using System.Xml;
 using FlowGraph.Logger;
 using Logger;
-using System.Xml;
 
 namespace FlowGraph;
 
@@ -34,7 +34,8 @@ public class FlowGraphManager
             {
                 foreach (XmlNode graphNode in functionNodes)
                 {
-                    Functions.Add(new SequenceFunction(graphNode));
+                    Debugger.Break();
+                    //Functions.Add(new SequenceFunction(graphNode));
                 }
             }
 

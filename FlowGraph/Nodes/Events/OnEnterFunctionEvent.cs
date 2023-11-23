@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Xml;
+﻿using System.Xml;
 using FlowGraph.Attributes;
 
 namespace FlowGraph.Nodes.Events;
@@ -21,9 +20,8 @@ internal class OnEnterFunctionEvent : EventNode
     public OnEnterFunctionEvent(SequenceFunction? func)
     {
         _function = func;
-        _function.PropertyChanged += OnFuntionPropertyChanged;
     }
-
+    /*
     private void OnFunctionSlotChanged(object sender, FunctionSlotChangedEventArg e)
     {
         if (e.Type == FunctionSlotChangedType.Added)
@@ -41,27 +39,19 @@ internal class OnEnterFunctionEvent : EventNode
                 RemoveSlotById((int)NodeSlotId.OutputStart + e.FunctionSlot.Id);
             }
         }
-
-        OnPropertyChanged("Slots");
     }
-
+    */
     private void UpdateNodeSlot()
     {
         foreach (var slot in _function.Inputs)
         {
             AddFunctionSlot((int)NodeSlotId.OutputStart + slot.Id, SlotType.VarOut, slot);
-            //AddSlot((int)NodeSlotId.OutputStart + slot.Id, slot.Name, SlotType.VarOut, typeof(int));
         }
-
-        OnPropertyChanged("Slots");
-        //OnPropertyChanged("SlotVariableOut");
     }
 
     private void SetFunction(SequenceFunction? func)
     {
         _function = func;
-        _function.PropertyChanged += OnFuntionPropertyChanged;
-        _function.FunctionSlotChanged += OnFunctionSlotChanged;
         UpdateNodeSlot();
     }
 
@@ -92,15 +82,5 @@ internal class OnEnterFunctionEvent : EventNode
     public override SequenceNode Copy()
     {
         return new OnEnterFunctionEvent(_function);
-    }
-
-    void OnFuntionPropertyChanged(object sender, PropertyChangedEventArgs e)
-    {
-        switch (e.PropertyName)
-        {
-            case "Name":
-                OnPropertyChanged("Title");
-                break;
-        }
     }
 }

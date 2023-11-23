@@ -97,7 +97,7 @@ public class DelayNode : ActionNode
         }
         else
         {
-            Logger.LogManager.Instance.WriteLine(LogVerbosity.Error, $"Can't find the slot {(int)NodeSlotId.In}");
+            LogManager.Instance.WriteLine(LogVerbosity.Error, $"Can't find the slot {(int)NodeSlotId.In}");
         }
 
         return info;

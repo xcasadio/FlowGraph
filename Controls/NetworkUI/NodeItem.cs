@@ -120,7 +120,7 @@ namespace NetworkUI
                 return;
             }
 
-            int maxZ = ParentNetworkView.FindMaxZIndex();
+            var maxZ = ParentNetworkView.FindMaxZIndex();
             ZIndex = maxZ + 1;
         }
 
@@ -245,7 +245,7 @@ namespace NetworkUI
                 // Raise the event to notify that dragging is in progress.
                 //
 
-                Point curMousePoint = e.GetPosition(ParentNetworkView);
+                var curMousePoint = e.GetPosition(ParentNetworkView);
 
                 object item = this;
                 if (DataContext != null)
@@ -253,7 +253,7 @@ namespace NetworkUI
                     item = DataContext;
                 }
 
-                Vector offset = curMousePoint - _lastMousePoint;
+                var offset = curMousePoint - _lastMousePoint;
                 if (offset.X != 0.0 ||
                     offset.Y != 0.0)
                 {
@@ -269,9 +269,9 @@ namespace NetworkUI
                 // but don't initiate the drag operation until 
                 // the mouse cursor has moved more than the threshold distance.
                 //
-                Point curMousePoint = e.GetPosition(ParentNetworkView);
+                var curMousePoint = e.GetPosition(ParentNetworkView);
                 var dragDelta = curMousePoint - _lastMousePoint;
-                double dragDistance = Math.Abs(dragDelta.Length);
+                var dragDistance = Math.Abs(dragDelta.Length);
                 if (dragDistance > DragThreshold)
                 {
                     //
@@ -281,7 +281,7 @@ namespace NetworkUI
                     //
                     // Raise an event to notify that that dragging has commenced.
                     //
-                    NodeDragStartedEventArgs eventArgs = new NodeDragStartedEventArgs(NodeDragStartedEvent, this, new[] { this });
+                    var eventArgs = new NodeDragStartedEventArgs(NodeDragStartedEvent, this, new[] { this });
                     RaiseEvent(eventArgs);
 
                     if (eventArgs.Cancel)

@@ -6,6 +6,35 @@ namespace FlowGraph.Nodes;
 
 public abstract class VariableNode : SequenceNode
 {
+    public abstract object? Value { get; set; }
+
+    protected VariableNode()
+    {
+    }
+
+    protected VariableNode(XmlNode node)
+        : base(node)
+    {
+    }
+
+    protected override void InitializeSlots()
+    {
+        SlotFlag = SlotAvailableFlag.DefaultFlagVariable;
+    }
+
+    public void Allocate(MemoryStack memoryStack)
+    {
+        // TODO : create function => object abstract CopyValue(object val_) ?????
+        // do this only to copy the value
+        var clone = (VariableNode)Copy();
+        memoryStack.Allocate(Id, clone.Value);
+    }
+
+    public void Deallocate(MemoryStack memoryStack)
+    {
+        memoryStack.Deallocate(Id);
+    }
+
 #if EDITOR
     public override NodeType NodeType => NodeType.Variable;
     public NodeSlot VariableSlot => NodeSlots[0];
@@ -29,37 +58,4 @@ public abstract class VariableNode : SequenceNode
     }
 
 #endif
-
-    public VariableNode()
-    {
-    }
-
-    protected VariableNode(XmlNode node)
-        : base(node)
-    {
-    }
-
-    protected override void InitializeSlots()
-    {
-        SlotFlag = SlotAvailableFlag.DefaultFlagVariable;
-    }
-
-    public abstract object? Value
-    {
-        get;
-        set;
-    }
-
-    public void Allocate(MemoryStack memoryStack)
-    {
-        // TODO : create function => object abstract CopyValue(object val_) ?????
-        // do this only to copy the value
-        var clone = (VariableNode)Copy();
-        memoryStack.Allocate(Id, clone.Value);
-    }
-
-    public void Deallocate(MemoryStack memoryStack)
-    {
-        memoryStack.Deallocate(Id);
-    }
 }

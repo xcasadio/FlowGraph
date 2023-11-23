@@ -1,4 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Windows;
 using FlowGraph.Nodes;
 using Utils;
@@ -18,7 +21,7 @@ namespace NetworkModel
         /// <summary>
         /// The connections that are attached to this connector, or null if no connections are attached.
         /// </summary>
-        private ImpObservableCollection<ConnectionViewModel> _attachedConnections;
+        private ObservableCollection<ConnectionViewModel> _attachedConnections;
 
         /// <summary>
         /// The hotspot (or center) of the connector.
@@ -107,15 +110,14 @@ namespace NetworkModel
         /// <summary>
         /// The connections that are attached to this connector, or null if no connections are attached.
         /// </summary>
-        public ImpObservableCollection<ConnectionViewModel> AttachedConnections
+        public ObservableCollection<ConnectionViewModel> AttachedConnections
         {
             get
             {
                 if (_attachedConnections == null)
                 {
-                    _attachedConnections = new ImpObservableCollection<ConnectionViewModel>();
-                    _attachedConnections.ItemsAdded += attachedConnections_ItemsAdded;
-                    _attachedConnections.ItemsRemoved += attachedConnections_ItemsRemoved;
+                    _attachedConnections = new();
+                    _attachedConnections.CollectionChanged += AttachedConnectionsOnCollectionChanged;
                 }
 
                 return _attachedConnections;
@@ -181,17 +183,29 @@ namespace NetworkModel
             }
         }
 
+        private void AttachedConnectionsOnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                attachedConnections_ItemsAdded(sender, e.NewItems);
+            }
+            else if (e.Action is NotifyCollectionChangedAction.Remove or NotifyCollectionChangedAction.Reset)
+            {
+                attachedConnections_ItemsRemoved(sender, e.OldItems);
+            }
+        }
+
         /// <summary>
         /// Debug checking to ensure that no connection is added to the list twice.
         /// </summary>
-        private void attachedConnections_ItemsAdded(object sender, CollectionItemsChangedEventArgs e)
+        private void attachedConnections_ItemsAdded(object sender, IList newItems)
         {
-            foreach (ConnectionViewModel connection in e.Items)
+            foreach (ConnectionViewModel connection in newItems)
             {
                 connection.ConnectionChanged += connection_ConnectionChanged;
             }
 
-            if ((AttachedConnections.Count - e.Items.Count) == 0)
+            if ((AttachedConnections.Count - newItems.Count) == 0)
             {
                 // The first connection has been added, notify the data-binding system that
                 // 'IsConnected' should be re-evaluated.
@@ -203,9 +217,9 @@ namespace NetworkModel
         /// <summary>
         /// Event raised when connections have been removed from the connector.
         /// </summary>
-        private void attachedConnections_ItemsRemoved(object sender, CollectionItemsChangedEventArgs e)
+        private void attachedConnections_ItemsRemoved(object sender, IList newItems)
         {
-            foreach (ConnectionViewModel connection in e.Items)
+            foreach (ConnectionViewModel connection in newItems)
             {
                 connection.ConnectionChanged -= connection_ConnectionChanged;
             }

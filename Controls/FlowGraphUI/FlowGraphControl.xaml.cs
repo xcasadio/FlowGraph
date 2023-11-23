@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Diagnostics;
+using System.Reflection.Metadata;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using FlowGraph.Attributes;
 using FlowGraph.Logger;
 using FlowGraph.Nodes;
 using FlowGraph.Nodes.Variables;
@@ -17,22 +17,12 @@ namespace FlowGraphUI;
 
 public partial class FlowGraphControl : UserControl
 {
-    /// <summary>
-    /// Use to copy/paste nodes (shared with all graphs)
-    /// </summary>
     private static readonly List<NodeViewModel> ClipboardNodes = new(10);
 
     private bool _isContextMenuCreated;
 
-
-    /// <summary>
-    /// An event raised when the nodes selected in the NetworkView has changed.
-    /// </summary>
     public event SelectionChangedEventHandler SelectionChanged;
 
-    /// <summary>
-    /// Convenient accessor for the view-model.
-    /// </summary>
     public SequenceViewModel ViewModel => (SequenceViewModel)DataContext;
 
     public FlowGraphControl()
@@ -58,52 +48,29 @@ public partial class FlowGraphControl : UserControl
 
     void OnLoaded(object sender, RoutedEventArgs e)
     {
-        if (_isContextMenuCreated == false)
+        if (_isContextMenuCreated)
         {
-            _isContextMenuCreated = true;
+            return;
+        }
 
-            IEnumerable<Type> classes = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(t => t.GetTypes())
-                .Where(t => t.IsClass
-                            && t.IsGenericType == false
-                            && t.IsInterface == false
-                            && t.IsAbstract == false
-                            && t.IsSubclassOf(typeof(SequenceNode)));
+        foreach (var nodesByCategory in NodeRegister.NodeTypesByCategory)
+        {
+            var parent = CreateParentMenuItemNode(nodesByCategory.Key, menuItemCreateNode);
+            nodesByCategory.Value.Sort();
 
-            foreach (Type type in classes)
+            foreach (var nodeDescription in nodesByCategory.Value)
             {
-                Attribute browsableAtt = Attribute.GetCustomAttribute(type, typeof(Visible), true);
-                if (browsableAtt != null
-                    && ((Visible)browsableAtt).Value == false)
+                var item = new MenuItem
                 {
-                    continue;
-                }
-
-                Attribute categAtt = Attribute.GetCustomAttribute(type, typeof(Category), true);
-                Attribute nameAtt = Attribute.GetCustomAttribute(type, typeof(Name), true);
-
-                if (nameAtt == null
-                    || string.IsNullOrWhiteSpace(((Name)nameAtt).DisplayName))
-                {
-                    LogManager.Instance.WriteLine(
-                        LogVerbosity.Error,
-                        "Can't create menu for the type '{0}' because the attribute Name is not specified",
-                        type.FullName);
-                    continue;
-                }
-
-                string categPath = categAtt == null ? "" : ((Category)categAtt).CategoryPath;
-
-                MenuItem parent = CreateParentMenuItemNode(categPath, menuItemCreateNode);
-                MenuItem item = new MenuItem
-                {
-                    Header = ((Name)nameAtt).DisplayName,
-                    Tag = type
+                    Header = nodeDescription.name,
+                    Tag = nodeDescription.type
                 };
                 item.Click += MenuItemCreateNode_Click;
                 parent.Items.Add(item);
             }
         }
+
+        _isContextMenuCreated = true;
     }
 
     MenuItem CreateParentMenuItemNode(string categPath, MenuItem parent)
@@ -113,7 +80,7 @@ public partial class FlowGraphControl : UserControl
             return parent;
         }
 
-        string[] folders = categPath.Split('/');
+        var folders = categPath.Split('/');
         categPath = categPath.Remove(0, folders[0].Length);
         if (categPath.Length > 1) categPath = categPath.Remove(0, 1);
 
@@ -125,7 +92,7 @@ public partial class FlowGraphControl : UserControl
             }
         }
 
-        MenuItem child = new MenuItem { Header = folders[0] };
+        var child = new MenuItem { Header = folders[0] };
         parent.Items.Add(child);
 
         return CreateParentMenuItemNode(categPath, child);
@@ -135,7 +102,7 @@ public partial class FlowGraphControl : UserControl
     {
         if (sender is MenuItem item)
         {
-            Type type = item.Tag as Type;
+            var type = item.Tag as Type;
             CreateNode((SequenceNode)Activator.CreateInstance(type));
         }
     }
@@ -173,7 +140,7 @@ public partial class FlowGraphControl : UserControl
         var draggedOutConnector = (ConnectorViewModel)e.ConnectorDraggedOut;
         var draggedOverConnector = (ConnectorViewModel)e.DraggedOverConnector;
         object feedbackIndicator = null;
-        bool connectionOk = true;
+        var connectionOk = true;
 
         ViewModel.QueryConnectionFeedback(draggedOutConnector, draggedOverConnector, out feedbackIndicator, out connectionOk);
 
@@ -195,7 +162,7 @@ public partial class FlowGraphControl : UserControl
     /// </summary>
     private void networkControl_ConnectionDragging(object sender, ConnectionDraggingEventArgs e)
     {
-        Point curDragPoint = Mouse.GetPosition(networkControl);
+        var curDragPoint = Mouse.GetPosition(networkControl);
         var connection = (ConnectionViewModel)e.Connection;
         ViewModel.ConnectionDragging(curDragPoint, connection);
     }
@@ -435,8 +402,8 @@ public partial class FlowGraphControl : UserControl
     {
         if (_mouseHandlingMode == MouseHandlingMode.Panning)
         {
-            Point curZoomAndPanControlMousePoint = e.GetPosition(zoomAndPanControl);
-            Vector dragOffset = curZoomAndPanControlMousePoint - _origZoomAndPanControlMouseDownPoint;
+            var curZoomAndPanControlMousePoint = e.GetPosition(zoomAndPanControl);
+            var dragOffset = curZoomAndPanControlMousePoint - _origZoomAndPanControlMouseDownPoint;
             double dragThreshold = 10;
             if (Math.Abs(dragOffset.X) > dragThreshold ||
                 Math.Abs(dragOffset.Y) > dragThreshold)
@@ -458,8 +425,8 @@ public partial class FlowGraphControl : UserControl
             // The user is left-dragging the mouse.
             // Pan the viewport by the appropriate amount.
             //
-            Point curContentMousePoint = e.GetPosition(networkControl);
-            Vector dragOffset = curContentMousePoint - _origContentMouseDownPoint;
+            var curContentMousePoint = e.GetPosition(networkControl);
+            var dragOffset = curContentMousePoint - _origContentMouseDownPoint;
 
             zoomAndPanControl.ContentOffsetX -= dragOffset.X;
             zoomAndPanControl.ContentOffsetY -= dragOffset.Y;
@@ -468,8 +435,8 @@ public partial class FlowGraphControl : UserControl
         }
         else if (_mouseHandlingMode == MouseHandlingMode.Zooming)
         {
-            Point curZoomAndPanControlMousePoint = e.GetPosition(zoomAndPanControl);
-            Vector dragOffset = curZoomAndPanControlMousePoint - _origZoomAndPanControlMouseDownPoint;
+            var curZoomAndPanControlMousePoint = e.GetPosition(zoomAndPanControl);
+            var dragOffset = curZoomAndPanControlMousePoint - _origZoomAndPanControlMouseDownPoint;
             double dragThreshold = 10;
             if (_mouseButtonDown == MouseButton.Left &&
                 (Math.Abs(dragOffset.X) > dragThreshold ||
@@ -481,7 +448,7 @@ public partial class FlowGraphControl : UserControl
                 // to zoom in on.
                 //
                 _mouseHandlingMode = MouseHandlingMode.DragZooming;
-                Point curContentMousePoint = e.GetPosition(networkControl);
+                var curContentMousePoint = e.GetPosition(networkControl);
                 InitDragZoomRect(_origContentMouseDownPoint, curContentMousePoint);
             }
 
@@ -493,7 +460,7 @@ public partial class FlowGraphControl : UserControl
             // When in drag zooming mode continously update the position of the rectangle
             // that the user is dragging out.
             //
-            Point curContentMousePoint = e.GetPosition(networkControl);
+            var curContentMousePoint = e.GetPosition(networkControl);
             SetDragZoomRect(_origContentMouseDownPoint, curContentMousePoint);
 
             e.Handled = true;
@@ -509,12 +476,12 @@ public partial class FlowGraphControl : UserControl
 
         if (e.Delta > 0)
         {
-            Point curContentMousePoint = e.GetPosition(networkControl);
+            var curContentMousePoint = e.GetPosition(networkControl);
             ZoomIn(curContentMousePoint);
         }
         else if (e.Delta < 0)
         {
-            Point curContentMousePoint = e.GetPosition(networkControl);
+            var curContentMousePoint = e.GetPosition(networkControl);
             ZoomOut(curContentMousePoint);
         }
     }
@@ -526,7 +493,7 @@ public partial class FlowGraphControl : UserControl
     {
         if ((Keyboard.Modifiers & ModifierKeys.Shift) == 0)
         {
-            Point doubleClickPoint = e.GetPosition(networkControl);
+            var doubleClickPoint = e.GetPosition(networkControl);
             zoomAndPanControl.AnimatedSnapTo(doubleClickPoint);
         }
     }
@@ -587,7 +554,7 @@ public partial class FlowGraphControl : UserControl
 
         SavePrevZoomRect();
 
-        Rect actualContentRect = DetermineAreaOfNodes(nodes);
+        var actualContentRect = DetermineAreaOfNodes(nodes);
 
         //
         // Inflate the content rect by a fraction of the actual size of the total content area.
@@ -603,13 +570,13 @@ public partial class FlowGraphControl : UserControl
     /// </summary>
     private Rect DetermineAreaOfNodes(IList nodes)
     {
-        NodeViewModel firstNode = (NodeViewModel)nodes[0];
-        Rect actualContentRect = new Rect(firstNode.X, firstNode.Y, firstNode.Size.Width, firstNode.Size.Height);
+        var firstNode = (NodeViewModel)nodes[0];
+        var actualContentRect = new Rect(firstNode.X, firstNode.Y, firstNode.Size.Width, firstNode.Size.Height);
 
-        for (int i = 1; i < nodes.Count; ++i)
+        for (var i = 1; i < nodes.Count; ++i)
         {
-            NodeViewModel node = (NodeViewModel)nodes[i];
-            Rect nodeRect = new Rect(node.X, node.Y, node.Size.Width, node.Size.Height);
+            var node = (NodeViewModel)nodes[i];
+            var nodeRect = new Rect(node.X, node.Y, node.Size.Width, node.Size.Height);
             actualContentRect = Rect.Union(actualContentRect, nodeRect);
         }
         return actualContentRect;
@@ -722,10 +689,10 @@ public partial class FlowGraphControl : UserControl
     {
         SavePrevZoomRect();
 
-        double contentX = Canvas.GetLeft(dragZoomBorder);
-        double contentY = Canvas.GetTop(dragZoomBorder);
-        double contentWidth = dragZoomBorder.Width;
-        double contentHeight = dragZoomBorder.Height;
+        var contentX = Canvas.GetLeft(dragZoomBorder);
+        var contentY = Canvas.GetTop(dragZoomBorder);
+        var contentWidth = dragZoomBorder.Width;
+        var contentHeight = dragZoomBorder.Height;
         zoomAndPanControl.AnimatedZoomTo(new Rect(contentX, contentY, contentWidth, contentHeight));
 
         FadeOutDragZoomRect();
@@ -761,7 +728,7 @@ public partial class FlowGraphControl : UserControl
             {
                 List<NodeViewModel> list = new();
 
-                foreach (object node in e.RemovedItems)
+                foreach (var node in e.RemovedItems)
                 {
                     if (node is NodeViewModel model)
                     {
@@ -779,7 +746,7 @@ public partial class FlowGraphControl : UserControl
             {
                 List<NodeViewModel> list = new();
 
-                foreach (object node in e.AddedItems)
+                foreach (var node in e.AddedItems)
                 {
                     if (node is NodeViewModel model)
                     {
@@ -825,11 +792,11 @@ public partial class FlowGraphControl : UserControl
         {
             try
             {
-                string data = e.Data.GetData(DataFormats.StringFormat) as string;
+                var data = e.Data.GetData(DataFormats.StringFormat) as string;
 
                 if (data.StartsWith((string)FlowGraphDragAndDropManager.DragPrefixFunction))
                 {
-                    string id = data.Split('#')[1];
+                    var id = data.Split('#')[1];
                     Debugger.Break();
                     //SequenceFunction func = GraphDataManager.Instance.GetFunctionById(int.Parse(id));
                     //CallFunctionNode seqNode = new CallFunctionNode(func);
@@ -837,8 +804,8 @@ public partial class FlowGraphControl : UserControl
                 }
                 else if (data.StartsWith((string)FlowGraphDragAndDropManager.DragPrefixNamedVar))
                 {
-                    string name = data.Split('#')[1];
-                    NamedVariableNode seqNode = new NamedVariableNode(name);
+                    var name = data.Split('#')[1];
+                    var seqNode = new NamedVariableNode(name);
                     ViewModel.CreateNode(seqNode, e.GetPosition(networkControl), false);
                 }
             }
@@ -877,9 +844,9 @@ public partial class FlowGraphControl : UserControl
             {
                 networkControl.SelectedNodes.Clear();
                 networkControl.IsUndoRegisterEnabled = false;
-                IEnumerable<NodeViewModel> nodes = ViewModel.CopyNodes(ClipboardNodes);
+                var nodes = ViewModel.CopyNodes(ClipboardNodes);
 
-                foreach (NodeViewModel node in nodes)
+                foreach (var node in nodes)
                 {
                     networkControl.SelectedNodes.Add(node);
                 }

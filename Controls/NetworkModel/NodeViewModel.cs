@@ -1,4 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Windows;
 using FlowGraph.Nodes;
 using Utils;
@@ -14,10 +17,8 @@ namespace NetworkModel
         /// <summary>
         /// The sequence link with this MVVM
         /// </summary>
-        public SequenceNode SeqNode
-        {
-            get;
-        }
+        public SequenceNode SeqNode { get; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -57,19 +58,29 @@ namespace NetworkModel
         /// <summary>
         /// List of all connectors (connections points) attached to the node.
         /// </summary>
-        private readonly ImpObservableCollection<ConnectorViewModel> _allConnectors = new ImpObservableCollection<ConnectorViewModel>();
+        private readonly ObservableCollection<ConnectorViewModel> _allConnectors = new();
 
         private bool _isSelected;
 
         public NodeViewModel(SequenceNode node)
         {
             SeqNode = node;
-            SeqNode.PropertyChanged += OnSeqNodePropertyChanged;
 
-            _allConnectors.ItemsAdded += allConnectors_ItemsAdded;
-            _allConnectors.ItemsRemoved += allConnectors_ItemsRemoved;
+            _allConnectors.CollectionChanged += AllConnectorsOnCollectionChanged;
 
             InitializeConnectors();
+        }
+
+        private void AllConnectorsOnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                allConnectors_ItemsAdded(sender, e.NewItems);
+            }
+            else if (e.Action is NotifyCollectionChangedAction.Remove or NotifyCollectionChangedAction.Reset)
+            {
+                allConnectors_ItemsRemoved(sender, e.OldItems);
+            }
         }
 
         public string Title => SeqNode.Title;
@@ -189,21 +200,19 @@ namespace NetworkModel
         /// <summary>
         /// List of all connectors (connections points) attached to the node.
         /// </summary>
-        public ImpObservableCollection<ConnectorViewModel> Connectors => _allConnectors;
+        public ObservableCollection<ConnectorViewModel> Connectors => _allConnectors;
 
         /// <summary>
         /// List of all input connectors (connections points) attached to the node.
         /// </summary>
         public IEnumerable<ConnectorViewModel> AllInputConnectors =>
-            _allConnectors.Where(c => c.Type == ConnectorType.Input
-                                      || c.Type == ConnectorType.VariableInput);
+            _allConnectors.Where(c => c.Type is ConnectorType.Input or ConnectorType.VariableInput);
 
         /// <summary>
         /// List of all output connectors (connections points) attached to the node.
         /// </summary>
         public IEnumerable<ConnectorViewModel> AllOutputConnectors =>
-            _allConnectors.Where(c => c.Type == ConnectorType.Output
-                                      || c.Type == ConnectorType.VariableOutput);
+            _allConnectors.Where(c => c.Type is ConnectorType.Output or ConnectorType.VariableOutput);
 
         /// <summary>
         /// List of input connectors (connections points) attached to the node.
@@ -286,7 +295,7 @@ namespace NetworkModel
             {
                 if (ContainsConnectorFromNodeSlots(slot) == false)
                 {
-                    _allConnectors.Add(new ConnectorViewModel(slot));
+                    _allConnectors.Add(new(slot));
                 }
             }
 
@@ -322,32 +331,20 @@ namespace NetworkModel
             return _allConnectors.Any(c => c.SourceSlot.Id == slot.Id);
         }
 
-        private void allConnectors_ItemsAdded(object sender, CollectionItemsChangedEventArgs e)
+        private void allConnectors_ItemsAdded(object sender, IList newItems)
         {
-            foreach (ConnectorViewModel connector in e.Items)
+            foreach (ConnectorViewModel connector in newItems)
             {
                 connector.ParentNode = this;
             }
         }
 
-        private void allConnectors_ItemsRemoved(object sender, CollectionItemsChangedEventArgs e)
+        private void allConnectors_ItemsRemoved(object sender, IList newItems)
         {
-            foreach (ConnectorViewModel connector in e.Items)
+            foreach (ConnectorViewModel connector in newItems)
             {
                 connector.ParentNode = null;
             }
-        }
-
-        void OnSeqNodePropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case "Slots":
-                    InitializeConnectors();
-                    break;
-            }
-
-            OnPropertyChanged(e.PropertyName);
         }
 
         public NodeViewModel Copy(bool copyConnections = false)

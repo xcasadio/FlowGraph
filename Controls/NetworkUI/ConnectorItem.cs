@@ -143,8 +143,8 @@ namespace NetworkUI
                 // Raise the event to notify that dragging is in progress.
                 //
 
-                Point curMousePoint = e.GetPosition(ParentNetworkView);
-                Vector offset = curMousePoint - _lastMousePoint;
+                var curMousePoint = e.GetPosition(ParentNetworkView);
+                var offset = curMousePoint - _lastMousePoint;
                 if (offset.X != 0.0 &&
                     offset.Y != 0.0)
                 {
@@ -165,9 +165,9 @@ namespace NetworkUI
                     // but don't initiate the drag operation until 
                     // the mouse cursor has moved more than the threshold distance.
                     //
-                    Point curMousePoint = e.GetPosition(ParentNetworkView);
+                    var curMousePoint = e.GetPosition(ParentNetworkView);
                     var dragDelta = curMousePoint - _lastMousePoint;
-                    double dragDistance = Math.Abs(dragDelta.Length);
+                    var dragDistance = Math.Abs(dragDelta.Length);
                     if (dragDistance > DragThreshold)
                     {
                         //
@@ -256,7 +256,7 @@ namespace NetworkUI
         /// </summary>
         private static void ParentNetworkView_PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ConnectorItem c = (ConnectorItem)d;
+            var c = (ConnectorItem)d;
             c.UpdateHotspot();
         }
 

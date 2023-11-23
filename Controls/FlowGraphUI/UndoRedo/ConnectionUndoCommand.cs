@@ -3,7 +3,7 @@ using System.Windows.Media;
 using NetworkModel;
 using UiTools;
 
-namespace FlowGraphUI;
+namespace FlowGraphUI.UndoRedo;
 
 /// <summary>
 /// Used to copy info from a ConnectionViewModel

@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Xml;
+﻿using System.Xml;
 using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 using FlowGraph.Process;
@@ -15,25 +14,18 @@ public class ReturnNode : ActionNode
         InputStart
     }
 
-    private int _functionId = -1; // used when the node is loaded, in order to retrieve the function
-    private SequenceFunction _function;
+    private readonly SequenceFunction _function;
 
     private List<int> _outputIds = new();
 
-    public override string? Title
-    {
-        get
-        {
-            return "ReturnNode";
-        }
-    }
+    public override string Title => "ReturnNode";
 
     public ReturnNode(SequenceFunction function)
     {
         _function = function;
-        _function.PropertyChanged += OnFuntionPropertyChanged;
     }
 
+    /*
     private void OnFunctionSlotChanged(object sender, FunctionSlotChangedEventArg e)
     {
         if (e.Type == FunctionSlotChangedType.Added)
@@ -51,21 +43,7 @@ public class ReturnNode : ActionNode
                 RemoveSlotById((int)NodeSlotId.InputStart + e.FunctionSlot.Id);
             }
         }
-
-        OnPropertyChanged("Slots");
-    }
-
-    private void UpdateNodeSlot()
-    {
-        foreach (var slot in _function.Outputs)
-        {
-            AddFunctionSlot((int)NodeSlotId.InputStart + slot.Id, SlotType.VarIn, slot);
-            //AddSlot((int)NodeSlotId.InputStart + slot.Id, slot.Name, SlotType.VarIn, typeof(int));
-        }
-
-        OnPropertyChanged("Slots");
-        //OnPropertyChanged("SlotVariableIn");
-    }
+    }*/
 
     protected override void InitializeSlots()
     {
@@ -99,17 +77,13 @@ public class ReturnNode : ActionNode
     protected override void Load(XmlNode node)
     {
         base.Load(node);
-        _functionId = int.Parse(node.Attributes["functionID"].Value);
+        //_functionId = int.Parse(node.Attributes["functionID"].Value);
     }
 
     public override void Save(XmlNode node)
     {
         base.Save(node);
         node.AddAttribute("functionID", _function.Id.ToString());
-    }
-
-    void OnFuntionPropertyChanged(object sender, PropertyChangedEventArgs e)
-    {
     }
 
     public override Statement GenerateAst()

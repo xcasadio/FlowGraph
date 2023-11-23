@@ -1,4 +1,7 @@
-﻿using Utils;
+﻿using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using FlowGraph;
 
 namespace NetworkModel
 {
@@ -7,44 +10,65 @@ namespace NetworkModel
     /// </summary>
     public sealed class NetworkViewModel
     {
-        /// <summary>
-        /// The collection of nodes in the network.
-        /// </summary>
-        private ImpObservableCollection<NodeViewModel> _nodesViewModel;
-
-        /// <summary>
-        /// The collection of connections in the network.
-        /// </summary>
-        private ImpObservableCollection<ConnectionViewModel> _connectionsViewModel;
+        private readonly SequenceBase _sequence;
 
         /// <summary>
         /// The collection of nodes in the network.
         /// </summary>
-        public ImpObservableCollection<NodeViewModel> Nodes => _nodesViewModel ?? (_nodesViewModel = new ImpObservableCollection<NodeViewModel>());
+        public ObservableCollection<NodeViewModel> Nodes { get; } = new();
 
         /// <summary>
         /// The collection of connections in the network.
         /// </summary>
-        public ImpObservableCollection<ConnectionViewModel> Connections
+        public ObservableCollection<ConnectionViewModel> Connections { get; } = new();
+
+        public NetworkViewModel(SequenceBase sequence)
         {
-            get
-            {
-                if (_connectionsViewModel == null)
-                {
-                    _connectionsViewModel = new ImpObservableCollection<ConnectionViewModel>();
-                    _connectionsViewModel.ItemsRemoved += connections_ItemsRemoved;
-                }
+            _sequence = sequence;
 
-                return _connectionsViewModel;
+            /*foreach (var sequenceNode in sequence.Nodes)
+            {
+                _nodesViewModel.Add(new NodeViewModel(sequenceNode))
+            }*/
+
+            Nodes.CollectionChanged += OnNodeCollectionChanged;
+
+            Connections.CollectionChanged += ConnectionsViewModelOnCollectionChanged;
+        }
+
+        private void OnNodeCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                foreach (NodeViewModel nodeViewModel in e.NewItems)
+                {
+                    _sequence.AddNode(nodeViewModel.SeqNode);
+                }
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach (NodeViewModel nodeViewModel in e.OldItems)
+                {
+                    _sequence.RemoveNode(nodeViewModel.SeqNode);
+                }
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Reset)
+            {
+                _sequence.RemoveAllNodes();
             }
         }
 
-        /// <summary>
-        /// Event raised then Connections have been removed.
-        /// </summary>
-        private void connections_ItemsRemoved(object sender, CollectionItemsChangedEventArgs e)
+        private void ConnectionsViewModelOnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            foreach (ConnectionViewModel connection in e.Items)
+            if (e.Action is NotifyCollectionChangedAction.Remove or NotifyCollectionChangedAction.Reset)
+            {
+                connections_ItemsRemoved(sender, e.OldItems);
+            }
+        }
+
+        private void connections_ItemsRemoved(object? sender, IList newItems)
+        {
+            foreach (ConnectionViewModel connection in newItems)
             {
                 connection.SourceConnector = null;
                 connection.DestConnector = null;

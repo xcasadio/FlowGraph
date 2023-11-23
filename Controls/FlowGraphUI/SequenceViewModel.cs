@@ -2,9 +2,11 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Xml;
+using System.Xml.Linq;
 using FlowGraph;
 using FlowGraph.Logger;
 using FlowGraph.Nodes;
+using FlowGraphUI.UndoRedo;
 using NetworkModel;
 using NetworkUI;
 using UiTools;
@@ -188,17 +190,12 @@ public class SequenceViewModel : AbstractModelBase
         }
     }
 
-    private SequenceViewModel()
-    {
-        Network = new NetworkViewModel();
-        UndoRedoManager = new UndoRedoManager(LogManager.Instance);
-    }
-
-    public SequenceViewModel(SequenceBase sequenceBase) : this()
+    public SequenceViewModel(SequenceBase sequenceBase)
     {
         _sequence = sequenceBase;
-        _sequence.PropertyChanged -= OnSequencePropertyChanged;
-        _sequence.PropertyChanged += OnSequencePropertyChanged;
+
+        Network = new NetworkViewModel(_sequence);
+        UndoRedoManager = new UndoRedoManager(LogManager.Instance);
     }
 
     /// <summary>
@@ -501,16 +498,6 @@ public class SequenceViewModel : AbstractModelBase
     }
 
     /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    void OnSequencePropertyChanged(object sender, PropertyChangedEventArgs e)
-    {
-        OnPropertyChanged(e.PropertyName);
-    }
-
-    /// <summary>
     /// Delete the currently selected nodes from the view-model.
     /// </summary>
     public void DeleteSelectedNodes()
@@ -546,7 +533,11 @@ public class SequenceViewModel : AbstractModelBase
             UndoRedoManager.Add(new DeleteNodeUndoCommand(this, node));
         }
 
-        Network.Connections.RemoveRange(node.AttachedConnections);
+        foreach (var connectionViewModel in node.AttachedConnections)
+        {
+            Network.Connections.Remove(connectionViewModel);
+        }
+
         Network.Nodes.Remove(node);
     }
 
@@ -563,10 +554,16 @@ public class SequenceViewModel : AbstractModelBase
 
         foreach (var node in nodes)
         {
-            Network.Connections.RemoveRange(node.AttachedConnections);
+            foreach (var connectionViewModel in node.AttachedConnections)
+            {
+                Network.Connections.Remove(connectionViewModel);
+            }
         }
 
-        Network.Nodes.RemoveRange(nodes);
+        foreach (var nodeViewModel in Network.Nodes)
+        {
+            Network.Nodes.Remove(nodeViewModel);
+        }
     }
 
     /// <summary>
@@ -648,7 +645,11 @@ public class SequenceViewModel : AbstractModelBase
         }
 
         UndoRedoManager.Add(new CreateNodesUndoCommand(this, newNodes));
-        Network.Nodes.AddRange(newNodes);
+
+        foreach (var nodeViewModel in newNodes)
+        {
+            Network.Nodes.Add(nodeViewModel);
+        }
 
         return newNodes;
     }
@@ -680,7 +681,10 @@ public class SequenceViewModel : AbstractModelBase
             UndoRedoManager.Add(new CreateConnectionsUndoCommand(this, connections));
         }
 
-        Network.Connections.AddRange(connections);
+        foreach (var connectionViewModel in connections)
+        {
+            Network.Connections.Add(connectionViewModel);
+        }
     }
 
     public void DeleteConnections(IEnumerable<ConnectionViewModel> connections, bool saveUndo = false)
@@ -690,7 +694,10 @@ public class SequenceViewModel : AbstractModelBase
             UndoRedoManager.Add(new DeleteConnectionsUndoCommand(this, connections));
         }
 
-        Network.Connections.RemoveRange(connections);
+        foreach (var connectionViewModel in connections)
+        {
+            Network.Connections.Remove(connectionViewModel);
+        }
     }
 
     public void InitialNodeFromNewFunction()

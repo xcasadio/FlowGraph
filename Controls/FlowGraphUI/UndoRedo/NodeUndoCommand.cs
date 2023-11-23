@@ -2,7 +2,7 @@
 using NetworkUI;
 using UiTools;
 
-namespace FlowGraphUI;
+namespace FlowGraphUI.UndoRedo;
 
 class CreateNodeUndoCommand : IUndoCommand
 {
@@ -69,7 +69,10 @@ class CreateNodesUndoCommand : IUndoCommand
 
     public void Redo()
     {
-        _flowGraphVm.Network.Nodes.AddRange(_nodesVm);
+        foreach (var nodeViewModel in _nodesVm)
+        {
+            _flowGraphVm.Network.Nodes.Add(nodeViewModel);
+        }
 
         List<ConnectionViewModel> connList = new();
 
@@ -232,7 +235,11 @@ class DeleteNodesUndoCommand : IUndoCommand
         }
 
         _flowGraphVm.DeleteConnections(connList);
-        _flowGraphVm.Network.Nodes.RemoveRange(_nodesVm);
+
+        foreach (var nodeViewModel in _nodesVm)
+        {
+            _flowGraphVm.Network.Nodes.Remove(nodeViewModel);
+        }
     }
 
     public void Undo()
@@ -257,7 +264,11 @@ class DeleteNodesUndoCommand : IUndoCommand
             _connectionInfoList[i] = inf;
         }
 
-        _flowGraphVm.Network.Nodes.AddRange(_nodesVm);
+        foreach (var nodeViewModel in _nodesVm)
+        {
+            _flowGraphVm.Network.Nodes.Add(nodeViewModel);
+        }
+
         _flowGraphVm.AddConnections(connList);
     }
 

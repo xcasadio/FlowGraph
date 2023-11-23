@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Xml;
+﻿using System.Xml;
 using DotNetCodeGenerator.Ast;
 using FlowGraph.Attributes;
 using FlowGraph.Nodes.Events;
@@ -34,7 +33,7 @@ public class CallFunctionNode : ActionNode
     {
 
     }
-
+    /*
     private void OnFunctionSlotChanged(object sender, FunctionSlotChangedEventArg e)
     {
         if (e.Type == FunctionSlotChangedType.Added)
@@ -64,7 +63,7 @@ public class CallFunctionNode : ActionNode
 
         OnPropertyChanged("Slots");
     }
-
+    */
     private void UpdateNodeSlot()
     {
         GetFunction();
@@ -72,24 +71,12 @@ public class CallFunctionNode : ActionNode
         foreach (var slot in _function.Inputs)
         {
             AddFunctionSlot((int)NodeSlotId.InputStart + slot.Id, SlotType.VarIn, slot);
-            //AddSlot((int)NodeSlotId.InputStart + slot.Id, slot.Name, SlotType.VarIn, slot.VarType);
         }
 
         foreach (var slot in _function.Outputs)
         {
             AddFunctionSlot((int)NodeSlotId.OutputStart + slot.Id, SlotType.VarOut, slot);
-            //AddSlot((int)NodeSlotId.OutputStart + slot.Id, slot.Name, SlotType.VarOut, slot.VarType);
         }
-
-        OnPropertyChanged("Slots");
-        //OnPropertyChanged("SlotVariableIn");
-        //OnPropertyChanged("SlotVariableOut");
-
-        //             SlotConnectorIn
-        //             SlotConnectorOut
-        //             SlotVariableIn
-        //             SlotVariableOut
-        //             SlotVariableInOut
     }
 
     private SequenceFunction GetFunction()
@@ -106,8 +93,6 @@ public class CallFunctionNode : ActionNode
     private void SetFunction(SequenceFunction func)
     {
         _function = func;
-        _function.PropertyChanged += OnFunctionPropertyChanged!;
-        _function.FunctionSlotChanged += OnFunctionSlotChanged!;
         UpdateNodeSlot();
     }
 
@@ -151,16 +136,6 @@ public class CallFunctionNode : ActionNode
     {
         base.Save(node);
         node.AddAttribute("functionID", GetFunction().Id.ToString());
-    }
-
-    private void OnFunctionPropertyChanged(object sender, PropertyChangedEventArgs e)
-    {
-        switch (e.PropertyName)
-        {
-            case "Name":
-                OnPropertyChanged("Title");
-                break;
-        }
     }
 
     public override Statement GenerateAst()

@@ -39,8 +39,6 @@ public abstract class GenericVariableNode<T> : VariableNode
                 default:
                     throw new InvalidCastException("GenericVariableNode<T>.Value : object can not be converted to " + typeof(T).Name + ".");
             }
-
-            OnPropertyChanged("Value");
         }
     }
 

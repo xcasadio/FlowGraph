@@ -13,7 +13,7 @@ public class FlowGraphViewModel : AbstractModelBase
     public string Description => _flowGraphManager.Sequence.Description;
     public FlowGraphManager FlowGraphManager => _flowGraphManager;
     public SequenceViewModel SequenceViewModel { get; }
-    public ObservableCollection<SequenceViewModel> Functions { get; } = new();
+    public System.Collections.ObjectModel.ObservableCollection<SequenceViewModel> Functions { get; } = new();
 
     public FlowGraphViewModel(FlowGraphManager flowGraphManager)
     {

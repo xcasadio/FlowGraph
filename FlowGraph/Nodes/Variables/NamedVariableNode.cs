@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Xml;
+﻿using System.Xml;
 using FlowGraph.Attributes;
 
 namespace FlowGraph.Nodes.Variables;
@@ -28,7 +27,6 @@ public sealed class NamedVariableNode : VariableNode
     public NamedVariableNode(string? name)
     {
         _value = NamedVariableManager.Instance.GetNamedVariable(name);
-        _value.PropertyChanged += OnNamedVariablePropertyChanged;
         AddSlot(0, string.Empty, SlotType.VarInOut, _value.VariableType);
     }
 
@@ -45,11 +43,6 @@ public sealed class NamedVariableNode : VariableNode
     public override SequenceNode Copy()
     {
         return new NamedVariableNode(_value.Name);
-    }
-
-    private void OnNamedVariablePropertyChanged(object sender, PropertyChangedEventArgs e)
-    {
-        OnPropertyChanged(e.PropertyName);
     }
 
     protected override object LoadValue(XmlNode node)

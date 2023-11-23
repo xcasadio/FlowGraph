@@ -63,7 +63,7 @@ namespace NetworkUI
             // Raise an event so that application code can create a connection and
             // add it to the view-model.
             //
-            ConnectionDragStartedEventArgs eventArgs = new ConnectionDragStartedEventArgs(ConnectionDragStartedEvent, this, _draggedOutNodeDataContext, _draggedOutConnectorDataContext);
+            var eventArgs = new ConnectionDragStartedEventArgs(ConnectionDragStartedEvent, this, _draggedOutNodeDataContext, _draggedOutConnectorDataContext);
             RaiseEvent(eventArgs);
 
             //
@@ -89,7 +89,7 @@ namespace NetworkUI
 
             Trace.Assert((ConnectorItem)e.OriginalSource == _draggedOutConnectorItem);
 
-            Point mousePoint = Mouse.GetPosition(this);
+            var mousePoint = Mouse.GetPosition(this);
             //
             // Raise an event so that application code can compute intermediate connection points.
             //
@@ -106,7 +106,7 @@ namespace NetworkUI
 
             ConnectorItem connectorDraggedOver = null;
             object connectorDataContextDraggedOver = null;
-            bool dragOverSuccess = DetermineConnectorItemDraggedOver(mousePoint, out connectorDraggedOver, out connectorDataContextDraggedOver);
+            var dragOverSuccess = DetermineConnectorItemDraggedOver(mousePoint, out connectorDraggedOver, out connectorDataContextDraggedOver);
             if (connectorDraggedOver != null)
             {
                 //
@@ -155,7 +155,7 @@ namespace NetworkUI
 
             Trace.Assert((ConnectorItem)e.OriginalSource == _draggedOutConnectorItem);
 
-            Point mousePoint = Mouse.GetPosition(this);
+            var mousePoint = Mouse.GetPosition(this);
 
             //
             // Figure out if the end of the connection was dropped on a connector.
@@ -266,7 +266,7 @@ namespace NetworkUI
         /// </summary>
         private void AddFeedbackAdorner(FrameworkElement adornedElement, object indicator)
         {
-            AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(this);
+            var adornerLayer = AdornerLayer.GetAdornerLayer(this);
 
             if (_feedbackAdorner != null)
             {
@@ -285,7 +285,7 @@ namespace NetworkUI
             // The view-model object 'indicator' is transformed into a UI element using
             // normal WPF data-template rules.
             //
-            ContentControl adornerElement = new ContentControl
+            var adornerElement = new ContentControl
             {
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Center,
@@ -309,7 +309,7 @@ namespace NetworkUI
                 return;
             }
 
-            AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(this);
+            var adornerLayer = AdornerLayer.GetAdornerLayer(this);
             adornerLayer.Remove(_feedbackAdorner);
             _feedbackAdorner = null;
         }
