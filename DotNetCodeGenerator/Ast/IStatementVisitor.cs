@@ -6,6 +6,7 @@ public interface IStatementVisitor
     void VisitStatement(UsingDeclaration statement);
     void VisitStatement(ClassDeclaration statement);
     void VisitStatement(FunctionDeclaration statement);
+    void VisitStatement(PropertyDeclaration statement);
 
     void VisitStatement(FunctionCall statement);
 

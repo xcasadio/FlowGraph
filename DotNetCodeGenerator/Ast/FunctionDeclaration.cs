@@ -2,6 +2,7 @@ namespace DotNetCodeGenerator.Ast;
 
 public class FunctionDeclaration : Statement
 {
+    public bool IsOverride;
     public readonly Token Name;
     public readonly List<Token> Parameters = new();
     public readonly Scope Body;

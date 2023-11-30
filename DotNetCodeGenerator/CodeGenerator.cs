@@ -184,6 +184,12 @@ public class CodeGenerator : IExpressionVisitor, IStatementVisitor
     public void VisitStatement(ClassDeclaration statement)
     {
         Write(statement.Name);
+
+        if (!string.IsNullOrEmpty(statement.Inhereted))
+        {
+            WriteNoIndent($" : {statement.Inhereted}");
+        }
+
         NewLine();
         statement.Body.Accept(this);
     }
@@ -201,7 +207,8 @@ public class CodeGenerator : IExpressionVisitor, IStatementVisitor
         {
             null => "null",
             string => $"\"{statement.Literal.Value}\"",
-            _ => $"({statement.Literal.Value})"
+            Token token => $"{token.Literal}",
+            _ => $"{statement.Literal.Value}"
         };
 
         WriteNoIndent(content);
@@ -224,6 +231,16 @@ public class CodeGenerator : IExpressionVisitor, IStatementVisitor
     public void VisitStatement(Break statement)
     {
         throw new NotImplementedException();
+    }
+
+    public void VisitStatement(PropertyDeclaration statement)
+    {
+        //public override int ExternalComponentId => (int)ScriptIds.ArcBallCamera;
+        Write("public ");
+        WriteNoIndent(statement.Name);
+        WriteNoIndent(" => -1");
+        WriteComa();
+        NewLine();
     }
 
     public void VisitStatement(FunctionCall statement)
@@ -250,6 +267,12 @@ public class CodeGenerator : IExpressionVisitor, IStatementVisitor
     public void VisitStatement(FunctionDeclaration statement)
     {
         Write("public ");
+
+        if (statement.IsOverride)
+        {
+            WriteNoIndent("override ");
+        }
+
         WriteNoIndent(statement.Name);
         BeginParenthesis();
 

@@ -4,7 +4,7 @@ public class UsingDeclaration : Statement
 {
     public UsingDeclaration(string name)
     {
-        Name = new Token(TokenType.Namespace, "using namespace ", name);
+        Name = new Token(TokenType.Namespace, "using ", name);
     }
 
     public override void Accept(IStatementVisitor statementVisitor)

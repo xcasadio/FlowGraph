@@ -12,5 +12,5 @@ public class Literal : Expression
         expressionVisitor.VisitLiteralExpression(this);
     }
 
-    public object Value;
+    public readonly object Value;
 }
