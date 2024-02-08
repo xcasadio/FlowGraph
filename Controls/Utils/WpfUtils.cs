@@ -126,9 +126,13 @@ public static class WpfUtils
         return null;
     }
 
-    public static TParentT FindParentWithType<TParentT>(FrameworkElement childElement)
-        where TParentT : class
+    public static TParentT FindParentWithType<TParentT>(FrameworkElement childElement) where TParentT : class
     {
+        if (childElement == null)
+        {
+            return null;
+        }
+
         if (childElement.Parent != null)
         {
             if (childElement.Parent is TParentT parent)
