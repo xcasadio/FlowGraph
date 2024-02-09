@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using DotNetCodeGenerator.Ast;
+using CSharpSyntax;
 using FlowGraph.Attributes;
 using FlowGraph.Logger;
 using FlowGraph.Process;
@@ -108,7 +108,7 @@ public class DelayNode : ActionNode
         return new DelayNode();
     }
 
-    public override Statement GenerateAst()
+    public override SyntaxNode GenerateAst()
     {
         /*var tokens = new List<Token>
         {

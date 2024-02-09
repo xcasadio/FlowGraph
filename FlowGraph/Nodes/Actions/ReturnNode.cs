@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using DotNetCodeGenerator.Ast;
+using CSharpSyntax;
 using FlowGraph.Attributes;
 using FlowGraph.Process;
 
@@ -86,7 +86,7 @@ public class ReturnNode : ActionNode
         node.AddAttribute("functionID", _function.Id.ToString());
     }
 
-    public override Statement GenerateAst()
+    public override SyntaxNode GenerateAst()
     {
         //new If()
 

@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using DotNetCodeGenerator.Ast;
+using CSharpSyntax;
 using FlowGraph.Attributes;
 using FlowGraph.Logger;
 using FlowGraph.Process;
@@ -160,7 +160,7 @@ public class ForLoopWithBreakNode : ActionNode
         return new ForLoopWithBreakNode();
     }
 
-    public override Statement GenerateAst()
+    public override SyntaxNode GenerateAst()
     {
         //new If()
 

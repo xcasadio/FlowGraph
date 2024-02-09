@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using DotNetCodeGenerator.Ast;
+using CSharpSyntax;
 using FlowGraph.Attributes;
 using FlowGraph.Nodes.Events;
 using FlowGraph.Process;
@@ -138,16 +138,10 @@ public class CallFunctionNode : ActionNode
         node.AddAttribute("functionID", GetFunction().Id.ToString());
     }
 
-    public override Statement GenerateAst()
+    public override SyntaxNode GenerateAst()
     {
-        /*var tokens = new List<Token>
-        {
-            new Token(TokenType.Var, "myVariable", null);
-        };
-
-        return new FunctionCall("LogManager.Instance.WriteLineDebug" + Title, new VariableStatement());
-        */
-
-        throw new NotImplementedException();
+        return Syntax.InvocationExpression(
+            Syntax.ParseName("_function.Name")/*,
+            Syntax.ArgumentList(Syntax.Argument(Syntax.LiteralExpression("Hello world!")))*/);
     }
 }

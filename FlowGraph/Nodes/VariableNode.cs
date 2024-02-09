@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using DotNetCodeGenerator.Ast;
+using CSharpSyntax;
 using FlowGraph.Process;
 
 namespace FlowGraph.Nodes;
@@ -52,9 +52,21 @@ public abstract class VariableNode : SequenceNode
     protected abstract object LoadValue(XmlNode node);
 
     protected abstract void SaveValue(XmlNode node);
-    public override Statement GenerateAst()
+
+    public override ExpressionSyntax GenerateAst()
     {
-        return new VariableStatement(new Token(TokenType.Var, "", Value), new Literal(Value));
+        throw new NotImplementedException();
+        /*
+        return Syntax.LocalDeclarationStatement(
+                    Syntax.VariableDeclaration(
+                        Syntax.ParseName(Value == null ? nameof(Object) : Value.GetType().Name),
+                        new[]
+                        {
+                            Syntax.VariableDeclarator(
+                                "variableNodeValue",
+                                initializer: Syntax.EqualsValueClause(Syntax.LiteralExpression(Value))
+                            )
+                        }));*/
     }
 
 #endif

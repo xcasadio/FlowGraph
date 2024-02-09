@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using DotNetCodeGenerator.Ast;
+using CSharpSyntax;
 using FlowGraph.Attributes;
 using FlowGraph.Logger;
 using FlowGraph.Process;
@@ -77,7 +77,7 @@ public class BranchNode : ActionNode
         return new BranchNode();
     }
 
-    public override Statement GenerateAst()
+    public override SyntaxNode GenerateAst()
     {
         //new If()
 

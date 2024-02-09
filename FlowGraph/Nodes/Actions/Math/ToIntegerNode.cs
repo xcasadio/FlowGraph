@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using DotNetCodeGenerator.Ast;
+using CSharpSyntax;
 using FlowGraph.Attributes;
 
 namespace FlowGraph.Nodes.Actions.Math;
@@ -17,7 +17,7 @@ public abstract class ToIntegerNode<TIn> : MathCastOperatorNode<TIn, int>
         return (int)Convert.ChangeType(x, typeof(int));
     }
 
-    public override Statement GenerateAst()
+    public override SyntaxNode GenerateAst()
     {
         //new If()
 

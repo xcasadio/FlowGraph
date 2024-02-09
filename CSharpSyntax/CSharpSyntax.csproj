@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2599AD78-93D4-498C-A2A9-865E4ECA0D9E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CSharpSyntax</RootNamespace>
+    <AssemblyName>CSharpSyntax</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>3021</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\Support\Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>.\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CollectionExtensions.cs" />
+    <Compile Include="CSharpSyntaxException.cs" />
+    <Compile Include="Escaping.cs" />
+    <Compile Include="Generated\AccessorDeclarationKind.cs" />
+    <Compile Include="Generated\AccessorDeclarationSyntax.cs" />
+    <Compile Include="Generated\AccessorListSyntax.cs" />
+    <Compile Include="Generated\AliasQualifiedNameSyntax.cs" />
+    <Compile Include="Generated\AnonymousMethodExpressionSyntax.cs" />
+    <Compile Include="Generated\AnonymousObjectCreationExpressionSyntax.cs" />
+    <Compile Include="Generated\AnonymousObjectMemberDeclaratorSyntax.cs" />
+    <Compile Include="Generated\ArgumentListSyntax.cs" />
+    <Compile Include="Generated\ArgumentSyntax.cs" />
+    <Compile Include="Generated\ArrayCreationExpressionSyntax.cs" />
+    <Compile Include="Generated\ArrayRankSpecifierSyntax.cs" />
+    <Compile Include="Generated\ArrayTypeSyntax.cs" />
+    <Compile Include="Generated\AscendingOrDescending.cs" />
+    <Compile Include="Generated\AttributeArgumentListSyntax.cs" />
+    <Compile Include="Generated\AttributeArgumentSyntax.cs" />
+    <Compile Include="Generated\AttributeListSyntax.cs" />
+    <Compile Include="Generated\AttributeSyntax.cs" />
+    <Compile Include="Generated\AttributeTarget.cs" />
+    <Compile Include="Generated\AwaitExpressionSyntax.cs" />
+    <Compile Include="Generated\BaseArgumentListSyntax.cs" />
+    <Compile Include="Generated\BaseExpressionSyntax.cs" />
+    <Compile Include="Generated\BaseFieldDeclarationSyntax.cs" />
+    <Compile Include="Generated\BaseListSyntax.cs" />
+    <Compile Include="Generated\BaseMethodDeclarationSyntax.cs" />
+    <Compile Include="Generated\BaseParameterListSyntax.cs" />
+    <Compile Include="Generated\BasePropertyDeclarationSyntax.cs" />
+    <Compile Include="Generated\BaseTypeDeclarationSyntax.cs" />
+    <Compile Include="Generated\BinaryExpressionSyntax.cs" />
+    <Compile Include="Generated\BinaryOperator.cs" />
+    <Compile Include="Generated\BlockSyntax.cs" />
+    <Compile Include="Generated\BracketedArgumentListSyntax.cs" />
+    <Compile Include="Generated\BracketedParameterListSyntax.cs" />
+    <Compile Include="Generated\BreakStatementSyntax.cs" />
+    <Compile Include="Generated\CaseOrDefault.cs" />
+    <Compile Include="Generated\CastExpressionSyntax.cs" />
+    <Compile Include="Generated\CatchClauseSyntax.cs" />
+    <Compile Include="Generated\CatchDeclarationSyntax.cs" />
+    <Compile Include="Generated\CheckedExpressionSyntax.cs" />
+    <Compile Include="Generated\CheckedOrUnchecked.cs" />
+    <Compile Include="Generated\CheckedStatementSyntax.cs" />
+    <Compile Include="Generated\ClassDeclarationSyntax.cs" />
+    <Compile Include="Generated\ClassOrStruct.cs" />
+    <Compile Include="Generated\ClassOrStructConstraintSyntax.cs" />
+    <Compile Include="Generated\CompilationUnitSyntax.cs" />
+    <Compile Include="Generated\ConditionalExpressionSyntax.cs" />
+    <Compile Include="Generated\ConstructorConstraintSyntax.cs" />
+    <Compile Include="Generated\ConstructorDeclarationSyntax.cs" />
+    <Compile Include="Generated\ConstructorInitializerSyntax.cs" />
+    <Compile Include="Generated\ContinueStatementSyntax.cs" />
+    <Compile Include="Generated\ConversionOperatorDeclarationSyntax.cs" />
+    <Compile Include="Generated\Modifiers.cs" />
+    <Compile Include="Generated\DefaultExpressionSyntax.cs" />
+    <Compile Include="Generated\DelegateDeclarationSyntax.cs" />
+    <Compile Include="Generated\DestructorDeclarationSyntax.cs" />
+    <Compile Include="Generated\DoStatementSyntax.cs" />
+    <Compile Include="Generated\ElementAccessExpressionSyntax.cs" />
+    <Compile Include="Generated\ElseClauseSyntax.cs" />
+    <Compile Include="Generated\EmptyStatementSyntax.cs" />
+    <Compile Include="Generated\EnumDeclarationSyntax.cs" />
+    <Compile Include="Generated\EnumMemberDeclarationSyntax.cs" />
+    <Compile Include="Generated\EqualsValueClauseSyntax.cs" />
+    <Compile Include="Generated\EventDeclarationSyntax.cs" />
+    <Compile Include="Generated\EventFieldDeclarationSyntax.cs" />
+    <Compile Include="Generated\ExplicitInterfaceSpecifierSyntax.cs" />
+    <Compile Include="Generated\ExpressionStatementSyntax.cs" />
+    <Compile Include="Generated\ExpressionSyntax.cs" />
+    <Compile Include="Generated\ExternAliasDirectiveSyntax.cs" />
+    <Compile Include="Generated\FieldDeclarationSyntax.cs" />
+    <Compile Include="Generated\FinallyClauseSyntax.cs" />
+    <Compile Include="Generated\ForEachStatementSyntax.cs" />
+    <Compile Include="Generated\ForStatementSyntax.cs" />
+    <Compile Include="Generated\FromClauseSyntax.cs" />
+    <Compile Include="Generated\GenericNameSyntax.cs" />
+    <Compile Include="Generated\GotoStatementSyntax.cs" />
+    <Compile Include="Generated\GroupClauseSyntax.cs" />
+    <Compile Include="Generated\IdentifierNameSyntax.cs" />
+    <Compile Include="Generated\IfStatementSyntax.cs" />
+    <Compile Include="Generated\ImplicitArrayCreationExpressionSyntax.cs" />
+    <Compile Include="Generated\ImplicitOrExplicit.cs" />
+    <Compile Include="Generated\IndexerDeclarationSyntax.cs" />
+    <Compile Include="Generated\InitializerExpressionSyntax.cs" />
+    <Compile Include="Generated\InstanceExpressionSyntax.cs" />
+    <Compile Include="Generated\InterfaceDeclarationSyntax.cs" />
+    <Compile Include="Generated\InvocationExpressionSyntax.cs" />
+    <Compile Include="Generated\ISyntaxVisitor.cs" />
+    <Compile Include="Generated\JoinClauseSyntax.cs" />
+    <Compile Include="Generated\JoinIntoClauseSyntax.cs" />
+    <Compile Include="Generated\LabeledStatementSyntax.cs" />
+    <Compile Include="Generated\LetClauseSyntax.cs" />
+    <Compile Include="Generated\LiteralExpressionSyntax.cs" />
+    <Compile Include="Generated\LocalDeclarationStatementSyntax.cs" />
+    <Compile Include="Generated\LockStatementSyntax.cs" />
+    <Compile Include="Generated\MemberAccessExpressionSyntax.cs" />
+    <Compile Include="Generated\MemberDeclarationSyntax.cs" />
+    <Compile Include="Generated\MethodDeclarationSyntax.cs" />
+    <Compile Include="Generated\NameColonSyntax.cs" />
+    <Compile Include="Generated\NameEqualsSyntax.cs" />
+    <Compile Include="Generated\NamespaceDeclarationSyntax.cs" />
+    <Compile Include="Generated\NameSyntax.cs" />
+    <Compile Include="Generated\NullableTypeSyntax.cs" />
+    <Compile Include="Generated\ObjectCreationExpressionSyntax.cs" />
+    <Compile Include="Generated\OmittedArraySizeExpressionSyntax.cs" />
+    <Compile Include="Generated\OmittedTypeArgumentSyntax.cs" />
+    <Compile Include="Generated\Operator.cs" />
+    <Compile Include="Generated\OperatorDeclarationSyntax.cs" />
+    <Compile Include="Generated\OrderByClauseSyntax.cs" />
+    <Compile Include="Generated\OrderingSyntax.cs" />
+    <Compile Include="Generated\ParameterListSyntax.cs" />
+    <Compile Include="Generated\ParameterModifier.cs" />
+    <Compile Include="Generated\ParameterSyntax.cs" />
+    <Compile Include="Generated\ParenthesizedExpressionSyntax.cs" />
+    <Compile Include="Generated\ParenthesizedLambdaExpressionSyntax.cs" />
+    <Compile Include="Generated\PostfixUnaryExpressionSyntax.cs" />
+    <Compile Include="Generated\PostfixUnaryOperator.cs" />
+    <Compile Include="Generated\PredefinedType.cs" />
+    <Compile Include="Generated\PredefinedTypeSyntax.cs" />
+    <Compile Include="Generated\PrefixUnaryExpressionSyntax.cs" />
+    <Compile Include="Generated\PrefixUnaryOperator.cs" />
+    <Compile Include="Generated\PropertyDeclarationSyntax.cs" />
+    <Compile Include="Generated\QualifiedNameSyntax.cs" />
+    <Compile Include="Generated\QueryBodySyntax.cs" />
+    <Compile Include="Generated\QueryClauseSyntax.cs" />
+    <Compile Include="Generated\QueryContinuationSyntax.cs" />
+    <Compile Include="Generated\QueryExpressionSyntax.cs" />
+    <Compile Include="Generated\ReturnOrBreak.cs" />
+    <Compile Include="Generated\ReturnStatementSyntax.cs" />
+    <Compile Include="Generated\SelectClauseSyntax.cs" />
+    <Compile Include="Generated\SelectOrGroupClauseSyntax.cs" />
+    <Compile Include="Generated\SimpleLambdaExpressionSyntax.cs" />
+    <Compile Include="Generated\SimpleNameSyntax.cs" />
+    <Compile Include="Generated\SizeOfExpressionSyntax.cs" />
+    <Compile Include="Generated\StatementSyntax.cs" />
+    <Compile Include="Generated\StructDeclarationSyntax.cs" />
+    <Compile Include="Generated\SwitchLabelSyntax.cs" />
+    <Compile Include="Generated\SwitchSectionSyntax.cs" />
+    <Compile Include="Generated\SwitchStatementSyntax.cs" />
+    <Compile Include="Generated\Syntax.cs" />
+    <Compile Include="Generated\SyntaxKind.cs" />
+    <Compile Include="Generated\SyntaxVisitorBase.cs" />
+    <Compile Include="Generated\ThisExpressionSyntax.cs" />
+    <Compile Include="Generated\ThisOrBase.cs" />
+    <Compile Include="Generated\ThrowStatementSyntax.cs" />
+    <Compile Include="Generated\TryStatementSyntax.cs" />
+    <Compile Include="Generated\TypeArgumentListSyntax.cs" />
+    <Compile Include="Generated\TypeConstraintSyntax.cs" />
+    <Compile Include="Generated\TypeDeclarationSyntax.cs" />
+    <Compile Include="Generated\TypeOfExpressionSyntax.cs" />
+    <Compile Include="Generated\TypeParameterConstraintClauseSyntax.cs" />
+    <Compile Include="Generated\TypeParameterConstraintSyntax.cs" />
+    <Compile Include="Generated\TypeParameterListSyntax.cs" />
+    <Compile Include="Generated\TypeParameterSyntax.cs" />
+    <Compile Include="Generated\TypeSyntax.cs" />
+    <Compile Include="Generated\UsingDirectiveSyntax.cs" />
+    <Compile Include="Generated\UsingStatementSyntax.cs" />
+    <Compile Include="Generated\VariableDeclarationSyntax.cs" />
+    <Compile Include="Generated\VariableDeclaratorSyntax.cs" />
+    <Compile Include="Generated\Variance.cs" />
+    <Compile Include="Generated\WhereClauseSyntax.cs" />
+    <Compile Include="Generated\WhileStatementSyntax.cs" />
+    <Compile Include="Generated\YieldStatementSyntax.cs" />
+    <Compile Include="IHasAttributeLists.cs" />
+    <Compile Include="NameParsing\CSharpNamesLexer.cs" />
+    <Compile Include="NameParsing\CSharpNamesParser.cs" />
+    <Compile Include="NameParsing\Generated\CSharpNamesLexer.cs" />
+    <Compile Include="NameParsing\Generated\CSharpNamesParser.cs" />
+    <Compile Include="Printer\SyntaxWriter.BufferedWriter.cs" />
+    <Compile Include="ReflectionExtensions.cs" />
+    <Compile Include="Serialization.cs" />
+    <Compile Include="SyntaxMissing.cs" />
+    <Compile Include="Printer\CodeUtil.cs" />
+    <Compile Include="Printer\Configuration\IndentationStyle.cs" />
+    <Compile Include="Printer\Configuration\BlankLinesConfiguration.cs" />
+    <Compile Include="Printer\Configuration\BraceFormatting.cs" />
+    <Compile Include="Printer\Configuration\BracesLayoutConfiguration.cs" />
+    <Compile Include="Printer\Configuration\EmptyBraceFormatting.cs" />
+    <Compile Include="Printer\Configuration\LineBreaksAndWrappingConfiguration.cs" />
+    <Compile Include="Printer\Configuration\LineBreaksAndWrappingLineWrappingConfiguration.cs" />
+    <Compile Include="Printer\Configuration\LineBreaksAndWrappingOtherConfiguration.cs" />
+    <Compile Include="Printer\Configuration\LineBreaksAndWrappingPlaceOnNewLineConfiguration.cs" />
+    <Compile Include="Printer\Configuration\Modifier.cs" />
+    <Compile Include="Printer\Configuration\ModifiersCollection.cs" />
+    <Compile Include="Printer\Configuration\OtherAlignMultiLineConstructsConfiguration.cs" />
+    <Compile Include="Printer\Configuration\OtherConfiguration.cs" />
+    <Compile Include="Printer\Configuration\OtherIndentationConfiguration.cs" />
+    <Compile Include="Printer\Configuration\OtherModifiersConfiguration.cs" />
+    <Compile Include="Printer\Configuration\OtherOtherConfiguration.cs" />
+    <Compile Include="Printer\Configuration\SpacesAroundOperatorsConfiguration.cs" />
+    <Compile Include="Printer\Configuration\SpacesBeforeParenthesesConfiguration.cs" />
+    <Compile Include="Printer\Configuration\SpacesConfiguration.cs" />
+    <Compile Include="Printer\Configuration\SpacesOtherConfiguration.cs" />
+    <Compile Include="Printer\Configuration\SpacesTernaryOperatorConfiguration.cs" />
+    <Compile Include="Printer\Configuration\SpacesWithinParenthesesConfiguration.cs" />
+    <Compile Include="Printer\EnumTextAttribute.cs" />
+    <Compile Include="Printer\EnumTextCache.cs" />
+    <Compile Include="Printer\PrinterKeyword.cs" />
+    <Compile Include="Printer\PrinterOperator.cs" />
+    <Compile Include="Printer\Syntax.cs" />
+    <Compile Include="Printer\SyntaxPrinter.cs" />
+    <Compile Include="Printer\Configuration\SyntaxPrinterConfiguration.cs" />
+    <Compile Include="Printer\Configuration\WrapStyle.cs" />
+    <Compile Include="Printer\Configuration\XmlSerializationUtil.cs" />
+    <Compile Include="Printer\SyntaxPrinter.Linq.cs" />
+    <Compile Include="Printer\SyntaxWriter.cs" />
+    <Compile Include="Syntax.cs" />
+    <Compile Include="SyntaxTrivia.cs" />
+    <Compile Include="SyntaxTriviaKind.cs" />
+    <Compile Include="SyntaxTriviaList.cs" />
+    <Compile Include="SyntaxTriviaNode.cs" />
+    <Compile Include="SyntaxValidators.cs" />
+    <Compile Include="SyntaxWalker.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SyntaxList.cs" />
+    <Compile Include="SyntaxNode.cs" />
+    <Compile Include="ThrowHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Support\Key.snk">
+      <Link>Key.snk</Link>
+    </None>
+    <None Include="CSharpSyntax.nuspec" />
+    <None Include="NameParsing\CSharpNames.g" />
+    <None Include="Pack NuGet Package.bat" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>rem ..\..\..\Libraries\AntlrTools\Antlr3.exe -o ..\..\NameParsing\Generated ..\..\NameParsing\CSharpNames.g</PreBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using DotNetCodeGenerator.Ast;
+using CSharpSyntax;
 using FlowGraph.Attributes;
 using FlowGraph.Process;
 
@@ -73,7 +73,7 @@ public class FlipFlopNode : ActionNode
         return new FlipFlopNode();
     }
 
-    public override Statement GenerateAst()
+    public override SyntaxNode GenerateAst()
     {
         //new If()
 

@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using DotNetCodeGenerator.Ast;
+using CSharpSyntax;
 using FlowGraph.Attributes;
 using FlowGraph.Logger;
 using FlowGraph.Process;
@@ -99,7 +99,7 @@ public abstract class MathRandomNode<T> : ActionNode
         return info;
     }
 
-    public override Statement GenerateAst()
+    public override SyntaxNode GenerateAst()
     {
         //new If()
 

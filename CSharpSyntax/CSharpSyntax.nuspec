@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>CSharpSyntax</id>
+    <version>$version$</version>
+    <title>CSharpSyntax</title>
+    <authors>Pieter van Ginkel</authors>
+    <owners>Pieter van Ginkel</owners>
+    <licenseUrl>http://www.gnu.org/licenses/lgpl-3.0.txt</licenseUrl>
+    <projectUrl>http://github.com/pvginkel/CSharpSyntax</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>C# code generator based on the Roslyn API.</description>
+    <copyright>Pieter van Ginkel © 2013</copyright>
+    <tags>code-generator c# roslyn</tags>
+  </metadata>
+</package>

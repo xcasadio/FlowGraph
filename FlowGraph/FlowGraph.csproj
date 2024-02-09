@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Controls\Logger\Logger.csproj" />
-    <ProjectReference Include="..\DotNetCodeGenerator\DotNetCodeGenerator.csproj" />
+    <ProjectReference Include="..\CSharpSyntax\CSharpSyntax.csproj" />
   </ItemGroup>
 
 </Project>

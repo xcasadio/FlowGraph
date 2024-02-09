@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using System.Xml;
-using DotNetCodeGenerator.Ast;
+using CSharpSyntax;
 using FlowGraph.Logger;
 using FlowGraph.Process;
 
@@ -336,7 +336,7 @@ public abstract class SequenceNode
         }
     }
 
-    public abstract Statement GenerateAst();
+    public abstract SyntaxNode GenerateAst();
 
 #endif
 

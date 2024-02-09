@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\CSharpSyntax\CSharpSyntax.csproj" />
     <ProjectReference Include="..\..\FlowGraph\FlowGraph.csproj" />
     <ProjectReference Include="..\Logger\Logger.csproj" />
   </ItemGroup>

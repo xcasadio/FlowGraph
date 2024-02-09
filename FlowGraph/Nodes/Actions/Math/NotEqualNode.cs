@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using DotNetCodeGenerator.Ast;
+using CSharpSyntax;
 using FlowGraph.Attributes;
 
 namespace FlowGraph.Nodes.Actions.Math;
@@ -18,7 +18,7 @@ public abstract class NotEqualNode<T> : MathLogicOperatorNode<T>
         return x != y;
     }
 
-    public override Statement GenerateAst()
+    public override SyntaxNode GenerateAst()
     {
         //new If()
 

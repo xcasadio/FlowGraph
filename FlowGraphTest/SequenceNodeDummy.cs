@@ -1,5 +1,7 @@
-﻿using DotNetCodeGenerator.Ast;
+﻿
+using CSharpSyntax;
 using FlowGraph.Nodes;
+using Newtonsoft.Json.Linq;
 
 namespace FlowGraphTest;
 
@@ -16,7 +18,7 @@ public class SequenceNodeDummy : SequenceNode
     public override NodeType NodeType => NodeType.Action;
     public override string Title => "SequenceNodeDummy";
 
-    public override Statement GenerateAst()
+    public override SyntaxNode GenerateAst()
     {
         return null;
     }

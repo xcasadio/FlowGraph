@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using DotNetCodeGenerator.Ast;
+using CSharpSyntax;
 using FlowGraph.Attributes;
 using FlowGraph.Process;
 
@@ -33,26 +33,31 @@ public abstract class EventNode : SequenceNode
     {
     }
 
-    public override Statement GenerateAst()
+    public override MemberDeclarationSyntax GenerateAst()
     {
-        var block = new Scope();
+        var statements = new List<StatementSyntax>();
 
         foreach (var slot in SlotConnectorOut)
         {
             foreach (var node in slot.ConnectedNodes)
             {
-                block.Statements.Add(node.Node.GenerateAst());
+                statements.Add((StatementSyntax)node.Node.GenerateAst());
             }
         }
 
-        var parameters = new List<Token>();
+        var parameters = new List<ParameterSyntax>();
 
         foreach (var slot in SlotVariableOut)
         {
-            parameters.Add(new Token(TokenType.Var, slot.VariableType.Name, slot.Text.Replace(" ", "_")));
+            parameters.Add(Syntax.Parameter(type: slot.VariableType.Name, identifier: slot.Text.Replace(" ", "_")));
         }
 
-        return new FunctionDeclaration("function" + Title, parameters, block);
+        return Syntax.MethodDeclaration(
+            identifier: Title,
+            returnType: Syntax.ParseName("void"),
+            modifiers: Modifiers.Public,
+            parameterList: Syntax.ParameterList(),
+            body: Syntax.Block(statements));
     }
 
 #endif
