@@ -30,8 +30,9 @@ public static class NodeRegister
             var customAttribute = Attribute.GetCustomAttribute(type, typeof(Category));
             var nameAtt = Attribute.GetCustomAttribute(type, typeof(Name));
 
+            var displayName = ((Name)nameAtt)?.DisplayName;
             if (nameAtt == null
-                || string.IsNullOrWhiteSpace(((Name)nameAtt).DisplayName))
+                || string.IsNullOrWhiteSpace(displayName))
             {
                 LogManager.Instance.WriteLine(
                     LogVerbosity.Error,
@@ -48,7 +49,7 @@ public static class NodeRegister
                 NodeTypesByCategory.Add(categoryPath, nodeDescription);
             }
 
-            nodeDescription.Add(new(((Name)nameAtt).DisplayName, type));
+            nodeDescription.Add(new(displayName, type));
         }
     }
 

@@ -29,6 +29,8 @@ public abstract class SequenceNode
         Load(node);
     }
 
+    public abstract SyntaxNode GenerateAst();
+
     public void ActivateOutputLink(ProcessingContext context, int id)
     {
         GetSlotById(id).RegisterNodes(context);
@@ -335,8 +337,6 @@ public abstract class SequenceNode
             }
         }
     }
-
-    public abstract SyntaxNode GenerateAst();
 
 #endif
 

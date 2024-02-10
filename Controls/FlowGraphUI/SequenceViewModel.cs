@@ -466,7 +466,7 @@ public class SequenceViewModel : AbstractModelBase
     /// </summary>
     public ConnectionViewModel FindConnection(ConnectorViewModel connector1, ConnectorViewModel connector2)
     {
-        Trace.Assert(connector1.Type != connector2.Type);
+        Debug.Assert(connector1.Type != connector2.Type);
 
         //
         // Figure out which one is the source connector and which one is the

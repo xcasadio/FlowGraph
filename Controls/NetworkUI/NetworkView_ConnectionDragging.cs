@@ -87,7 +87,7 @@ namespace NetworkUI
         {
             e.Handled = true;
 
-            Trace.Assert((ConnectorItem)e.OriginalSource == _draggedOutConnectorItem);
+            Debug.Assert((ConnectorItem)e.OriginalSource == _draggedOutConnectorItem);
 
             var mousePoint = Mouse.GetPosition(this);
             //
@@ -153,7 +153,7 @@ namespace NetworkUI
         {
             e.Handled = true;
 
-            Trace.Assert((ConnectorItem)e.OriginalSource == _draggedOutConnectorItem);
+            Debug.Assert((ConnectorItem)e.OriginalSource == _draggedOutConnectorItem);
 
             var mousePoint = Mouse.GetPosition(this);
 

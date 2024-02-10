@@ -251,7 +251,7 @@ public class CurvedArrow : Shape
                 }
                 else
                 {
-                    Trace.Assert(adjustedPoints.Count == 2);
+                    Debug.Assert(adjustedPoints.Count == 2);
 
                     fig.Segments.Add(new BezierSegment(adjustedPoints[0], adjustedPoints[1], adjustedPoints[2], true));
                 }

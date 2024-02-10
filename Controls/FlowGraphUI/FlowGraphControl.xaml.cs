@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -52,12 +53,18 @@ public partial class FlowGraphControl : UserControl
             return;
         }
 
+        foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+        {
+            NodeRegister.Register(assembly);
+        }
+
+        NodeRegister.Register(Assembly.LoadFrom("CustomNode.dll"));
+
         foreach (var nodesByCategory in NodeRegister.NodeTypesByCategory)
         {
             var parent = CreateParentMenuItemNode(nodesByCategory.Key, menuItemCreateNode);
-            nodesByCategory.Value.Sort();
 
-            foreach (var nodeDescription in nodesByCategory.Value)
+            foreach (var nodeDescription in nodesByCategory.Value.OrderBy(x => x.name))
             {
                 var item = new MenuItem
                 {

@@ -476,7 +476,7 @@ public static class WpfUtils
         where TDataContextT : class
         where TElementT : FrameworkElement
     {
-        Trace.Assert(rootElement != null);
+        Debug.Assert(rootElement != null);
 
         if (rootElement is FrameworkElement rootFrameworkElement)
         {

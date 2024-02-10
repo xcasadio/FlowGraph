@@ -59,7 +59,7 @@ namespace NetworkUI
             //
             // Hook layout update to recompute 'Hotspot' when the layout changes.
             //
-            LayoutUpdated += ConnectorIte_LayoutUpdated;
+            LayoutUpdated += ConnectorItem_LayoutUpdated;
         }
 
         /// <summary>
@@ -263,7 +263,7 @@ namespace NetworkUI
         /// <summary>
         /// Event raised when the layout of the connector has been updated.
         /// </summary>
-        private void ConnectorIte_LayoutUpdated(object sender, EventArgs e)
+        private void ConnectorItem_LayoutUpdated(object sender, EventArgs e)
         {
             UpdateHotspot();
         }

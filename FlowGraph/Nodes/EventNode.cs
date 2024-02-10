@@ -49,11 +49,11 @@ public abstract class EventNode : SequenceNode
 
         foreach (var slot in SlotVariableOut)
         {
-            parameters.Add(Syntax.Parameter(type: slot.VariableType.Name, identifier: slot.Text.Replace(" ", "_")));
+            parameters.Add(Syntax.Parameter(type: slot.VariableType.Name, identifier: slot.Text.Replace(" ", string.Empty)));
         }
 
         return Syntax.MethodDeclaration(
-            identifier: Title,
+            identifier: Title.Replace(" ", string.Empty),
             returnType: Syntax.ParseName("void"),
             modifiers: Modifiers.Public,
             parameterList: Syntax.ParameterList(),
