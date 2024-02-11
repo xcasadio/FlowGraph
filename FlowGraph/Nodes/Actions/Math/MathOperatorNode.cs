@@ -16,10 +16,6 @@ public abstract class MathOperatorNode<T> : ActionNode
         VarResult
     }
 
-    public MathOperatorNode(XmlNode node) : base(node) { }
-
-    public MathOperatorNode() { }
-
     protected override void InitializeSlots()
     {
         base.InitializeSlots();

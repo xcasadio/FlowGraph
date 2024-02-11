@@ -18,12 +18,6 @@ public class FlipFlopNode : ActionNode
 
     public override string? Title => "Flip Flop";
 
-    public FlipFlopNode(XmlNode node)
-        : base(node) { }
-
-    public FlipFlopNode()
-    { }
-
     protected override void InitializeSlots()
     {
         base.InitializeSlots();

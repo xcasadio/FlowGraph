@@ -21,17 +21,6 @@ public class DelayNode : ActionNode
 
     public override string Title => "Delay";
 
-    public DelayNode(XmlNode node)
-        : base(node)
-    {
-
-    }
-
-    public DelayNode()
-    {
-
-    }
-
     protected override void InitializeSlots()
     {
         base.InitializeSlots();

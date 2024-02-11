@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using Newtonsoft.Json.Linq;
+using System.Xml;
 using CSharpSyntax;
 using FlowGraph.Attributes;
 using FlowGraph.Nodes.Events;
@@ -28,11 +29,11 @@ public class CallFunctionNode : ActionNode
         SetFunction(function);
     }
 
-    public CallFunctionNode(XmlNode node)
-        : base(node)
+    public CallFunctionNode()
     {
 
     }
+
     /*
     private void OnFunctionSlotChanged(object sender, FunctionSlotChangedEventArg e)
     {
@@ -120,22 +121,22 @@ public class CallFunctionNode : ActionNode
         return new CallFunctionNode(_function);
     }
 
-    protected override void Load(XmlNode node)
+    protected override void Load(JObject node)
     {
         base.Load(node);
-        _functionId = int.Parse(node.Attributes["functionID"].Value);
+        _functionId = node["functionID"].Value<int>();
     }
 
-    internal override void ResolveLinks(XmlNode connectionListNode, SequenceBase sequence)
+    internal override void ResolveLinks(JObject connectionListNode, SequenceBase sequence)
     {
         GetFunction();
         base.ResolveLinks(connectionListNode, sequence);
     }
 
-    public override void Save(XmlNode node)
+    public override void Save(JObject node)
     {
         base.Save(node);
-        node.AddAttribute("functionID", GetFunction().Id.ToString());
+        node["functionID"] = GetFunction().Id;
     }
 
     public override SyntaxNode GenerateAst()

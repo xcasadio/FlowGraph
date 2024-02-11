@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Newtonsoft.Json.Linq;
 using System.Xml;
 using FlowGraph.Process;
 
@@ -36,7 +37,7 @@ public class NodeSlot : INotifyPropertyChanged
     private Type _variableType;
     private VariableControlType _controlType;
 
-    public int Id { get; }
+    public int Id { get; private set; }
     public SequenceNode Node { get; }
     public SlotType ConnectionType { get; }
     public object? Tag { get; }
@@ -166,17 +167,14 @@ public class NodeSlot : INotifyPropertyChanged
         Activated?.Invoke(this, EventArgs.Empty);
     }
 
-    public virtual void Save(XmlNode node)
+    public virtual void Load(JObject node)
     {
-        const int version = 1;
-        node.AddAttribute("version", version.ToString());
-        node.AddAttribute("index", Id.ToString());
+        Id = node["index"].Value<int>();
     }
 
-    public virtual void Load(XmlNode node)
+    public virtual void Save(JObject node)
     {
-        //var version = int.Parse(node.Attributes["version"].Value);
-        //Don't load Id, it is set manually inside the constructor
+        node["index"] = Id;
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

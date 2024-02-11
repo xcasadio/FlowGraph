@@ -19,12 +19,6 @@ public abstract class VariableSetNode<T> : ActionNode
         VarResult
     }
 
-    public VariableSetNode(XmlNode node)
-        : base(node) { }
-
-    public VariableSetNode()
-    { }
-
     protected override void InitializeSlots()
     {
         base.InitializeSlots();
@@ -90,10 +84,6 @@ public class VariableSetNodeByte : VariableSetNode<sbyte>
 {
     public override string? Title => "Set Byte";
 
-    public VariableSetNodeByte()
-    { }
-    public VariableSetNodeByte(XmlNode node) : base(node) { }
-
     public override SequenceNode Copy() { return new VariableSetNodeByte(); }
 }
 
@@ -101,10 +91,6 @@ public class VariableSetNodeByte : VariableSetNode<sbyte>
 public class VariableSetNodeShort : VariableSetNode<short>
 {
     public override string? Title => "Set Short";
-
-    public VariableSetNodeShort()
-    { }
-    public VariableSetNodeShort(XmlNode node) : base(node) { }
 
     public override SequenceNode Copy() { return new VariableSetNodeShort(); }
 }
@@ -114,10 +100,6 @@ public class VariableSetNodeInt : VariableSetNode<int>
 {
     public override string? Title => "Set Integer";
 
-    public VariableSetNodeInt()
-    { }
-    public VariableSetNodeInt(XmlNode node) : base(node) { }
-
     public override SequenceNode Copy() { return new VariableSetNodeInt(); }
 }
 
@@ -125,10 +107,6 @@ public class VariableSetNodeInt : VariableSetNode<int>
 public class VariableSetNodeLong : VariableSetNode<long>
 {
     public override string? Title => "Set Long";
-
-    public VariableSetNodeLong()
-    { }
-    public VariableSetNodeLong(XmlNode node) : base(node) { }
 
     public override SequenceNode Copy() { return new VariableSetNodeLong(); }
 }
@@ -138,10 +116,6 @@ public class VariableSetNodeFloat : VariableSetNode<float>
 {
     public override string? Title => "Set Float";
 
-    public VariableSetNodeFloat()
-    { }
-    public VariableSetNodeFloat(XmlNode node) : base(node) { }
-
     public override SequenceNode Copy() { return new VariableSetNodeFloat(); }
 }
 
@@ -149,10 +123,6 @@ public class VariableSetNodeFloat : VariableSetNode<float>
 public class VariableSetNodeDouble : VariableSetNode<double>
 {
     public override string? Title => "Set Double";
-
-    public VariableSetNodeDouble()
-    { }
-    public VariableSetNodeDouble(XmlNode node) : base(node) { }
 
     public override SequenceNode Copy() { return new VariableSetNodeDouble(); }
 }
@@ -162,10 +132,6 @@ public class VariableSetNodeString : VariableSetNode<double>
 {
     public override string? Title => "Set String";
 
-    public VariableSetNodeString()
-    { }
-    public VariableSetNodeString(XmlNode node) : base(node) { }
-
     public override SequenceNode Copy() { return new VariableSetNodeString(); }
 }
 
@@ -173,10 +139,6 @@ public class VariableSetNodeString : VariableSetNode<double>
 public class VariableSetNodeObject : VariableSetNode<object>
 {
     public override string? Title => "Set Object";
-
-    public VariableSetNodeObject()
-    { }
-    public VariableSetNodeObject(XmlNode node) : base(node) { }
 
     public override SequenceNode Copy() { return new VariableSetNodeObject(); }
 }

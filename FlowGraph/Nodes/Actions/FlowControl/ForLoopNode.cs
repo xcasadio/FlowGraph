@@ -28,10 +28,6 @@ public class ForLoopNode : ActionNode
 
     public override string? Title => "For Loop";
 
-    public ForLoopNode(XmlNode node) : base(node) { }
-
-    public ForLoopNode() { }
-
     protected override void InitializeSlots()
     {
         base.InitializeSlots();

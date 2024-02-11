@@ -8,11 +8,6 @@ namespace FlowGraph.Nodes;
 [Category("Event")]
 public abstract class EventNode : SequenceNode
 {
-    protected EventNode(XmlNode node)
-        : base(node)
-    {
-    }
-
     protected override void InitializeSlots()
     {
         SlotFlag = SlotAvailableFlag.DefaultFlagEvent;
@@ -28,10 +23,6 @@ public abstract class EventNode : SequenceNode
 
 #if EDITOR
     public override NodeType NodeType => NodeType.Event;
-
-    protected EventNode()
-    {
-    }
 
     public override MemberDeclarationSyntax GenerateAst()
     {

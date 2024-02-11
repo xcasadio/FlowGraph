@@ -15,17 +15,6 @@ public abstract class MathCastOperatorNode<TIn, TOut> : ActionNode
         VarResult
     }
 
-    public MathCastOperatorNode(XmlNode node)
-        : base(node)
-    {
-
-    }
-
-    public MathCastOperatorNode()
-    {
-
-    }
-
     protected override void InitializeSlots()
     {
         base.InitializeSlots();

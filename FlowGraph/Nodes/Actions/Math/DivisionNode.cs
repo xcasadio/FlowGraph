@@ -7,10 +7,6 @@ namespace FlowGraph.Nodes.Actions.Math;
 [Category("Maths/Division")]
 public abstract class DivisionNode<T> : MathOperatorNode<T>
 {
-    public DivisionNode(XmlNode node) : base(node) { }
-    public DivisionNode()
-    { }
-
     public override T? DoActivateLogic(T a, T b)
     {
         dynamic x = a;
@@ -30,10 +26,6 @@ public class DivisionNodeByte : DivisionNode<sbyte>
 {
     public override string? Title => "Division Byte";
 
-    public DivisionNodeByte()
-    { }
-    public DivisionNodeByte(XmlNode node) : base(node) { }
-
     public override SequenceNode Copy() { return new DivisionNodeByte(); }
 }
 
@@ -41,10 +33,6 @@ public class DivisionNodeByte : DivisionNode<sbyte>
 public class DivisionNodeShort : DivisionNode<short>
 {
     public override string? Title => "Division Short";
-
-    public DivisionNodeShort()
-    { }
-    public DivisionNodeShort(XmlNode node) : base(node) { }
 
     public override SequenceNode Copy() { return new DivisionNodeShort(); }
 }
@@ -54,10 +42,6 @@ public class DivisionNodeInt : DivisionNode<int>
 {
     public override string? Title => "Division Integer";
 
-    public DivisionNodeInt()
-    { }
-    public DivisionNodeInt(XmlNode node) : base(node) { }
-
     public override SequenceNode Copy() { return new DivisionNodeInt(); }
 }
 
@@ -65,10 +49,6 @@ public class DivisionNodeInt : DivisionNode<int>
 public class DivisionNodeLong : DivisionNode<long>
 {
     public override string? Title => "Division Long";
-
-    public DivisionNodeLong()
-    { }
-    public DivisionNodeLong(XmlNode node) : base(node) { }
 
     public override SequenceNode Copy() { return new DivisionNodeLong(); }
 }
@@ -78,10 +58,6 @@ public class DivisionNodeFloat : DivisionNode<float>
 {
     public override string? Title => "Division Float";
 
-    public DivisionNodeFloat()
-    { }
-    public DivisionNodeFloat(XmlNode node) : base(node) { }
-
     public override SequenceNode Copy() { return new DivisionNodeFloat(); }
 }
 
@@ -89,10 +65,6 @@ public class DivisionNodeFloat : DivisionNode<float>
 public class DivisionNodeDouble : DivisionNode<double>
 {
     public override string? Title => "Division Double";
-
-    public DivisionNodeDouble()
-    { }
-    public DivisionNodeDouble(XmlNode node) : base(node) { }
 
     public override SequenceNode Copy() { return new DivisionNodeDouble(); }
 }

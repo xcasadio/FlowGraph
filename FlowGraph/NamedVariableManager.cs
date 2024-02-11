@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using Newtonsoft.Json.Linq;
 using System.Xml;
 
 namespace FlowGraph;
@@ -68,18 +69,6 @@ public class NamedVariableManager
         Vars.Remove(var);
     }
 
-    //         public void Remove(string name_)
-    //         {
-    //             foreach (var v in _Vars)
-    //             {
-    //                 if (string.Equals(v.Name, name_) == true)
-    //                 {
-    //                     _Vars.Remove(v);
-    //                     break;
-    //                 }
-    //             }
-    //         }
-
     public void Rename(string name, string newName)
     {
         foreach (var v in Vars)
@@ -135,38 +124,33 @@ public class NamedVariableManager
         return !Contains(name);
     }
 
-    public void Load(XmlNode node)
+    public void Load(JObject node)
     {
-        var varListNode = node.SelectSingleNode("NamedVariableList");
-        var version = int.Parse(varListNode?.Attributes?["version"]?.Value ?? string.Empty);
-
         Clear();
 
-        foreach (XmlNode namedVarNode in varListNode?.SelectNodes("NamedVariable")!)
+        System.Diagnostics.Debugger.Break();
+
+        foreach (var namedVarNode in node["named_variables"])
         {
-            var varVersion = int.Parse(namedVarNode.Attributes["version"].Value);
-            var key = namedVarNode.Attributes["key"].Value;
-            var value = new ValueContainer(namedVarNode);
+            var key = namedVarNode["key"].Value<string>();
+            var value = new ValueContainer();
+            //value.Load(namedVarNode);
             Add(key, value);
         }
     }
 
-    public void Save(XmlNode node)
+    public void Save(JObject node)
     {
-        const int version = 1;
-        const int varVersion = 1;
-
-        XmlNode list = node.OwnerDocument.CreateElement("NamedVariableList");
-        node.AppendChild(list);
-        list.AddAttribute("version", version.ToString());
+        var variableNodeArray = new JArray();
 
         foreach (var v in Vars)
         {
-            XmlNode varNode = node.OwnerDocument.CreateElement("NamedVariable");
-            list.AppendChild(varNode);
-            varNode.AddAttribute("version", varVersion.ToString());
-            varNode.AddAttribute("key", v.Name);
+            var varNode = new JObject();
+            varNode["key"] = v.Name;
             v.InternalValueContainer.Save(varNode);
+            variableNodeArray.Add(varNode);
         }
+
+        node["named_variables"] = variableNodeArray;
     }
 }

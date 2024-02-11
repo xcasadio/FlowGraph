@@ -17,12 +17,6 @@ public class DoOnceNode : ActionNode
 
     public override string? Title => "Do Once";
 
-    public DoOnceNode(XmlNode node) : base(node)
-    { }
-
-    public DoOnceNode()
-    { }
-
     protected override void InitializeSlots()
     {
         base.InitializeSlots();

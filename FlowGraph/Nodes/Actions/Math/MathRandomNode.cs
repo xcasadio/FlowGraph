@@ -21,12 +21,6 @@ public abstract class MathRandomNode<T> : ActionNode
 
     static readonly Random Random = new();
 
-    public MathRandomNode(XmlNode node)
-        : base(node) { }
-
-    public MathRandomNode()
-    { }
-
     protected override void InitializeSlots()
     {
         base.InitializeSlots();
@@ -112,10 +106,6 @@ public class RandomByteNode : MathRandomNode<sbyte>
 {
     public override string? Title => "Random Byte";
 
-    public RandomByteNode()
-    { }
-    public RandomByteNode(XmlNode node) : base(node) { }
-
     public override SequenceNode Copy() { return new RandomByteNode(); }
 }
 
@@ -123,10 +113,6 @@ public class RandomByteNode : MathRandomNode<sbyte>
 public class RandomShortNode : MathRandomNode<short>
 {
     public override string? Title => "Random Short";
-
-    public RandomShortNode()
-    { }
-    public RandomShortNode(XmlNode node) : base(node) { }
 
     public override SequenceNode Copy() { return new RandomShortNode(); }
 }
@@ -136,10 +122,6 @@ public class RandomIntegerNode : MathRandomNode<int>
 {
     public override string? Title => "Random Integer";
 
-    public RandomIntegerNode()
-    { }
-    public RandomIntegerNode(XmlNode node) : base(node) { }
-
     public override SequenceNode Copy() { return new RandomIntegerNode(); }
 }
 
@@ -147,10 +129,6 @@ public class RandomIntegerNode : MathRandomNode<int>
 public class RandomLongNode : MathRandomNode<long>
 {
     public override string? Title => "Random Long";
-
-    public RandomLongNode()
-    { }
-    public RandomLongNode(XmlNode node) : base(node) { }
 
     public override SequenceNode Copy() { return new RandomLongNode(); }
 }
@@ -160,10 +138,6 @@ public class RandomFloatNode : MathRandomNode<float>
 {
     public override string? Title => "Random Float";
 
-    public RandomFloatNode()
-    { }
-    public RandomFloatNode(XmlNode node) : base(node) { }
-
     public override SequenceNode Copy() { return new RandomFloatNode(); }
 }
 
@@ -171,10 +145,6 @@ public class RandomFloatNode : MathRandomNode<float>
 public class RandomDoubleNode : MathRandomNode<double>
 {
     public override string? Title => "Random Double";
-
-    public RandomDoubleNode()
-    { }
-    public RandomDoubleNode(XmlNode node) : base(node) { }
 
     public override SequenceNode Copy() { return new RandomDoubleNode(); }
 }

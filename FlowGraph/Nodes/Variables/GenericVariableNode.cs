@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using Newtonsoft.Json.Linq;
+using System.Xml;
 using FlowGraph.Attributes;
 
 namespace FlowGraph.Nodes.Variables;
@@ -42,15 +43,6 @@ public abstract class GenericVariableNode<T> : VariableNode
         }
     }
 
-    protected GenericVariableNode(XmlNode node)
-        : base(node)
-    {
-    }
-
-    protected GenericVariableNode()
-    {
-    }
-
     protected override void InitializeSlots()
     {
         base.InitializeSlots();
@@ -58,20 +50,23 @@ public abstract class GenericVariableNode<T> : VariableNode
         AddSlot(0, string.Empty, SlotType.VarInOut, typeof(T), true, ControlType);
     }
 
-    protected override void Load(XmlNode node)
+    protected override void Load(JObject node)
     {
+        System.Diagnostics.Debugger.Break();
         base.Load(node);
-        _value = (T)LoadValue(node.SelectSingleNode("Value"));
+        //_value = (T)LoadValue(node["value"]);
     }
 
-    protected override object LoadValue(XmlNode node)
+    protected override object LoadValue(JObject node)
     {
-        return (T)Convert.ChangeType(node.InnerText, typeof(T));
+        return node.Value<T>();
     }
 
-    protected override void SaveValue(XmlNode node)
+    protected override void SaveValue(JObject node)
     {
-        node.InnerText = (string)Convert.ChangeType(Value, typeof(string));
+        var jsonObject = new JObject();
+        //_value ?? "null"
+        node["value"] = jsonObject;
     }
 }
 
@@ -79,10 +74,6 @@ public abstract class GenericVariableNode<T> : VariableNode
 public class VariableNodeObject : GenericVariableNode<object>
 {
     public override string? Title => "Object";
-
-    public VariableNodeObject()
-    { }
-    public VariableNodeObject(XmlNode node) : base(node) { }
 
     protected override void InitializeSlots()
     {
@@ -116,8 +107,6 @@ public class VariableNodeString : GenericVariableNode<string>
         set => base.Value = value;
     }
 
-    public VariableNodeString(XmlNode node) : base(node) { }
-
     protected override void InitializeSlots()
     {
         ControlType = VariableControlType.Text;
@@ -138,10 +127,6 @@ public class VariableNodeString : GenericVariableNode<string>
 public class VariableNodeBool : GenericVariableNode<bool>
 {
     public override string? Title => "Boolean";
-
-    public VariableNodeBool()
-    { }
-    public VariableNodeBool(XmlNode node) : base(node) { }
 
     protected override void InitializeSlots()
     {
@@ -164,10 +149,6 @@ public class VariableNodeByte : GenericVariableNode<sbyte>
 {
     public override string? Title => "Byte";
 
-    public VariableNodeByte()
-    { }
-    public VariableNodeByte(XmlNode node) : base(node) { }
-
     protected override void InitializeSlots()
     {
         ControlType = VariableControlType.Numeric;
@@ -188,10 +169,6 @@ public class VariableNodeByte : GenericVariableNode<sbyte>
 public class VariableNodeChar : GenericVariableNode<char>
 {
     public override string? Title => "Char";
-
-    public VariableNodeChar()
-    { }
-    public VariableNodeChar(XmlNode node) : base(node) { }
 
     protected override void InitializeSlots()
     {
@@ -214,10 +191,6 @@ public class VariableNodeShort : GenericVariableNode<short>
 {
     public override string? Title => "Short";
 
-    public VariableNodeShort()
-    { }
-    public VariableNodeShort(XmlNode node) : base(node) { }
-
     protected override void InitializeSlots()
     {
         ControlType = VariableControlType.Numeric;
@@ -238,10 +211,6 @@ public class VariableNodeShort : GenericVariableNode<short>
 public class VariableNodeInt : GenericVariableNode<int>
 {
     public override string? Title => "Integer";
-
-    public VariableNodeInt()
-    { }
-    public VariableNodeInt(XmlNode node) : base(node) { }
 
     protected override void InitializeSlots()
     {
@@ -264,10 +233,6 @@ public class VariableNodeLong : GenericVariableNode<long>
 {
     public override string? Title => "Long";
 
-    public VariableNodeLong()
-    { }
-    public VariableNodeLong(XmlNode node) : base(node) { }
-
     protected override void InitializeSlots()
     {
         ControlType = VariableControlType.Numeric;
@@ -288,10 +253,6 @@ public class VariableNodeLong : GenericVariableNode<long>
 public class VariableNodeFloat : GenericVariableNode<float>
 {
     public override string? Title => "Float";
-
-    public VariableNodeFloat()
-    { }
-    public VariableNodeFloat(XmlNode node) : base(node) { }
 
     protected override void InitializeSlots()
     {
@@ -314,10 +275,6 @@ public class VariableNodeDouble : GenericVariableNode<double>
 {
     public override string? Title => "Double";
 
-    public VariableNodeDouble()
-    { }
-    public VariableNodeDouble(XmlNode node) : base(node) { }
-
     protected override void InitializeSlots()
     {
         ControlType = VariableControlType.Numeric;
@@ -338,10 +295,6 @@ public class VariableNodeDouble : GenericVariableNode<double>
 public class VariableNodeUByte : GenericVariableNode<byte>
 {
     public override string? Title => "Unsigned Byte";
-
-    public VariableNodeUByte()
-    { }
-    public VariableNodeUByte(XmlNode node) : base(node) { }
 
     protected override void InitializeSlots()
     {
@@ -364,10 +317,6 @@ public class VariableNodeUShort : GenericVariableNode<ushort>
 {
     public override string? Title => "Unsigned Short";
 
-    public VariableNodeUShort()
-    { }
-    public VariableNodeUShort(XmlNode node) : base(node) { }
-
     protected override void InitializeSlots()
     {
         ControlType = VariableControlType.Numeric;
@@ -389,10 +338,6 @@ public class VariableNodeUInt : GenericVariableNode<uint>
 {
     public override string? Title => "Unsigned Integer";
 
-    public VariableNodeUInt()
-    { }
-    public VariableNodeUInt(XmlNode node) : base(node) { }
-
     protected override void InitializeSlots()
     {
         ControlType = VariableControlType.Numeric;
@@ -413,10 +358,6 @@ public class VariableNodeUInt : GenericVariableNode<uint>
 public class VariableNodeULong : GenericVariableNode<ulong>
 {
     public override string? Title => "Unsigned Long";
-
-    public VariableNodeULong()
-    { }
-    public VariableNodeULong(XmlNode node) : base(node) { }
 
     protected override void InitializeSlots()
     {

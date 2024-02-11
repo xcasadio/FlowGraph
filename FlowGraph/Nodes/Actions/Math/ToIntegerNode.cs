@@ -7,10 +7,6 @@ namespace FlowGraph.Nodes.Actions.Math;
 [Category("Maths/Cast/To Integer")]
 public abstract class ToIntegerNode<TIn> : MathCastOperatorNode<TIn, int>
 {
-    public ToIntegerNode(XmlNode node) : base(node) { }
-    public ToIntegerNode()
-    { }
-
     public override int DoActivateLogic(TIn a)
     {
         dynamic x = a;
@@ -30,10 +26,6 @@ public class ToIntegerNodeByte : ToIntegerNode<sbyte>
 {
     public override string? Title => "Byte to Integer";
 
-    public ToIntegerNodeByte()
-    { }
-    public ToIntegerNodeByte(XmlNode node) : base(node) { }
-
     public override SequenceNode Copy() { return new ToIntegerNodeByte(); }
 }
 
@@ -41,10 +33,6 @@ public class ToIntegerNodeByte : ToIntegerNode<sbyte>
 public class ToIntegerNodeChar : ToIntegerNode<char>
 {
     public override string? Title => "Char to Integer";
-
-    public ToIntegerNodeChar()
-    { }
-    public ToIntegerNodeChar(XmlNode node) : base(node) { }
 
     public override SequenceNode Copy() { return new ToIntegerNodeChar(); }
 }
@@ -54,10 +42,6 @@ public class ToIntegerNodeShort : ToIntegerNode<short>
 {
     public override string? Title => "Short to Integer";
 
-    public ToIntegerNodeShort()
-    { }
-    public ToIntegerNodeShort(XmlNode node) : base(node) { }
-
     public override SequenceNode Copy() { return new ToIntegerNodeShort(); }
 }
 
@@ -65,10 +49,6 @@ public class ToIntegerNodeShort : ToIntegerNode<short>
 public class ToIntegerNodeLong : ToIntegerNode<long>
 {
     public override string? Title => "Long to Integer";
-
-    public ToIntegerNodeLong()
-    { }
-    public ToIntegerNodeLong(XmlNode node) : base(node) { }
 
     public override SequenceNode Copy() { return new ToIntegerNodeLong(); }
 }
@@ -78,10 +58,6 @@ public class ToIntegerNodeFloat : ToIntegerNode<float>
 {
     public override string? Title => "Float to Integer";
 
-    public ToIntegerNodeFloat()
-    { }
-    public ToIntegerNodeFloat(XmlNode node) : base(node) { }
-
     public override SequenceNode Copy() { return new ToIntegerNodeFloat(); }
 }
 
@@ -90,10 +66,6 @@ public class ToIntegerNodeDouble : ToIntegerNode<double>
 {
     public override string? Title => "Double to Integer";
 
-    public ToIntegerNodeDouble()
-    { }
-    public ToIntegerNodeDouble(XmlNode node) : base(node) { }
-
     public override SequenceNode Copy() { return new ToIntegerNodeDouble(); }
 }
 
@@ -101,10 +73,6 @@ public class ToIntegerNodeDouble : ToIntegerNode<double>
 public class ToIntegerNodeString : ToIntegerNode<string>
 {
     public override string? Title => "Short to Integer";
-
-    public ToIntegerNodeString()
-    { }
-    public ToIntegerNodeString(XmlNode node) : base(node) { }
 
     public override SequenceNode Copy() { return new ToIntegerNodeString(); }
 }

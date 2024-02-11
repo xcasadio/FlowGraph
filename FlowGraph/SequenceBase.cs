@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using Newtonsoft.Json.Linq;
+using System.Xml;
 using FlowGraph.Nodes;
 using FlowGraph.Process;
 
@@ -72,67 +73,50 @@ public class SequenceBase
         }
     }
 
-    public virtual void Load(XmlNode node)
+    public virtual void Load(JObject node)
     {
-        Id = int.Parse(node.Attributes["id"].Value);
+        System.Diagnostics.Debugger.Break();
+
+        Id = node["id"].Value<int>();
         if (_newId <= Id) _newId = Id + 1;
-        Name = node.Attributes["name"].Value;
-        Description = node.Attributes["description"].Value;
+        Name = node["name"].Value<string>();
+        Description = node["description"].Value<string>();
 
-        foreach (XmlNode nodeNode in node.SelectNodes("NodeList/Node"))
+        foreach (var nodeNode in node["nodes"])
         {
-            var versionNode = int.Parse(nodeNode.Attributes["version"].Value);
-
-            var seqNode = SequenceNode.CreateNodeFromXml(nodeNode);
-
-            if (seqNode != null)
-            {
-                AddNode(seqNode);
-            }
-            else
-            {
-                throw new InvalidOperationException($"Can't create SequenceNode from xml id={nodeNode.Attributes["id"].Value}");
-            }
+            //AddNode(SequenceNode.CreateNodeFromJson(nodeNode));
         }
     }
 
-    internal void ResolveNodesLinks(XmlNode node)
+    internal void ResolveNodesLinks(JObject node)
     {
-        if (node == null) throw new ArgumentNullException("XmlNode");
+        System.Diagnostics.Debugger.Break();
+        if (node == null) throw new ArgumentNullException(nameof(node));
 
-        var connectionListNode = node.SelectSingleNode("ConnectionList");
+        var connectionListNode = node["connections"];
 
         foreach (var sequenceNode in SequenceNodes)
         {
-            sequenceNode.Value.ResolveLinks(connectionListNode, this);
+            //sequenceNode.Value.ResolveLinks(connectionListNode, this);
         }
     }
 
-    public virtual void Save(XmlNode node)
+    public virtual void Save(JObject node)
     {
-        const int version = 1;
+        node["id"] = Id;
+        node["name"] = Name;
+        node["description"] = Description;
 
-        XmlNode graphNode = node.OwnerDocument.CreateElement("Graph");
-        node.AppendChild(graphNode);
-
-        graphNode.AddAttribute("version", version.ToString());
-        graphNode.AddAttribute("id", Id.ToString());
-        graphNode.AddAttribute("name", Name);
-        graphNode.AddAttribute("description", Description);
-
-        //save all nodes
-        XmlNode nodeList = node.OwnerDocument.CreateElement("NodeList");
-        graphNode.AppendChild(nodeList);
-        //save all connections
-        XmlNode connectionList = node.OwnerDocument.CreateElement("ConnectionList");
-        graphNode.AppendChild(connectionList);
-
+        var jsonArrayNodes = new JArray();
         foreach (var pair in SequenceNodes)
         {
-            XmlNode nodeNode = node.OwnerDocument.CreateElement("Node");
-            nodeList.AppendChild(nodeNode);
-            pair.Value.Save(nodeNode);
-            pair.Value.SaveConnections(connectionList);
+            var nodeSlot = new JObject();
+            pair.Value.Save(nodeSlot);
+            jsonArrayNodes.Add(nodeSlot);
+
+            pair.Value.SaveConnections(nodeSlot);
         }
+
+        node["nodes"] = jsonArrayNodes;
     }
 }

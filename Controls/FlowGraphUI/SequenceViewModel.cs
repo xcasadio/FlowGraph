@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using System.Text.Json.Nodes;
 using System.Windows;
 using System.Xml;
 using System.Xml.Linq;
@@ -365,6 +366,8 @@ public class SequenceViewModel : AbstractModelBase
         {
             (newConnection.SourceConnector, newConnection.DestConnector) = (newConnection.DestConnector, newConnection.SourceConnector);
         }
+
+        newConnection.SourceConnector.SourceSlot.ConnectTo(newConnection.DestConnector.SourceSlot);
 
         UndoRedoManager.Add(new CreateConnectionUndoCommand(this, newConnection));
     }
@@ -778,7 +781,7 @@ public class SequenceViewModel : AbstractModelBase
         }
     }
     /*
-    public void Load(XmlNode xmlNode)
+    public void Load(JsonNode xmlNode)
     {
         try
         {
@@ -843,25 +846,19 @@ public class SequenceViewModel : AbstractModelBase
         return null;
     }
 
-    public void Save(XmlNode node)
+    public void Save(JsonNode node)
     {
-        const int version = 1;
-        const int versionNode = 1;
-
+        /*
         var graphNode = node.SelectSingleNode("Graph[@id='" + Id + "']");
-        graphNode.AddAttribute("designerVersion", version.ToString());
 
         //save all nodes
         foreach (var nodeVm in Network.Nodes)
         {
             var nodeNode = graphNode.SelectSingleNode("NodeList/Node[@id='" + nodeVm.SeqNode.Id + "']");
-
-            nodeNode.AddAttribute("designerVersion", versionNode.ToString());
-
-            nodeNode.AddAttribute("x", nodeVm.X.ToString());
-            nodeNode.AddAttribute("y", nodeVm.Y.ToString());
-            nodeNode.AddAttribute("z", nodeVm.ZIndex.ToString());
-        }
+            nodeNode["x"] = nodeVm.X;
+            nodeNode["y"] = nodeVm.Y;
+            nodeNode["z"] = nodeVm.ZIndex;
+        }*/
     }
 
     readonly List<PositionNodeUndoCommand.NodeDraggingInfo> _cachedNodesDraggingList = new(5);

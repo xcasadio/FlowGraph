@@ -7,10 +7,6 @@ namespace FlowGraph.Nodes.Actions.Math;
 [Category("Maths/Logic/Equal")]
 public abstract class EqualNode<T> : MathLogicOperatorNode<T>
 {
-    public EqualNode(XmlNode node) : base(node) { }
-    public EqualNode()
-    { }
-
     public override bool DoActivateLogic(T a, T b)
     {
         dynamic x = a;
@@ -31,10 +27,6 @@ public class EqualNodeByte : EqualNode<sbyte>
 {
     public override string? Title => "Equal Byte";
 
-    public EqualNodeByte()
-    { }
-    public EqualNodeByte(XmlNode node) : base(node) { }
-
     public override SequenceNode Copy() { return new EqualNodeByte(); }
 }
 
@@ -42,10 +34,6 @@ public class EqualNodeByte : EqualNode<sbyte>
 public class EqualNodeShort : EqualNode<short>
 {
     public override string? Title => "Equal Short";
-
-    public EqualNodeShort()
-    { }
-    public EqualNodeShort(XmlNode node) : base(node) { }
 
     public override SequenceNode Copy() { return new EqualNodeShort(); }
 }
@@ -55,10 +43,6 @@ public class EqualNodeInt : EqualNode<int>
 {
     public override string? Title => "Equal Integer";
 
-    public EqualNodeInt()
-    { }
-    public EqualNodeInt(XmlNode node) : base(node) { }
-
     public override SequenceNode Copy() { return new EqualNodeInt(); }
 }
 
@@ -66,10 +50,6 @@ public class EqualNodeInt : EqualNode<int>
 public class EqualNodeLong : EqualNode<long>
 {
     public override string? Title => "Equal Long";
-
-    public EqualNodeLong()
-    { }
-    public EqualNodeLong(XmlNode node) : base(node) { }
 
     public override SequenceNode Copy() { return new EqualNodeLong(); }
 }
@@ -79,10 +59,6 @@ public class EqualNodeFloat : EqualNode<float>
 {
     public override string? Title => "Equal Float";
 
-    public EqualNodeFloat()
-    { }
-    public EqualNodeFloat(XmlNode node) : base(node) { }
-
     public override SequenceNode Copy() { return new EqualNodeFloat(); }
 }
 
@@ -90,10 +66,6 @@ public class EqualNodeFloat : EqualNode<float>
 public class EqualNodeDouble : EqualNode<double>
 {
     public override string? Title => "Equal Double";
-
-    public EqualNodeDouble()
-    { }
-    public EqualNodeDouble(XmlNode node) : base(node) { }
 
     public override SequenceNode Copy() { return new EqualNodeDouble(); }
 }

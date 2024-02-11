@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using Newtonsoft.Json.Linq;
+using System.Xml;
 using CSharpSyntax;
 using FlowGraph.Process;
 
@@ -7,15 +8,6 @@ namespace FlowGraph.Nodes;
 public abstract class VariableNode : SequenceNode
 {
     public abstract object? Value { get; set; }
-
-    protected VariableNode()
-    {
-    }
-
-    protected VariableNode(XmlNode node)
-        : base(node)
-    {
-    }
 
     protected override void InitializeSlots()
     {
@@ -40,18 +32,15 @@ public abstract class VariableNode : SequenceNode
     public NodeSlot VariableSlot => NodeSlots[0];
     public override string Title => "";
 
-    public override void Save(XmlNode node)
+    public override void Save(JObject node)
     {
         base.Save(node);
-
-        XmlNode valueNode = node.OwnerDocument!.CreateElement("Value");
-        node.AppendChild(valueNode);
-        SaveValue(valueNode);
+        SaveValue(node);
     }
 
-    protected abstract object LoadValue(XmlNode node);
+    protected abstract object LoadValue(JObject node);
 
-    protected abstract void SaveValue(XmlNode node);
+    protected abstract void SaveValue(JObject node);
 
     public override ExpressionSyntax GenerateAst()
     {

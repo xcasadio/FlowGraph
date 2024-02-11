@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using Newtonsoft.Json.Linq;
+using System.Xml;
 using CSharpSyntax;
 using FlowGraph.Attributes;
 using FlowGraph.Logger;
@@ -19,12 +20,6 @@ public class BranchNode : ActionNode
     }
 
     public override string Title => "Branch";
-
-    public BranchNode(XmlNode node)
-        : base(node) { }
-
-    public BranchNode()
-    { }
 
     protected override void InitializeSlots()
     {

@@ -30,12 +30,6 @@ public class ForLoopWithBreakNode : ActionNode
 
     public override string? Title => "For Loop With Break";
 
-    public ForLoopWithBreakNode(XmlNode node) : base(node)
-    { }
-
-    public ForLoopWithBreakNode()
-    { }
-
     protected override void InitializeSlots()
     {
         base.InitializeSlots();

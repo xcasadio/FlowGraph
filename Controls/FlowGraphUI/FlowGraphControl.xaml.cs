@@ -53,12 +53,13 @@ public partial class FlowGraphControl : UserControl
             return;
         }
 
-        foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-        {
-            NodeRegister.Register(assembly);
-        }
-
-        NodeRegister.Register(Assembly.LoadFrom("CustomNode.dll"));
+        //Bug do it in MainWindow
+        //foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+        //{
+        //    NodeRegister.Register(assembly);
+        //}
+        //
+        //NodeRegister.Register(Assembly.LoadFrom("CustomNode.dll"));
 
         foreach (var nodesByCategory in NodeRegister.NodeTypesByCategory)
         {

@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using Newtonsoft.Json.Linq;
+using System.Xml;
 using CSharpSyntax;
 using FlowGraph.Attributes;
 using FlowGraph.Process;
@@ -74,16 +75,16 @@ public class ReturnNode : ActionNode
         return new ReturnNode(_function);
     }
 
-    protected override void Load(XmlNode node)
+    protected override void Load(JObject node)
     {
         base.Load(node);
         //_functionId = int.Parse(node.Attributes["functionID"].Value);
     }
 
-    public override void Save(XmlNode node)
+    public override void Save(JObject node)
     {
         base.Save(node);
-        node.AddAttribute("functionID", _function.Id.ToString());
+        node["functionID"] = _function.Id;
     }
 
     public override SyntaxNode GenerateAst()

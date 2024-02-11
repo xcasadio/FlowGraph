@@ -7,10 +7,6 @@ namespace FlowGraph.Nodes.Actions.Math;
 [Category("Maths/Logic/GreaterThan")]
 public abstract class GreaterThanNode<T> : MathLogicOperatorNode<T>
 {
-    public GreaterThanNode(XmlNode node) : base(node) { }
-    public GreaterThanNode()
-    { }
-
     public override bool DoActivateLogic(T a, T b)
     {
         dynamic x = a;
@@ -30,10 +26,6 @@ public class GreaterThanNodeByte : GreaterThanNode<sbyte>
 {
     public override string? Title => "GreaterThan Byte";
 
-    public GreaterThanNodeByte()
-    { }
-    public GreaterThanNodeByte(XmlNode node) : base(node) { }
-
     public override SequenceNode Copy() { return new GreaterThanNodeByte(); }
 }
 
@@ -41,10 +33,6 @@ public class GreaterThanNodeByte : GreaterThanNode<sbyte>
 public class GreaterThanNodeShort : GreaterThanNode<short>
 {
     public override string? Title => "GreaterThan Short";
-
-    public GreaterThanNodeShort()
-    { }
-    public GreaterThanNodeShort(XmlNode node) : base(node) { }
 
     public override SequenceNode Copy() { return new GreaterThanNodeShort(); }
 }
@@ -54,10 +42,6 @@ public class GreaterThanNodeInt : GreaterThanNode<int>
 {
     public override string? Title => "GreaterThan Integer";
 
-    public GreaterThanNodeInt()
-    { }
-    public GreaterThanNodeInt(XmlNode node) : base(node) { }
-
     public override SequenceNode Copy() { return new GreaterThanNodeInt(); }
 }
 
@@ -65,10 +49,6 @@ public class GreaterThanNodeInt : GreaterThanNode<int>
 public class GreaterThanNodeLong : GreaterThanNode<long>
 {
     public override string? Title => "GreaterThan Long";
-
-    public GreaterThanNodeLong()
-    { }
-    public GreaterThanNodeLong(XmlNode node) : base(node) { }
 
     public override SequenceNode Copy() { return new GreaterThanNodeLong(); }
 }
@@ -78,10 +58,6 @@ public class GreaterThanNodeFloat : GreaterThanNode<float>
 {
     public override string? Title => "GreaterThan Float";
 
-    public GreaterThanNodeFloat()
-    { }
-    public GreaterThanNodeFloat(XmlNode node) : base(node) { }
-
     public override SequenceNode Copy() { return new GreaterThanNodeFloat(); }
 }
 
@@ -89,10 +65,6 @@ public class GreaterThanNodeFloat : GreaterThanNode<float>
 public class GreaterThanNodeDouble : GreaterThanNode<double>
 {
     public override string? Title => "GreaterThan Double";
-
-    public GreaterThanNodeDouble()
-    { }
-    public GreaterThanNodeDouble(XmlNode node) : base(node) { }
 
     public override SequenceNode Copy() { return new GreaterThanNodeDouble(); }
 }

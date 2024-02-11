@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Newtonsoft.Json.Linq;
 using System.Xml;
 using FlowGraph.Logger;
 
@@ -67,24 +68,20 @@ class ValueContainer : INotifyPropertyChanged
         }
     }
 
+    public ValueContainer()
+    {
+    }
+
     public ValueContainer(Type type, object? obj)
     {
         _variableType = type;
         _value = obj;
     }
 
-    public ValueContainer(XmlNode node)
+    public void Save(JObject node)
     {
-        Load(node);
-    }
-
-    public void Save(XmlNode node)
-    {
-        const int version = 1;
-
-        XmlNode valNode = node.OwnerDocument.CreateElement("ValueContainer");
-        node.AppendChild(valNode);
-        valNode.AddAttribute("version", version.ToString());
+        var valNode = new JObject();
+        node["value_container"] = valNode;
 
         var typeName = _variableType == null ? NullToken : _variableType.AssemblyQualifiedName;
         var val = NullToken;
@@ -101,16 +98,15 @@ class ValueContainer : INotifyPropertyChanged
             }
         }
 
-        valNode.AddAttribute("type", typeName);
-        valNode.InnerText = val;
+        valNode["type"] = typeName;
+        valNode["value"] = val;
     }
 
-    public void Load(XmlNode node)
+    public void Load(JObject node)
     {
-        var valNode = node.SelectSingleNode("ValueContainer");
-        var version = int.Parse(valNode.Attributes["version"].Value);
-        var typeStr = valNode.Attributes["type"].Value;
-        var valStr = valNode.InnerText;
+        var valNode = node["value_container"];
+        var typeStr = valNode["type"].Value<string>();
+        var valStr = valNode["value"].Value<string>();
         _variableType = NullToken.Equals(typeStr) ? null : Type.GetType(typeStr);
 
         if (_variableType != null)

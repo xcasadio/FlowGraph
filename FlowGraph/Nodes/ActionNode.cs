@@ -22,16 +22,6 @@ public abstract class ActionNode : SequenceNode
 
     public string ErrorMessage { get; internal set; } = "";
 
-    protected ActionNode()
-    {
-    }
-
-    protected ActionNode(XmlNode node)
-        : base(node)
-    {
-
-    }
-
     protected override void InitializeSlots()
     {
         SlotFlag = SlotAvailableFlag.All;

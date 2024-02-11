@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics;
+using Newtonsoft.Json.Linq;
 using System.Xml;
 using FlowGraph.Logger;
 using Logger;
+
 
 namespace FlowGraph;
 
@@ -13,38 +15,20 @@ public class FlowGraphManager
     //macros ?
     //variables
 
-    public void Load(XmlNode node)
+    public void Load(JObject node)
     {
         try
         {
-            //int version = int.Parse(node.SelectSingleNode("GraphList").Attributes["version"].Value);
+            Sequence.Load(node);
 
-            var graphNodes = node.SelectNodes("GraphList/Graph[@type='" + Sequence.XmlAttributeTypeValue + "']");
-            if (graphNodes != null)
-            {
-                foreach (XmlNode graphNode in graphNodes)
-                {
-                    Debugger.Break(); // only one sequence
-                    Sequence.Load(graphNode);
-                }
-            }
+            //functions sequence
 
-            var functionNodes = node.SelectNodes("GraphList/Graph[@type='" + SequenceFunction.XmlAttributeTypeValue + "']");
-            if (functionNodes != null)
-            {
-                foreach (XmlNode graphNode in functionNodes)
-                {
-                    Debugger.Break();
-                    //Functions.Add(new SequenceFunction(graphNode));
-                }
-            }
+            Sequence.ResolveNodesLinks(node);
 
-            ResolveLinks(node, Sequence);
-
-            foreach (var function in Functions)
-            {
-                ResolveLinks(node, function);
-            }
+            //foreach (var function in Functions)
+            //{
+            //    ResolveLinks(node, function);
+            //}
         }
         catch (Exception ex)
         {
@@ -52,34 +36,13 @@ public class FlowGraphManager
         }
     }
 
-    private static void ResolveLinks(XmlNode node, SequenceBase seq)
+    public void Save(JObject node)
     {
-        var graphNode = node.SelectSingleNode("GraphList/Graph[@id='" + seq.Id + "']");
-
-        if (graphNode != null)
-        {
-            seq.ResolveNodesLinks(graphNode);
-        }
-        else
-        {
-            LogManager.Instance.WriteLine(LogVerbosity.Error, $"Can't find the graph {seq.Id}");
-        }
-    }
-
-    public void Save(XmlNode node)
-    {
-        const int version = 1;
-
-        XmlNode list = node.OwnerDocument!.CreateElement("GraphList");
-        node.AppendChild(list);
-
-        list.AddAttribute("version", version.ToString());
-
-        Sequence.Save(list);
-
+        Sequence.Save(node);
+        /*
         foreach (var seq in Functions)
         {
             seq.Save(list);
-        }
+        }*/
     }
 }

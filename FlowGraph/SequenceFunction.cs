@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using Newtonsoft.Json.Linq;
+using System.Xml;
 using FlowGraph.Nodes.Actions;
 using FlowGraph.Nodes.Events;
 
@@ -6,9 +7,6 @@ namespace FlowGraph;
 
 public class SequenceFunction : SequenceBase
 {
-    public const string? XmlAttributeTypeValue = "Function";
-
-
     private readonly List<SequenceFunctionSlot> _slots = new();
     private int _nextSlotId;
 
@@ -77,34 +75,36 @@ public class SequenceFunction : SequenceBase
         }
     }
 
-    public override void Load(XmlNode node)
+    public override void Load(JObject node)
     {
         base.Load(node);
 
-        foreach (XmlNode slotNode in node.SelectNodes("SlotList/Slot"))
+        foreach (var slotNode in node["slots"])
         {
-            var id = int.Parse(slotNode.Attributes["id"].Value);
-            var type = (FunctionSlotType)Enum.Parse(typeof(FunctionSlotType), slotNode.Attributes["type"].Value);
+            var id = slotNode["id"].Value<int>();
+            var type = (FunctionSlotType)Enum.Parse(typeof(FunctionSlotType), slotNode["type"].Value<string>());
 
             if (_nextSlotId <= id) _nextSlotId = id + 1;
 
             var slot = new SequenceFunctionSlot(id, type)
             {
-                Name = slotNode.Attributes["name"].Value,
-                IsArray = bool.Parse(slotNode.Attributes["isArray"].Value),
-                VariableType = Type.GetType(slotNode.Attributes["varType"].Value)
+                Name = slotNode["name"].Value<string>(),
+                IsArray = slotNode["isArray"].Value<bool>(),
+                VariableType = Type.GetType(slotNode["varType"].Value<string>())
             };
 
             _slots.Add(slot);
         }
     }
 
-    public override void Save(XmlNode node)
+    public override void Save(JObject node)
     {
         base.Save(node);
+        throw new NotImplementedException("");
 
+        /*
         var graphNode = node.SelectSingleNode("Graph[@id='" + Id + "']");
-        graphNode.AddAttribute("type", XmlAttributeTypeValue);
+        graphNode["type", "Function");
 
         XmlNode slotListNode = node.OwnerDocument.CreateElement("SlotList");
         graphNode.AppendChild(slotListNode);
@@ -115,11 +115,11 @@ public class SequenceFunction : SequenceBase
             XmlNode slotNode = node.OwnerDocument.CreateElement("Slot");
             slotListNode.AppendChild(slotNode);
 
-            slotNode.AddAttribute("type", Enum.GetName(typeof(FunctionSlotType), s.SlotType));
-            slotNode.AddAttribute("varType", s.VariableType.FullName);
-            slotNode.AddAttribute("isArray", s.IsArray.ToString());
-            slotNode.AddAttribute("name", s.Name);
-            slotNode.AddAttribute("id", s.Id.ToString());
-        }
+            slotNode["type", Enum.GetName(typeof(FunctionSlotType), s.SlotType));
+            slotNode["varType", s.VariableType.FullName);
+            slotNode["isArray", s.IsArray.ToString());
+            slotNode["name", s.Name);
+            slotNode["id", s.Id.ToString());
+        }*/
     }
 }

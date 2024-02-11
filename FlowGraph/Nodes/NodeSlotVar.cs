@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using Newtonsoft.Json.Linq;
+using System.Xml;
 
 namespace FlowGraph.Nodes;
 
@@ -49,11 +50,11 @@ public class NodeSlotVar : NodeSlot
         _value = new ValueContainer(type, val);
     }
 
-    public override void Save(XmlNode node)
+    public override void Save(JObject node)
     {
         base.Save(node);
 
-        node.AddAttribute("saveValue", _saveValue.ToString());
+        node["saveValue"] = _saveValue;
 
         if (_saveValue)
         {
@@ -61,7 +62,7 @@ public class NodeSlotVar : NodeSlot
         }
     }
 
-    public override void Load(XmlNode node)
+    public override void Load(JObject node)
     {
         base.Load(node);
 

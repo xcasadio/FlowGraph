@@ -20,12 +20,6 @@ public class GateNode : ActionNode
 
     public override string? Title => "Gate";
 
-    public GateNode(XmlNode node) : base(node)
-    { }
-
-    public GateNode()
-    { }
-
     protected override void InitializeSlots()
     {
         base.InitializeSlots();
@@ -85,10 +79,44 @@ public class GateNode : ActionNode
         return new GateNode();
     }
 
-    public override SyntaxNode GenerateAst()
+    public override SyntaxNode GenerateAst(/*ClassDeclarationSyntax classDeclarationSyntax*/)
     {
-        //new If()
+        //Add in class member and initialize it
+        /*classDeclarationSyntax.Members.Add(Syntax.FieldDeclaration(
+            Syntax.VariableDeclaration("GateNodeImplementation", Syntax.VariableDeclarator("_gate"))));*/
+        //Syntax.FieldDeclaration()
+
+        //create the if condition
+        //if (IsClosed) block
+        //  False slot
+        //else block
+        //  True slot
 
         throw new NotImplementedException();
+    }
+}
+
+public class GateNodeImplementation
+{
+    public bool IsClosed { get; private set; }
+
+    public GateNodeImplementation(bool startClosed = false)
+    {
+        IsClosed = startClosed;
+    }
+
+    public void Open()
+    {
+        IsClosed = false;
+    }
+
+    public void Close()
+    {
+        IsClosed = true;
+    }
+
+    public void Toggle()
+    {
+        IsClosed = !IsClosed;
     }
 }

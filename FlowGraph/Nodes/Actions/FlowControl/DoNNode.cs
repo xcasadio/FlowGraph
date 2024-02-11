@@ -24,12 +24,6 @@ public class DoNNode : ActionNode
 
     public override string Title => "Do N";
 
-    public DoNNode(XmlNode node)
-        : base(node) { }
-
-    public DoNNode()
-    { }
-
     protected override void InitializeSlots()
     {
         base.InitializeSlots();

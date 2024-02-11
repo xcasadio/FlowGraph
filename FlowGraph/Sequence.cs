@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using Newtonsoft.Json.Linq;
+using System.Xml;
 using FlowGraph.Nodes;
 
 namespace FlowGraph;
@@ -18,11 +19,9 @@ public class Sequence : SequenceBase
         return SequenceNodes.Any(pair => pair.Value is EventNode && pair.Value.GetType() == type);
     }
 
-    public override void Save(XmlNode node)
+    public override void Save(JObject node)
     {
+        node["type"] = "sequence";
         base.Save(node);
-
-        var graphNode = node.SelectSingleNode("Graph[@id='" + Id + "']");
-        graphNode?.AddAttribute("type", XmlAttributeTypeValue);
     }
 }

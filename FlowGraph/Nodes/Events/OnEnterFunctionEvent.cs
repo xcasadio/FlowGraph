@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using Newtonsoft.Json.Linq;
+using System.Xml;
 using FlowGraph.Attributes;
 
 namespace FlowGraph.Nodes.Events;
@@ -67,16 +68,16 @@ internal class OnEnterFunctionEvent : EventNode
         //SetValueInSlot(1, para_);
     }
 
-    protected override void Load(XmlNode node)
+    protected override void Load(JObject node)
     {
         base.Load(node);
-        _functionId = int.Parse(node.Attributes["functionID"].Value);
+        _functionId = node["function_id"].Value<int>();
     }
 
-    public override void Save(XmlNode node)
+    public override void Save(JObject node)
     {
         base.Save(node);
-        node.AddAttribute("functionID", _function.Id.ToString());
+        node["function_id"] = _function.Id;
     }
 
     public override SequenceNode Copy()

@@ -1,4 +1,6 @@
 ﻿using System.Reflection;
+using System.Text.Json;
+using Newtonsoft.Json.Linq;
 using System.Xml;
 using CSharpSyntax;
 using FlowGraph.Logger;
@@ -16,17 +18,6 @@ public abstract class SequenceNode
     {
         Id = ++_freeId;
         InitializeSlots();
-    }
-
-    protected SequenceNode(XmlNode node)
-    {
-        if (node == null)
-        {
-            throw new ArgumentNullException(nameof(node));
-        }
-
-        InitializeSlots();
-        Load(node);
     }
 
     public abstract SyntaxNode GenerateAst();
@@ -93,34 +84,35 @@ public abstract class SequenceNode
         }
     }
 
-    protected virtual void Load(XmlNode node)
+    protected virtual void Load(JObject node)
     {
-        Id = int.Parse(node.Attributes["id"].Value);
+        Id = node["id"].Value<int>();
         if (_freeId <= Id) _freeId = Id + 1;
-        Comment = node.Attributes["comment"].Value; // EDITOR
+        Comment = node["comment"].Value<string>();
 
         foreach (var slot in NodeSlots)
         {
-            var nodeSlot = node.SelectSingleNode("Slot[@index='" + slot.Id + "']");
+            /*var nodeSlot = node.SelectSingleNode("Slot[@index='" + slot.Id + "']");
             if (nodeSlot != null)
             {
                 slot.Load(nodeSlot);
-            }
+            }*/
         }
     }
 
     // Call after Load() to connect nodes each others
-    internal virtual void ResolveLinks(XmlNode connectionListNode, SequenceBase sequence)
+    internal virtual void ResolveLinks(JObject connectionListNode, SequenceBase sequence)
     {
-        foreach (XmlNode connNode in connectionListNode.SelectNodes("Connection[@srcNodeID='" + Id + "']"))
+        /*
+        foreach (var connectionNode in connectionListNode.SelectNodes("Connection[@srcNodeID='" + Id + "']"))
         {
-            var outputSlotId = int.Parse(connNode.Attributes["srcNodeSlotID"].Value);
-            var destNodeId = int.Parse(connNode.Attributes["destNodeID"].Value);
-            var destNodeInputId = int.Parse(connNode.Attributes["destNodeSlotID"].Value);
+            var outputSlotId = connectionNode["srcNodeSlotID"].Value<int>();
+            var destNodeId = connectionNode["destNodeID"].Value<int>();
+            var destNodeInputId = connectionNode["destNodeSlotID"].Value<int>();
 
             var destNode = sequence.GetNodeById(destNodeId);
             GetSlotById(outputSlotId).ConnectTo(destNode.GetSlotById(destNodeInputId));
-        }
+        }*/
     }
 
     public static IList<Assembly> GetAssemblies()
@@ -142,9 +134,9 @@ public abstract class SequenceNode
         return returnAssemblies;
     }
 
-    public static SequenceNode? CreateNodeFromXml(XmlNode node)
+    public static SequenceNode? CreateNodeFromJson(JObject node)
     {
-        var typeVal = node.Attributes["type"].Value;
+        var typeVal = node["type"].Value<string>();
 
         try
         {
@@ -296,46 +288,46 @@ public abstract class SequenceNode
         return index < (SlotConnectorIn == null ? 0 : 1);
     }
 
-    public virtual void Save(XmlNode seqNodeNode)
+    public virtual void Save(JObject node)
     {
-        const int version = 1;
-        seqNodeNode.AddAttribute("version", version.ToString());
-
-        seqNodeNode.AddAttribute("comment", Comment);
-        seqNodeNode.AddAttribute("id", Id.ToString());
+        node["comment"] = Comment;
+        node["id"] = Id;
 
         var typeName = GetType().AssemblyQualifiedName!;
         var index = typeName.IndexOf(',', typeName.IndexOf(',') + 1);
         typeName = typeName.Substring(0, index);
-        seqNodeNode.AddAttribute("type", typeName);
+        node["type"] = typeName;
 
         //Save slots
+        var jsonArraySlots = new JArray();
         foreach (var slot in NodeSlots)
         {
-            XmlNode nodeSlot = seqNodeNode.OwnerDocument.CreateElement("Slot");
-            seqNodeNode.AppendChild(nodeSlot);
+            var nodeSlot = new JObject();
             slot.Save(nodeSlot);
+            jsonArraySlots.Add(nodeSlot);
         }
+
+        node["slots"] = jsonArraySlots;
     }
 
-    public void SaveConnections(XmlNode connectionListNode)
+    public void SaveConnections(JObject parentNode)
     {
-        const int versionConnection = 1;
+        var jsonArrayConnections = new JArray();
+
         foreach (var slot in NodeSlots)
         {
             foreach (var otherSlot in slot.ConnectedNodes)
             {
-                XmlNode linkNode = connectionListNode.OwnerDocument.CreateElement("Connection");
-                connectionListNode.AppendChild(linkNode);
-
-                linkNode.AddAttribute("version", versionConnection.ToString());
-
-                linkNode.AddAttribute("srcNodeID", Id.ToString());
-                linkNode.AddAttribute("srcNodeSlotID", slot.Id.ToString());
-                linkNode.AddAttribute("destNodeID", otherSlot.Node.Id.ToString());
-                linkNode.AddAttribute("destNodeSlotID", otherSlot.Id.ToString());
+                var linkNode = new JObject();
+                linkNode["source_node_id"] = Id;
+                linkNode["source_node_slot_id"] = slot.Id;
+                linkNode["destination_node_id"] = otherSlot.Node.Id;
+                linkNode["destination_node_slot_id"] = otherSlot.Id;
+                jsonArrayConnections.Add(linkNode);
             }
         }
+
+        parentNode["connections"] = jsonArrayConnections;
     }
 
 #endif

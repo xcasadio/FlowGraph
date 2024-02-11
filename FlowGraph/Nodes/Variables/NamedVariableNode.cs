@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using Newtonsoft.Json.Linq;
+using System.Xml;
 using FlowGraph.Attributes;
 
 namespace FlowGraph.Nodes.Variables;
@@ -18,16 +19,10 @@ public sealed class NamedVariableNode : VariableNode
         set => _value.InternalValueContainer.Value = value;
     }
 
-    public NamedVariableNode(XmlNode node)
-        : base(node)
-    {
-        InitializeSlots();
-    }
-
     public NamedVariableNode(string? name)
     {
         _value = NamedVariableManager.Instance.GetNamedVariable(name);
-        AddSlot(0, string.Empty, SlotType.VarInOut, _value.VariableType);
+        InitializeSlots();
     }
 
     protected override void InitializeSlots()
@@ -45,19 +40,20 @@ public sealed class NamedVariableNode : VariableNode
         return new NamedVariableNode(_value.Name);
     }
 
-    protected override object LoadValue(XmlNode node)
+    protected override void Load(JObject node)
     {
-        return NamedVariableManager.Instance.GetNamedVariable(node.Attributes["varName"].Value);
-    }
-
-    protected override void SaveValue(XmlNode node)
-    {
-        node.AddAttribute("varName", _value.Name);
-    }
-
-    protected override void Load(XmlNode node)
-    {
+        System.Diagnostics.Debugger.Break();
         base.Load(node);
-        _value = (NamedVariable)LoadValue(node.SelectSingleNode("Value"));
+        //_value = (NamedVariable)LoadValue(node["value"]);
+    }
+
+    protected override object LoadValue(JObject node)
+    {
+        return NamedVariableManager.Instance.GetNamedVariable(node["varName"].Value<string>());
+    }
+
+    protected override void SaveValue(JObject node)
+    {
+        node["varName"] = _value.Name;
     }
 }

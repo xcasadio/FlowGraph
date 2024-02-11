@@ -23,11 +23,6 @@ public class StringConcatNode : ActionNode
 
     public override string? Title => "String Concat";
 
-    public StringConcatNode()
-    { }
-
-    public StringConcatNode(XmlNode node) : base(node) { }
-
     protected override void InitializeSlots()
     {
         base.InitializeSlots();

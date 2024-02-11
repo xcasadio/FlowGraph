@@ -16,12 +16,6 @@ public abstract class MathLogicOperatorNode<T> : ActionNode
         VarB
     }
 
-    public MathLogicOperatorNode(XmlNode node)
-        : base(node) { }
-
-    public MathLogicOperatorNode()
-    { }
-
     protected override void InitializeSlots()
     {
         base.InitializeSlots();
