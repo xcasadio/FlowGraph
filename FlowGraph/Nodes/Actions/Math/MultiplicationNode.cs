@@ -1,5 +1,4 @@
-﻿using System.Xml;
-using CSharpSyntax;
+﻿using CSharpSyntax;
 using FlowGraph.Attributes;
 
 namespace FlowGraph.Nodes.Actions.Math;
@@ -14,7 +13,7 @@ public abstract class MultiplicationNode<T> : MathOperatorNode<T>
         return x * y;
     }
 
-    public override SyntaxNode GenerateAst()
+    public override SyntaxNode GenerateAst(ClassDeclarationSyntax classDeclaration)
     {
         //new If()
 

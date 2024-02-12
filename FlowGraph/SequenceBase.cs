@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using System.Xml;
 using FlowGraph.Nodes;
 using FlowGraph.Process;
 
@@ -21,10 +20,22 @@ public class SequenceBase
 
     public int NodeCount => SequenceNodes.Values.Count;
 
-    protected SequenceBase(string? name)
+    protected SequenceBase(string? name = null)
     {
         Name = name;
         Id = _newId++;
+    }
+
+    protected SequenceBase(SequenceBase sequenceBase)
+    {
+        Name = sequenceBase.Name;
+        Description = sequenceBase.Description;
+        Id = _newId++;
+
+        foreach (var pair in sequenceBase.SequenceNodes)
+        {
+            SequenceNodes.Add(pair.Key, pair.Value.Copy());
+        }
     }
 
     public SequenceNode GetNodeById(int id)
@@ -75,8 +86,6 @@ public class SequenceBase
 
     public virtual void Load(JObject node)
     {
-        System.Diagnostics.Debugger.Break();
-
         Id = node["id"].Value<int>();
         if (_newId <= Id) _newId = Id + 1;
         Name = node["name"].Value<string>();
@@ -84,20 +93,17 @@ public class SequenceBase
 
         foreach (var nodeNode in node["nodes"])
         {
-            //AddNode(SequenceNode.CreateNodeFromJson(nodeNode));
+            AddNode(SequenceNode.CreateNodeFromJson((JObject)nodeNode));
         }
     }
 
     internal void ResolveNodesLinks(JObject node)
     {
-        System.Diagnostics.Debugger.Break();
         if (node == null) throw new ArgumentNullException(nameof(node));
-
-        var connectionListNode = node["connections"];
 
         foreach (var sequenceNode in SequenceNodes)
         {
-            //sequenceNode.Value.ResolveLinks(connectionListNode, this);
+            sequenceNode.Value.ResolveLinks((JObject)node.SelectToken($"nodes[?(@.id=={sequenceNode.Key})]"), this);
         }
     }
 

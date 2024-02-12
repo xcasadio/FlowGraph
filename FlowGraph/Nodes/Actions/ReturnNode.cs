@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using System.Xml;
 using CSharpSyntax;
 using FlowGraph.Attributes;
 using FlowGraph.Process;
@@ -87,7 +86,7 @@ public class ReturnNode : ActionNode
         node["functionID"] = _function.Id;
     }
 
-    public override SyntaxNode GenerateAst()
+    public override SyntaxNode GenerateAst(ClassDeclarationSyntax classDeclaration)
     {
         //new If()
 

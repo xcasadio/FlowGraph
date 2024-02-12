@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using Newtonsoft.Json.Linq;
-using System.Xml;
 using FlowGraph.Process;
 
 namespace FlowGraph.Nodes;
@@ -169,12 +168,12 @@ public class NodeSlot : INotifyPropertyChanged
 
     public virtual void Load(JObject node)
     {
-        Id = node["index"].Value<int>();
+        Id = node["id"].Value<int>();
     }
 
     public virtual void Save(JObject node)
     {
-        node["index"] = Id;
+        node["id"] = Id;
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

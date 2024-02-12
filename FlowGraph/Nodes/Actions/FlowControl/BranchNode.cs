@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using System.Xml;
-using CSharpSyntax;
+﻿using CSharpSyntax;
 using FlowGraph.Attributes;
 using FlowGraph.Logger;
 using FlowGraph.Process;
@@ -72,7 +70,7 @@ public class BranchNode : ActionNode
         return new BranchNode();
     }
 
-    public override SyntaxNode GenerateAst()
+    public override SyntaxNode GenerateAst(ClassDeclarationSyntax classDeclaration)
     {
         //new If()
 

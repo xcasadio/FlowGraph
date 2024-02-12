@@ -1,5 +1,4 @@
-﻿using System.Xml;
-using CSharpSyntax;
+﻿using CSharpSyntax;
 using FlowGraph.Attributes;
 using FlowGraph.Logger;
 using FlowGraph.Process;
@@ -71,7 +70,7 @@ public abstract class VariableSetNode<T> : ActionNode
         return info;
     }
 
-    public override SyntaxNode GenerateAst()
+    public override SyntaxNode GenerateAst(ClassDeclarationSyntax classDeclaration)
     {
         //new If()
 

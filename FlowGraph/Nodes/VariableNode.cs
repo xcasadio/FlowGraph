@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using System.Xml;
 using CSharpSyntax;
 using FlowGraph.Process;
 
@@ -42,7 +41,7 @@ public abstract class VariableNode : SequenceNode
 
     protected abstract void SaveValue(JObject node);
 
-    public override ExpressionSyntax GenerateAst()
+    public override SyntaxNode GenerateAst(ClassDeclarationSyntax classDeclaration)
     {
         throw new NotImplementedException();
         /*

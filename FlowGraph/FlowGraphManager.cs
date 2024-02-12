@@ -1,15 +1,11 @@
-﻿using System.Diagnostics;
-using Newtonsoft.Json.Linq;
-using System.Xml;
+﻿using Newtonsoft.Json.Linq;
 using FlowGraph.Logger;
-using Logger;
-
 
 namespace FlowGraph;
 
 public class FlowGraphManager
 {
-    public Sequence Sequence { get; } = new("sequence");
+    public Sequence Sequence { get; private set; } = new("sequence");
     public List<SequenceFunction> Functions { get; } = new();
 
     //macros ?
@@ -17,23 +13,16 @@ public class FlowGraphManager
 
     public void Load(JObject node)
     {
-        try
-        {
-            Sequence.Load(node);
+        Sequence.Load(node);
 
-            //functions sequence
+        //functions sequence
 
-            Sequence.ResolveNodesLinks(node);
+        Sequence.ResolveNodesLinks(node);
 
-            //foreach (var function in Functions)
-            //{
-            //    ResolveLinks(node, function);
-            //}
-        }
-        catch (Exception ex)
-        {
-            LogManager.Instance.WriteException(ex);
-        }
+        //foreach (var function in Functions)
+        //{
+        //    ResolveLinks(node, function);
+        //}
     }
 
     public void Save(JObject node)
@@ -44,5 +33,19 @@ public class FlowGraphManager
         {
             seq.Save(list);
         }*/
+    }
+
+    public FlowGraphManager Clone()
+    {
+        var flowGraphManager = new FlowGraphManager();
+
+        flowGraphManager.Sequence = Sequence.Clone();
+
+        foreach (var sequenceFunction in Functions)
+        {
+            flowGraphManager.Functions.Add(sequenceFunction.Copy());
+        }
+
+        return flowGraphManager;
     }
 }

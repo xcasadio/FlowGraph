@@ -26,14 +26,42 @@ namespace NetworkModel
         {
             _sequence = sequence;
 
-            /*foreach (var sequenceNode in sequence.Nodes)
+            foreach (var sequenceNode in sequence.Nodes)
             {
-                _nodesViewModel.Add(new NodeViewModel(sequenceNode))
-            }*/
+                Nodes.Add(new NodeViewModel(sequenceNode));
+            }
+
+            foreach (var sequenceNode in sequence.Nodes)
+            {
+                foreach (var slotOut in sequenceNode.SlotConnectorOut)
+                {
+                    foreach (var connectedNode in slotOut.ConnectedNodes)
+                    {
+                        var connectionViewModel = new ConnectionViewModel();
+                        connectionViewModel.SourceConnector = GetConnectorViewModel(sequenceNode.Id, slotOut.Id);
+                        connectionViewModel.DestConnector = GetConnectorViewModel(connectedNode.Node.Id, connectedNode.Id);
+                        connectionViewModel.SourceConnectorHotspot = connectionViewModel.SourceConnector.Hotspot;
+                        connectionViewModel.DestConnectorHotspot = connectionViewModel.DestConnector.Hotspot;
+                        Connections.Add(connectionViewModel);
+                    }
+                }
+            }
 
             Nodes.CollectionChanged += OnNodeCollectionChanged;
-
             Connections.CollectionChanged += ConnectionsViewModelOnCollectionChanged;
+        }
+
+        private ConnectorViewModel GetConnectorViewModel(int sequenceNodeId, int slotId)
+        {
+            foreach (var nodeViewModel in Nodes)
+            {
+                if (nodeViewModel.SeqNode.Id == sequenceNodeId)
+                {
+                    return nodeViewModel.GetConnectorFromSlotId(slotId);
+                }
+            }
+
+            return null;
         }
 
         private void OnNodeCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)

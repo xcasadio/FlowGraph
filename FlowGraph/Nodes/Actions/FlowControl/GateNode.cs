@@ -1,5 +1,4 @@
-﻿using System.Xml;
-using CSharpSyntax;
+﻿using CSharpSyntax;
 using FlowGraph.Attributes;
 using FlowGraph.Process;
 
@@ -79,44 +78,69 @@ public class GateNode : ActionNode
         return new GateNode();
     }
 
-    public override SyntaxNode GenerateAst(/*ClassDeclarationSyntax classDeclarationSyntax*/)
+    public override SyntaxNode GenerateAst(ClassDeclarationSyntax classDeclaration)
     {
-        //Add in class member and initialize it
-        /*classDeclarationSyntax.Members.Add(Syntax.FieldDeclaration(
-            Syntax.VariableDeclaration("GateNodeImplementation", Syntax.VariableDeclarator("_gate"))));*/
-        //Syntax.FieldDeclaration()
+        //Do it only once !!!
+        //Add GateNodeImplementation in class member and initialize it
+        var gateNodeImplementationName = nameof(GateNodeImplementation);
 
-        //create the if condition
-        //if (IsClosed) block
-        //  False slot
-        //else block
-        //  True slot
+        classDeclaration.Members.Add(Syntax.FieldDeclaration(
+            modifiers: Modifiers.Private,
+            declaration: Syntax.VariableDeclaration(
+                Syntax.ParseName(gateNodeImplementationName),
+                new[] {
+                    Syntax.VariableDeclarator(
+                    "_gate", // TODO save the field name created
+                        initializer: Syntax.EqualsValueClause(Syntax.ObjectCreationExpression(
+                            Syntax.ParseName(gateNodeImplementationName),
+                            Syntax.ArgumentList(Syntax.Argument(Syntax.LiteralExpression(true)))))) // TODO get the variable name
+                    }
+                )));
 
-        throw new NotImplementedException();
+
+        //if (_gate.IsOpen)
+        var statementSyntax = new BlockSyntax();
+        var ifStatement = new IfStatementSyntax
+        {
+            Condition = new MemberAccessExpressionSyntax
+            {
+                Expression = new LiteralExpressionSyntax { Value = "_gate" },
+                Name = (SimpleNameSyntax)Syntax.ParseName("IsOpen")
+            },
+            Statement = statementSyntax
+        };
+
+        //call other out Nodes
+        foreach (var connectedNode in GetSlotById((int)NodeSlotId.Out).ConnectedNodes)
+        {
+            statementSyntax.Statements.Add((StatementSyntax)connectedNode.Node.GenerateAst(classDeclaration));
+        }
+
+        return ifStatement;
     }
 }
 
 public class GateNodeImplementation
 {
-    public bool IsClosed { get; private set; }
+    public bool IsOpen { get; private set; }
 
     public GateNodeImplementation(bool startClosed = false)
     {
-        IsClosed = startClosed;
+        IsOpen = !startClosed;
     }
 
     public void Open()
     {
-        IsClosed = false;
+        IsOpen = true;
     }
 
     public void Close()
     {
-        IsClosed = true;
+        IsOpen = false;
     }
 
     public void Toggle()
     {
-        IsClosed = !IsClosed;
+        IsOpen = !IsOpen;
     }
 }

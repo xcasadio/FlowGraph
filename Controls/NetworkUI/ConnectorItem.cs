@@ -11,14 +11,14 @@ namespace NetworkUI
     public class ConnectorItem : ContentControl
     {
         public static readonly DependencyProperty HotspotProperty =
-            DependencyProperty.Register("Hotspot", typeof(Point), typeof(ConnectorItem));
+            DependencyProperty.Register(nameof(Hotspot), typeof(Point), typeof(ConnectorItem));
 
         internal static readonly DependencyProperty ParentNetworkViewProperty =
-            DependencyProperty.Register("ParentNetworkView", typeof(NetworkView), typeof(ConnectorItem),
+            DependencyProperty.Register(nameof(ParentNetworkView), typeof(NetworkView), typeof(ConnectorItem),
                 new FrameworkPropertyMetadata(ParentNetworkView_PropertyChanged));
 
         internal static readonly DependencyProperty ParentNodeItemProperty =
-            DependencyProperty.Register("ParentNodeItem", typeof(NodeItem), typeof(ConnectorItem));
+            DependencyProperty.Register(nameof(ParentNodeItem), typeof(NodeItem), typeof(ConnectorItem));
 
         internal static readonly RoutedEvent ConnectorDragStartedEvent =
             EventManager.RegisterRoutedEvent("ConnectorDragStarted", RoutingStrategy.Bubble, typeof(ConnectorItemDragStartedEventHandler), typeof(ConnectorItem));

@@ -1,7 +1,5 @@
 ﻿using System.Reflection;
-using System.Text.Json;
 using Newtonsoft.Json.Linq;
-using System.Xml;
 using CSharpSyntax;
 using FlowGraph.Logger;
 using FlowGraph.Process;
@@ -20,7 +18,7 @@ public abstract class SequenceNode
         InitializeSlots();
     }
 
-    public abstract SyntaxNode GenerateAst();
+    public abstract SyntaxNode GenerateAst(ClassDeclarationSyntax classDeclaration);
 
     public void ActivateOutputLink(ProcessingContext context, int id)
     {
@@ -88,31 +86,47 @@ public abstract class SequenceNode
     {
         Id = node["id"].Value<int>();
         if (_freeId <= Id) _freeId = Id + 1;
+
+        X = node["x"].Value<float>();
+        Y = node["y"].Value<float>();
+        ZIndex = node["z"].Value<int>();
+
         Comment = node["comment"].Value<string>();
 
         foreach (var slot in NodeSlots)
         {
-            /*var nodeSlot = node.SelectSingleNode("Slot[@index='" + slot.Id + "']");
-            if (nodeSlot != null)
+            var slotNode = GetSlotNode(node, slot.Id);
+            if (slotNode != null)
             {
-                slot.Load(nodeSlot);
-            }*/
+                slot.Load(slotNode);
+            }
         }
     }
 
-    // Call after Load() to connect nodes each others
-    internal virtual void ResolveLinks(JObject connectionListNode, SequenceBase sequence)
+    private JObject GetSlotNode(JObject node, int slotId)
     {
-        /*
-        foreach (var connectionNode in connectionListNode.SelectNodes("Connection[@srcNodeID='" + Id + "']"))
+        foreach (var slotNode in node["slots"])
         {
-            var outputSlotId = connectionNode["srcNodeSlotID"].Value<int>();
-            var destNodeId = connectionNode["destNodeID"].Value<int>();
-            var destNodeInputId = connectionNode["destNodeSlotID"].Value<int>();
+            if (slotNode["id"].Value<int>() == slotId)
+            {
+                return (JObject)slotNode;
+            }
+        }
 
+        return null;
+    }
+
+    // Call after Load() to connect nodes each others
+    internal virtual void ResolveLinks(JObject node, SequenceBase sequence)
+    {
+        foreach (var connectionNode in node.SelectTokens($"connections[?(@.source_node_id=={Id})]"))
+        {
+            var outputSlotId = connectionNode["source_node_slot_id"].Value<int>();
+            var destNodeId = connectionNode["destination_node_id"].Value<int>();
+            var destNodeInputId = connectionNode["destination_node_slot_id"].Value<int>();
             var destNode = sequence.GetNodeById(destNodeId);
             GetSlotById(outputSlotId).ConnectTo(destNode.GetSlotById(destNodeInputId));
-        }*/
+        }
     }
 
     public static IList<Assembly> GetAssemblies()
@@ -140,20 +154,16 @@ public abstract class SequenceNode
 
         try
         {
-            var type = GetAssemblies()
-                .SelectMany(t => t.GetTypes())
-                .Single(t => t.IsClass
-                             && t.IsGenericType == false
-                             && t.IsInterface == false
-                             && t.IsAbstract == false
-                             && t.IsSubclassOf(typeof(SequenceNode))
-                             && t.AssemblyQualifiedName!
-                                 .Substring(0, t.AssemblyQualifiedName
-                                     .IndexOf(',', t.AssemblyQualifiedName
-                                         .IndexOf(',') + 1))
-                                 .Equals(typeVal));
+            var type = NodeRegister.NodeTypes.FirstOrDefault(t =>
+                t.AssemblyQualifiedName!
+                    .Substring(0, t.AssemblyQualifiedName
+                        .IndexOf(',', t.AssemblyQualifiedName
+                            .IndexOf(',') + 1))
+                    .Equals(typeVal));
 
-            return (SequenceNode?)Activator.CreateInstance(type, node);
+            var sequenceNode = (SequenceNode?)Activator.CreateInstance(type);
+            sequenceNode.Load(node);
+            return sequenceNode;
         }
         catch (Exception ex)
         {
@@ -186,6 +196,10 @@ public abstract class SequenceNode
     public string? Comment;
 
     public string? CustomText;
+
+    public double X;
+    public double Y;
+    public int ZIndex;
 
     public NodeSlot[] Slots => NodeSlots.ToArray();
 
@@ -292,6 +306,9 @@ public abstract class SequenceNode
     {
         node["comment"] = Comment;
         node["id"] = Id;
+        node["x"] = X;
+        node["y"] = Y;
+        node["z"] = ZIndex;
 
         var typeName = GetType().AssemblyQualifiedName!;
         var index = typeName.IndexOf(',', typeName.IndexOf(',') + 1);
@@ -331,5 +348,4 @@ public abstract class SequenceNode
     }
 
 #endif
-
 }

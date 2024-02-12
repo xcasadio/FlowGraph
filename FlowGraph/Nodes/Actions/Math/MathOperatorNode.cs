@@ -1,5 +1,4 @@
-﻿using System.Xml;
-using FlowGraph.Logger;
+﻿using FlowGraph.Logger;
 using FlowGraph.Process;
 using Logger;
 

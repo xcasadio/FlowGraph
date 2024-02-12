@@ -10,6 +10,7 @@ using FlowGraph.Nodes;
 using FlowGraphUI.UndoRedo;
 using NetworkModel;
 using NetworkUI;
+using Newtonsoft.Json.Linq;
 using UiTools;
 using Utils;
 
@@ -844,21 +845,6 @@ public class SequenceViewModel : AbstractModelBase
         }
 
         return null;
-    }
-
-    public void Save(JsonNode node)
-    {
-        /*
-        var graphNode = node.SelectSingleNode("Graph[@id='" + Id + "']");
-
-        //save all nodes
-        foreach (var nodeVm in Network.Nodes)
-        {
-            var nodeNode = graphNode.SelectSingleNode("NodeList/Node[@id='" + nodeVm.SeqNode.Id + "']");
-            nodeNode["x"] = nodeVm.X;
-            nodeNode["y"] = nodeVm.Y;
-            nodeNode["z"] = nodeVm.ZIndex;
-        }*/
     }
 
     readonly List<PositionNodeUndoCommand.NodeDraggingInfo> _cachedNodesDraggingList = new(5);

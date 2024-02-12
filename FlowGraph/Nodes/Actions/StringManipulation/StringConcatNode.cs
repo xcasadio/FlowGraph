@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using System.Xml;
 using CSharpSyntax;
 using FlowGraph.Attributes;
 using FlowGraph.Logger;
@@ -84,7 +83,7 @@ public class StringConcatNode : ActionNode
         return new StringConcatNode();
     }
 
-    public override SyntaxNode GenerateAst()
+    public override SyntaxNode GenerateAst(ClassDeclarationSyntax classDeclaration)
     {
         //new If()
 

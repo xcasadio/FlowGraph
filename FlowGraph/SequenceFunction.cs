@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using System.Xml;
 using FlowGraph.Nodes.Actions;
 using FlowGraph.Nodes.Events;
 
@@ -38,8 +37,15 @@ public class SequenceFunction : SequenceBase
         }
     }
 
-    public SequenceFunction(string? name)
+    public SequenceFunction(string? name = null)
         : base(name)
+    {
+        AddNode(new OnEnterFunctionEvent(this));
+        AddNode(new ReturnNode(this));
+    }
+
+    public SequenceFunction(SequenceFunction sequenceFunction)
+        : base(sequenceFunction)
     {
         AddNode(new OnEnterFunctionEvent(this));
         AddNode(new ReturnNode(this));
@@ -121,5 +127,10 @@ public class SequenceFunction : SequenceBase
             slotNode["name", s.Name);
             slotNode["id", s.Id.ToString());
         }*/
+    }
+
+    public SequenceFunction Copy()
+    {
+        return new SequenceFunction(this);
     }
 }

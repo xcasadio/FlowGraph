@@ -1,5 +1,4 @@
-﻿using System.Xml;
-using CSharpSyntax;
+﻿using CSharpSyntax;
 using FlowGraph.Attributes;
 using FlowGraph.Process;
 
@@ -24,7 +23,7 @@ public abstract class EventNode : SequenceNode
 #if EDITOR
     public override NodeType NodeType => NodeType.Event;
 
-    public override MemberDeclarationSyntax GenerateAst()
+    public override SyntaxNode GenerateAst(ClassDeclarationSyntax classDeclaration)
     {
         var statements = new List<StatementSyntax>();
 
@@ -32,7 +31,7 @@ public abstract class EventNode : SequenceNode
         {
             foreach (var node in slot.ConnectedNodes)
             {
-                statements.Add((StatementSyntax)node.Node.GenerateAst());
+                statements.Add((StatementSyntax)node.Node.GenerateAst(classDeclaration));
             }
         }
 

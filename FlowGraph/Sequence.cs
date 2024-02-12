@@ -1,17 +1,23 @@
 ﻿using Newtonsoft.Json.Linq;
-using System.Xml;
 using FlowGraph.Nodes;
 
 namespace FlowGraph;
 
 public class Sequence : SequenceBase
 {
-    public const string? XmlAttributeTypeValue = "Sequence";
-
-    public Sequence(string? name)
-        : base(name)
+    public Sequence()
     {
 
+    }
+
+    public Sequence(string? name = null)
+        : base(name)
+    {
+    }
+
+    public Sequence(Sequence sequence)
+        : base(sequence)
+    {
     }
 
     public bool ContainsEventNodeWithType(Type type)
@@ -23,5 +29,11 @@ public class Sequence : SequenceBase
     {
         node["type"] = "sequence";
         base.Save(node);
+    }
+
+    public Sequence Clone()
+    {
+        var sequence = new Sequence(this);
+        return sequence;
     }
 }

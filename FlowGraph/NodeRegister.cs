@@ -1,15 +1,15 @@
-﻿using System.Diagnostics;
-using System.Reflection;
+﻿using System.Reflection;
 using FlowGraph.Attributes;
 using FlowGraph.Logger;
 using FlowGraph.Nodes;
 using Logger;
 
-namespace FlowGraphUI;
+namespace FlowGraph;
 
 public static class NodeRegister
 {
     public static SortedDictionary<string, List<(string name, Type type)>> NodeTypesByCategory { get; } = new();
+    public static List<Type> NodeTypes { get; } = new();
 
     public static void Register(Assembly assembly)
     {
@@ -40,6 +40,8 @@ public static class NodeRegister
                     type.FullName);
                 continue;
             }
+
+            NodeTypes.Add(type);
 
             var categoryPath = customAttribute == null ? string.Empty : ((Category)customAttribute).CategoryPath;
 

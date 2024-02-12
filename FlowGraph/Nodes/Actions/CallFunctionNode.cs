@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using System.Xml;
 using CSharpSyntax;
 using FlowGraph.Attributes;
 using FlowGraph.Nodes.Events;
@@ -139,7 +138,7 @@ public class CallFunctionNode : ActionNode
         node["functionID"] = GetFunction().Id;
     }
 
-    public override SyntaxNode GenerateAst()
+    public override SyntaxNode GenerateAst(ClassDeclarationSyntax classDeclaration)
     {
         return Syntax.InvocationExpression(
             Syntax.ParseName("_function.Name")/*,

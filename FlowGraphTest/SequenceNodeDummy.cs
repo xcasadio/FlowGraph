@@ -18,7 +18,7 @@ public class SequenceNodeDummy : SequenceNode
     public override NodeType NodeType => NodeType.Action;
     public override string Title => "SequenceNodeDummy";
 
-    public override SyntaxNode GenerateAst()
+    public override SyntaxNode GenerateAst(ClassDeclarationSyntax classDeclaration)
     {
         return null;
     }

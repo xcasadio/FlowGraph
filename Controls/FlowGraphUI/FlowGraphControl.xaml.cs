@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using FlowGraph;
 using FlowGraph.Logger;
 using FlowGraph.Nodes;
 using FlowGraph.Nodes.Variables;
@@ -17,7 +18,7 @@ namespace FlowGraphUI;
 
 public partial class FlowGraphControl : UserControl
 {
-    private static readonly List<NodeViewModel> ClipboardNodes = new(10);
+    private static readonly List<NodeViewModel> ClipboardNodes = new();
 
     private bool _isContextMenuCreated;
 
@@ -53,7 +54,7 @@ public partial class FlowGraphControl : UserControl
             return;
         }
 
-        //Bug do it in MainWindow
+        //Bug do it in MainWindow in flowgraph repo
         //foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
         //{
         //    NodeRegister.Register(assembly);

@@ -30,21 +30,6 @@ namespace NetworkModel
         private string _name = string.Empty;
 
         /// <summary>
-        /// The X coordinate for the position of the node.
-        /// </summary>
-        private double _x;
-
-        /// <summary>
-        /// The Y coordinate for the position of the node.
-        /// </summary>
-        private double _y;
-
-        /// <summary>
-        /// The Z index of the node.
-        /// </summary>
-        private int _zIndex;
-
-        /// <summary>
         /// The size of the node.
         /// 
         /// Important Note: 
@@ -152,20 +137,20 @@ namespace NetworkModel
 
         public double X
         {
-            get => _x;
-            set => SetField(ref _x, value);
+            get => SeqNode.X;
+            set => SetField(ref SeqNode.X, value);
         }
 
         public double Y
         {
-            get => _y;
-            set => SetField(ref _y, value);
+            get => SeqNode.Y;
+            set => SetField(ref SeqNode.Y, value);
         }
 
         public int ZIndex
         {
-            get => _zIndex;
-            set => SetField(ref _zIndex, value);
+            get => SeqNode.ZIndex;
+            set => SetField(ref SeqNode.ZIndex, value);
         }
 
         /// <summary>
@@ -352,9 +337,9 @@ namespace NetworkModel
             var node = new NodeViewModel(SeqNode.Copy())
             {
                 _name = _name,
-                _x = _x,
-                _y = _y,
-                _zIndex = _zIndex,
+                X = X,
+                Y = Y,
+                ZIndex = ZIndex,
                 _size = _size,
                 _isSelected = _isSelected
             };
