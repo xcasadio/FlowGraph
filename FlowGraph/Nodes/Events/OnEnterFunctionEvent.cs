@@ -67,7 +67,7 @@ internal class OnEnterFunctionEvent : EventNode
         //SetValueInSlot(1, para_);
     }
 
-    protected override void Load(JObject node)
+    public override void Load(JObject node)
     {
         base.Load(node);
         _functionId = node["function_id"].Value<int>();

@@ -8,11 +8,6 @@ namespace CustomNode
     [Name("Message Received")]
     public class EventMessageReceivedNode : EventNode
     {
-        public EventMessageReceivedNode(XmlNode node) : base(node)
-        {
-
-        }
-
         public EventMessageReceivedNode()
         {
             AddSlot(0, "received", SlotType.NodeOut);

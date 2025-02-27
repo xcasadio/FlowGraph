@@ -1,6 +1,4 @@
-﻿using System.Xml;
-using FlowGraph;
-using FlowGraph.Attributes;
+﻿using FlowGraph.Attributes;
 using FlowGraph.Nodes;
 
 namespace CustomNode
@@ -9,17 +7,6 @@ namespace CustomNode
     public class EventNodeTestStarted : EventNode
     {
         public override string Title => "Test Started Event";
-
-        public EventNodeTestStarted(XmlNode node)
-            : base(node)
-        {
-
-        }
-
-        public EventNodeTestStarted()
-        {
-
-        }
 
         protected override void InitializeSlots()
         {

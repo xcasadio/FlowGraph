@@ -49,7 +49,7 @@ public abstract class GenericVariableNode<T> : VariableNode
         AddSlot(0, string.Empty, SlotType.VarInOut, typeof(T), true, ControlType);
     }
 
-    protected override void Load(JObject node)
+    public override void Load(JObject node)
     {
         System.Diagnostics.Debugger.Break();
         base.Load(node);

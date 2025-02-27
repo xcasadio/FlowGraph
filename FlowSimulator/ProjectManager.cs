@@ -1,7 +1,9 @@
-﻿using System.Xml;
+﻿using System.IO;
 using FlowGraph;
 using FlowGraph.Logger;
 using Logger;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace FlowSimulator
 {
@@ -19,18 +21,9 @@ namespace FlowSimulator
 
             try
             {
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(fileName);
-                XmlNode rootNode = xmlDoc.SelectSingleNode("FlowSimulator");
+                JObject jsonDocument = JObject.Parse(File.ReadAllText(fileName));
 
-                if (rootNode != null
-                    && rootNode.Attributes.GetNamedItem("version") != null)
-                {
-                    int version = int.Parse(rootNode.Attributes["version"].Value);
-                }
-
-                NamedVariableManager.Instance.Load(rootNode);
-                //FlowGraphManager.Instance.Load(rootNode); // GraphDataManager.Instance.Load(rootNode) done inside
+                NamedVariableManager.Instance.Load(jsonDocument);
 
                 LogManager.Instance.WriteLine(LogVerbosity.Info, "'{0}' successfully loaded", fileName);
             }
@@ -49,14 +42,12 @@ namespace FlowSimulator
 
             try
             {
-                XmlDocument xmlDoc = new XmlDocument();
-                XmlNode rootNode = xmlDoc.AddRootNode("FlowSimulator");
-                rootNode.AddAttribute("version", version.ToString());
+                JObject rootObject = new();
+                NamedVariableManager.Instance.Save(rootObject);
 
-                //FlowGraphManager.Instance.Save(rootNode);
-                NamedVariableManager.Instance.Save(rootNode);
-
-                xmlDoc.Save(fileName);
+                using StreamWriter file = File.CreateText(fileName);
+                using JsonTextWriter writer = new JsonTextWriter(file) { Formatting = Formatting.Indented };
+                rootObject.WriteTo(writer);
 
                 LogManager.Instance.WriteLine(LogVerbosity.Info, "'{0}' successfully saved", fileName);
             }

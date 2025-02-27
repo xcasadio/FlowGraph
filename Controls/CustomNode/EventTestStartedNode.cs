@@ -24,12 +24,6 @@ namespace CustomNode
 
         public override string Title => "Test Started Event";
 
-        public EventTestStartedNode(XmlNode node)
-            : base(node)
-        {
-
-        }
-
         protected override void InitializeSlots()
         {
             base.InitializeSlots();

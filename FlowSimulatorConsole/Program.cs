@@ -1,9 +1,9 @@
-﻿using System.Xml;
-using CustomNode;
+﻿using CustomNode;
 using FlowGraph;
 using FlowGraph.Logger;
 using FlowGraph.Process;
 using Logger;
+using Newtonsoft.Json.Linq;
 
 namespace FlowSimulatorConsole
 {
@@ -18,19 +18,18 @@ namespace FlowSimulatorConsole
                 LogManager.Instance.AddLogger(new ConsoleLogger());
                 LogManager.Instance.Verbosity = LogVerbosity.Trace;
 
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load("../../../../Test.xml");
+                JObject jsonDocument = JObject.Parse(File.ReadAllText("../../../../Test.xml"));
 
                 // TODO : how load NamedVariableList and Sequence
                 // if the structure of the xml is not defined in the library ?
                 // It is the user who build the xml
-                XmlNode rootNode = xmlDoc.FirstChild.NextSibling;
-                NamedVariableManager.Instance.Load(rootNode);
+                NamedVariableManager.Instance.Load(jsonDocument);
                 var flowGraphManager = new FlowGraphManager();
-                flowGraphManager.Load(rootNode);
+                flowGraphManager.Load(jsonDocument);
 
                 Sequence seq = new Sequence("test");
-                seq.Load(xmlDoc.SelectSingleNode("FlowSimulator/GraphList/Graph[@name='test']"));
+                throw new NotImplementedException();
+                //seq.Load(jsonDocument.SelectSingleNode("FlowSimulator/GraphList/Graph[@name='test']"));
 
                 ProcessLauncher.Instance.LaunchSequence(seq, typeof(EventNodeTestStarted), 0, "test");
                 ProcessLauncher.Instance.StopLoop();

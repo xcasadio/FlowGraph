@@ -1,9 +1,9 @@
-﻿using System.Xml;
-using FlowGraph.Nodes;
+﻿using FlowGraph.Nodes;
+using Newtonsoft.Json.Linq;
 
 namespace CustomNode;
 
 public interface ISequenceNodeFactory
 {
-    SequenceNode? CreateNode(XmlNode node);
+    SequenceNode? CreateNode(JObject jObject);
 }

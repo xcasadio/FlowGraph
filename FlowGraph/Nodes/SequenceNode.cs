@@ -82,7 +82,7 @@ public abstract class SequenceNode
         }
     }
 
-    protected virtual void Load(JObject node)
+    public virtual void Load(JObject node)
     {
         Id = node["id"].Value<int>();
         if (_freeId <= Id) _freeId = Id + 1;

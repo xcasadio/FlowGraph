@@ -3,6 +3,7 @@ using System.Xml;
 using FlowGraph;
 using FlowGraph.Logger;
 using FlowGraphUI;
+using Newtonsoft.Json.Linq;
 
 namespace FlowSimulator.FlowGraphs
 {
@@ -50,20 +51,21 @@ namespace FlowSimulator.FlowGraphs
             return false;
         }
 
-        public void Load(XmlNode node)
+        public void Load(JObject node)
         {
             try
             {
                 _flowGraphManager.Load(node);
 
-                int version = int.Parse(node.SelectSingleNode("GraphList").Attributes["version"].Value);
-
-                foreach (XmlNode graphNode in node.SelectNodes("GraphList/Graph"))
-                {
-                    //create sequence
-                    //load
-                    //FlowGraphs.Add(new SequenceViewModel(graphNode));
-                }
+                throw new NotImplementedException();
+                //int version = int.Parse(node.SelectSingleNode("GraphList").Attributes["version"].Value);
+                //
+                //foreach (XmlNode graphNode in node.SelectNodes("GraphList/Graph"))
+                //{
+                //    //create sequence
+                //    //load
+                //    //FlowGraphs.Add(new SequenceViewModel(graphNode));
+                //}
             }
             catch (System.Exception ex)
             {
@@ -71,7 +73,7 @@ namespace FlowSimulator.FlowGraphs
             }
         }
 
-        public void Save(XmlNode node)
+        public void Save(JObject node)
         {
             // Create all sequence to reflect all changes make (because it is not done in real time)
             foreach (SequenceViewModel wm in FlowGraphs)
@@ -83,13 +85,15 @@ namespace FlowSimulator.FlowGraphs
 
             const int version = 1;
 
-            XmlNode list = node.SelectSingleNode("GraphList");
+            throw new NotImplementedException();
 
-            list.AddAttribute("designerVersion", version.ToString());
+            var graphArrayNode = new JArray();
 
             foreach (SequenceViewModel wm in FlowGraphs)
             {
-                wm.Save(list);
+                var newObject = new JObject();
+                //wm.Save(newObject);
+                graphArrayNode.Add(newObject);
             }
         }
     }

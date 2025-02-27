@@ -74,7 +74,7 @@ public class ReturnNode : ActionNode
         return new ReturnNode(_function);
     }
 
-    protected override void Load(JObject node)
+    public override void Load(JObject node)
     {
         base.Load(node);
         //_functionId = int.Parse(node.Attributes["functionID"].Value);

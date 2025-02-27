@@ -120,7 +120,7 @@ public class CallFunctionNode : ActionNode
         return new CallFunctionNode(_function);
     }
 
-    protected override void Load(JObject node)
+    public override void Load(JObject node)
     {
         base.Load(node);
         _functionId = node["functionID"].Value<int>();

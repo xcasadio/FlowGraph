@@ -22,12 +22,6 @@ namespace CustomNode
 
         public override string Title => "Log Message";
 
-        public LogMessageNode(XmlNode node)
-            : base(node)
-        {
-
-        }
-
         public LogMessageNode()
         {
 
@@ -75,7 +69,8 @@ namespace CustomNode
         {
             return new LogMessageNode();
         }
-        public override SyntaxNode GenerateAst()
+
+        public override SyntaxNode GenerateAst(ClassDeclarationSyntax classDeclaration)
         {
             ArgumentSyntax message = null;
             var slot = GetSlotById((int)NodeSlotId.Message);
@@ -97,7 +92,7 @@ namespace CustomNode
                 {
                     message = new ArgumentSyntax
                     {
-                        Expression = variableNode.GenerateAst()
+                        Expression = variableNode.GenerateAst(classDeclaration)
                     };
                 }
 

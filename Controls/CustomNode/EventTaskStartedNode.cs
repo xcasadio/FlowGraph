@@ -8,12 +8,6 @@ namespace CustomNode
     [Name("Task Started")]
     public class EventTaskStartedNode : EventNode
     {
-        public EventTaskStartedNode(XmlNode node)
-            : base(node)
-        {
-
-        }
-
 #if EDITOR
 
         public EventTaskStartedNode()

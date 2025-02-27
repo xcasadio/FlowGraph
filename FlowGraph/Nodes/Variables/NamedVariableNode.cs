@@ -39,7 +39,7 @@ public sealed class NamedVariableNode : VariableNode
         return new NamedVariableNode(_value.Name);
     }
 
-    protected override void Load(JObject node)
+    public override void Load(JObject node)
     {
         System.Diagnostics.Debugger.Break();
         base.Load(node);

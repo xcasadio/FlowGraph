@@ -37,9 +37,10 @@ public class FlowGraphManager
 
     public FlowGraphManager Clone()
     {
-        var flowGraphManager = new FlowGraphManager();
-
-        flowGraphManager.Sequence = Sequence.Clone();
+        var flowGraphManager = new FlowGraphManager
+        {
+            Sequence = Sequence.Clone()
+        };
 
         foreach (var sequenceFunction in Functions)
         {

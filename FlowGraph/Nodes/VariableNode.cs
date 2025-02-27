@@ -41,7 +41,7 @@ public abstract class VariableNode : SequenceNode
 
     protected abstract void SaveValue(JObject node);
 
-    public override SyntaxNode GenerateAst(ClassDeclarationSyntax classDeclaration)
+    public override ExpressionSyntax GenerateAst(ClassDeclarationSyntax classDeclaration)
     {
         throw new NotImplementedException();
         /*
