@@ -15,15 +15,16 @@ namespace FlowSimulator
             MainWindow.Instance.DetailsControl.DataContext = null;
         }
 
-        public static bool OpenFile(string fileName)
+        public static bool OpenFile(string fileName, FlowGraphManager flowGraphManager)
         {
             Clear();
 
             try
             {
-                JObject jsonDocument = JObject.Parse(File.ReadAllText(fileName));
+                JObject rootObject = JObject.Parse(File.ReadAllText(fileName));
 
-                NamedVariableManager.Instance.Load(jsonDocument);
+                NamedVariableManager.Instance.Load(rootObject);
+                flowGraphManager.Load(rootObject);
 
                 LogManager.Instance.WriteLine(LogVerbosity.Info, "'{0}' successfully loaded", fileName);
             }
@@ -36,7 +37,7 @@ namespace FlowSimulator
             return true;
         }
 
-        public static bool SaveFile(string fileName)
+        public static bool SaveFile(string fileName, FlowGraphManager flowGraphManager)
         {
             const int version = 1;
 
@@ -44,6 +45,7 @@ namespace FlowSimulator
             {
                 JObject rootObject = new();
                 NamedVariableManager.Instance.Save(rootObject);
+                flowGraphManager.Save(rootObject);
 
                 using StreamWriter file = File.CreateText(fileName);
                 using JsonTextWriter writer = new JsonTextWriter(file) { Formatting = Formatting.Indented };

@@ -9,13 +9,6 @@ namespace CustomNode
     public class EventTestStartedNode : EventNode
     {
 #if EDITOR
-        public EventTestStartedNode()
-        {
-            AddSlot(0, "Test started", SlotType.NodeOut);
-
-            //AddSlot(new NodeItemType("Message", SequenceNode.ConnectionType.Variable, typeof(string)));
-        }
-
         public override SequenceNode Copy()
         {
             return new EventTestStartedNode();
@@ -23,13 +16,14 @@ namespace CustomNode
 #endif
 
         public override string Title => "Test Started Event";
+        
 
         protected override void InitializeSlots()
         {
             base.InitializeSlots();
 
-            AddSlot(0, "Started", SlotType.NodeOut);
-            AddSlot(1, "Task name", SlotType.VarOut, typeof(string));
+            AddSlot(0, "started", SlotType.NodeOut);
+            AddSlot(1, "test name", SlotType.VarOut, typeof(string));
         }
 
         protected override void TriggeredImpl(object? para)

@@ -90,7 +90,10 @@ public class SequenceFunction : SequenceBase
             var id = slotNode["id"].Value<int>();
             var type = (FunctionSlotType)Enum.Parse(typeof(FunctionSlotType), slotNode["type"].Value<string>());
 
-            if (_nextSlotId <= id) _nextSlotId = id + 1;
+            if (_nextSlotId <= id)
+            {
+                _nextSlotId = id + 1;
+            }
 
             var slot = new SequenceFunctionSlot(id, type)
             {

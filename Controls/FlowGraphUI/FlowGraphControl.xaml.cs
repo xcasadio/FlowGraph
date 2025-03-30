@@ -54,14 +54,6 @@ public partial class FlowGraphControl : UserControl
             return;
         }
 
-        //Bug do it in MainWindow in flowgraph repo
-        //foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-        //{
-        //    NodeRegister.Register(assembly);
-        //}
-        //
-        //NodeRegister.Register(Assembly.LoadFrom("CustomNode.dll"));
-
         foreach (var nodesByCategory in NodeRegister.NodeTypesByCategory)
         {
             var parent = CreateParentMenuItemNode(nodesByCategory.Key, menuItemCreateNode);
@@ -90,7 +82,10 @@ public partial class FlowGraphControl : UserControl
 
         var folders = categPath.Split('/');
         categPath = categPath.Remove(0, folders[0].Length);
-        if (categPath.Length > 1) categPath = categPath.Remove(0, 1);
+        if (categPath.Length > 1)
+        {
+            categPath = categPath.Remove(0, 1);
+        }
 
         foreach (MenuItem item in parent.Items)
         {

@@ -85,7 +85,10 @@ public abstract class SequenceNode
     public virtual void Load(JObject node)
     {
         Id = node["id"].Value<int>();
-        if (_freeId <= Id) _freeId = Id + 1;
+        if (_freeId <= Id)
+        {
+            _freeId = Id + 1;
+        }
 
         X = node["x"].Value<float>();
         Y = node["y"].Value<float>();

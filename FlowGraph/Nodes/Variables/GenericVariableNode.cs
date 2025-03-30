@@ -51,21 +51,18 @@ public abstract class GenericVariableNode<T> : VariableNode
 
     public override void Load(JObject node)
     {
-        System.Diagnostics.Debugger.Break();
         base.Load(node);
-        //_value = (T)LoadValue(node["value"]);
+        _value = LoadValue((JValue)node["value"]);
     }
 
-    protected override object LoadValue(JObject node)
+    private T LoadValue(JValue node)
     {
         return node.Value<T>();
     }
 
     protected override void SaveValue(JObject node)
     {
-        var jsonObject = new JObject();
-        //_value ?? "null"
-        node["value"] = jsonObject;
+        node["value"] = new JValue(_value);
     }
 }
 

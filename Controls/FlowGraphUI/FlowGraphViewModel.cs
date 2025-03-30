@@ -7,24 +7,25 @@ namespace FlowGraphUI;
 public class FlowGraphViewModel : AbstractModelBase
 {
     private readonly FlowGraphManager _flowGraphManager;
+    private SequenceViewModel _sequenceViewModel;
 
     public int Id => _flowGraphManager.Sequence.Id;
     public string Name => _flowGraphManager.Sequence.Name;
     public string Description => _flowGraphManager.Sequence.Description;
     public FlowGraphManager FlowGraphManager => _flowGraphManager;
-    public SequenceViewModel SequenceViewModel { get; }
-    public System.Collections.ObjectModel.ObservableCollection<SequenceViewModel> Functions { get; } = new();
+
+    public SequenceViewModel SequenceViewModel
+    {
+        get => _sequenceViewModel;
+        private set => SetField(ref _sequenceViewModel, value);
+    }
+
+    public ObservableCollection<SequenceViewModel> Functions { get; } = new();
 
     public FlowGraphViewModel(FlowGraphManager flowGraphManager)
     {
         _flowGraphManager = flowGraphManager;
-
-        SequenceViewModel = new SequenceViewModel(_flowGraphManager.Sequence);
-
-        foreach (var sequenceFunction in _flowGraphManager.Functions)
-        {
-            AddFunction(new SequenceViewModel(sequenceFunction));
-        }
+        _sequenceViewModel = new SequenceViewModel(flowGraphManager.Sequence);
     }
 
     public bool IsValidSequenceName(string name)
@@ -65,5 +66,23 @@ public class FlowGraphViewModel : AbstractModelBase
     {
         FlowGraphManager.Functions.Remove(sequenceViewModel.SequenceBase as SequenceFunction);
         Functions.Remove(sequenceViewModel);
+    }
+    
+    public void ClearFunctions()
+    {
+        FlowGraphManager.Functions.Clear();
+        Functions.Clear();
+    }
+
+    public void Initialize()
+    {
+        ClearFunctions();
+
+        SequenceViewModel = new SequenceViewModel(_flowGraphManager.Sequence);
+
+        foreach (var sequenceFunction in _flowGraphManager.Functions)
+        {
+            AddFunction(new SequenceViewModel(sequenceFunction));
+        }
     }
 }

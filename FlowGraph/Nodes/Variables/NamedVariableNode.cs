@@ -41,12 +41,11 @@ public sealed class NamedVariableNode : VariableNode
 
     public override void Load(JObject node)
     {
-        System.Diagnostics.Debugger.Break();
         base.Load(node);
-        //_value = (NamedVariable)LoadValue(node["value"]);
+        _value = (NamedVariable)LoadValue((JValue)node["value"]);
     }
 
-    protected override object LoadValue(JObject node)
+    protected object LoadValue(JValue node)
     {
         return NamedVariableManager.Instance.GetNamedVariable(node["varName"].Value<string>());
     }

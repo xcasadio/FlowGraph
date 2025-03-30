@@ -47,7 +47,10 @@ class ValueContainer : INotifyPropertyChanged
 
             var sameType = value == null || VariableType == value.GetType();
 
-            if (_value == value || sameType != true) return;
+            if (_value == value || sameType != true)
+            {
+                return;
+            }
 
             _value = value;
             OnPropertyChanged("Value");

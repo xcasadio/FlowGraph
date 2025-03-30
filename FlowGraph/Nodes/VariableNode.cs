@@ -37,8 +37,6 @@ public abstract class VariableNode : SequenceNode
         SaveValue(node);
     }
 
-    protected abstract object LoadValue(JObject node);
-
     protected abstract void SaveValue(JObject node);
 
     public override ExpressionSyntax GenerateAst(ClassDeclarationSyntax classDeclaration)

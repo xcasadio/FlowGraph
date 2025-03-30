@@ -1,5 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Data;
+using Newtonsoft.Json.Linq;
 using FlowGraph.Logger;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FlowGraph;
 
@@ -13,11 +15,14 @@ public class FlowGraphManager
 
     public void Load(JObject node)
     {
-        Sequence.Load(node);
+        var sequenceObject = (JObject)node["sequence"];
+
+        Sequence.Load(sequenceObject);
 
         //functions sequence
+        Functions.Clear();
 
-        Sequence.ResolveNodesLinks(node);
+        Sequence.ResolveNodesLinks(sequenceObject);
 
         //foreach (var function in Functions)
         //{
@@ -27,7 +32,9 @@ public class FlowGraphManager
 
     public void Save(JObject node)
     {
-        Sequence.Save(node);
+        JObject sequenceObject = new();
+        Sequence.Save(sequenceObject);
+        node.Add("sequence", sequenceObject);
         /*
         foreach (var seq in Functions)
         {

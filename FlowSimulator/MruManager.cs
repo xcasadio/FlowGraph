@@ -67,7 +67,9 @@ namespace FlowSimulator
                 _maxDisplayLength = value;
 
                 if (_maxDisplayLength < 10)
+                {
                     _maxDisplayLength = 10;
+                }
             }
 
             get => _maxDisplayLength;
@@ -85,10 +87,14 @@ namespace FlowSimulator
                 _maxNumberOfFiles = value;
 
                 if (_maxNumberOfFiles < 1)
+                {
                     _maxNumberOfFiles = 1;
+                }
 
                 if (_mruList.Count > _maxNumberOfFiles)
+                {
                     _mruList.RemoveRange(_maxNumberOfFiles - 1, _mruList.Count - _maxNumberOfFiles);
+                }
             }
 
             get => _maxNumberOfFiles;
@@ -127,9 +133,13 @@ namespace FlowSimulator
             // keep Registry path adding MRU key to it
             _registryPath = regPath;
             if (_registryPath.EndsWith("\\"))
+            {
                 _registryPath += "MRU";
+            }
             else
+            {
                 _registryPath += "\\MRU";
+            }
 
 
             // keep current directory in the time of initialization
@@ -157,7 +167,9 @@ namespace FlowSimulator
 
             // if array has maximum length, remove last element
             if (_mruList.Count == _maxNumberOfFiles)
+            {
                 _mruList.RemoveAt(_maxNumberOfFiles - 1);
+            }
 
             // add new file name to the start of array
             _mruList.Insert(0, file);
@@ -260,7 +272,7 @@ namespace FlowSimulator
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnOwnerClosing(object sender, CancelEventArgs e)
+        private void OnOwnerClosing(object? sender, CancelEventArgs e)
         {
             int i, n;
 
@@ -314,7 +326,9 @@ namespace FlowSimulator
                         var s = (string)key.GetValue(sKey, "");
 
                         if (s.Length == 0)
+                        {
                             break;
+                        }
 
                         _mruList.Add(s);
                     }
@@ -357,7 +371,9 @@ namespace FlowSimulator
             FileInfo fileInfo = new FileInfo(fullName);
 
             if (fileInfo.DirectoryName == CurrentDir)
+            {
                 return GetShortDisplayName(fileInfo.Name, _maxDisplayLength);
+            }
 
             return GetShortDisplayName(fullName, _maxDisplayLength);
         }

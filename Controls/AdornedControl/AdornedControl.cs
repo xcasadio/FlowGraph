@@ -133,7 +133,10 @@ namespace AdornedControl
 
             if (_adornerShowState != AdornerShowState.FadingOut)
             {
-                if (_adorner != null) _adorner.Opacity = 0.0;
+                if (_adorner != null)
+                {
+                    _adorner.Opacity = 0.0;
+                }
             }
 
             DoubleAnimation doubleAnimation = new DoubleAnimation(1.0, new Duration(TimeSpan.FromSeconds(FadeInTime)));

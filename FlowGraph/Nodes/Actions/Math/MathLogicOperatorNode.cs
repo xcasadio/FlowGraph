@@ -63,8 +63,14 @@ public abstract class MathLogicOperatorNode<T> : ActionNode
         {
             var res = DoActivateLogic((T)objA, (T)objB);
 
-            if (res) ActivateOutputLink(context, (int)NodeSlotId.OutTrue);
-            else ActivateOutputLink(context, (int)NodeSlotId.OutFalse);
+            if (res)
+            {
+                ActivateOutputLink(context, (int)NodeSlotId.OutTrue);
+            }
+            else
+            {
+                ActivateOutputLink(context, (int)NodeSlotId.OutFalse);
+            }
         }
 
         return info;

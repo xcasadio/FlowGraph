@@ -223,8 +223,7 @@
                                                 <flowGraphUi:FlowGraphDataControl x:Name="flowGraphListControl" />
                                             </Grid>
                                         </avalondock:LayoutAnchorable>
-
-                                    </avalondock:LayoutAnchorablePane >
+                                    </avalondock:LayoutAnchorablePane>
 
                                     <avalondock:LayoutAnchorablePane>
                                         <avalondock:LayoutAnchorable x:Name="detailsLayout" Title="Details">
@@ -232,7 +231,6 @@
                                                 <flowGraphUi:DetailsControl x:Name="detailsControl" />
                                             </Grid>
                                         </avalondock:LayoutAnchorable>
-
                                     </avalondock:LayoutAnchorablePane>
 
                                 </avalondock:LayoutAnchorablePaneGroup>
@@ -248,13 +246,15 @@
 
                             </avalondock:LayoutAnchorablePaneGroup>
 
-                            <avalondock:LayoutAnchorablePane>
-                                <avalondock:LayoutAnchorable x:Name="logLayout" Title="Log">
-                                    <Grid x:Name="gridLog" >
-                                        <ui:LogViewer />
-                                    </Grid>
-                                </avalondock:LayoutAnchorable>
-                            </avalondock:LayoutAnchorablePane>
+                            <avalondock:LayoutAnchorablePaneGroup Orientation="Horizontal" DockHeight="0.5984138952360825*">
+                                <avalondock:LayoutAnchorablePane>
+                                    <avalondock:LayoutAnchorable x:Name="logLayout" Title="Log">
+                                        <Grid x:Name="gridLog" >
+                                            <ui:LogViewer />
+                                        </Grid>
+                                    </avalondock:LayoutAnchorable>
+                                </avalondock:LayoutAnchorablePane>
+                            </avalondock:LayoutAnchorablePaneGroup>
 
                         </avalondock:LayoutAnchorablePaneGroup>
 

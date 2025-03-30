@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -25,14 +26,14 @@ namespace FlowSimulator
         private readonly string _userSettingsFile = "userSettings.xml";
         private readonly string _dockSettingsFile = "dockSettings.xml";
 
-        private MruManager _mruManager;
+        private readonly MruManager _mruManager = new();
         private const string RegistryPath = "Software\\Casaprod\\FlowSimulator";
 
         private string _fileOpened = "";
-
         private double _lastLeft, _lastTop, _lastWidth, _lastHeight;
 
         private readonly FlowGraphViewModel _flowGraphViewModel;
+        private readonly string _projectFileFilter = "Json files (*.json)|*.json";
 
         internal static MainWindow Instance
         {
@@ -44,17 +45,17 @@ namespace FlowSimulator
 
         public MainWindow()
         {
+            Instance = this;
+
             InitializeComponent();
 
             _flowGraphViewModel = new FlowGraphViewModel(new FlowGraphManager());
             DataContext = _flowGraphViewModel;
-
-            Instance = this;
-
-            //LogManager.Instance.NbErrorChanged += new EventHandler(OnNbErrorChanged);
-            Version ver = Assembly.GetExecutingAssembly().GetName().Version;
-            statusLabelVersion.Content = "v" + ver;
+            
             SetTitle();
+
+            var ver = Assembly.GetExecutingAssembly().GetName().Version!;
+            statusLabelVersion.Content = "v" + ver;
             LogManager.Instance.WriteLine(LogVerbosity.Info, "FlowSimulator - v{0} started", ver);
 
             Loaded += OnLoaded;
@@ -65,18 +66,16 @@ namespace FlowSimulator
         {
             try
             {
-                _mruManager = new MruManager();
-                _mruManager.Initialize(
-                    this,						// owner form
-                    menuItemRecentFiles,        // Recent Files menu item
-                    menuItemFile,		        // parent
-                    RegistryPath);			// Registry path to keep MRU list
-
+                _mruManager.Initialize(this, menuItemRecentFiles, menuItemFile, RegistryPath);
                 _mruManager.MruOpenEvent += delegate (object s, MruFileOpenEventArgs openEvent)
                 {
                     SaveChangesOnDemand();
                     LoadFile(openEvent.FileName);
                 };
+
+                //after this call AppDomain.CurrentDomain.GetAssemblies() will contains CustomNode.dll
+                Assembly.LoadFrom("CustomNode.dll"); 
+                NodeRegister.RegisterAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
                 LoadSettings();
 
@@ -120,10 +119,11 @@ namespace FlowSimulator
                 LogManager.Instance.WriteException(ex);
             }
         }
+
         private void Launch_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             _flowGraphViewModel.SequenceViewModel.CreateSequence();
-            ProcessLauncher.Instance.LaunchSequence(_flowGraphViewModel.SequenceViewModel.SequenceBase, typeof(EventNodeTestStarted), 0, "test");
+            ProcessLauncher.Instance.LaunchSequence(_flowGraphViewModel.SequenceViewModel.SequenceBase, typeof(EventTestStartedNode), 0, "test");
         }
 
         private void Resume_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -174,11 +174,11 @@ namespace FlowSimulator
         private void menuItemWindows_SubmenuOpened(object sender, RoutedEventArgs e)
         {
             menuItemWindows.Items.Clear();
-            SortedList<string, MenuItem> list = new SortedList<string, MenuItem>();
+            var list = new SortedList<string, MenuItem>();
 
             foreach (var content in dockingManager1.Layout.Descendents().OfType<LayoutContent>())
             {
-                MenuItem item = new MenuItem
+                var item = new MenuItem
                 {
                     Header = content.Title,
                     IsChecked = content is LayoutDocument document ?
@@ -198,8 +198,8 @@ namespace FlowSimulator
 
         private void MenuItemLayout_Click(object sender, RoutedEventArgs e)
         {
-            MenuItem item = sender as MenuItem;
-            LayoutAnchorable l = item.Tag as LayoutAnchorable;
+            var item = sender as MenuItem;
+            var l = item.Tag as LayoutAnchorable;
             l.IsVisible = !l.IsVisible;
             item.IsChecked = l.IsVisible;
         }
@@ -228,7 +228,7 @@ namespace FlowSimulator
 
         private void MenuIte_HelpClick(object sender, RoutedEventArgs e)
         {
-            MessageBox msgBox = new MessageBox();
+            var msgBox = new MessageBox();
             windowContainer.Children.Add(msgBox);
 
             var img = new Image
@@ -251,7 +251,7 @@ namespace FlowSimulator
 
             var list = dockingManager1.Layout.Descendents().OfType<LayoutDocument>().ToList();
 
-            foreach (LayoutDocument ld in list)
+            foreach (var ld in list)
             {
                 ld.Close();
             }
@@ -274,16 +274,16 @@ namespace FlowSimulator
         {
             SaveChangesOnDemand();
 
-            OpenFileDialog form = new OpenFileDialog();
-            form.Filter = "Xml files (*.xml)|*.xml";
-            form.Multiselect = false;
+            using var form = new OpenFileDialog
+            {
+                Filter = _projectFileFilter,
+                Multiselect = false
+            };
 
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 LoadFile(form.FileName);
             }
-
-            form.Dispose();
         }
 
         private void SaveProject()
@@ -300,15 +300,15 @@ namespace FlowSimulator
 
         private void SaveAsProject()
         {
-            SaveFileDialog form = new SaveFileDialog();
-            form.Filter = "Xml files (*.xml)|*.xml";
+            using var form = new SaveFileDialog
+            {
+                Filter = _projectFileFilter
+            };
 
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 SaveFile(form.FileName);
             }
-
-            form.Dispose();
         }
 
         private void Exit()
@@ -328,8 +328,9 @@ namespace FlowSimulator
             {
                 Clear();
 
-                if (ProjectManager.OpenFile(fileName))
+                if (ProjectManager.OpenFile(fileName, _flowGraphViewModel.FlowGraphManager))
                 {
+                    _flowGraphViewModel.Initialize();
                     _fileOpened = fileName;
                     SetTitle();
 
@@ -357,7 +358,7 @@ namespace FlowSimulator
 
         private void SaveFile(string fileName)
         {
-            if (ProjectManager.SaveFile(fileName))
+            if (ProjectManager.SaveFile(fileName, _flowGraphViewModel.FlowGraphManager))
             {
                 _mruManager.Add(fileName);
                 _fileOpened = fileName;
@@ -380,16 +381,16 @@ namespace FlowSimulator
         private void LoadSettings()
         {
             double l = Left, t = Top, w = Width, h = Height;
-            WindowState winState = WindowState;
+            var winState = WindowState;
 
             if (File.Exists(_userSettingsFile))
             {
-                XmlDocument xmlDoc = new XmlDocument();
+                var xmlDoc = new XmlDocument();
                 xmlDoc.Load(_userSettingsFile);
 
-                XmlNode winNode = xmlDoc.SelectSingleNode("FlowSimulator/Window");
+                var winNode = xmlDoc.SelectSingleNode("FlowSimulator/Window");
 
-                int version = int.Parse(winNode.Attributes["version"].Value);
+                var version = int.Parse(winNode.Attributes["version"].Value);
 
                 l = int.Parse(winNode.Attributes["left"].Value);
                 t = int.Parse(winNode.Attributes["top"].Value);
@@ -397,7 +398,7 @@ namespace FlowSimulator
                 h = int.Parse(winNode.Attributes["height"].Value);
                 winState = (WindowState)Enum.Parse(typeof(WindowState), winNode.Attributes["windowState"].Value);
 
-                XmlNode rootNode = xmlDoc.SelectSingleNode("FlowSimulator");
+                var rootNode = xmlDoc.SelectSingleNode("FlowSimulator");
 
                 try
                 {
@@ -468,7 +469,7 @@ namespace FlowSimulator
                 serializer.Serialize(stream);
             }
 
-            XmlDocument xmlDoc = new XmlDocument();
+            var xmlDoc = new XmlDocument();
             XmlNode rootNode = xmlDoc.AddRootNode("FlowSimulator");
             rootNode.AddAttribute("version", "1");
             XmlNode winNode = xmlDoc.CreateElement("Window");
@@ -477,19 +478,19 @@ namespace FlowSimulator
 
             if (WindowState == WindowState.Minimized)
             {
-                winNode.AddAttribute("windowState", Enum.GetName(typeof(WindowState), WindowState.Normal));
-                winNode.AddAttribute("left", _lastLeft.ToString());
-                winNode.AddAttribute("top", _lastTop.ToString());
-                winNode.AddAttribute("width", _lastWidth.ToString());
-                winNode.AddAttribute("height", _lastHeight.ToString());
+                winNode.AddAttribute("windowState", Enum.GetName(WindowState.Normal));
+                winNode.AddAttribute("left", _lastLeft.ToString(CultureInfo.InvariantCulture));
+                winNode.AddAttribute("top", _lastTop.ToString(CultureInfo.InvariantCulture));
+                winNode.AddAttribute("width", _lastWidth.ToString(CultureInfo.InvariantCulture));
+                winNode.AddAttribute("height", _lastHeight.ToString(CultureInfo.InvariantCulture));
             }
             else
             {
-                winNode.AddAttribute("windowState", Enum.GetName(typeof(WindowState), WindowState));
-                winNode.AddAttribute("left", Left.ToString());
-                winNode.AddAttribute("top", Top.ToString());
-                winNode.AddAttribute("width", Width.ToString());
-                winNode.AddAttribute("height", Height.ToString());
+                winNode.AddAttribute("windowState", Enum.GetName(WindowState));
+                winNode.AddAttribute("left", Left.ToString(CultureInfo.InvariantCulture));
+                winNode.AddAttribute("top", Top.ToString(CultureInfo.InvariantCulture));
+                winNode.AddAttribute("width", Width.ToString(CultureInfo.InvariantCulture));
+                winNode.AddAttribute("height", Height.ToString(CultureInfo.InvariantCulture));
             }
 
             //             _SessionControl.SaveSettings(rootNode);

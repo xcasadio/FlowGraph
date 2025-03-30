@@ -86,8 +86,14 @@ public class SequenceBase
 
     public virtual void Load(JObject node)
     {
+        RemoveAllNodes();
+
         Id = node["id"].Value<int>();
-        if (_newId <= Id) _newId = Id + 1;
+        if (_newId <= Id)
+        {
+            _newId = Id + 1;
+        }
+
         Name = node["name"].Value<string>();
         Description = node["description"].Value<string>();
 
@@ -99,11 +105,15 @@ public class SequenceBase
 
     internal void ResolveNodesLinks(JObject node)
     {
-        if (node == null) throw new ArgumentNullException(nameof(node));
+        if (node == null)
+        {
+            throw new ArgumentNullException(nameof(node));
+        }
 
         foreach (var sequenceNode in SequenceNodes)
         {
-            sequenceNode.Value.ResolveLinks((JObject)node.SelectToken($"nodes[?(@.id=={sequenceNode.Key})]"), this);
+            var selectToken = node.SelectToken($"nodes[?(@.id=={sequenceNode.Key})]");
+            sequenceNode.Value.ResolveLinks((JObject)selectToken, this);
         }
     }
 

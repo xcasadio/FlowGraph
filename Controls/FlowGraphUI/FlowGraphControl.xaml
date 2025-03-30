@@ -698,7 +698,7 @@
 
             <!-- Clicking this menu item creates a new node. -->
 
-            <MenuItem x:Name="menuItemCreateNode" Header="Create Node" />
+            <MenuItem x:Name="menuItemCreateNode" Header="Create Node"/>
 
             <Separator />
 

@@ -31,7 +31,7 @@ namespace FlowSimulatorConsole
                 throw new NotImplementedException();
                 //seq.Load(jsonDocument.SelectSingleNode("FlowSimulator/GraphList/Graph[@name='test']"));
 
-                ProcessLauncher.Instance.LaunchSequence(seq, typeof(EventNodeTestStarted), 0, "test");
+                ProcessLauncher.Instance.LaunchSequence(seq, typeof(EventTestStartedNode), 0, "test");
                 ProcessLauncher.Instance.StopLoop();
             }
             catch (Exception ex)
